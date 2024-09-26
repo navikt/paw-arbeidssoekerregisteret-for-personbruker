@@ -15,5 +15,6 @@ const config: Config = {
     },
   },
   plugins: [],
+  presets: [require('@navikt/ds-tailwind')]
 };
 export default config;
