@@ -6,12 +6,12 @@ export default function Home() {
             <Heading level={'1'} size={'xlarge'}>
                 paw-arbeidssoekerregisteret-for-personbruker
             </Heading>
-          <p>
+          <div>
             <Heading level={'2'} size={'large'}>TODO:</Heading>
             <ul className={'list-disc'}>
               <li>implementer løsning</li>
             </ul>
-          </p>
+          </div>
         </main>
     );
 }
