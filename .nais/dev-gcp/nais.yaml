@@ -1,0 +1,62 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+    name: arbeidssoekerregisteret-for-personbruker
+    namespace: paw
+    labels:
+        team: paw
+spec:
+    observability:
+        autoInstrumentation:
+            enabled: true
+            runtime: nodejs
+    image: { { image } }
+    port: 3000
+    liveness:
+        path: /arbeidssoeker/api/isalive
+        initialDelay: 3
+    readiness:
+        path: /arbeidssoeker/api/isready
+        initialDelay: 3
+#    prometheus:
+#        enabled: true
+#        path: /arbeidssoeker/api/prometheus
+    replicas:
+        min: 1
+        max: 1
+        cpuThresholdPercentage: 50
+    resources:
+        limits:
+            memory: 256Mi
+        requests:
+            cpu: 200m
+            memory: 256Mi
+    env:
+        - name: DEKORATOR_URL
+          value: https://dekoratoren.ekstern.dev.nav.no/
+        - name: DEKORATOR_ENV
+          value: dev
+        - name: NEXT_PUBLIC_BASE_PATH
+          value: /arbeidssoeker
+        - name: NEXT_PUBLIC_ASSET_PREFIX
+          value: https://cdn.nav.no/paw/arbeidssoekerregisteret
+    envFrom:
+        - secret: arbeidssoekerregisteret-for-personbruker-unleash-api-token
+    ingresses:
+        - https://www.intern.dev.nav.no/arbeidssoeker
+    idporten:
+        enabled: true
+        sidecar:
+            enabled: true
+            level: Level4
+    tokenx:
+        enabled: true
+    accessPolicy:
+        outbound:
+            external:
+                - host: paw-unleash-api.nav.cloud.nais.io
+            rules:
+                - application: paw-arbeidssokerregisteret-api-inngang
+                - application: paw-arbeidssoekerregisteret-api-oppslag
+                - application: nav-dekoratoren
+                  namespace: personbruker
