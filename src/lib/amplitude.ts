@@ -1,3 +1,4 @@
+'use client';
 // import * as amplitude from '@amplitude/analytics-browser';
 
 export const isProduction = () => {

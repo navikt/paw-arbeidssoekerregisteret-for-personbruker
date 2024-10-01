@@ -1,3 +1,5 @@
+'use client';
+
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Button, Radio, RadioGroup } from '@navikt/ds-react';
 import InfoTekst from './info-tekst';

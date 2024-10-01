@@ -40,6 +40,8 @@ spec:
           value: /arbeidssoekerregisteret
         - name: NEXT_PUBLIC_ASSET_PREFIX
           value: https://cdn.nav.no/paw/arbeidssoekerregisteret
+        - name: BEKREFTELSE_API_URL
+          value: http://paw-arbeidssoekerregisteret-api-bekreftelse
     envFrom:
         - secret: arbeidssoekerregisteret-for-personbruker-unleash-api-token
     ingresses:
@@ -62,5 +64,6 @@ spec:
             rules:
                 - application: paw-arbeidssokerregisteret-api-inngang
                 - application: paw-arbeidssoekerregisteret-api-oppslag
+                - application: paw-arbeidssoekerregisteret-api-bekreftelse
                 - application: nav-dekoratoren
                   namespace: personbruker

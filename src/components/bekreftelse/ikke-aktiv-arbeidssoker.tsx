@@ -20,7 +20,7 @@ const IkkeAktivArbeidssoker = (props: Props) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const onClick = () => {
         loggAktivitet({ aktivitet: 'Trykker på "Jeg ønsker å registrere meg på nytt"' });
-        window.location.href = registrerArbeidssokerUrl;
+        // TODO window.location.href = registrerArbeidssokerUrl;
     };
 
     useEffect(() => {

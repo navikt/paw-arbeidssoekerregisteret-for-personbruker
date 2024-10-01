@@ -1,3 +1,5 @@
+'use client';
+
 import { Heading } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BekreftelseSkjema } from './bekreftelse-skjema';
