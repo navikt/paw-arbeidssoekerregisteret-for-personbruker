@@ -1,14 +1,13 @@
 import { Heading } from '@navikt/ds-react';
-import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BekreftelseSkjema } from './bekreftelse-skjema';
-import { Sprak } from '../../types/sprak';
 import { useEffect, useState } from 'react';
 import { BekreftelseBesvart } from './bekreftelse-besvart';
 import { Kvittering } from './kvittering';
-import { sorterEtterEldsteFoerst } from '../../lib/sorter-etter-eldste-foerst';
-import { BekreftelseType, SistInnsendteBekreftelse, TilgjengeligeBekreftelser } from '../../types/bekreftelse';
+import { sorterEtterEldsteFoerst } from '@/lib/sorter-etter-eldste-foerst';
 import { IkkeAktivArbeidssoker } from './ikke-aktiv-arbeidssoker';
-import { loggAktivitet, loggVisning } from '../../lib/amplitude';
+import { loggAktivitet, loggVisning } from '@/lib/amplitude';
+import { BekreftelseType, SistInnsendteBekreftelse, TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
 
 export interface BekreftelseProps {
     sprak: Sprak;
