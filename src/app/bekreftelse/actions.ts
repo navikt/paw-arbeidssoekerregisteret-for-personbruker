@@ -5,6 +5,8 @@ import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
+import { IdportenPayload } from '@navikt/oasis/dist/validate';
+import { ParseResult } from '@navikt/oasis/dist/parse-token';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -44,11 +46,14 @@ async function fetchTilgjengeligeBekreftelser(): Promise<{
     const tokenXToken = await getTokenXToken(idPortenToken);
     const TILGJENGELIGE_BEKREFTELSER_URL = `${process.env.BEKREFTELSE_API_URL}/api/v1/tilgjengelige-bekreftelser`;
     const traceId = uuidv4();
-    logger.info({'x_trace_id': traceId}, `Starter GET ${TILGJENGELIGE_BEKREFTELSER_URL} -testId=${parseIdportenToken(idPortenToken)}`);
+    logger.info({'x_trace_id': traceId}, `Starter GET ${TILGJENGELIGE_BEKREFTELSER_URL}`);
+
+    const parsedToken =  parseIdportenToken(idPortenToken)
+    const identitetsnummer = parsedToken.ok ? parsedToken.pid : null;
 
     const response = await fetch(TILGJENGELIGE_BEKREFTELSER_URL, {
         method: 'POST',
-        body: JSON.stringify({ identitetsnummer: parseIdportenToken(idPortenToken) }),
+        body: JSON.stringify({ identitetsnummer }),
         headers: {
             'content-type': 'application/json',
             accept: 'application/json',
