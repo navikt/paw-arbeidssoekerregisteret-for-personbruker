@@ -65,7 +65,7 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_ASSET_PREFIX: https://cdn.nav.no/paw/arbeidssoekerregisteret
-          NEXT_PUBLIC_BASE_PATH: /arbeidssoeker
+          NEXT_PUBLIC_BASE_PATH: /arbeidssoekerregisteret
 
       - name: Upload static files to NAV CDN
         uses: nais/deploy/actions/cdn-upload/v2@master
