@@ -43,8 +43,8 @@ async function fetchTilgjengeligeBekreftelser(): Promise<{
     const idPortenToken = stripBearer(reqHeaders.get('authorization')!);
     const tokenXToken = await getTokenXToken(idPortenToken);
     const TILGJENGELIGE_BEKREFTELSER_URL = `${process.env.BEKREFTELSE_API_URL}/api/v1/tilgjengelige-bekreftelser`;
-
-    logger.info(`Starter GET ${TILGJENGELIGE_BEKREFTELSER_URL}`);
+    const traceId = uuidv4();
+    logger.info({'x_trace_id': traceId}, `Starter GET ${TILGJENGELIGE_BEKREFTELSER_URL} -testId=${parseIdportenToken(idPortenToken)}`);
 
     const response = await fetch(TILGJENGELIGE_BEKREFTELSER_URL, {
         method: 'POST',
@@ -52,12 +52,12 @@ async function fetchTilgjengeligeBekreftelser(): Promise<{
         headers: {
             'content-type': 'application/json',
             accept: 'application/json',
-            'x-trace-id': uuidv4(),
+            'x-trace-id': traceId,
             Authorization: `Bearer ${tokenXToken}`,
         },
     });
 
-    logger.info(`Ferdig GET ${TILGJENGELIGE_BEKREFTELSER_URL} ${response.status} ${response.statusText}`);
+    logger.info({'x_trace_id': traceId}, `Ferdig GET ${TILGJENGELIGE_BEKREFTELSER_URL} ${response.status} ${response.statusText}`);
 
     if (!response.ok) {
         const error: any = new Error(`${response.status} ${response.statusText}`);
