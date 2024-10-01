@@ -43,6 +43,7 @@ Testbrukere importerer du fra Test-Norge i [Dolly](https://dolly.ekstern.dev.nav
 -   [Next.js](https://nextjs.org/)
 -   [testing-library](https://testing-library.com/)
 -   [Tailwind CSS](https://tailwindcss.com/)
+-   [Storybook](https://storybook.js.org/)
 
 # Henvendelser
 
