@@ -24,7 +24,11 @@ Deretter fortsette du med
 -   innstaller avhengigheter `npm i`
 -   kjør tester `npm t`
 -   start utviklingsserver `npm run dev`
--   åpne nettleseren på `http://localhost:3000/arbeidssoekerregisteret`
+-   åpne nettleseren på `http://localhost:3000`
+
+For å jobbe i Storybook modus
+
+- kjør `npm run storybook`
 
 ## Deploye kun til dev
 
@@ -34,7 +38,7 @@ Ved å prefikse branch-navn med `dev/`, så vil branchen kun deployes i dev.
 git checkout -b dev/<navn på branch>
 ```
 
-For å teste løsningen i dev bruker du [https://arbeid.intern.dev.nav.no/arbeidssoekerregisteret](https://arbeid.intern.dev.nav.no/arbeidssoekerregisteret)
+For å teste løsningen i dev bruker du [https://www.ansatt.dev.nav.no/arbeidssoekerregisteret](https://arbeid.intern.dev.nav.no/arbeidssoekerregisteret)
 
 Testbrukere importerer du fra Test-Norge i [Dolly](https://dolly.ekstern.dev.nav.no/)
 
