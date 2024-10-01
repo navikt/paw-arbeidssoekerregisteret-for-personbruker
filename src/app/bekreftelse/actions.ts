@@ -4,6 +4,7 @@ import { parseIdportenToken, requestTokenxOboToken } from '@navikt/oasis';
 import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
+import { v4 as uuidv4 } from 'uuid';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -50,6 +51,8 @@ async function fetchTilgjengeligeBekreftelser(): Promise<{
         body: JSON.stringify({ identitetsnummer: parseIdportenToken(idPortenToken) }),
         headers: {
             'content-type': 'application/json',
+            accept: 'application/json',
+            'x-trace-id': uuidv4(),
             Authorization: `Bearer ${tokenXToken}`,
         },
     });
