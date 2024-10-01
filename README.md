@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# paw-arbeidssoekerregisteret-for-personbruker
 
-## Getting Started
+Tilgang til egne opplysninger i arbeidssøkerregisteret for personbruker
 
-First, run the development server:
+## Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+[https://arbeid.ekstern.dev.nav.no/arbeidssoekerregisteret](https://arbeid.ekstern.dev.nav.no/arbeidssoekerregisteret)
+
+# Utvikling
+
+Bruk Node.js 20 `nvm use` (dersom du bruker nvm til versjonshåndtering av Node.js).
+
+Dersom du ikke kjører i mock-modus må du ha koblet til [naisdevice](https://doc.nais.io/device/) for å nå noen av endepunktene.
+
+Siden noen av modulene hentes fra GitHubs package registry må du også gjøre litt ekstra konfigurasjon for å kjøre løsningen lokalt.
+
+-   Opprett et PAT (github => settings => developer settings => personal access tokens => tokens (classic)) med `read:packages` scope
+-   Konfigurer SSO mot NAVIKT for tokenet
+-   bruk tokenet som passord ved login `npm login --registry https://npm.pkg.github.com`
+
+Deretter fortsette du med
+
+-   klon repo
+-   innstaller avhengigheter `npm i`
+-   kjør tester `npm t`
+-   start utviklingsserver `npm run dev`
+-   åpne nettleseren på `http://localhost:3000/arbeidssoekerregisteret`
+
+## Deploye kun til dev
+
+Ved å prefikse branch-navn med `dev/`, så vil branchen kun deployes i dev.
+
+```
+git checkout -b dev/<navn på branch>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+For å teste løsningen i dev bruker du [https://arbeid.intern.dev.nav.no/arbeidssoekerregisteret](https://arbeid.intern.dev.nav.no/arbeidssoekerregisteret)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Testbrukere importerer du fra Test-Norge i [Dolly](https://dolly.ekstern.dev.nav.no/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Ekstern dokumentasjon
 
-## Learn More
+-   [Next.js](https://nextjs.org/)
+-   [testing-library](https://testing-library.com/)
+-   [Tailwind CSS](https://tailwindcss.com/)
 
-To learn more about Next.js, take a look at the following resources:
+# Henvendelser
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Spørsmål knyttet til koden eller prosjektet kan stilles via issues her på github.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# For NAV-ansatte
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Interne henvendelser kan sendes via Slack i kanalen [#team-paw-dev](https://nav-it.slack.com/archives/CLTFAEW75)
