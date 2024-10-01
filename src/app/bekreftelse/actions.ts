@@ -1,15 +1,15 @@
 'use server';
 
-import { requestTokenxOboToken } from '@navikt/oasis';
+import { parseIdportenToken, requestTokenxOboToken } from '@navikt/oasis';
 import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
-async function getTokenXToken(incomingToken: string) {
+async function getTokenXToken(idPortenToken: string) {
     const oboToken = await requestTokenxOboToken(
-        stripBearer(incomingToken),
+        idPortenToken,
         `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-bekreftelse`,
     );
 
@@ -39,16 +39,18 @@ async function fetchTilgjengeligeBekreftelser(): Promise<{
     }
 
     const reqHeaders = headers();
-    const token = await getTokenXToken(reqHeaders.get('authorization')!);
+    const idPortenToken = stripBearer(reqHeaders.get('authorization')!);
+    const tokenXToken = await getTokenXToken(idPortenToken);
     const TILGJENGELIGE_BEKREFTELSER_URL = `${process.env.BEKREFTELSE_API_URL}/api/v1/tilgjengelige-bekreftelser`;
 
     logger.info(`Starter GET ${TILGJENGELIGE_BEKREFTELSER_URL}`);
 
     const response = await fetch(TILGJENGELIGE_BEKREFTELSER_URL, {
-        method: 'GET',
+        method: 'POST',
+        body: JSON.stringify({ identitetsnummer: parseIdportenToken(idPortenToken) }),
         headers: {
             'content-type': 'application/json',
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${tokenXToken}`,
         },
     });
 
