@@ -13,10 +13,10 @@ spec:
     image: {{image}}
     port: 3000
     liveness:
-        path: /arbeidssoeker/api/isalive
+        path: /arbeidssoekerregisteret/api/isalive
         initialDelay: 3
     readiness:
-        path: /arbeidssoeker/api/isready
+        path: /arbeidssoekerregisteret/api/isready
         initialDelay: 3
 #    prometheus:
 #        enabled: true
@@ -37,13 +37,13 @@ spec:
         - name: DEKORATOR_ENV
           value: dev
         - name: NEXT_PUBLIC_BASE_PATH
-          value: /arbeidssoeker
+          value: /arbeidssoekerregisteret
         - name: NEXT_PUBLIC_ASSET_PREFIX
           value: https://cdn.nav.no/paw/arbeidssoekerregisteret
     envFrom:
         - secret: arbeidssoekerregisteret-for-personbruker-unleash-api-token
     ingresses:
-        - https://www.intern.dev.nav.no/arbeidssoeker
+        - https://www.ansatt.dev.nav.no/arbeidssoekerregisteret
     idporten:
         enabled: true
         sidecar:
