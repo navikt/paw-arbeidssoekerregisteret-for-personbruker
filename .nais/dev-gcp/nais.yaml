@@ -47,6 +47,10 @@ spec:
     idporten:
         enabled: true
         sidecar:
+            autoLogin: true
+            autoLoginIgnorePaths:
+                - /arbeidssoekerregisteret/api/isalive
+                - /arbeidssoekerregisteret/api/isready
             enabled: true
             level: Level4
     tokenx:
