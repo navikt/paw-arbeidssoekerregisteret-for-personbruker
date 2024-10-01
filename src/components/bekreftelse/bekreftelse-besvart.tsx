@@ -1,8 +1,7 @@
-import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BodyShort, Button, Heading, List } from '@navikt/ds-react';
 import InfoTekst from './info-tekst';
-import { Sprak } from '../../types/sprak';
-import { SistInnsendteBekreftelse } from '../../types/bekreftelse';
+import { SistInnsendteBekreftelse } from '../../../types/bekreftelse';
 
 export interface Props {
     periode: string;

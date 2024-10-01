@@ -1,4 +1,4 @@
-import { TilgjengeligeBekreftelser } from '../types/bekreftelse';
+import { TilgjengeligeBekreftelser } from '../../types/bekreftelse';
 
 export function sorterEtterEldsteFoerst(tilgjengeligeBekreftelser?: TilgjengeligeBekreftelser) {
     if (!tilgjengeligeBekreftelser || tilgjengeligeBekreftelser.length === 0) {
