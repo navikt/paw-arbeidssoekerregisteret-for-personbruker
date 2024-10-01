@@ -44,7 +44,7 @@ async function fetchTilgjengeligeBekreftelser(): Promise<{
 
     logger.info(`Starter GET ${TILGJENGELIGE_BEKREFTELSER_URL}`);
 
-    const response = await fetch(`${process.env.DETALJER_URL}`, {
+    const response = await fetch(TILGJENGELIGE_BEKREFTELSER_URL, {
         method: 'GET',
         headers: {
             'content-type': 'application/json',
