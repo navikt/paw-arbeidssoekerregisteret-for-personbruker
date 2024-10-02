@@ -11,7 +11,7 @@ const BEKREFTELSE_API_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbe
 
 export const POST = async (request: Request) => {
     if (brukerMock) {
-        return new Response(null, { status: 204});
+        return new Response(null, { status: 204 });
         // return new Response(JSON.stringify({ foo: 'bar' }), { status: 400, headers: { 'content-type': 'application/json'} });
     }
 
@@ -52,8 +52,14 @@ export const POST = async (request: Request) => {
             data = await response.json();
         }
 
-        return new Response(data, { status: response.status });
-
+        return new Response(data, {
+            status: response.status,
+            headers: data
+                ? {
+                      'Content-Type': 'application/json',
+                  }
+                : undefined,
+        });
     } catch (error: any) {
         error.x_trace_id = traceId;
         logger.error(error, `Feil fra POST ${BEKREFTELSE_URL}`);
