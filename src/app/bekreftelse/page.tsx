@@ -1,7 +1,7 @@
 import { Alert, Heading, Page } from '@navikt/ds-react';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { Suspense } from 'react';
-import BekreftelseWrapper from '@/components/bekreftelse/BekreftelseWrapper';
+import BekreftelseWrapper from '@/components/bekreftelse/bekreftelse-wrapper';
 
 async function BekreftelseServerComponent() {
     const { data: tilgjengeligeBekreftelser, error } = await fetchTilgjengeligeBekreftelser();
