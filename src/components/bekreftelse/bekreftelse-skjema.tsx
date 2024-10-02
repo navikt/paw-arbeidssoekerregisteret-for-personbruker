@@ -1,7 +1,7 @@
 'use client';
 
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Button, Radio, RadioGroup } from '@navikt/ds-react';
+import { Alert, Button, Radio, RadioGroup } from '@navikt/ds-react';
 import InfoTekst from './info-tekst';
 import { useEffect, useState } from 'react';
 import { BekreftelseType, TilgjengeligBekreftelse } from '../../../types/bekreftelse';
@@ -57,6 +57,7 @@ const BekreftelseSkjema = (props: Props) => {
     const [harGyldigSkjema, settHarGyldigSkjema] = useState<boolean>(false);
     const [visBekreftAvsluttPeriode, settVisBekreftAvsluttPeriode] = useState<boolean>(false);
     const [senderSkjema, settSenderSkjema] = useState<boolean>(false);
+    const [error, settError] = useState<any>(null);
 
     useEffect(() => {
         settHarGyldigSkjema(
@@ -66,14 +67,21 @@ const BekreftelseSkjema = (props: Props) => {
     }, [skjemaState]);
 
     const onSubmit = async () => {
+        settError(null);
+
         if (!skjemaState.vilFortsetteSomArbeidssoeker) {
             settVisBekreftAvsluttPeriode(true);
             return;
         }
 
         settSenderSkjema(true);
-        await props.onSubmit({ ...skjemaState, bekreftelseId: bekreftelse.bekreftelseId } as BekreftelseType);
-        settSenderSkjema(false);
+        try {
+            await props.onSubmit({ ...skjemaState, bekreftelseId: bekreftelse.bekreftelseId } as BekreftelseType);
+        } catch (err) {
+            settError(err);
+        } finally {
+            settSenderSkjema(false);
+        }
     };
 
     if (visBekreftAvsluttPeriode) {
@@ -122,6 +130,11 @@ const BekreftelseSkjema = (props: Props) => {
             <Button className={'ml-4'} variant={'tertiary'} onClick={onCancel} disabled={senderSkjema}>
                 {tekst('cancel')}
             </Button>
+            {error && (
+                <Alert variant={'error'} className={'my-8'}>
+                    Noe gikk dessverre galt. Forsøk igjen, eller kontakt NAV.
+                </Alert>
+            )}
         </>
     );
 };
