@@ -1,6 +1,6 @@
 import { Alert, BodyLong, Heading } from '@navikt/ds-react';
 import { Suspense } from 'react';
-import { fetchSisteSamletInformasjon } from './samletinformasjon/actions';
+import { fetchSisteSamletInformasjon } from '@/app/actions';
 
 async function SamletInformasjonServerComponent() {
   const { data: sisteSamletInformasjon, error } = await fetchSisteSamletInformasjon();

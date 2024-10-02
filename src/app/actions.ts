@@ -12,7 +12,7 @@ const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 async function getTokenXToken(idPortenToken: string) {
     const oboToken = await requestTokenxOboToken(
         idPortenToken,
-        `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-bekreftelse`,
+        `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag`,
     );
 
     if (!oboToken.ok) {
