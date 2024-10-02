@@ -2,7 +2,7 @@
 // import * as amplitude from '@amplitude/analytics-browser';
 
 export const isProduction = () => {
-    return /https:\/\/www.nav.no\/minside/.test(window.location.href);
+    return /https:\/\/www.nav.no\/arbeidssoekerregisteret/.test(window.location.href);
 };
 
 const isDevelopment = () => /^http:\/\/localhost/.test(window.location.href);
