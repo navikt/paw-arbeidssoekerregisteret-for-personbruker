@@ -1,4 +1,23 @@
-import { Heading } from '@navikt/ds-react';
+import { Alert, BodyLong, Heading } from '@navikt/ds-react';
+import { Suspense } from 'react';
+import { fetchSisteSamletInformasjon } from './samletinformasjon/actions';
+
+async function SamletInformasjonServerComponent() {
+  const { data: sisteSamletInformasjon, error } = await fetchSisteSamletInformasjon();
+
+  if (error) {
+      return <Alert variant={'error'}>Noe gikk dessverre galt ved henting av siste samlede informasjon</Alert>;
+  }
+
+  return (
+      <>
+        <h1>Siste samlet informasjon</h1>
+        <BodyLong>
+          { JSON.stringify(sisteSamletInformasjon)}
+        </BodyLong>
+      </>
+  );
+}
 
 export default function Home() {
     return (
@@ -12,6 +31,9 @@ export default function Home() {
               <li>implementer løsning</li>
             </ul>
           </div>
+          <Suspense>
+            <SamletInformasjonServerComponent />
+          </Suspense>
         </main>
     );
 }
