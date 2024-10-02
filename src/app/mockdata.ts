@@ -15,19 +15,7 @@ export const mockData = {
           "avviksType": "UKJENT_VERDI"
         }
       },
-      "avsluttet": {
-        "tidspunkt": "2021-09-29T11:22:33.444Z",
-        "utfoertAv": {
-          "type": "UKJENT_VERDI",
-          "id": "12345678910"
-        },
-        "kilde": "string",
-        "aarsak": "string",
-        "tidspunktFraKilde": {
-          "tidspunkt": "2021-09-29T11:20:33.444Z",
-          "avviksType": "UKJENT_VERDI"
-        }
-      }
+      "avsluttet": null
     }
   ],
   "opplysningerOmArbeidssoeker": [
