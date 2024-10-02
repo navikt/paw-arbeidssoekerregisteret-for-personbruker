@@ -6,7 +6,16 @@ async function SamletInformasjonServerComponent() {
   const { data: sisteSamletInformasjon, error } = await fetchSisteSamletInformasjon();
 
   if (error) {
-      return <Alert variant={'error'}>Noe gikk dessverre galt ved henting av siste samlede informasjon</Alert>;
+      return (
+        <>
+          <Alert variant={'error'}>
+            Noe gikk dessverre galt ved henting av siste samlede informasjon
+          </Alert>
+          <div>{error?.data}</div>
+          <div>{error?.message}</div>
+          <div>{error?.traceId}</div>
+        </>
+      );
   }
 
   return (
