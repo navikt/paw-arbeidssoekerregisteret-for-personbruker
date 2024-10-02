@@ -52,13 +52,11 @@ export const POST = async (request: Request) => {
             data = await response.json();
         }
 
-        return new Response(data, {
+        return new Response(JSON.stringify(data), {
             status: response.status,
-            headers: data
-                ? {
-                      'Content-Type': 'application/json',
-                  }
-                : undefined,
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
     } catch (error: any) {
         error.x_trace_id = traceId;
