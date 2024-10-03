@@ -1,6 +1,5 @@
-import { AiaProps } from '../../aia';
 import { Box } from '@navikt/ds-react';
-import Sammendrag from '../endre-situasjon/sammendrag';
+// import Sammendrag from '../endre-situasjon/sammendrag';
 import { InnsynLesMer } from '../opplysninger/innsyn';
 import {
     hentSisteArbeidssokerPeriode,
@@ -10,9 +9,16 @@ import ManglerOpplysninger from '../opplysninger/mangler-opplysninger';
 import { harPermittertSituasjon } from '../../lib/har-permittert-situasjon';
 import RegistrertTittel from '../registrert-tittel/registrert-tittel';
 import PeriodeInfo from './periode-info';
-import LoggInViewport from '../logg-in-viewport';
 
-const MinSituasjonKort = (props: AiaProps) => {
+const Sammendrag = (props: any) => {
+    return (
+        <div>
+            Sammendrag
+        </div>
+    )
+}
+
+const MinSituasjonKort = (props: any) => {
     const { sprak, opplysningerOmArbeidssoker, onOppdaterOpplysninger, arbeidssokerperioder, behovsvurdering } = props;
     const harAktivPeriode = !Boolean(hentSisteArbeidssokerPeriode(arbeidssokerperioder).avsluttet);
     const manglerOpplysninger = opplysningerOmArbeidssoker.length === 0;
@@ -29,14 +35,14 @@ const MinSituasjonKort = (props: AiaProps) => {
             <header className={'pt-4 pb-3 px-5'}>
                 <RegistrertTittel
                     sprak={sprak}
-                    arbeidssokerperioder={arbeidssokerperioder}
-                    opplysningerOmArbeidssoker={opplysningerOmArbeidssoker}
+                    arbeidssoekerperioder={arbeidssokerperioder}
+                    opplysningerOmArbeidssoeker={opplysningerOmArbeidssoker}
                 />
             </header>
             <section className={'py-4 px-6'}>
                 <PeriodeInfo
-                    periode={hentSisteArbeidssokerPeriode(arbeidssokerperioder)}
-                    opplysninger={opplysninger}
+                    arbeidssoekerperioder={arbeidssokerperioder}
+                    opplysningerOmArbeidssoeker={opplysningerOmArbeidssoker}
                     sprak={sprak}
                 />
                 {manglerOpplysninger && harAktivPeriode && <ManglerOpplysninger sprak={sprak} />}
@@ -56,7 +62,6 @@ const MinSituasjonKort = (props: AiaProps) => {
                     />
                 )}
             </section>
-            <LoggInViewport data={{ viser: 'MinSituasjonKort' }} />
         </Box>
     );
 };
