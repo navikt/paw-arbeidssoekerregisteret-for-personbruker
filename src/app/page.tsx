@@ -1,6 +1,9 @@
 import { Alert, BodyLong, Heading } from '@navikt/ds-react';
 import { Suspense } from 'react';
+
 import { fetchSisteSamletInformasjon } from '@/app/actions';
+
+import RegistrertTittel from '@/components/registrert-tittel/registrert-tittel';
 
 async function SamletInformasjonServerComponent() {
   const { data: sisteSamletInformasjon, error } = await fetchSisteSamletInformasjon();
@@ -20,7 +23,7 @@ async function SamletInformasjonServerComponent() {
 
   return (
       <>
-        <h1>Siste samlet informasjon</h1>
+        <RegistrertTittel arbeidssokerperioder={sisteSamletInformasjon.arbeidssoekerperioder} opplysningerOmArbeidssoker={sisteSamletInformasjon.opplysningerOmArbeidssoeker} sprak='nb'/>
         <BodyLong>
           { JSON.stringify(sisteSamletInformasjon)}
         </BodyLong>
