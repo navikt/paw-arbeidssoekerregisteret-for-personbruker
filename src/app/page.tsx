@@ -23,7 +23,7 @@ async function SamletInformasjonServerComponent() {
 
   return (
       <>
-        <RegistrertTittel arbeidssokerperioder={sisteSamletInformasjon.arbeidssoekerperioder} opplysningerOmArbeidssoker={sisteSamletInformasjon.opplysningerOmArbeidssoeker} sprak='nb'/>
+        <RegistrertTittel {...sisteSamletInformasjon} sprak='nb'/>
         <BodyLong>
           { JSON.stringify(sisteSamletInformasjon)}
         </BodyLong>
@@ -35,17 +35,11 @@ export default function Home() {
     return (
         <main className="flex flex-col items-center">
             <Heading level={'1'} size={'xlarge'}>
-                paw-arbeidssoekerregisteret-for-personbruker
+                Arbeidssøkerregisteret
             </Heading>
-          <div>
-            <Heading level={'2'} size={'large'}>TODO:</Heading>
-            <ul className={'list-disc'}>
-              <li>implementer løsning</li>
-            </ul>
-          </div>
-          <Suspense>
-            <SamletInformasjonServerComponent />
-          </Suspense>
+            <Suspense>
+              <SamletInformasjonServerComponent />
+            </Suspense>
         </main>
     );
 }

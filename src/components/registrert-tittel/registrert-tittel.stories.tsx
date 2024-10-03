@@ -1,7 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
 import RegistrertTittel from "./registrert-tittel";
-import arbeidssokerperioderMock from '../../mocks/arbeidssokerperioder-mock';
-import opplysningerOmArbeidssokerMock from '../../mocks/opplysninger-om-arbeidssoker-mock';
+import { samletInformasjonMockData } from "@/app/mockdata";
+
+const { arbeidssoekerperioder, opplysningerOmArbeidssoeker } = samletInformasjonMockData
 
 const meta = {
   title: "Komponenter/RegistrertTittel",
@@ -27,8 +28,8 @@ type Story = StoryObj<typeof meta>;
 export const RegistreringsTittelStory: Story = {
   args: {
     sprak: 'nb',
-    arbeidssokerperioder: arbeidssokerperioderMock as any,
-    opplysningerOmArbeidssoker: opplysningerOmArbeidssokerMock as any
+    arbeidssoekerperioder: arbeidssoekerperioder as any,
+    opplysningerOmArbeidssoeker: opplysningerOmArbeidssoeker as any
   },
 };
 

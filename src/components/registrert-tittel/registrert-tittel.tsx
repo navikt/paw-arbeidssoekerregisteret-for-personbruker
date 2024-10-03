@@ -31,17 +31,17 @@ function hentTekstNokkel(harAktivArbeidssokerperiode: boolean, erPermittert: boo
 
 interface Props {
     sprak: Sprak;
-    arbeidssokerperioder: ArbeidssokerperioderResponse;
-    opplysningerOmArbeidssoker: OpplysningerOmArbeidssokerResponse;
+    arbeidssoekerperioder: ArbeidssokerperioderResponse;
+    opplysningerOmArbeidssoeker: OpplysningerOmArbeidssokerResponse;
 }
 
 const RegistrertTittel = (props: Props) => {
-    const { arbeidssokerperioder, opplysningerOmArbeidssoker, sprak } = props;
+    const { arbeidssoekerperioder, opplysningerOmArbeidssoeker, sprak } = props;
 
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const periode = hentSisteArbeidssokerPeriode(arbeidssokerperioder);
-    const harAktivArbeidssokerperiode = arbeidssokerperioder.length > 0 && !Boolean(periode.avsluttet);
-    const erPermittert = harPermittertSituasjon(opplysningerOmArbeidssoker);
+    const periode = hentSisteArbeidssokerPeriode(arbeidssoekerperioder);
+    const harAktivArbeidssokerperiode = arbeidssoekerperioder.length > 0 && !Boolean(periode.avsluttet);
+    const erPermittert = harPermittertSituasjon(opplysningerOmArbeidssoeker);
 
     return (
         <Heading level={'2'} size={'small'}>

@@ -5,7 +5,9 @@ import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
-import { mockData } from './mockdata';
+import { samletInformasjonMockData } from './mockdata';
+
+import { SamletInformasjon } from '../../types/samlet-informasjon';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -29,7 +31,7 @@ async function fetchSisteSamletInformasjon(): Promise<{
 }> {
     if (brukerMock) {
         return Promise.resolve({
-            data: mockData,
+            data: samletInformasjonMockData as SamletInformasjon,
         });
     }
 
@@ -64,7 +66,7 @@ async function fetchSisteSamletInformasjon(): Promise<{
         return { error };
     }
 
-    return { data: await response.json() };
+    return { data: await response.json() as SamletInformasjon};
 }
 
 export { fetchSisteSamletInformasjon };
