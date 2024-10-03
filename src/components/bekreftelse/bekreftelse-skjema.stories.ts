@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { BekreftelseSkjema } from './bekreftelse-skjema';
+import { BekreftelseType } from '../../../types/bekreftelse';
 
 const meta = {
     title: 'Bekreftelse/Komponenter/Bekreftelse skjema',
@@ -27,6 +28,30 @@ export const BekreftelseSkjemaStory: Story = {
         onSubmit(data) {
             console.log('onSubmit', data);
             return Promise.resolve();
+        },
+    },
+};
+
+export const FeilVedSubmit: Story = {
+    args: {
+        sprak: 'nb',
+        fristDato: '2024-09-09',
+        bekreftelse: {
+            bekreftelseId: '42',
+            gjelderFra: '2024-08-24',
+            gjelderTil: '2024-09-03',
+            periodeId: '24',
+        },
+        onCancel() {
+            console.log('onCancel');
+        },
+        onSubmit(data: BekreftelseType): Promise<void> {
+            console.log('onSubmit', data);
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    reject(new Error('500 Internal Server Error'));
+                }, 1000);
+            });
         },
     },
 };

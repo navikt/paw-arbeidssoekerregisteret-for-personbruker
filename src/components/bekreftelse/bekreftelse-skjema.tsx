@@ -8,6 +8,7 @@ import { BekreftelseType, TilgjengeligBekreftelse } from '../../../types/bekreft
 import { BekreftAvsluttPeriode } from '@/components/bekreftelse/bekreft-avslutt-periode';
 import prettyPrintDato from '@/lib/pretty-print-dato';
 import { loggAktivitet } from '@/lib/amplitude';
+import Feilmelding from '@/components/bekreftelse/feilmelding';
 
 interface Skjema {
     harJobbetIDennePerioden?: boolean;
@@ -130,11 +131,7 @@ const BekreftelseSkjema = (props: Props) => {
             <Button className={'ml-4'} variant={'tertiary'} onClick={onCancel} disabled={senderSkjema}>
                 {tekst('cancel')}
             </Button>
-            {error && (
-                <Alert variant={'error'} className={'my-8'}>
-                    Noe gikk dessverre galt. Forsøk igjen, eller kontakt NAV.
-                </Alert>
-            )}
+            {error && <Feilmelding />}
         </>
     );
 };
