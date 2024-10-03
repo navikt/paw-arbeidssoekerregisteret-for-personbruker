@@ -1,6 +1,6 @@
 import { Box } from '@navikt/ds-react';
 // import Sammendrag from '../endre-situasjon/sammendrag';
-import { InnsynLesMer } from '../opplysninger/innsyn';
+// import { InnsynLesMer } from '../opplysninger/innsyn';
 import {
     hentSisteArbeidssokerPeriode,
     hentSisteOpplysningerOmArbeidssoker,
@@ -53,6 +53,7 @@ const MinSituasjonKort = (props: any) => {
                         onOppdaterOpplysninger={onOppdaterOpplysninger}
                     />
                 )}
+                {/*
                 {!manglerOpplysninger && (
                     <InnsynLesMer
                         sprak={sprak}
@@ -61,6 +62,7 @@ const MinSituasjonKort = (props: any) => {
                         harAktivPeriode={harAktivPeriode}
                     />
                 )}
+                */}
             </section>
         </Box>
     );
