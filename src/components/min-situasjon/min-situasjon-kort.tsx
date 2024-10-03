@@ -5,7 +5,7 @@ import {
     hentSisteArbeidssokerPeriode,
     hentSisteOpplysningerOmArbeidssoker,
 } from '@navikt/arbeidssokerregisteret-utils';
-import ManglerOpplysninger from '../opplysninger/mangler-opplysninger';
+// import ManglerOpplysninger from '../opplysninger/mangler-opplysninger';
 import { harPermittertSituasjon } from '../../lib/har-permittert-situasjon';
 import RegistrertTittel from '../registrert-tittel/registrert-tittel';
 import PeriodeInfo from './periode-info';
@@ -18,12 +18,20 @@ const Sammendrag = (props: any) => {
     )
 }
 
+const ManglerOpplysninger = (props: any) => {
+    return (
+        <div>
+            Mangler opplysninger
+        </div>
+    )
+} 
+
 const MinSituasjonKort = (props: any) => {
     const { sprak, opplysningerOmArbeidssoker, onOppdaterOpplysninger, arbeidssokerperioder, behovsvurdering } = props;
     const harAktivPeriode = !Boolean(hentSisteArbeidssokerPeriode(arbeidssokerperioder).avsluttet);
     const manglerOpplysninger = opplysningerOmArbeidssoker.length === 0;
     const erPermittert = !manglerOpplysninger && harPermittertSituasjon(opplysningerOmArbeidssoker);
-    const opplysninger = hentSisteOpplysningerOmArbeidssoker(opplysningerOmArbeidssoker);
+    // const opplysninger = hentSisteOpplysningerOmArbeidssoker(opplysningerOmArbeidssoker);
 
     return (
         <Box
