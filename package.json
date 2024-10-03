@@ -10,7 +10,7 @@
     "test": "npm run lint && vitest",
     "test:ci": "npm run lint && vitest run",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build -o public/storybook"
   },
   "dependencies": {
     "@navikt/arbeidssokerregisteret-utils": "1.0.0",
