@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { fetchSisteSamletInformasjon } from '@/app/actions';
 
 import RegistrertTittel from '@/components/registrert-tittel/registrert-tittel';
+import PeriodeInfo from '@/components/min-situasjon/periode-info';
 
 async function SamletInformasjonServerComponent() {
   const { data: sisteSamletInformasjon, error } = await fetchSisteSamletInformasjon();
@@ -24,6 +25,7 @@ async function SamletInformasjonServerComponent() {
   return (
       <>
         <RegistrertTittel {...sisteSamletInformasjon} sprak='nb'/>
+        <PeriodeInfo {...sisteSamletInformasjon} sprak='nb' />
         <BodyLong>
           { JSON.stringify(sisteSamletInformasjon)}
         </BodyLong>
