@@ -57,7 +57,7 @@ spec:
             autoLoginIgnorePaths:
                 - /arbeidssoekerregisteret/api/isalive
                 - /arbeidssoekerregisteret/api/isready
-                - /arbeidssoekerregisteret/storybook/*
+                - /arbeidssoekerregisteret/storybook/**
             enabled: true
             level: Level4
     tokenx:
