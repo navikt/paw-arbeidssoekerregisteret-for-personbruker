@@ -27,7 +27,7 @@ async function SamletInformasjonServerComponent() {
         <RegistrertTittel {...sisteSamletInformasjon} sprak='nb'/>
         <PeriodeInfo {...sisteSamletInformasjon} sprak='nb' />
         <BodyLong>
-          { JSON.stringify(sisteSamletInformasjon)}
+          {JSON.stringify(sisteSamletInformasjon)}
         </BodyLong>
       </>
   );

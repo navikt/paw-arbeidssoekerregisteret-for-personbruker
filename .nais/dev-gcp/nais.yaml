@@ -44,6 +44,8 @@ spec:
           value: http://paw-arbeidssoekerregisteret-api-bekreftelse
         - name: ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL
           value: http://paw-arbeidssoekerregisteret-api-oppslag
+        - name: AIA_BACKEND_URL
+          value: http://aia-backend
     envFrom:
         - secret: arbeidssoekerregisteret-for-personbruker-unleash-api-token
     ingresses:
@@ -67,5 +69,6 @@ spec:
                 - application: paw-arbeidssokerregisteret-api-inngang
                 - application: paw-arbeidssoekerregisteret-api-oppslag
                 - application: paw-arbeidssoekerregisteret-api-bekreftelse
+                - application: aia-backend
                 - application: nav-dekoratoren
                   namespace: personbruker
