@@ -10,7 +10,7 @@ import { sorterEtterEldsteFoerst } from '@/lib/sorter-etter-eldste-foerst';
 import { IkkeAktivArbeidssoker } from './ikke-aktiv-arbeidssoker';
 import { loggAktivitet, loggVisning } from '@/lib/amplitude';
 import { BekreftelseType, SistInnsendteBekreftelse, TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export interface BekreftelseProps {
     sprak: Sprak;
