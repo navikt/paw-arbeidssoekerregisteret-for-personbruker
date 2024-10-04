@@ -1,9 +1,8 @@
 import { BodyShort, Box, Link } from '@navikt/ds-react';
-import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Sprak } from '../../contexts/sprak';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+
 import { oppdaterOpplysningerLenke } from '../../urls';
 import { loggAktivitet } from '../../lib/amplitude';
-import LoggInViewport from '../logg-in-viewport';
 
 interface ManglerOpplysningerProps {
     sprak: Sprak;
@@ -28,7 +27,6 @@ const ManglerOpplysninger = (props: ManglerOpplysningerProps) => {
             >
                 {tekst('linkText')}
             </Link>
-            <LoggInViewport data={{ viser: 'Mangler opplysninger' }} />
         </Box>
     );
 };

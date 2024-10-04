@@ -42,6 +42,7 @@ type AktivitetData =
     | { aktivitet: 'Trykker på "Bekreft neste periode"' }
     | { aktivitet: 'Trykker på "Gå tilbake til min side" fra kvittering' }
     | { aktivitet: 'Trykker på "Jeg ønsker å registrere meg på nytt"' }
+    | { aktivitet: 'Trykker på "Legg til opplysninger"' }
     | { aktivitet: 'Trykker på "Endre opplysninger"' };
 
 type EventData = VisningsData | AktivitetData;

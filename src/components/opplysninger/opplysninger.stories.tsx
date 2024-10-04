@@ -1,8 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
+
 import OpplysningerOmArbeidssokerKomponent from './opplysninger-om-arbeidssoker-komponent';
-import opplysningerOmArbeidssoker from '../../mocks/opplysninger-om-arbeidssoker-mock';
-import behovsvurderingMock from '../../mocks/behovsvurdering-mock';
-import arbeidssokerperioderMock from '../../mocks/arbeidssokerperioder-mock';
+import { samletInformasjonMockData, behovsvurderingMockData } from '@/app/mockdata';
+
+const opplysningerOmArbeidssoker = samletInformasjonMockData.opplysningerOmArbeidssoeker
+const arbeidssokerperioderMock = samletInformasjonMockData.arbeidssoekerperioder
 
 const meta = {
     title: 'Komponenter/OpplysningerOmArbeidssoker',
@@ -19,7 +21,7 @@ export const OpplysningerOmArbeidssoker: Story = {
     args: {
         opplysninger: opplysningerOmArbeidssoker[0] as any,
         sprak: 'nb',
-        behovsvurdering: behovsvurderingMock,
+        behovsvurdering: behovsvurderingMockData,
         harAktivPeriode: arbeidssokerperioderMock[0].avsluttet === null,
     },
 };
