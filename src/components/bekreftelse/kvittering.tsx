@@ -46,7 +46,7 @@ const Kvittering = (props: Props) => {
                     {tekst('buttonText')}
                 </Button>
             ) : (
-                <Link href={`${location.origin}/minside`} onClick={loggKlikk}>
+                <Link href={process.env.NEXT_PUBLIC_MIN_SIDE_URL} onClick={loggKlikk}>
                     {tekst('linkText')}
                 </Link>
             )}
