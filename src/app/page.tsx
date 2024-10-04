@@ -1,26 +1,40 @@
 import { Alert, BodyLong, Heading } from '@navikt/ds-react';
 import { Suspense } from 'react';
 
-import { fetchSisteSamletInformasjon } from '@/app/actions';
+import { fetchSisteSamletInformasjon, fetchBehovsvurdering } from '@/app/actions';
 
 import RegistrertTittel from '@/components/registrert-tittel/registrert-tittel';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
 
 async function SamletInformasjonServerComponent() {
-  const { data: sisteSamletInformasjon, error } = await fetchSisteSamletInformasjon();
+  const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSisteSamletInformasjon();
+  const { data: behovsvurdering, error: errorBehovsvurdering } = await fetchBehovsvurdering();
 
-  if (error) {
+  if (errorSisteSamletInformasjon) {
       return (
         <>
           <Alert variant={'error'}>
             Noe gikk dessverre galt ved henting av siste samlede informasjon
           </Alert>
-          <div>{error?.data}</div>
-          <div>{error?.message}</div>
-          <div>{error?.traceId}</div>
+          <div>{errorSisteSamletInformasjon?.data}</div>
+          <div>{errorSisteSamletInformasjon?.message}</div>
+          <div>{errorSisteSamletInformasjon?.traceId}</div>
         </>
       );
   }
+
+  if (errorBehovsvurdering) {
+    return (
+      <>
+        <Alert variant={'error'}>
+          Noe gikk dessverre galt ved henting av siste samlede informasjon
+        </Alert>
+        <div>{errorBehovsvurdering?.data}</div>
+        <div>{errorBehovsvurdering?.message}</div>
+        <div>{errorBehovsvurdering?.traceId}</div>
+      </>
+    );
+}
 
   return (
       <>
@@ -28,6 +42,9 @@ async function SamletInformasjonServerComponent() {
         <PeriodeInfo {...sisteSamletInformasjon} sprak='nb' />
         <BodyLong>
           {JSON.stringify(sisteSamletInformasjon)}
+        </BodyLong>
+        <BodyLong>
+          {JSON.stringify(behovsvurdering)}
         </BodyLong>
       </>
   );
