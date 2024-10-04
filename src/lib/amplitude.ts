@@ -32,18 +32,19 @@ export const initAmplitude = async () => {
 };
 
 export type VisningsData =
-    | { viser: 'IkkeAktivArbeidssøker' }
+    | { viser: 'IkkeAktivArbeidssøker fra Bekreftelse'; }
     | { viser: 'Bekreftelse'; antallTilgjengeligeBekreftelser: number; erAktivArbeidssoker: boolean }
     | { viser: 'ErrorBoundaryFeil'; error: any };
 
 type AktivitetData =
-    | { aktivitet: 'Sender inn bekreftelse'; vilFortsetteSomArbeidssoeker: boolean }
-    | { aktivitet: 'Avbryter avslutning av periode' }
-    | { aktivitet: 'Trykker på "Bekreft neste periode"' }
-    | { aktivitet: 'Trykker på "Gå tilbake til min side" fra kvittering' }
-    | { aktivitet: 'Trykker på "Jeg ønsker å registrere meg på nytt"' }
-    | { aktivitet: 'Trykker på "Legg til opplysninger"' }
-    | { aktivitet: 'Trykker på "Endre opplysninger"' };
+    | { aktivitet: 'Sender inn bekreftelse'; vilFortsetteSomArbeidssoeker: boolean; }
+    | { aktivitet: 'Avbryter avslutning av periode';  }
+    | { aktivitet: 'Trykker på "Avbryt" i bekreftelse-skjemaet'; }
+    | { aktivitet: 'Trykker på "Bekreft neste periode"'; }
+    | { aktivitet: 'Trykker på "Gå tilbake til min side" fra bekreftelse-kvittering'; }
+    | { aktivitet: 'Trykker på "Jeg ønsker å registrere meg på nytt" fra bekreftelse',  }
+    | { aktivitet: 'Trykker på "Legg til opplysninger"'; }
+    | { aktivitet: 'Trykker på "Endre opplysninger"'; };
 
 type EventData = VisningsData | AktivitetData;
 
@@ -58,10 +59,10 @@ function logAmplitudeEvent(eventName: string, data: EventData) {
 
 export function loggVisning(data: VisningsData) {
     const eventData = data || ({} as EventData);
-    logAmplitudeEvent('aia-bekreftelse.visning', eventData);
+    logAmplitudeEvent('arbeidssoekerregisteret-for-personbruker.visning', eventData);
 }
 
 export function loggAktivitet(data: AktivitetData) {
     const eventData = data || ({} as EventData);
-    logAmplitudeEvent('aia-bekreftelse.aktivitet', eventData);
+    logAmplitudeEvent('arbeidssoekerregisteret-for-personbruker.aktivitet', eventData);
 }

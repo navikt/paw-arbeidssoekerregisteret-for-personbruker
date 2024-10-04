@@ -11,7 +11,7 @@ import { BodyShort, Link } from '@navikt/ds-react';
 
 import Oppfolging from './oppfolging';
 import { BehovsvurderingResponse } from '../../../types/behovsvurdering';
-import { oppdaterOpplysningerLenke } from '../../urls';
+import { oppdaterOpplysningerLenke } from '@/urls';
 import { loggAktivitet } from '@/lib/amplitude';
 import { identity } from '@/lib/utils';
 
@@ -112,7 +112,7 @@ function OpplysningerOmArbeidssokerKomponent(props: Props) {
                                 </Link>
                                 <br />
 
-                       
+
                         {tekst('opplysningerText2')}
                     </BodyShort>
                 </div>

@@ -13,18 +13,16 @@ const TEKSTER = {
     },
 };
 
-const registrerArbeidssokerUrl = 'http://TODO';
-
 const IkkeAktivArbeidssoker = (props: Props) => {
     const { sprak } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const onClick = () => {
-        loggAktivitet({ aktivitet: 'Trykker på "Jeg ønsker å registrere meg på nytt"' });
-        // TODO window.location.href = registrerArbeidssokerUrl;
+        loggAktivitet({ aktivitet: 'Trykker på "Jeg ønsker å registrere meg på nytt" fra bekreftelse' });
+         document.location.href = process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!;
     };
 
     useEffect(() => {
-        loggVisning({ viser: 'IkkeAktivArbeidssøker' });
+        loggVisning({ viser: 'IkkeAktivArbeidssøker fra Bekreftelse',});
     }, []);
 
     return (

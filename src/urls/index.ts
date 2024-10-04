@@ -25,18 +25,6 @@ const INNLOGGINGSSTATUS_URL = {
     production: 'https://www.nav.no/person/nav-dekoratoren-api/auth',
 };
 
-const START_SAMTALE_URL = {
-    local: 'https://pto.ekstern.dev.nav.no/arbeid/start-samtale',
-    development: 'https://pto.ekstern.dev.nav.no/arbeid/start-samtale',
-    production: 'https://nav.no/arbeid/start-samtale',
-};
-
-const DIALOG_URL = {
-    local: 'https://pto.ekstern.dev.nav.no/arbeid/dialog',
-    development: 'https://pto.ekstern.dev.nav.no/arbeid/dialog',
-    production: 'https://nav.no/arbeid/dialog',
-};
-
 const OPPDATER_OPPLYSNINGER_URL = {
     local: 'https://arbeid.intern.dev.nav.no/arbeid/registrering/oppdater-opplysninger',
     development: 'https://arbeid.intern.dev.nav.no/arbeid/registrering/oppdater-opplysninger',
@@ -45,6 +33,4 @@ const OPPDATER_OPPLYSNINGER_URL = {
 
 export const innloggingsStatusUrl = INNLOGGINGSSTATUS_URL[getEnvironment()];
 export const aiaBackendUrl = AIA_BACKEND_URL[getEnvironment()];
-export const motestotteLenke = START_SAMTALE_URL[getEnvironment()];
-export const dialogLenke = DIALOG_URL[getEnvironment()];
 export const oppdaterOpplysningerLenke = OPPDATER_OPPLYSNINGER_URL[getEnvironment()];

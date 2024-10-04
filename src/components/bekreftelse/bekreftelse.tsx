@@ -10,6 +10,7 @@ import { sorterEtterEldsteFoerst } from '@/lib/sorter-etter-eldste-foerst';
 import { IkkeAktivArbeidssoker } from './ikke-aktiv-arbeidssoker';
 import { loggAktivitet, loggVisning } from '@/lib/amplitude';
 import { BekreftelseType, SistInnsendteBekreftelse, TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
+import { useRouter } from 'next/router';
 
 export interface BekreftelseProps {
     sprak: Sprak;
@@ -34,6 +35,8 @@ function Bekreftelse(props: BekreftelseProps) {
         sorterEtterEldsteFoerst(props.tilgjengeligeBekreftelser),
     );
 
+    const router = useRouter();
+
     const harTilgjengeligeBekreftelser = tilgjengeligeBekreftelser.length > 0;
     const gjeldendeBekreftelse = tilgjengeligeBekreftelser[0];
 
@@ -53,7 +56,8 @@ function Bekreftelse(props: BekreftelseProps) {
     };
 
     const onCancel = () => {
-        // TODO: hva gjør vi her?
+        loggAktivitet({ aktivitet: 'Trykker på "Avbryt" i bekreftelse-skjemaet' });
+        router.push('/');
     };
 
     useEffect(() => {
