@@ -5,6 +5,7 @@ import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
+import { ApiResponse } from '../../../types/apiResponse';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const TILGJENGELIGE_BEKREFTELSER_URL = `${process.env.BEKREFTELSE_API_URL}/api/v1/tilgjengelige-bekreftelser`;
@@ -23,10 +24,7 @@ async function getTokenXToken(idPortenToken: string) {
     return oboToken.token;
 }
 
-async function fetchTilgjengeligeBekreftelser(): Promise<{
-    data?: any;
-    error?: Error & { traceId?: string; data?: any };
-}> {
+async function fetchTilgjengeligeBekreftelser(): Promise<ApiResponse<any>> {
     if (brukerMock) {
         return Promise.resolve({
             data: [
