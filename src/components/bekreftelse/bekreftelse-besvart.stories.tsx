@@ -13,28 +13,34 @@ type Story = StoryObj<typeof meta>;
 
 export const BekreftelseBesvartStory: Story = {
     args: {
-        periode: '21. mars - 6. april',
-        innsendtDato: '06.03',
-        nesteDato: '20.04',
         besvarelse: {
-            harJobbetIDennePerioden: true,
-            vilFortsetteSomArbeidssoeker: true,
-            dato: '',
-        },
+            svar: {
+                sendtInn: {
+                    tidspunkt: '2024-10-23T13:44:28.485Z'
+                },
+                harJobbetIDennePerioden: false,
+                vilFortsetteSomArbeidssoeker: true,
+                gjelderFra: '2024-10-01T13:44:28.485Z',
+                gjelderTil: '2024-10-14T13:44:28.485Z'
+            },
+        } as any,
         sprak: 'nb',
     },
 };
 
 export const BekreftelseUtmeldtStory: Story = {
     args: {
-        periode: '21. mars - 6. april',
-        innsendtDato: '06.03',
-        nesteDato: '20.04',
         besvarelse: {
-            harJobbetIDennePerioden: true,
-            vilFortsetteSomArbeidssoeker: false,
-            dato: '',
-        },
+            svar: {
+                sendtInn: {
+                    tidspunkt: '2024-10-23T13:44:28.485Z'
+                },
+                harJobbetIDennePerioden: true,
+                vilFortsetteSomArbeidssoeker: false,
+                gjelderFra: '2024-10-01T13:44:28.485Z',
+                gjelderTil: '2024-10-14T13:44:28.485Z'
+            },
+        } as any,
         sprak: 'nb',
     },
 };
