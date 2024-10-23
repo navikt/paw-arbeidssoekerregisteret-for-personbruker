@@ -9,7 +9,8 @@ import { samletInformasjonMockData, behovsvurderingMockData } from './mockdata';
 
 import { SamletInformasjon } from '../../types/samlet-informasjon';
 import { BehovsvurderingResponse } from '../../types/behovsvurdering';
-import { ApiResponse } from '../../types/apiResponse';
+import { ApiResponse } from '../../types/api-response';
+import { InnsendtBekreftelse } from '../../types/innsendt-bekreftelse';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -112,7 +113,7 @@ async function fetchBehovsvurdering(): Promise<{
     return { data: (await response.json()) as BehovsvurderingResponse };
 }
 
-async function fetchInnsendteBekreftelser(periodeId: string): Promise<ApiResponse<any>> {
+async function fetchInnsendteBekreftelser(periodeId: string): Promise<ApiResponse<InnsendtBekreftelse[]>> {
     if (brukerMock) {
         return Promise.resolve({
             data: [
@@ -150,7 +151,7 @@ async function fetchInnsendteBekreftelser(periodeId: string): Promise<ApiRespons
         const tokenXToken = await getTokenXToken(idPortenToken);
         const traceId = uuidv4();
 
-        logger.info({ x_trace_id: traceId }, `Starter POST ${INNSENDTE_BEKREFTELSER_URL}`);
+        logger.info({ x_trace_id: traceId }, `Starter GET ${INNSENDTE_BEKREFTELSER_URL}`);
 
         const response = await fetch(INNSENDTE_BEKREFTELSER_URL, {
             method: 'GET',

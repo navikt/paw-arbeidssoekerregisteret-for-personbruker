@@ -5,7 +5,7 @@ import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
-import { ApiResponse } from '../../../types/apiResponse';
+import { ApiResponse } from '../../../types/api-response';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const TILGJENGELIGE_BEKREFTELSER_URL = `${process.env.BEKREFTELSE_API_URL}/api/v1/tilgjengelige-bekreftelser`;

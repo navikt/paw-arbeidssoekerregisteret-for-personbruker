@@ -9,12 +9,13 @@ import { Kvittering } from './kvittering';
 import { sorterEtterEldsteFoerst } from '@/lib/sorter-etter-eldste-foerst';
 import { IkkeAktivArbeidssoker } from './ikke-aktiv-arbeidssoker';
 import { loggAktivitet, loggVisning } from '@/lib/amplitude';
-import { BekreftelseType, SistInnsendteBekreftelse, TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
+import { BekreftelseType, TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
 import { useRouter } from 'next/navigation';
+import { InnsendtBekreftelse } from '../../../types/innsendt-bekreftelse';
 
 export interface BekreftelseProps {
     sprak: Sprak;
-    sistInnsendteBekreftelse?: SistInnsendteBekreftelse;
+    sistInnsendteBekreftelse?: InnsendtBekreftelse;
     tilgjengeligeBekreftelser?: TilgjengeligeBekreftelser;
     erAktivArbeidssoker: boolean;
     onSubmit(data: BekreftelseType): Promise<void>;
@@ -79,9 +80,6 @@ function Bekreftelse(props: BekreftelseProps) {
             </Heading>
             {props.sistInnsendteBekreftelse && !harTilgjengeligeBekreftelser && !visKvittering && (
                 <BekreftelseBesvart
-                    periode={'21.mars - 6. april'}
-                    innsendtDato={'06.03'}
-                    nesteDato={'20.04'}
                     besvarelse={props.sistInnsendteBekreftelse}
                     sprak={sprak}
                 />
