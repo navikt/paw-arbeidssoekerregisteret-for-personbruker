@@ -3,6 +3,7 @@ import { BodyShort, Button, Heading, List } from '@navikt/ds-react';
 import InfoTekst from './info-tekst';
 import { InnsendtBekreftelse } from '../../../types/innsendt-bekreftelse';
 import { formaterDato, prettyPringDato } from '@/lib/date-utils';
+import { loggAktivitet } from '@/lib/amplitude';
 
 export interface Props {
     besvarelse: InnsendtBekreftelse;
@@ -73,7 +74,10 @@ const OenskerAaVaereRegistrert = (props: Props) => {
 const OenskerIkkeAaVaereRegistrert = (props: Props) => {
     const { sprak, besvarelse } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-
+    const onClick = () => {
+        loggAktivitet({ aktivitet: 'Trykker på "Jeg ønsker å registrere meg på nytt" fra bekreftelse' });
+        document.location.href = process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!
+    };
     return (
         <>
             <Heading size={'xsmall'} className={'mb-4'}>
@@ -82,7 +86,7 @@ const OenskerIkkeAaVaereRegistrert = (props: Props) => {
             <div className={'px-4'}>
                 <BesvarelseInfo sprak={sprak} besvarelse={besvarelse} innsendtDato={getInnsendtDato(besvarelse)} />
             </div>
-            <Button variant={'secondary'} onClick={() => console.log('Jeg ønsker å registrere meg på nytt')}>
+            <Button variant={'secondary'} onClick={onClick}>
                 {tekst('buttonTextUtmeldt')}
             </Button>
         </>
