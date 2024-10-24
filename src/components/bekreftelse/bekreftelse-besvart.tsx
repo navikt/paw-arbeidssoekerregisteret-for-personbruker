@@ -2,7 +2,7 @@ import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-util
 import { BodyShort, Button, Heading, List } from '@navikt/ds-react';
 import InfoTekst from './info-tekst';
 import { InnsendtBekreftelse } from '../../../types/innsendt-bekreftelse';
-import prettyPrintDato from '@/lib/pretty-print-dato';
+import { formaterDato, prettyPringDato } from '@/lib/date-utils';
 
 export interface Props {
     besvarelse: InnsendtBekreftelse;
@@ -47,10 +47,10 @@ const BesvarelseInfo = (props: { sprak: Sprak; besvarelse: Props['besvarelse']; 
 };
 
 const getPeriode = (besvarelse: InnsendtBekreftelse) => {
-    return `${prettyPrintDato(besvarelse.svar.gjelderFra)} - ${prettyPrintDato(besvarelse.svar.gjelderTil)}`;
+    return `${prettyPringDato(besvarelse.svar.gjelderFra)} - ${prettyPringDato(besvarelse.svar.gjelderTil)}`;
 };
 const getInnsendtDato = (besvarelse: InnsendtBekreftelse) => {
-    return prettyPrintDato(besvarelse.svar.sendtInn.tidspunkt);
+    return formaterDato(besvarelse.svar.sendtInn.tidspunkt);
 };
 
 const OenskerAaVaereRegistrert = (props: Props) => {

@@ -33,7 +33,7 @@ const monthNames = {
     ],
 };
 
-const prettyPrintDato = (dato: string, locale?: Sprak) => {
+const prettyPringDato = (dato: string, locale?: Sprak) => {
     const now = new Date();
     const date = new Date(dato);
     const thisYear = now.getFullYear();
@@ -48,4 +48,14 @@ const prettyPrintDato = (dato: string, locale?: Sprak) => {
     return `${date.getDate()}. ${month}${thisYear !== year ? ' ' + year : ''}`;
 };
 
-export default prettyPrintDato;
+function formaterDato(
+    dateString: string | undefined,
+    options: Intl.DateTimeFormatOptions = {
+        // dateStyle: 'short',
+        // timeStyle: 'long',
+    },
+): string {
+    return dateString ? new Intl.DateTimeFormat('nb', options).format(new Date(dateString)) : 'Ingen tidspunkt funnet';
+}
+
+export { prettyPringDato, formaterDato };

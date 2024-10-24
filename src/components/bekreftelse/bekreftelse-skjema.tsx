@@ -1,12 +1,12 @@
 'use client';
 
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Alert, Button, Radio, RadioGroup } from '@navikt/ds-react';
+import { Button, Radio, RadioGroup } from '@navikt/ds-react';
 import InfoTekst from './info-tekst';
 import { useEffect, useState } from 'react';
 import { BekreftelseType, TilgjengeligBekreftelse } from '../../../types/bekreftelse';
 import { BekreftAvsluttPeriode } from '@/components/bekreftelse/bekreft-avslutt-periode';
-import prettyPrintDato from '@/lib/pretty-print-dato';
+import {prettyPringDato} from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/amplitude';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
 
@@ -98,7 +98,7 @@ const BekreftelseSkjema = (props: Props) => {
         );
     }
 
-    const periode = `${prettyPrintDato(gjelderFra)} - ${prettyPrintDato(gjelderTil)}`;
+    const periode = `${prettyPringDato(gjelderFra)} - ${prettyPringDato(gjelderTil)}`;
 
     return (
         <>

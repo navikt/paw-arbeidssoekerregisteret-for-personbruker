@@ -1,12 +1,12 @@
 import {
     ArbeidssokerperioderResponse,
+    hentSisteArbeidssokerPeriode,
+    hentSisteOpplysningerOmArbeidssoker,
     lagHentTekstForSprak,
     OpplysningerOmArbeidssokerResponse,
     Sprak,
-    hentSisteArbeidssokerPeriode,
-    hentSisteOpplysningerOmArbeidssoker
 } from '@navikt/arbeidssokerregisteret-utils';
-import prettyPrintDato from '../../lib/pretty-print-dato';
+import { prettyPringDato } from '@/lib/date-utils';
 
 interface PeriodeInfoProps {
     arbeidssoekerperioder: ArbeidssokerperioderResponse;
@@ -26,8 +26,8 @@ const TEKSTER = {
 
 const PeriodeInfo = (props: PeriodeInfoProps) => {
     const { arbeidssoekerperioder, opplysningerOmArbeidssoeker, sprak } = props;
-    const periode = hentSisteArbeidssokerPeriode(arbeidssoekerperioder)
-    const opplysninger = hentSisteOpplysningerOmArbeidssoker(opplysningerOmArbeidssoeker)
+    const periode = hentSisteArbeidssokerPeriode(arbeidssoekerperioder);
+    const opplysninger = hentSisteOpplysningerOmArbeidssoker(opplysningerOmArbeidssoeker);
     const harAktivPeriode = !Boolean(periode.avsluttet);
     const opprettetDato = periode.startet.tidspunkt;
     const erRegistrertAvSluttbruker = opplysninger.sendtInnAv?.utfoertAv.type === 'SLUTTBRUKER';
@@ -38,13 +38,13 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
             {harAktivPeriode ? (
                 <>
                     {tekst(erRegistrertAvSluttbruker ? 'du' : 'nav')} {tekst('registrerte')}
-                    {prettyPrintDato(opprettetDato)}
+                    {prettyPringDato(opprettetDato)}
                 </>
             ) : (
                 <>
                     {tekst('varRegistrert')}
-                    {prettyPrintDato(opprettetDato)} {tekst('til')}
-                    {periode.avsluttet && prettyPrintDato(periode.avsluttet.tidspunkt)}
+                    {prettyPringDato(opprettetDato)} {tekst('til')}
+                    {periode.avsluttet && prettyPringDato(periode.avsluttet.tidspunkt)}
                 </>
             )}
         </div>
