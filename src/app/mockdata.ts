@@ -80,7 +80,8 @@ export const samletInformasjonMockData = {
       "jobbetSammenhengendeSeksAvTolvSisteManeder": true,
       "alder": 0
     }
-  ]
+  ],
+  "bekreftelser": []
 }
 
 export const behovsvurderingMockData = {

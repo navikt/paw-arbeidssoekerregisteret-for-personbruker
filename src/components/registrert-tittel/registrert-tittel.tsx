@@ -1,5 +1,5 @@
 import { hentSisteArbeidssokerPeriode, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { harPermittertSituasjon } from '../../lib/har-permittert-situasjon';
+import { harPermittertSituasjon } from '@/lib/har-permittert-situasjon';
 import { Heading } from '@navikt/ds-react';
 import { ArbeidssokerperioderResponse } from '@navikt/arbeidssokerregisteret-utils/dist/models/arbeidssokerperiode';
 import { OpplysningerOmArbeidssokerResponse } from '@navikt/arbeidssokerregisteret-utils/dist/models/opplysninger-om-arbeidssoker';

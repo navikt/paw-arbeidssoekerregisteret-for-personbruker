@@ -9,9 +9,5 @@ export interface TilgjengeligBekreftelse {
     gjelderFra: string;
     gjelderTil: string;
 }
-export interface SistInnsendteBekreftelse {
-    harJobbetIDennePerioden: boolean;
-    vilFortsetteSomArbeidssoeker: boolean;
-    dato: string;
-}
+
 export type TilgjengeligeBekreftelser = TilgjengeligBekreftelse[];

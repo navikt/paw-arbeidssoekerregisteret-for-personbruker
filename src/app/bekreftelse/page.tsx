@@ -2,7 +2,7 @@ import { Alert, Heading } from '@navikt/ds-react';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { Suspense } from 'react';
 import BekreftelseWrapper from '@/components/bekreftelse/bekreftelse-wrapper';
-import { fetchInnsendteBekreftelser, fetchSisteSamletInformasjon } from '@/app/actions';
+import { fetchSisteSamletInformasjon } from '@/app/actions';
 import { hentSisteArbeidssokerPeriode } from '@navikt/arbeidssokerregisteret-utils';
 
 async function BekreftelseServerComponent() {
@@ -15,14 +15,7 @@ async function BekreftelseServerComponent() {
 
     const sisteArbeidssokerPeriode = hentSisteArbeidssokerPeriode(samletInformasjon?.arbeidssoekerperioder ?? []);
     const erAktivArbeidssoker = !Boolean(sisteArbeidssokerPeriode?.avsluttet);
-    let sistInnsendteBekreftelse;
-
-    if (erAktivArbeidssoker) {
-        const { data: innsendteBekreftelser = [] } = await fetchInnsendteBekreftelser(
-            sisteArbeidssokerPeriode.periodeId,
-        );
-        sistInnsendteBekreftelse = innsendteBekreftelser[0];
-    }
+    const sistInnsendteBekreftelse = samletInformasjon?.bekreftelser[0];
 
     return (
         <BekreftelseWrapper

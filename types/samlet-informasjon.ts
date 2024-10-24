@@ -1,7 +1,13 @@
-import { ProfileringResponse, ArbeidssokerperioderResponse, OpplysningerOmArbeidssokerResponse } from '@navikt/arbeidssokerregisteret-utils';
+import {
+    ArbeidssokerperioderResponse,
+    OpplysningerOmArbeidssokerResponse,
+    ProfileringResponse,
+} from '@navikt/arbeidssokerregisteret-utils';
+import { InnsendtBekreftelse } from './innsendt-bekreftelse';
 
 export type SamletInformasjon = {
-  arbeidssoekerperioder: ArbeidssokerperioderResponse;
-  opplysningerOmArbeidssoeker: OpplysningerOmArbeidssokerResponse;
-  profilering: ProfileringResponse
-}
+    arbeidssoekerperioder: ArbeidssokerperioderResponse;
+    opplysningerOmArbeidssoeker: OpplysningerOmArbeidssokerResponse;
+    profilering: ProfileringResponse;
+    bekreftelser: InnsendtBekreftelse[];
+};

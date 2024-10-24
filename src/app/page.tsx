@@ -38,8 +38,8 @@ async function SamletInformasjonServerComponent() {
 
   return (
       <>
-        <RegistrertTittel {...sisteSamletInformasjon} sprak='nb'/>
-        <PeriodeInfo {...sisteSamletInformasjon} sprak='nb' />
+        <RegistrertTittel {...sisteSamletInformasjon!} sprak='nb'/>
+        <PeriodeInfo {...sisteSamletInformasjon!} sprak='nb' />
         <BodyLong>
           {JSON.stringify(sisteSamletInformasjon)}
         </BodyLong>
