@@ -7,6 +7,11 @@ const meta = {
     component: Bekreftelse,
     tags: ['autodocs'],
     args: {},
+    parameters: {
+        nextjs: {
+            appDirectory: true,
+        },
+    },
 } satisfies Meta<typeof Bekreftelse>;
 
 export default meta;
