@@ -25,7 +25,7 @@ const TilgjengeligBekreftelseLink = (props: Props) => {
         return null;
     }
     const onClick = (e: any) => {
-        if (/^localhost/.test(document.location.host)) {
+        if (/^localhost:6006$/.test(document.location.host)) {
             e.preventDefault();
         }
 
@@ -34,7 +34,7 @@ const TilgjengeligBekreftelseLink = (props: Props) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <LinkPanel href={`/${process.env.NEXT_PUBLIC_BASE_PATH}/bekreftelse`} as={NextLink} onClick={onClick}>
+        <LinkPanel href={`/bekreftelse`} as={NextLink} onClick={onClick}>
             <LinkPanel.Title>{tekst('title')}</LinkPanel.Title>
             <LinkPanel.Description>{tekst('description')}</LinkPanel.Description>
         </LinkPanel>
