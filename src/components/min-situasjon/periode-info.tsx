@@ -21,17 +21,27 @@ const TEKSTER = {
         registrerte: 'registrerte deg som arbeidssøker ',
         varRegistrert: 'Du var registrert som arbeidssøker fra ',
         til: 'til ',
+        ikkeTidligereRegistrert: 'Du har ikke tidligere vært registrert som arbeidssøker'
     },
 };
 
 const PeriodeInfo = (props: PeriodeInfoProps) => {
     const { arbeidssoekerperioder, opplysningerOmArbeidssoeker, sprak } = props;
     const periode = hentSisteArbeidssokerPeriode(arbeidssoekerperioder);
+    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+
+    if (!periode.startet) {
+        return (
+            <div className={'flex items-center flex-wrap mb-4'}>
+                {tekst('ikkeTidligereRegistrert')}
+            </div>
+        );
+    }
+
     const opplysninger = hentSisteOpplysningerOmArbeidssoker(opplysningerOmArbeidssoeker);
     const harAktivPeriode = !Boolean(periode.avsluttet);
-    const opprettetDato = periode.startet.tidspunkt;
+    const opprettetDato = periode && periode.startet?.tidspunkt;
     const erRegistrertAvSluttbruker = opplysninger.sendtInnAv?.utfoertAv.type === 'SLUTTBRUKER';
-    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
         <div className={'flex items-center flex-wrap mb-4'}>

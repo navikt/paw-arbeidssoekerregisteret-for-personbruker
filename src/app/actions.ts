@@ -82,7 +82,7 @@ async function fetchBehovsvurdering(): Promise<{
 
     const reqHeaders = headers();
     const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!));
-    const BEHOVSVURDERING_URL = `${process.env.AIA_BACKEND_URL}/api/behov-for-veiledning`;
+    const BEHOVSVURDERING_URL = `${process.env.AIA_BACKEND_URL}//behov-for-veiledning`;
     const traceId = uuidv4();
     logger.info({ x_trace_id: traceId }, `Starter GET ${BEHOVSVURDERING_URL}`);
 

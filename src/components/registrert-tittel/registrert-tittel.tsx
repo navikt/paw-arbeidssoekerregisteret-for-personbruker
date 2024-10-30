@@ -9,17 +9,23 @@ export const TEKSTER = {
         registrert: 'Du er registrert som arbeidssøker',
         registrertPermittert: 'Du er registrert som permittert arbeidssøker',
         ikkeRegistrert: 'Du er ikke registrert som arbeidssøker',
+        ikkeRegistrertLenger: 'Du er ikke lenger registrert som arbeidssøker',
     },
     en: {
         registrert: 'You are registered as job seeker',
         registrertPermittert: 'You are registered as a temporarily layed off job seeker',
         ikkeRegistrert: 'You are not registered as job seeker',
+        ikkeRegistrertLenger: 'You are no longer registered as job seeker',
     },
 };
 
-function hentTekstNokkel(harAktivArbeidssokerperiode: boolean, erPermittert: boolean) {
-    if (!harAktivArbeidssokerperiode) {
+function hentTekstNokkel(harAktivArbeidssokerperiode: boolean, erPermittert: boolean, harIkkeHattArbeidssoekerperiode: boolean) {
+    if(harIkkeHattArbeidssoekerperiode) {
         return 'ikkeRegistrert';
+    }
+
+    if (!harAktivArbeidssokerperiode) {
+        return 'ikkeRegistrertLenger';
     }
 
     if (erPermittert) {
@@ -40,12 +46,13 @@ const RegistrertTittel = (props: Props) => {
 
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const periode = hentSisteArbeidssokerPeriode(arbeidssoekerperioder);
+    const harIkkeHattArbeidssoekerperiode = arbeidssoekerperioder.length === 0
     const harAktivArbeidssokerperiode = arbeidssoekerperioder.length > 0 && !Boolean(periode.avsluttet);
     const erPermittert = harPermittertSituasjon(opplysningerOmArbeidssoeker);
 
     return (
         <Heading level={'2'} size={'small'}>
-            {tekst(hentTekstNokkel(harAktivArbeidssokerperiode, erPermittert))}
+            {tekst(hentTekstNokkel(harAktivArbeidssokerperiode, erPermittert, harIkkeHattArbeidssoekerperiode))}
         </Heading>
     );
 };
