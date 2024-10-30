@@ -11,7 +11,6 @@ import { BodyShort, Link } from '@navikt/ds-react';
 
 import Oppfolging from './oppfolging';
 import { BehovsvurderingResponse } from '../../../types/behovsvurdering';
-import { oppdaterOpplysningerLenke } from '@/urls';
 import { loggAktivitet } from '@/lib/amplitude';
 import { identity } from '@/lib/utils';
 
@@ -104,7 +103,7 @@ function OpplysningerOmArbeidssokerKomponent(props: Props) {
                     <BodyShort>
                         {tekst('opplysningerText1')}
                                 <Link
-                                    href={oppdaterOpplysningerLenke}
+                                    href={process.env.NEXT_PUBLIC_OPPDATER_OPPLYSNINGER_URL}
                                     variant="action"
                                     onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Endre opplysninger"' })}
                                 >

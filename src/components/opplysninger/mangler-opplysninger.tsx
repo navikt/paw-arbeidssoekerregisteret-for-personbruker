@@ -1,7 +1,5 @@
 import { BodyShort, Box, Link } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-
-import { oppdaterOpplysningerLenke } from '@/urls';
 import { loggAktivitet } from '@/lib/amplitude';
 
 interface ManglerOpplysningerProps {
@@ -22,7 +20,7 @@ const ManglerOpplysninger = (props: ManglerOpplysningerProps) => {
         <Box>
             <BodyShort>{tekst('header')}</BodyShort>
             <Link
-                href={oppdaterOpplysningerLenke}
+                href={process.env.NEXT_PUBLIC_OPPDATER_OPPLYSNINGER_URL}
                 onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Legg til opplysninger"' })}
             >
                 {tekst('linkText')}

@@ -1,54 +1,54 @@
 import { Alert, BodyLong, Heading } from '@navikt/ds-react';
 import { Suspense } from 'react';
 
-import { fetchSisteSamletInformasjon, fetchBehovsvurdering } from '@/app/actions';
+import { fetchBehovsvurdering, fetchSisteSamletInformasjon } from '@/app/actions';
 
 import RegistrertTittel from '@/components/registrert-tittel/registrert-tittel';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
+import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengelig-bekreftelse-link';
+import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 
 async function SamletInformasjonServerComponent() {
-  const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSisteSamletInformasjon();
-  const { data: behovsvurdering, error: errorBehovsvurdering } = await fetchBehovsvurdering();
+    const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSisteSamletInformasjon();
+    const { data: behovsvurdering, error: errorBehovsvurdering } = await fetchBehovsvurdering();
 
-  if (errorSisteSamletInformasjon) {
-      return (
-        <>
-          <Alert variant={'error'}>
-            Noe gikk dessverre galt ved henting av siste samlede informasjon
-          </Alert>
-          <div>{errorSisteSamletInformasjon?.data}</div>
-          <div>{errorSisteSamletInformasjon?.message}</div>
-          <div>{errorSisteSamletInformasjon?.traceId}</div>
-        </>
-      );
-  }
+    if (errorSisteSamletInformasjon) {
+        return (
+            <>
+                <Alert variant={'error'}>Noe gikk dessverre galt ved henting av siste samlede informasjon</Alert>
+                <div>{errorSisteSamletInformasjon?.data}</div>
+                <div>{errorSisteSamletInformasjon?.message}</div>
+                <div>{errorSisteSamletInformasjon?.traceId}</div>
+            </>
+        );
+    }
 
-  if (errorBehovsvurdering) {
+    if (errorBehovsvurdering) {
+        return (
+            <>
+                <Alert variant={'error'}>Noe gikk dessverre galt ved henting av siste samlede informasjon</Alert>
+                <div>{errorBehovsvurdering?.data}</div>
+                <div>{errorBehovsvurdering?.message}</div>
+                <div>{errorBehovsvurdering?.traceId}</div>
+            </>
+        );
+    }
+
     return (
-      <>
-        <Alert variant={'error'}>
-          Noe gikk dessverre galt ved henting av siste samlede informasjon
-        </Alert>
-        <div>{errorBehovsvurdering?.data}</div>
-        <div>{errorBehovsvurdering?.message}</div>
-        <div>{errorBehovsvurdering?.traceId}</div>
-      </>
+        <>
+            <RegistrertTittel {...sisteSamletInformasjon!} sprak="nb" />
+            <PeriodeInfo {...sisteSamletInformasjon!} sprak="nb" />
+            <BodyLong>{JSON.stringify(sisteSamletInformasjon)}</BodyLong>
+            <BodyLong>{JSON.stringify(behovsvurdering)}</BodyLong>
+        </>
     );
 }
 
-  return (
-      <>
-        <RegistrertTittel {...sisteSamletInformasjon!} sprak='nb'/>
-        <PeriodeInfo {...sisteSamletInformasjon!} sprak='nb' />
-        <BodyLong>
-          {JSON.stringify(sisteSamletInformasjon)}
-        </BodyLong>
-        <BodyLong>
-          {JSON.stringify(behovsvurdering)}
-        </BodyLong>
-      </>
-  );
-}
+const TilgjengeligBekreftelseKomponent = async () => {
+    const { data } = await fetchTilgjengeligeBekreftelser();
+
+    return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data} sprak={'nb'} />;
+};
 
 export default function Home() {
     return (
@@ -57,7 +57,10 @@ export default function Home() {
                 Arbeidssøkerregisteret
             </Heading>
             <Suspense>
-              <SamletInformasjonServerComponent />
+                <SamletInformasjonServerComponent />
+            </Suspense>
+            <Suspense>
+                <TilgjengeligBekreftelseKomponent />
             </Suspense>
         </main>
     );
