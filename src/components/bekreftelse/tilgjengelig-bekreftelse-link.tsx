@@ -19,6 +19,7 @@ const TEKSTER = {
 };
 
 const TilgjengeligBekreftelseLink = (props: Props) => {
+    console.log('tilgjengeligeBekreftelser?', props.tilgjengeligeBekreftelser);
     const { sprak, tilgjengeligeBekreftelser = [] } = props;
 
     if (tilgjengeligeBekreftelser.length === 0) {
