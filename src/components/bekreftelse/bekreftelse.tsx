@@ -11,7 +11,7 @@ import { IkkeAktivArbeidssoker } from './ikke-aktiv-arbeidssoker';
 import { loggAktivitet, loggVisning } from '@/lib/amplitude';
 import { BekreftelseType, TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
 import { useRouter } from 'next/navigation';
-import { InnsendtBekreftelse } from '../../../types/innsendt-bekreftelse';
+import { Bekreftelse as InnsendtBekreftelse } from '@navikt/arbeidssokerregisteret-utils';
 
 export interface BekreftelseProps {
     sprak: Sprak;

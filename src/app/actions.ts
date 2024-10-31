@@ -6,9 +6,8 @@ import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
 import { behovsvurderingMockData, samletInformasjonMockData } from './mockdata';
-
-import { SamletInformasjon } from '../../types/samlet-informasjon';
 import { BehovsvurderingResponse } from '../../types/behovsvurdering';
+import { SamletInformasjon } from '@navikt/arbeidssokerregisteret-utils';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 

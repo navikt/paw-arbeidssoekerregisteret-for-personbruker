@@ -1,12 +1,11 @@
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { Bekreftelse, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BodyShort, Button, Heading, List } from '@navikt/ds-react';
 import InfoTekst from './info-tekst';
-import { InnsendtBekreftelse } from '../../../types/innsendt-bekreftelse';
 import { formaterDato, prettyPringDato } from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/amplitude';
 
 export interface Props {
-    besvarelse: InnsendtBekreftelse;
+    besvarelse: Bekreftelse;
     sprak: Sprak;
 }
 
@@ -47,11 +46,11 @@ const BesvarelseInfo = (props: { sprak: Sprak; besvarelse: Props['besvarelse']; 
     );
 };
 
-const getPeriode = (besvarelse: InnsendtBekreftelse) => {
+const getPeriode = (besvarelse: Bekreftelse) => {
     return `${prettyPringDato(besvarelse.svar.gjelderFra)} - ${prettyPringDato(besvarelse.svar.gjelderTil)}`;
 };
-const getInnsendtDato = (besvarelse: InnsendtBekreftelse) => {
-    return formaterDato(besvarelse.svar.sendtInn.tidspunkt);
+const getInnsendtDato = (besvarelse: Bekreftelse) => {
+    return formaterDato(besvarelse.svar.sendtInnAv.tidspunkt);
 };
 
 const OenskerAaVaereRegistrert = (props: Props) => {
