@@ -15,7 +15,7 @@ export const BekreftelseBesvartStory: Story = {
     args: {
         besvarelse: {
             svar: {
-                sendtInn: {
+                sendtInnAv: {
                     tidspunkt: '2024-10-23T13:44:28.485Z'
                 },
                 harJobbetIDennePerioden: false,
@@ -32,7 +32,7 @@ export const BekreftelseUtmeldtStory: Story = {
     args: {
         besvarelse: {
             svar: {
-                sendtInn: {
+                sendtInnAv: {
                     tidspunkt: '2024-10-23T13:44:28.485Z'
                 },
                 harJobbetIDennePerioden: true,
