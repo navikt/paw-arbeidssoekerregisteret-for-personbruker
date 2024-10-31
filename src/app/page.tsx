@@ -51,7 +51,7 @@ const TilgjengeligBekreftelseKomponent = async () => {
         return null;
     }
 
-    return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data} sprak={'nb'} />;
+    return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data!} sprak={'nb'} />;
 };
 
 export default function Home() {
