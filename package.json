@@ -13,6 +13,7 @@
     "build-storybook": "storybook build -o public/storybook"
   },
   "dependencies": {
+    "@amplitude/analytics-browser": "2.11.8",
     "@navikt/arbeidssokerregisteret-utils": "1.0.0",
     "@navikt/ds-react": "7.1.0",
     "@navikt/ds-tailwind": "7.1.0",

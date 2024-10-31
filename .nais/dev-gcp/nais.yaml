@@ -52,6 +52,8 @@ spec:
           value: https://arbeid.intern.dev.nav.no/arbeid/registrering
         - name: NEXT_PUBLIC_OPPDATER_OPPLYSNINGER_URL
           value: https://arbeid.intern.dev.nav.no/arbeid/registrering/oppdater-opplysninger
+        - name: NEXT_PUBLIC_AMPLITUDE_API_KEY
+          value: 9845ded64c69cd068651cd0d968e0796
     envFrom:
         - secret: arbeidssoekerregisteret-for-personbruker-unleash-api-token
     ingresses:
