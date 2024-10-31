@@ -24,7 +24,7 @@ function BekreftelseWrapper(props: Omit<BekreftelseProps, 'onSubmit'>) {
             }
         });
     }
-    console.log('tilgjengeligeBekreftelser', props.tilgjengeligeBekreftelser);
+
     return <Bekreftelse onSubmit={onSubmit} {...props} />
 }
 
