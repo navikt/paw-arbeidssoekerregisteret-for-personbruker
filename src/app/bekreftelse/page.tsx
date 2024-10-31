@@ -1,4 +1,4 @@
-import { Alert, Heading } from '@navikt/ds-react';
+import { Alert, Heading, Loader } from '@navikt/ds-react';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { Suspense } from 'react';
 import BekreftelseWrapper from '@/components/bekreftelse/bekreftelse-wrapper';
@@ -33,7 +33,7 @@ export default async function BekreftelsePage() {
             <Heading size={'large'} level={'1'}>
                 Bekreftelse
             </Heading>
-            <Suspense>
+            <Suspense fallback={<Loader />}>
                 <BekreftelseServerComponent />
             </Suspense>
         </div>

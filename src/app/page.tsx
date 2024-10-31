@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Heading } from '@navikt/ds-react';
+import { Alert, BodyLong, Heading, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 
 import { fetchBehovsvurdering, fetchSisteSamletInformasjon } from '@/app/actions';
@@ -60,10 +60,10 @@ export default function Home() {
             <Heading level={'1'} size={'xlarge'}>
                 Arbeidssøkerregisteret
             </Heading>
-            <Suspense>
+            <Suspense fallback={<Loader />}>
                 <SamletInformasjonServerComponent />
             </Suspense>
-            <Suspense>
+            <Suspense fallback={<Loader />}>
                 <TilgjengeligBekreftelseKomponent />
             </Suspense>
         </main>
