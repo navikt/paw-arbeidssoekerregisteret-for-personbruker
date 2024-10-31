@@ -19,22 +19,22 @@ const TEKSTER = {
 };
 
 const TilgjengeligBekreftelseLink = (props: Props) => {
-    const { sprak, tilgjengeligeBekreftelser } = props;
+    const { sprak, tilgjengeligeBekreftelser = [] } = props;
 
     if (tilgjengeligeBekreftelser.length === 0) {
         return null;
     }
+
     const onClick = (e: any) => {
         if (/^localhost:6006$/.test(document.location.host)) {
             e.preventDefault();
         }
-
         loggAktivitet({ aktivitet: 'Trykker på "Gå til Bekreftelse" fra forsiden' });
     };
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <LinkPanel href={`/bekreftelse`} as={NextLink} onClick={onClick}>
+        <LinkPanel href={`/bekreftelse`} onClick={onClick} as={NextLink}>
             <LinkPanel.Title>{tekst('title')}</LinkPanel.Title>
             <LinkPanel.Description>{tekst('description')}</LinkPanel.Description>
         </LinkPanel>

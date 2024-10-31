@@ -45,7 +45,11 @@ async function SamletInformasjonServerComponent() {
 }
 
 const TilgjengeligBekreftelseKomponent = async () => {
-    const { data } = await fetchTilgjengeligeBekreftelser();
+    const { data, error } = await fetchTilgjengeligeBekreftelser();
+
+    if (error) {
+        return null;
+    }
 
     return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data} sprak={'nb'} />;
 };
