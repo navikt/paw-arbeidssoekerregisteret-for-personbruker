@@ -4,7 +4,7 @@ import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-util
 import { Button, Radio, RadioGroup } from '@navikt/ds-react';
 import InfoTekst from './info-tekst';
 import { useEffect, useState } from 'react';
-import { BekreftelseType, TilgjengeligBekreftelse } from '../../../types/bekreftelse';
+import { BekreftelseSkjemaType, TilgjengeligBekreftelse } from '../../../types/bekreftelse';
 import { BekreftAvsluttPeriode } from '@/components/bekreftelse/bekreft-avslutt-periode';
 import {prettyPringDato} from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/amplitude';
@@ -20,7 +20,7 @@ export interface Props {
     sprak: Sprak;
     fristDato: string;
     bekreftelse: TilgjengeligBekreftelse;
-    onSubmit(data: BekreftelseType): Promise<void>;
+    onSubmit(data: BekreftelseSkjemaType): Promise<void>;
     onCancel(): void;
 }
 
@@ -77,7 +77,7 @@ const BekreftelseSkjema = (props: Props) => {
 
         settSenderSkjema(true);
         try {
-            await props.onSubmit({ ...skjemaState, bekreftelseId: bekreftelse.bekreftelseId } as BekreftelseType);
+            await props.onSubmit({ ...skjemaState, bekreftelseId: bekreftelse.bekreftelseId } as BekreftelseSkjemaType);
         } catch (err) {
             settError(err);
         } finally {

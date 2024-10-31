@@ -1,10 +1,10 @@
 'use client';
 
 import { Bekreftelse, BekreftelseProps } from '@/components/bekreftelse/bekreftelse';
-import { BekreftelseType } from '../../../types/bekreftelse';
+import { BekreftelseSkjemaType } from '../../../types/bekreftelse';
 
 function BekreftelseWrapper(props: Omit<BekreftelseProps, 'onSubmit'>) {
-    const onSubmit = (data: BekreftelseType) => {
+    const onSubmit = (data: BekreftelseSkjemaType) => {
         return fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/bekreftelse`, {
             method: 'POST',
             headers: {

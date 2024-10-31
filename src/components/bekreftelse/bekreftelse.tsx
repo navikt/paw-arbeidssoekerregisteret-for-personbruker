@@ -9,7 +9,7 @@ import { Kvittering } from './kvittering';
 import { sorterEtterEldsteFoerst } from '@/lib/sorter-etter-eldste-foerst';
 import { IkkeAktivArbeidssoker } from './ikke-aktiv-arbeidssoker';
 import { loggAktivitet, loggVisning } from '@/lib/amplitude';
-import { BekreftelseType, TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
+import { BekreftelseSkjemaType, TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
 import { useRouter } from 'next/navigation';
 import { Bekreftelse as InnsendtBekreftelse } from '@navikt/arbeidssokerregisteret-utils';
 
@@ -18,7 +18,7 @@ export interface BekreftelseProps {
     sistInnsendteBekreftelse?: InnsendtBekreftelse;
     tilgjengeligeBekreftelser?: TilgjengeligeBekreftelser;
     erAktivArbeidssoker: boolean;
-    onSubmit(data: BekreftelseType): Promise<void>;
+    onSubmit(data: BekreftelseSkjemaType): Promise<void>;
 }
 
 const TEKSTER = {
@@ -31,7 +31,7 @@ function Bekreftelse(props: BekreftelseProps) {
     const { sprak, onSubmit, erAktivArbeidssoker } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const [visKvittering, settVisKvittering] = useState<boolean>(false);
-    const [sisteBekreftlse, settSisteBekreftlse] = useState<BekreftelseType>();
+    const [sisteBekreftlse, settSisteBekreftlse] = useState<BekreftelseSkjemaType>();
     const [tilgjengeligeBekreftelser, settTilgjengeligeBekreftelser] = useState<TilgjengeligeBekreftelser>(
         sorterEtterEldsteFoerst(props.tilgjengeligeBekreftelser),
     );
@@ -41,7 +41,7 @@ function Bekreftelse(props: BekreftelseProps) {
     const harTilgjengeligeBekreftelser = tilgjengeligeBekreftelser.length > 0;
     const gjeldendeBekreftelse = tilgjengeligeBekreftelser[0];
 
-    const onSubmitSkjema = async (bekreftelse: BekreftelseType) => {
+    const onSubmitSkjema = async (bekreftelse: BekreftelseSkjemaType) => {
         await onSubmit(bekreftelse);
         settSisteBekreftlse(bekreftelse);
         settVisKvittering(true);

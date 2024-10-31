@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { BekreftelseSkjema } from './bekreftelse-skjema';
-import { BekreftelseType } from '../../../types/bekreftelse';
+import { BekreftelseSkjemaType } from '../../../types/bekreftelse';
 
 const meta = {
     title: 'Bekreftelse/Komponenter/Bekreftelse skjema',
@@ -45,7 +45,7 @@ export const FeilVedSubmit: Story = {
         onCancel() {
             console.log('onCancel');
         },
-        onSubmit(data: BekreftelseType): Promise<void> {
+        onSubmit(data: BekreftelseSkjemaType): Promise<void> {
             console.log('onSubmit', data);
             return new Promise((resolve, reject) => {
                 setTimeout(() => {

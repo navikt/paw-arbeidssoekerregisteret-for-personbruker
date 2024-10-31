@@ -1,4 +1,4 @@
-export interface BekreftelseType {
+export interface BekreftelseSkjemaType {
     harJobbetIDennePerioden: boolean;
     vilFortsetteSomArbeidssoeker: boolean;
     bekreftelseId: string;

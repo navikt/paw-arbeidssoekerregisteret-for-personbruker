@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Bekreftelse } from './bekreftelse';
-import { BekreftelseType } from '../../../types/bekreftelse';
+import { BekreftelseSkjemaType } from '../../../types/bekreftelse';
 
 const meta = {
     title: 'Bekreftelse',
@@ -36,7 +36,7 @@ export const BekreftelseStory: Story = {
                 periodeId: '2',
             },
         ],
-        onSubmit(data: BekreftelseType): Promise<void> {
+        onSubmit(data: BekreftelseSkjemaType): Promise<void> {
             console.log('onSubmit', data);
             return new Promise((resolve) => {
                 setTimeout(() => {
