@@ -116,7 +116,7 @@ async function fetchBehovsvurdering(): Promise<{
             return { error };
         }
 
-        return { data: (await response.json()) as BehovsvurderingResponse };
+        return { data: response.status === 204 ? null : (await response.json()) as BehovsvurderingResponse };
     } catch (error: any) {
         logger.error(error, `Feil fra GET ${BEHOVSVURDERING_URL}`);
         return { error };
