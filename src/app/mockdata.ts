@@ -38,7 +38,7 @@ export const samletInformasjonMockData = {
         }
       },
       "utdanning": {
-        "nus": "string",
+        "nus": "4",
         "bestaatt": "JA",
         "godkjent": "JA"
       },
@@ -50,10 +50,7 @@ export const samletInformasjonMockData = {
       },
       "jobbsituasjon": [
         {
-          "beskrivelse": "UKJENT_VERDI",
-          "detaljer": {
-            "prosent": "25"
-          }
+          "beskrivelse": "MISTET_JOBBEN",
         }
       ]
     }
