@@ -73,7 +73,7 @@ const TilgjengeligBekreftelseKomponent = async () => {
 
 export default function Home() {
     return (
-        <main className="flex flex-col items-center my-8">
+        <main className="flex flex-col items-center px-4">
             <Heading level={'1'} size={'xlarge'}>
                 Arbeidssøkerregisteret
             </Heading>
