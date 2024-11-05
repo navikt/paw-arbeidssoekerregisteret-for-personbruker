@@ -22,14 +22,14 @@ const defaultBreadcrumbs = [
 export default async function RootLayout(
     props: Readonly<{
         children: React.ReactNode;
-        breadcrumbs?: DecoratorParams['breadcrumbs'];
+        // breadcrumbs?: DecoratorParams['breadcrumbs'];
     }>,
 ) {
-    const { children, breadcrumbs } = props;
+    const { children } = props;
     const Decorator = await fetchDecoratorReact({
         env: (process.env.DEKORATOR_ENV as 'prod' | 'dev') ?? 'dev',
         params: {
-            breadcrumbs: breadcrumbs ?? defaultBreadcrumbs,
+            breadcrumbs: defaultBreadcrumbs,
         },
     });
     return (
