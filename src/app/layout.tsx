@@ -1,4 +1,4 @@
-import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
+import { DecoratorParams, fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import Script from 'next/script';
 import type { Metadata } from 'next';
 import './globals.css';
@@ -8,15 +8,29 @@ export const metadata: Metadata = {
     description: 'NAV arbeidssøkerregisteret',
 };
 
-const dekoratorEnv = process.env.DEKORATOR_ENV as 'prod' | 'dev' ?? 'dev';
+const defaultBreadcrumbs = [
+    {
+        title: 'Min side',
+        url: '/minside',
+    },
+    {
+        title: 'Arbeidssøkerregisteret',
+        url: '/arbeidssoekerregisteret',
+    },
+];
 
-export default async function RootLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default async function RootLayout(
+    props: Readonly<{
+        children: React.ReactNode;
+        breadcrumbs?: DecoratorParams['breadcrumbs'];
+    }>,
+) {
+    const { children, breadcrumbs } = props;
     const Decorator = await fetchDecoratorReact({
-        env: dekoratorEnv,
+        env: (process.env.DEKORATOR_ENV as 'prod' | 'dev') ?? 'dev',
+        params: {
+            breadcrumbs: breadcrumbs ?? defaultBreadcrumbs,
+        },
     });
     return (
         <html lang="no">
