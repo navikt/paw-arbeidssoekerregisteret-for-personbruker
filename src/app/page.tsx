@@ -1,16 +1,18 @@
-import { Alert, BodyLong, Heading, Loader } from '@navikt/ds-react';
+import { Alert, Heading, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 
 import { fetchBehovsvurdering, fetchSisteSamletInformasjon } from '@/app/actions';
-
-import RegistrertTittel from '@/components/registrert-tittel/registrert-tittel';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
 import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengelig-bekreftelse-link';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
+import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
+import RegistrerArbeidssoker from '@/components/registrer-arbeidssoker/registrer-arbeidssoker';
 
 async function SamletInformasjonServerComponent() {
     const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSisteSamletInformasjon();
     const { data: behovsvurdering, error: errorBehovsvurdering } = await fetchBehovsvurdering();
+    const opplysninger = sisteSamletInformasjon?.opplysningerOmArbeidssoeker[0];
+    const harAktivPeriode = sisteSamletInformasjon?.arbeidssoekerperioder[0]?.avsluttet === null;
 
     if (errorSisteSamletInformasjon) {
         return (
@@ -34,12 +36,27 @@ async function SamletInformasjonServerComponent() {
         );
     }
 
+    console.log('sisteSamletInformasjon', sisteSamletInformasjon);
+    console.log('behovsvurdering', behovsvurdering);
+
     return (
         <>
-            <RegistrertTittel {...sisteSamletInformasjon!} sprak="nb" />
+            {/*<RegistrertTittel {...sisteSamletInformasjon!} sprak="nb" />*/}
             <PeriodeInfo {...sisteSamletInformasjon!} sprak="nb" />
-            <BodyLong>{JSON.stringify(sisteSamletInformasjon)}</BodyLong>
-            <BodyLong>{JSON.stringify(behovsvurdering)}</BodyLong>
+            <Suspense fallback={<Loader />}>
+                <TilgjengeligBekreftelseKomponent />
+            </Suspense>
+            {harAktivPeriode && opplysninger && (
+                <div className={'my-6'}>
+                    <OpplysningerOppsummering
+                        opplysninger={opplysninger}
+                        sprak={'nb'}
+                        behovsvurdering={behovsvurdering}
+                        harAktivPeriode={harAktivPeriode}
+                    />
+                </div>
+            )}
+            {!harAktivPeriode && <RegistrerArbeidssoker className={'my-6'}/>}
         </>
     );
 }
@@ -56,15 +73,12 @@ const TilgjengeligBekreftelseKomponent = async () => {
 
 export default function Home() {
     return (
-        <main className="flex flex-col items-center">
+        <main className="flex flex-col items-center my-8">
             <Heading level={'1'} size={'xlarge'}>
                 Arbeidssøkerregisteret
             </Heading>
             <Suspense fallback={<Loader />}>
                 <SamletInformasjonServerComponent />
-            </Suspense>
-            <Suspense fallback={<Loader />}>
-                <TilgjengeligBekreftelseKomponent />
             </Suspense>
         </main>
     );
