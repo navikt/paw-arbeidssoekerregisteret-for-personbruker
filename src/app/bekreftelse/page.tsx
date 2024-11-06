@@ -4,10 +4,12 @@ import { Suspense } from 'react';
 import BekreftelseWrapper from '@/components/bekreftelse/bekreftelse-wrapper';
 import { fetchSisteSamletInformasjon } from '@/app/actions';
 import { hentSisteArbeidssokerPeriode } from '@navikt/arbeidssokerregisteret-utils';
+import Breadcrumbs from '@/app/bekreftelse/breadcrumbs';
 
 async function BekreftelseServerComponent() {
     const { data: tilgjengeligeBekreftelser, error } = await fetchTilgjengeligeBekreftelser();
     const { data: samletInformasjon, error: informasjonError } = await fetchSisteSamletInformasjon();
+
 
     if (error || informasjonError) {
         return <Alert variant={'error'}>Noe gikk dessverre galt</Alert>;
@@ -33,6 +35,7 @@ export default async function BekreftelsePage() {
             <Heading size={'large'} level={'1'}>
                 Bekreftelse
             </Heading>
+            <Breadcrumbs />
             <Suspense fallback={<Loader />}>
                 <BekreftelseServerComponent />
             </Suspense>

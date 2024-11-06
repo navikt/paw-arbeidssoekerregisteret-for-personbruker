@@ -12,7 +12,7 @@ function BekreftelseWrapper(props: Omit<BekreftelseProps, 'onSubmit'>) {
                 Accept: 'application/json',
             },
             body: JSON.stringify(data),
-        }).then(async res => {
+        }).then(async (res) => {
             let body = null;
             if (res.headers.get('content-type')?.includes('application/json')) {
                 body = await res.json();
@@ -23,9 +23,9 @@ function BekreftelseWrapper(props: Omit<BekreftelseProps, 'onSubmit'>) {
                 throw body;
             }
         });
-    }
+    };
 
-    return <Bekreftelse onSubmit={onSubmit} {...props} />
+    return <Bekreftelse onSubmit={onSubmit} {...props} />;
 }
 
 export default BekreftelseWrapper;
