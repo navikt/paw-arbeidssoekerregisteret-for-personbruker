@@ -1,4 +1,4 @@
 @import "tailwindcss/base";
-@import url("https://cdn.nav.no/aksel/@navikt/ds-css/7.1.0/index.min.css");
+@import url("https://cdn.nav.no/aksel/@navikt/ds-css/7.4.3/index.min.css");
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
