@@ -1,18 +1,17 @@
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import Script from 'next/script';
 import type { Metadata } from 'next';
-import './globals.css';
+import '../globals.css';
 
 export const metadata: Metadata = {
-    title: 'Arbeidssøkerregisteret',
-    description: 'NAV arbeidssøkerregisteret',
+    title: 'Arbeidssøker bekreftelse',
+    description: 'NAV arbeidssøkerregisteret - Bekreft at du vil være arbeidssøker',
 };
 
-export default async function RootLayout({
+export default async function Layout({
     children,
 }: Readonly<{
     children: React.ReactNode;
-    // breadcrumbs?: DecoratorParams['breadcrumbs'];
 }>) {
     const Decorator = await fetchDecoratorReact({
         env: (process.env.DEKORATOR_ENV as 'prod' | 'dev') ?? 'dev',
@@ -25,6 +24,10 @@ export default async function RootLayout({
                 {
                     title: 'Arbeidssøkerregisteret',
                     url: '/arbeidssoekerregisteret',
+                },
+                {
+                    title: 'Bekreftelse',
+                    url: '/arbeidssoekerregisteret/bekreftelse',
                 },
             ],
         },
