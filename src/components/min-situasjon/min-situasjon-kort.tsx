@@ -52,6 +52,7 @@ const MinSituasjonKort = (props: any) => {
                     arbeidssoekerperioder={arbeidssokerperioder}
                     opplysningerOmArbeidssoeker={opplysningerOmArbeidssoker}
                     sprak={sprak}
+                    bekreftelser={[]}
                 />
                 {manglerOpplysninger && harAktivPeriode && <ManglerOpplysninger sprak={sprak} />}
                 {erPermittert && harAktivPeriode && (

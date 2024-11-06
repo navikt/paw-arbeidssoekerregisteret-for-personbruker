@@ -1,24 +1,25 @@
 import {
     ArbeidssokerperioderResponse,
+    BekreftelseResponse,
     hentSisteArbeidssokerPeriode,
-    hentSisteOpplysningerOmArbeidssoker,
     lagHentTekstForSprak,
     OpplysningerOmArbeidssokerResponse,
     Sprak,
 } from '@navikt/arbeidssokerregisteret-utils';
+
 import { prettyPringDato } from '@/lib/date-utils';
 
 interface PeriodeInfoProps {
     arbeidssoekerperioder: ArbeidssokerperioderResponse;
     opplysningerOmArbeidssoeker: OpplysningerOmArbeidssokerResponse;
+    bekreftelser: BekreftelseResponse,
     sprak: Sprak;
 }
 
 const TEKSTER = {
     nb: {
-        du: 'Du',
-        nav: 'NAV',
-        registrerte: 'registrerte deg som arbeidssøker ',
+        registreringsDato: 'Registreringsdato: ',
+        sistBekreftetDato: 'Sist bekreftet: ',
         varRegistrert: 'Du var registrert som arbeidssøker fra ',
         til: 'til ',
         ikkeTidligereRegistrert: 'Du har ikke tidligere vært registrert som arbeidssøker'
@@ -26,7 +27,7 @@ const TEKSTER = {
 };
 
 const PeriodeInfo = (props: PeriodeInfoProps) => {
-    const { arbeidssoekerperioder, opplysningerOmArbeidssoeker, sprak } = props;
+    const { arbeidssoekerperioder, sprak, bekreftelser } = props;
     const periode = hentSisteArbeidssokerPeriode(arbeidssoekerperioder);
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
@@ -38,16 +39,14 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
         );
     }
 
-    const opplysninger = hentSisteOpplysningerOmArbeidssoker(opplysningerOmArbeidssoeker);
     const harAktivPeriode = !Boolean(periode.avsluttet);
     const opprettetDato = periode && periode.startet?.tidspunkt;
-    const erRegistrertAvSluttbruker = opplysninger.sendtInnAv?.utfoertAv.type === 'SLUTTBRUKER';
 
     return (
         <div className={'flex items-center flex-wrap mb-4'}>
             {harAktivPeriode ? (
                 <>
-                    {tekst(erRegistrertAvSluttbruker ? 'du' : 'nav')} {tekst('registrerte')}
+                    {tekst('registreringsDato')}
                     {prettyPringDato(opprettetDato)}
                 </>
             ) : (

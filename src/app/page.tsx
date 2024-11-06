@@ -36,9 +36,6 @@ async function SamletInformasjonServerComponent() {
         );
     }
 
-    console.log('sisteSamletInformasjon', sisteSamletInformasjon);
-    console.log('behovsvurdering', behovsvurdering);
-
     return (
         <>
             {/*<RegistrertTittel {...sisteSamletInformasjon!} sprak="nb" />*/}
