@@ -12,7 +12,6 @@ export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
-    // breadcrumbs?: DecoratorParams['breadcrumbs'];
 }>) {
     const Decorator = await fetchDecoratorReact({
         env: (process.env.DEKORATOR_ENV as 'prod' | 'dev') ?? 'dev',

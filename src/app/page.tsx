@@ -7,6 +7,7 @@ import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengel
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
 import RegistrerArbeidssoker from '@/components/registrer-arbeidssoker/registrer-arbeidssoker';
+import Breadcrumbs from '@/app/breadcrumbs';
 
 async function SamletInformasjonServerComponent() {
     const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSisteSamletInformasjon();
@@ -74,6 +75,7 @@ export default function Home() {
             <Heading level={'1'} size={'xlarge'}>
                 Arbeidssøkerregisteret
             </Heading>
+            <Breadcrumbs />
             <Suspense fallback={<Loader />}>
                 <SamletInformasjonServerComponent />
             </Suspense>
