@@ -8,6 +8,7 @@ import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
 import RegistrerArbeidssoker from '@/components/registrer-arbeidssoker/registrer-arbeidssoker';
 import Breadcrumbs from '@/app/breadcrumbs';
+import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
 
 async function SamletInformasjonServerComponent() {
     const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSisteSamletInformasjon();
@@ -54,7 +55,7 @@ async function SamletInformasjonServerComponent() {
                     />
                 </div>
             )}
-            {!harAktivPeriode && <RegistrerArbeidssoker className={'my-6'}/>}
+            {!harAktivPeriode && <RegistrerArbeidssoker className={'my-6'} />}
         </>
     );
 }
@@ -69,11 +70,18 @@ const TilgjengeligBekreftelseKomponent = async () => {
     return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data!} sprak={'nb'} />;
 };
 
+const TEKSTER = {
+    nb: {
+        heading: 'Arbeidssøkerregisteret',
+    },
+};
+
 export default function Home() {
+    const tekst = lagHentTekstForSprak(TEKSTER, 'nb');
     return (
         <main className="flex flex-col items-center px-4">
             <Heading level={'1'} size={'xlarge'}>
-                Arbeidssøkerregisteret
+                {tekst('heading')}
             </Heading>
             <Breadcrumbs />
             <Suspense fallback={<Loader />}>
