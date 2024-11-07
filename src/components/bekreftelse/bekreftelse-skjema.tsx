@@ -88,7 +88,7 @@ const BekreftelseSkjema = (props: Props) => {
     if (visBekreftAvsluttPeriode) {
         return (
             <BekreftAvsluttPeriode
-                onSubmit={() => props.onSubmit(skjemaState as any)}
+                onSubmit={() => props.onSubmit({ ...skjemaState, bekreftelseId: bekreftelse.bekreftelseId } as BekreftelseSkjemaType)}
                 onCancel={() => {
                     settVisBekreftAvsluttPeriode(false);
                     loggAktivitet({ aktivitet: 'Avbryter avslutning av periode' });
