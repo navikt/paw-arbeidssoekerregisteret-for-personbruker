@@ -90,9 +90,6 @@ export default function Home({ params }: NextPageProps) {
 
     return (
         <main className="flex flex-col items-center px-4">
-            <Heading level={'1'} size={'xlarge'}>
-                {tekst('heading')}
-            </Heading>
             <SettSprakIDekorator sprak={sprak} />
             <Breadcrumbs
                 breadcrumbs={[
