@@ -3,7 +3,6 @@ import {
     BekreftelseResponse,
     hentSisteArbeidssokerPeriode,
     lagHentTekstForSprak,
-    OpplysningerOmArbeidssokerResponse,
     Sprak,
 } from '@navikt/arbeidssokerregisteret-utils';
 
@@ -11,14 +10,13 @@ import { prettyPringDato } from '@/lib/date-utils';
 
 interface PeriodeInfoProps {
     arbeidssoekerperioder: ArbeidssokerperioderResponse;
-    opplysningerOmArbeidssoeker: OpplysningerOmArbeidssokerResponse;
     bekreftelser: BekreftelseResponse,
     sprak: Sprak;
 }
 
 const TEKSTER = {
     nb: {
-        registreringsDato: 'Registreringsdato: ',
+        registreringsDato: 'Registrert: ',
         sistBekreftetDato: 'Sist bekreftet: ',
         varRegistrert: 'Du var registrert som arbeidssøker fra ',
         til: 'til ',
