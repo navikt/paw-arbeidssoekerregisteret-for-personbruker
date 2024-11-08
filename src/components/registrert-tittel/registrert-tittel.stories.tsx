@@ -3,21 +3,31 @@ import RegistrertTittel from "./registrert-tittel";
 import { samletInformasjonMockData } from "@/app/mockdata";
 
 const { arbeidssoekerperioder, opplysningerOmArbeidssoeker } = samletInformasjonMockData
+const permittertOpplysninger = JSON.parse(JSON.stringify(opplysningerOmArbeidssoeker))
+const avsluttetPeriode = JSON.parse(JSON.stringify(arbeidssoekerperioder))
+
+// Legger til permittert situasjon
+permittertOpplysninger[0].jobbsituasjon = [{beskrivelse: 'ER_PERMITTERT'}]
+
+// Avslutter arbeidssøkerperioden
+avsluttetPeriode[0].avsluttet = {
+  "tidspunkt": "2021-10-31T11:22:33.444Z",
+  "utfoertAv": {
+    "type": "UKJENT_VERDI",
+    "id": "12345678910"
+  },
+  "kilde": "string",
+  "aarsak": "string",
+  "tidspunktFraKilde": {
+    "tidspunkt": "2021-10-31T11:20:33.444Z",
+    "avviksType": "UKJENT_VERDI"
+  }
+}
 
 const meta = {
   title: "Komponenter/RegistrertTittel",
   component: RegistrertTittel,
-  decorators: [
-    // (Story, ctx) => (
-    //   <SprakContext.Provider value={{ sprak: ctx.parameters.lang ?? "nb" }}>
-    //     <ArbeidssokerperioderProvider>
-    //       <OpplysningerOmArbeidssokerProvider>
-    //         <Story />
-    //       </OpplysningerOmArbeidssokerProvider>
-    //     </ArbeidssokerperioderProvider>
-    //   </SprakContext.Provider>
-    // ),
-  ],
+  decorators: [],
   args: {},
   tags: ["autodocs"],
 } satisfies Meta<typeof RegistrertTittel>;
@@ -25,7 +35,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const RegistreringsTittelStory: Story = {
+export const Registrert: Story = {
   args: {
     sprak: 'nb',
     arbeidssoekerperioder: arbeidssoekerperioder as any,
@@ -33,77 +43,26 @@ export const RegistreringsTittelStory: Story = {
   },
 };
 
-// const defaultHandlers = [
-//   http.get(ARBEIDSOKERPERIODER_URL, () => {
-//     return HttpResponse.json(arbeidssokerperioderMock);
-//   }),
-//   http.get(`${OPPLYSNINGER_OM_ARBEIDSSOKER_URL}/:periodeId`, () => {
-//     return HttpResponse.json(opplysningerOmArbeidssokerMock);
-//   }),
-// ];
-//
-// const permittertHandlers = [
-//   http.get(ARBEIDSOKERPERIODER_URL, () => {
-//     return HttpResponse.json(arbeidssokerperioderMock);
-//   }),
-//   http.get(`${OPPLYSNINGER_OM_ARBEIDSSOKER_URL}/:periodeId`, () => {
-//     return HttpResponse.json([
-//       {
-//         ...opplysningerOmArbeidssokerMock[0],
-//         jobbsituasjon: [
-//           {
-//             beskrivelse: "ER_PERMITTERT",
-//           },
-//         ],
-//       },
-//     ]);
-//   }),
-// ];
-//
-// export const Arbeidssoker: Story = {
-//   parameters: {
-//     msw: {
-//       handlers: defaultHandlers,
-//     },
-//   },
-// };
-//
-// export const IkkeArbeidssoker: Story = {
-//   parameters: {
-//     msw: {
-//       handlers: [
-//         http.get(ARBEIDSOKERPERIODER_URL, () => {
-//           return new HttpResponse(null, { status: 204 });
-//         }),
-//         http.get(`${OPPLYSNINGER_OM_ARBEIDSSOKER_URL}/:periodeId`, () => {
-//           return new HttpResponse(null, { status: 204 });
-//         }),
-//       ],
-//     },
-//   },
-// };
-// export const Permittert: Story = {
-//   parameters: {
-//     msw: {
-//       handlers: permittertHandlers,
-//     },
-//   },
-// };
-//
-// export const ArbeidssokerEngelsk: Story = {
-//   parameters: {
-//     msw: {
-//       handlers: defaultHandlers,
-//     },
-//     lang: "en",
-//   },
-// };
-//
-// export const PermittertEngelsk: Story = {
-//   parameters: {
-//     msw: {
-//       handlers: permittertHandlers,
-//     },
-//     lang: "en",
-//   },
-// };
+export const RegistrertPermittert: Story = {
+  args: {
+    sprak: 'nb',
+    arbeidssoekerperioder: arbeidssoekerperioder as any,
+    opplysningerOmArbeidssoeker: permittertOpplysninger as any
+  },
+};
+
+export const IkkeLengerRegistrert: Story = {
+  args: {
+    sprak: 'nb',
+    arbeidssoekerperioder: avsluttetPeriode as any,
+    opplysningerOmArbeidssoeker: [] as any
+  },
+};
+
+export const IkkeRegistrert: Story = {
+  args: {
+    sprak: 'nb',
+    arbeidssoekerperioder: [] as any,
+    opplysningerOmArbeidssoeker: [] as any
+  },
+};
