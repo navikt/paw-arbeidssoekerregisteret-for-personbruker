@@ -77,15 +77,8 @@ const TilgjengeligBekreftelseKomponent = async ({ sprak } : Props) => {
     return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data!} sprak={sprak} />;
 };
 
-const TEKSTER = {
-    nb: {
-        heading: 'Arbeidssøkerregisteret',
-    },
-};
-
 export default function Home({ params }: NextPageProps) {
     const sprak = params.lang ?? 'nb';
-    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const sprakUrl = sprak === 'nb' ? '' : `/${sprak}`;
 
     return (
