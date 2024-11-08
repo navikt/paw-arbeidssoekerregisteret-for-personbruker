@@ -1,5 +1,6 @@
 import { Alert, Heading, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
+import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
 
 import { fetchBehovsvurdering, fetchSisteSamletInformasjon } from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
@@ -8,7 +9,7 @@ import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
 import RegistrerArbeidssoker from '@/components/registrer-arbeidssoker/registrer-arbeidssoker';
 import Breadcrumbs from '@/app/breadcrumbs';
-import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
+import RegistrertTittel from '@/components/registrert-tittel/registrert-tittel';
 
 async function SamletInformasjonServerComponent() {
     const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSisteSamletInformasjon();
@@ -40,7 +41,7 @@ async function SamletInformasjonServerComponent() {
 
     return (
         <>
-            {/*<RegistrertTittel {...sisteSamletInformasjon!} sprak="nb" />*/}
+            <RegistrertTittel {...sisteSamletInformasjon!} sprak="nb" />
             <PeriodeInfo {...sisteSamletInformasjon!} sprak="nb" />
             <Suspense fallback={<Loader />}>
                 <TilgjengeligBekreftelseKomponent />
@@ -80,9 +81,6 @@ export default function Home() {
     const tekst = lagHentTekstForSprak(TEKSTER, 'nb');
     return (
         <main className="flex flex-col items-center px-4">
-            <Heading level={'1'} size={'xlarge'}>
-                {tekst('heading')}
-            </Heading>
             <Breadcrumbs />
             <Suspense fallback={<Loader />}>
                 <SamletInformasjonServerComponent />

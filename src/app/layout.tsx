@@ -5,7 +5,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
     title: 'Arbeidssøkerregisteret',
-    description: 'NAV arbeidssøkerregisteret',
+    description: 'Nav arbeidssøkerregisteret',
 };
 
 export default async function RootLayout({

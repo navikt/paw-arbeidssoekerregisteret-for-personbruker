@@ -1,8 +1,9 @@
 import { hentSisteArbeidssokerPeriode, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { harPermittertSituasjon } from '@/lib/har-permittert-situasjon';
 import { Heading } from '@navikt/ds-react';
 import { ArbeidssokerperioderResponse } from '@navikt/arbeidssokerregisteret-utils/dist/models/arbeidssokerperiode';
 import { OpplysningerOmArbeidssokerResponse } from '@navikt/arbeidssokerregisteret-utils/dist/models/opplysninger-om-arbeidssoker';
+
+import { harPermittertSituasjon } from '@/lib/har-permittert-situasjon';
 
 export const TEKSTER = {
     nb: {
@@ -51,7 +52,7 @@ const RegistrertTittel = (props: Props) => {
     const erPermittert = harPermittertSituasjon(opplysningerOmArbeidssoeker);
 
     return (
-        <Heading level={'2'} size={'small'}>
+        <Heading level={'1'} size={'medium'}>
             {tekst(hentTekstNokkel(harAktivArbeidssokerperiode, erPermittert, harIkkeHattArbeidssoekerperiode))}
         </Heading>
     );
