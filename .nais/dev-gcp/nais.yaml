@@ -38,6 +38,8 @@ spec:
           value: dev
         - name: NEXT_PUBLIC_BASE_PATH
           value: /arbeidssoekerregisteret
+        - name: NEXT_PUBLIC_SELF_URL
+          value: https://www.ansatt.dev.nav.no/arbeidssoekerregisteret
         - name: NEXT_PUBLIC_ASSET_PREFIX
           value: https://cdn.nav.no/paw/arbeidssoekerregisteret
         - name: BEKREFTELSE_API_URL

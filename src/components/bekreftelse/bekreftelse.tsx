@@ -12,6 +12,7 @@ import { loggAktivitet, loggVisning } from '@/lib/amplitude';
 import { BekreftelseSkjemaType, TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
 import { useRouter } from 'next/navigation';
 import { Bekreftelse as InnsendtBekreftelse } from '@navikt/arbeidssokerregisteret-utils';
+import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 
 export interface BekreftelseProps {
     sprak: Sprak;
@@ -58,7 +59,7 @@ function Bekreftelse(props: BekreftelseProps) {
 
     const onCancel = () => {
         loggAktivitet({ aktivitet: 'Trykker på "Avbryt" i bekreftelse-skjemaet' });
-        router.push('/');
+        router.push(tilSprakAvhengigAppPath('/', sprak));
     };
 
     useEffect(() => {

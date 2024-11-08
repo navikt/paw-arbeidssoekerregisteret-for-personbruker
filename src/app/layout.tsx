@@ -26,6 +26,23 @@ export default async function RootLayout({
                     url: '/arbeidssoekerregisteret',
                 },
             ],
+            availableLanguages: [
+                {
+                    locale: "nb",
+                    // url: process.env.NEXT_PUBLIC_SELF_URL!,
+                    handleInApp: true,
+                },
+                {
+                    locale: "en",
+                    // url: `${process.env.NEXT_PUBLIC_SELF_URL!}/en`,
+                    handleInApp: true,
+                },
+                {
+                    locale: "nn",
+                    // url: `${process.env.NEXT_PUBLIC_SELF_URL!}/nn`,
+                    handleInApp: true,
+                }
+            ]
         },
     });
     return (

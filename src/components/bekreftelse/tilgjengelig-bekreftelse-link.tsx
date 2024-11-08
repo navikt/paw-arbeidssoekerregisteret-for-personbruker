@@ -5,6 +5,7 @@ import NextLink from 'next/link';
 import { LinkPanel } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggAktivitet } from '@/lib/amplitude';
+import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 
 interface Props {
     tilgjengeligeBekreftelser: TilgjengeligeBekreftelser;
@@ -34,7 +35,7 @@ const TilgjengeligBekreftelseLink = (props: Props) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <LinkPanel href={`/bekreftelse`} onClick={onClick} as={NextLink}>
+        <LinkPanel href={tilSprakAvhengigAppPath('/bekreftelse', sprak)} onClick={onClick} as={NextLink}>
             <LinkPanel.Title>{tekst('title')}</LinkPanel.Title>
             <LinkPanel.Description>{tekst('description')}</LinkPanel.Description>
         </LinkPanel>

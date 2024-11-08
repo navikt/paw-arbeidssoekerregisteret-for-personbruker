@@ -1,6 +1,6 @@
 import { Alert, Heading, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
-import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 import { fetchBehovsvurdering, fetchSisteSamletInformasjon } from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
@@ -8,10 +8,16 @@ import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengel
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
 import RegistrerArbeidssoker from '@/components/registrer-arbeidssoker/registrer-arbeidssoker';
-import Breadcrumbs from '@/app/breadcrumbs';
 import RegistrertTittel from '@/components/registrert-tittel/registrert-tittel';
+import { NextPageProps } from '../../types/next';
+import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
+import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 
-async function SamletInformasjonServerComponent() {
+interface Props {
+    sprak: Sprak
+}
+
+async function SamletInformasjonServerComponent({ sprak } : Props) {
     const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSisteSamletInformasjon();
     const { data: behovsvurdering, error: errorBehovsvurdering } = await fetchBehovsvurdering();
     const opplysninger = sisteSamletInformasjon?.opplysningerOmArbeidssoeker[0];
@@ -41,16 +47,16 @@ async function SamletInformasjonServerComponent() {
 
     return (
         <>
-            <RegistrertTittel {...sisteSamletInformasjon!} sprak="nb" />
-            <PeriodeInfo {...sisteSamletInformasjon!} sprak="nb" />
+            <RegistrertTittel {...sisteSamletInformasjon!} sprak={sprak} />
+            <PeriodeInfo {...sisteSamletInformasjon!} sprak={sprak} />
             <Suspense fallback={<Loader />}>
-                <TilgjengeligBekreftelseKomponent />
+                <TilgjengeligBekreftelseKomponent sprak={sprak}/>
             </Suspense>
             {harAktivPeriode && opplysninger && (
                 <div className={'my-6'}>
                     <OpplysningerOppsummering
                         opplysninger={opplysninger}
-                        sprak={'nb'}
+                        sprak={sprak}
                         behovsvurdering={behovsvurdering}
                         harAktivPeriode={harAktivPeriode}
                     />
@@ -61,14 +67,14 @@ async function SamletInformasjonServerComponent() {
     );
 }
 
-const TilgjengeligBekreftelseKomponent = async () => {
+const TilgjengeligBekreftelseKomponent = async ({ sprak } : Props) => {
     const { data, error } = await fetchTilgjengeligeBekreftelser();
 
     if (error) {
         return null;
     }
 
-    return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data!} sprak={'nb'} />;
+    return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data!} sprak={sprak} />;
 };
 
 const TEKSTER = {
@@ -77,13 +83,31 @@ const TEKSTER = {
     },
 };
 
-export default function Home() {
-    const tekst = lagHentTekstForSprak(TEKSTER, 'nb');
+export default function Home({ params }: NextPageProps) {
+    const sprak = params.lang ?? 'nb';
+    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const sprakUrl = sprak === 'nb' ? '' : `/${sprak}`;
+
     return (
         <main className="flex flex-col items-center px-4">
-            <Breadcrumbs />
+            <Heading level={'1'} size={'xlarge'}>
+                {tekst('heading')}
+            </Heading>
+            <SettSprakIDekorator sprak={sprak} />
+            <Breadcrumbs
+                breadcrumbs={[
+                    {
+                        title: 'Min side',
+                        url: `/minside${sprakUrl}`,
+                    },
+                    {
+                        title: 'Arbeidssøkerregisteret',
+                        url: `/arbeidssoekerregisteret${sprakUrl}`,
+                    },
+                ]}
+            />
             <Suspense fallback={<Loader />}>
-                <SamletInformasjonServerComponent />
+                <SamletInformasjonServerComponent sprak={sprak}/>
             </Suspense>
         </main>
     );
