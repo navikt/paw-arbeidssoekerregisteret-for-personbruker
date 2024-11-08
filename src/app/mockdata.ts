@@ -78,7 +78,29 @@ export const samletInformasjonMockData = {
       "alder": 0
     }
   ],
-  "bekreftelser": []
+  "bekreftelser": [
+    { "periodeId":"b91f811a-43f0-4730-a110-c256071c1297",
+      "bekreftelsesloesning":"ARBEIDSSOEKERREGISTERET",
+      "svar":
+        {
+          "sendtInnAv": {
+              "tidspunkt":"2024-11-07T08:40:14.845Z",
+              "utfoertAv":
+                {
+                  "type":"VEILEDER",
+                  "id":"Z994498"
+                },
+              "kilde":"europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.06.135-1",
+              "aarsak":"Bekreftelse levert",
+              "tidspunktFraKilde":null
+          },
+        "gjelderFra":"2024-11-07T08:32:43.662Z",
+        "gjelderTil":"2024-11-07T08:37:43.662Z",
+        "harJobbetIDennePerioden":true,
+        "vilFortsetteSomArbeidssoeker":false
+      }
+    }
+  ]
 }
 
 export const behovsvurderingMockData = {

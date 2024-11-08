@@ -57,7 +57,6 @@ async function SamletInformasjonServerComponent() {
                 </div>
             )}
             {!harAktivPeriode && <RegistrerArbeidssoker className={'my-6'} />}
-            <>{JSON.stringify(sisteSamletInformasjon)}</>
         </>
     );
 }
