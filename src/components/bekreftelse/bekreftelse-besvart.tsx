@@ -75,6 +75,10 @@ const OenskerIkkeAaVaereRegistrert = (props: Props) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const onClick = () => {
         loggAktivitet({ aktivitet: 'Trykker på "Jeg ønsker å registrere meg på nytt" fra bekreftelse' });
+        console.log(
+            'process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!',
+            process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!,
+        );
         document.location.href = process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!
     };
     return (
