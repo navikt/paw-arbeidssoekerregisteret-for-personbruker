@@ -1,6 +1,6 @@
-import { Alert, Heading, Loader } from '@navikt/ds-react';
+import { Alert, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 import { fetchBehovsvurdering, fetchSisteSamletInformasjon } from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
@@ -14,10 +14,10 @@ import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 
 interface Props {
-    sprak: Sprak
+    sprak: Sprak;
 }
 
-async function SamletInformasjonServerComponent({ sprak } : Props) {
+async function SamletInformasjonServerComponent({ sprak }: Props) {
     const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSisteSamletInformasjon();
     const { data: behovsvurdering, error: errorBehovsvurdering } = await fetchBehovsvurdering();
     const opplysninger = sisteSamletInformasjon?.opplysningerOmArbeidssoeker[0];
@@ -50,7 +50,7 @@ async function SamletInformasjonServerComponent({ sprak } : Props) {
             <RegistrertTittel {...sisteSamletInformasjon!} sprak={sprak} />
             <PeriodeInfo {...sisteSamletInformasjon!} sprak={sprak} />
             <Suspense fallback={<Loader />}>
-                <TilgjengeligBekreftelseKomponent sprak={sprak}/>
+                <TilgjengeligBekreftelseKomponent sprak={sprak} />
             </Suspense>
             {harAktivPeriode && opplysninger && (
                 <div className={'my-6'}>
@@ -67,7 +67,7 @@ async function SamletInformasjonServerComponent({ sprak } : Props) {
     );
 }
 
-const TilgjengeligBekreftelseKomponent = async ({ sprak } : Props) => {
+const TilgjengeligBekreftelseKomponent = async ({ sprak }: Props) => {
     const { data, error } = await fetchTilgjengeligeBekreftelser();
 
     if (error) {
@@ -97,7 +97,7 @@ export default function Home({ params }: NextPageProps) {
                 ]}
             />
             <Suspense fallback={<Loader />}>
-                <SamletInformasjonServerComponent sprak={sprak}/>
+                <SamletInformasjonServerComponent sprak={sprak} />
             </Suspense>
         </main>
     );

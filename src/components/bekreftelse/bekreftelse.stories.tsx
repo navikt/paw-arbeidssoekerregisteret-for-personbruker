@@ -36,6 +36,7 @@ export const BekreftelseStory: Story = {
                 periodeId: '2',
             },
         ],
+        registrerArbeidssokerUrl: process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!,
         onSubmit(data: BekreftelseSkjemaType): Promise<void> {
             console.log('onSubmit', data);
             return new Promise((resolve) => {

@@ -7,6 +7,7 @@ import { loggAktivitet, loggVisning } from '@/lib/amplitude';
 
 interface Props {
     sprak: Sprak;
+    registrerArbeidssokerUrl: string;
 }
 const TEKSTER = {
     nb: {
@@ -16,23 +17,15 @@ const TEKSTER = {
 };
 
 const IkkeAktivArbeidssoker = (props: Props) => {
-    const { sprak } = props;
+    const { sprak, registrerArbeidssokerUrl } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const onClick = () => {
         loggAktivitet({ aktivitet: 'Trykker på "Jeg ønsker å registrere meg på nytt" fra bekreftelse' });
-        console.log(
-            'process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!',
-            process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!,
-        );
-        document.location.href = process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!;
+        document.location.href = registrerArbeidssokerUrl;
     };
 
     useEffect(() => {
         loggVisning({ viser: 'IkkeAktivArbeidssøker fra Bekreftelse' });
-        console.log(
-            'process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!',
-            process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!,
-        );
     }, []);
 
     return (

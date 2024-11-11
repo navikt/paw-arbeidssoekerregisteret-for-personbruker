@@ -9,6 +9,7 @@ import { loggAktivitet } from '@/lib/amplitude';
 export interface Props {
     besvarelse: Bekreftelse;
     sprak: Sprak;
+    registrerArbeidssokerUrl: string;
 }
 
 const TEKSTER = {
@@ -73,15 +74,11 @@ const OenskerAaVaereRegistrert = (props: Props) => {
 };
 
 const OenskerIkkeAaVaereRegistrert = (props: Props) => {
-    const { sprak, besvarelse } = props;
+    const { sprak, besvarelse, registrerArbeidssokerUrl } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const onClick = () => {
         loggAktivitet({ aktivitet: 'Trykker på "Jeg ønsker å registrere meg på nytt" fra bekreftelse' });
-        console.log(
-            'process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!',
-            process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!,
-        );
-        document.location.href = process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!
+        document.location.href = registrerArbeidssokerUrl;
     };
 
     return (

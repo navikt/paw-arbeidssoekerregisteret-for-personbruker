@@ -20,6 +20,7 @@ export interface BekreftelseProps {
     tilgjengeligeBekreftelser?: TilgjengeligeBekreftelser;
     erAktivArbeidssoker: boolean;
     onSubmit(data: BekreftelseSkjemaType): Promise<void>;
+    registrerArbeidssokerUrl: string;
 }
 
 const TEKSTER = {
@@ -29,7 +30,7 @@ const TEKSTER = {
 };
 
 function Bekreftelse(props: BekreftelseProps) {
-    const { sprak, onSubmit, erAktivArbeidssoker } = props;
+    const { sprak, onSubmit, erAktivArbeidssoker, registrerArbeidssokerUrl } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const [visKvittering, settVisKvittering] = useState<boolean>(false);
     const [sisteBekreftlse, settSisteBekreftlse] = useState<BekreftelseSkjemaType>();
@@ -71,7 +72,7 @@ function Bekreftelse(props: BekreftelseProps) {
     }, []);
 
     if (!erAktivArbeidssoker) {
-        return <IkkeAktivArbeidssoker sprak={sprak} />;
+        return <IkkeAktivArbeidssoker sprak={sprak} registrerArbeidssokerUrl={registrerArbeidssokerUrl}/>;
     }
 
     return (
@@ -83,6 +84,7 @@ function Bekreftelse(props: BekreftelseProps) {
                 <BekreftelseBesvart
                     besvarelse={props.sistInnsendteBekreftelse}
                     sprak={sprak}
+                    registrerArbeidssokerUrl={registrerArbeidssokerUrl}
                 />
             )}
             {harTilgjengeligeBekreftelser && !visKvittering && (
