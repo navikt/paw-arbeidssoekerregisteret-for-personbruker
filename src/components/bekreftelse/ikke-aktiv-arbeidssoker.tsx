@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, Heading } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useEffect } from 'react';
