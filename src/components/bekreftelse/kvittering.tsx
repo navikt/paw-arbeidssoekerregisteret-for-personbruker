@@ -11,10 +11,12 @@ export interface Props {
 
 const TEKSTER = {
     nb: {
+        headingUtmeldt: 'Du er ikke lenger registrert som arbeidssøker',
+        heading: 'Du har bekreftet at du fortsatt vil være registrert som arbeidssøker',
         alertHeading: 'Vi har registrert svaret ditt',
-        alertBody: 'Du har bekreftet status som arbeidssøker hos NAV.',
-        alertHeadingUtmeldt: 'Du er ikke lenger registrert som arbeidssøker',
-        alertBodyUtmeldt: 'Hvis du ønsker å endre dette må du registrere deg på nytt',
+        alertBody: 'Du har bekreftet status som arbeidssøker hos Nav.',
+        alertHeadingUtmeldt: 'Fra og med idag vil du ikke lenger være registrert som arbeidssøker',
+        alertBodyUtmeldt: 'Hvis du vil være arbeidssøker igjen må du registrere deg på nytt.',
         linkText: 'Gå tilbake til min side',
         buttonText: 'Bekreft neste periode',
     },
@@ -31,15 +33,21 @@ const Kvittering = (props: Props) => {
     return (
         <>
             {erUtmeldt ? (
-                <Alert variant={'info'} className={'mb-4'}>
-                    <Heading size={'xsmall'}>{tekst('alertHeadingUtmeldt')}</Heading>
-                    <BodyLong>{tekst('alertBodyUtmeldt')}</BodyLong>
-                </Alert>
+                <>
+                    <Heading size={'xlarge'} level={'1'} className={'mb-4'}>{tekst('headingUtmeldt')}</Heading>
+                    <Alert variant={'warning'} className={'mb-4'}>
+                        <Heading size={'xsmall'}>{tekst('alertHeadingUtmeldt')}</Heading>
+                        <BodyLong>{tekst('alertBodyUtmeldt')}</BodyLong>
+                    </Alert>
+                </>
             ) : (
-                <Alert variant={'success'} className={'mb-4'}>
-                    <Heading size={'xsmall'}>{tekst('alertHeading')}</Heading>
-                    <BodyLong>{tekst('alertBody')}</BodyLong>
-                </Alert>
+                <>
+                    <Heading size={'xlarge'} level={'1'} className={'mb-4'}>{tekst('heading')}</Heading>
+                    <Alert variant={'success'} className={'mb-4'}>
+                        <Heading size={'xsmall'}>{tekst('alertHeading')}</Heading>
+                        <BodyLong>{tekst('alertBody')}</BodyLong>
+                    </Alert>
+                </>
             )}
             {harFlereBekreftelser ? (
                 <Button variant={'secondary'} onClick={onClick}>

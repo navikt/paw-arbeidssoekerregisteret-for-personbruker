@@ -33,7 +33,7 @@ const monthNames = {
     ],
 };
 
-const prettyPringDato = (dato: string, locale?: Sprak) => {
+const prettyPrintDato = (dato: string, locale?: Sprak) => {
     const now = new Date();
     const date = new Date(dato);
     const thisYear = now.getFullYear();
@@ -58,4 +58,4 @@ function formaterDato(
     return dateString ? new Intl.DateTimeFormat('nb', options).format(new Date(dateString)) : 'Ingen tidspunkt funnet';
 }
 
-export { prettyPringDato, formaterDato };
+export { prettyPrintDato, formaterDato };

@@ -1,7 +1,6 @@
 'use client';
 
-import { Heading } from '@navikt/ds-react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { Bekreftelse as InnsendtBekreftelse, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BekreftelseSkjema } from './bekreftelse-skjema';
 import { useEffect, useState } from 'react';
 import { BekreftelseBesvart } from './bekreftelse-besvart';
@@ -11,7 +10,6 @@ import { IkkeAktivArbeidssoker } from './ikke-aktiv-arbeidssoker';
 import { loggAktivitet, loggVisning } from '@/lib/amplitude';
 import { BekreftelseSkjemaType, TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
 import { useRouter } from 'next/navigation';
-import { Bekreftelse as InnsendtBekreftelse } from '@navikt/arbeidssokerregisteret-utils';
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 
 export interface BekreftelseProps {
@@ -23,15 +21,8 @@ export interface BekreftelseProps {
     registrerArbeidssokerUrl: string;
 }
 
-const TEKSTER = {
-    nb: {
-        heading: 'Bekreft at du fortsatt ønsker å være registrert som arbeidssøker',
-    },
-};
-
 function Bekreftelse(props: BekreftelseProps) {
     const { sprak, onSubmit, erAktivArbeidssoker, registrerArbeidssokerUrl } = props;
-    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const [visKvittering, settVisKvittering] = useState<boolean>(false);
     const [sisteBekreftlse, settSisteBekreftlse] = useState<BekreftelseSkjemaType>();
     const [tilgjengeligeBekreftelser, settTilgjengeligeBekreftelser] = useState<TilgjengeligeBekreftelser>(
@@ -72,14 +63,11 @@ function Bekreftelse(props: BekreftelseProps) {
     }, []);
 
     if (!erAktivArbeidssoker) {
-        return <IkkeAktivArbeidssoker sprak={sprak} registrerArbeidssokerUrl={registrerArbeidssokerUrl}/>;
+        return <IkkeAktivArbeidssoker sprak={sprak} registrerArbeidssokerUrl={registrerArbeidssokerUrl} />;
     }
 
     return (
         <div className={'py-4'}>
-            <Heading level="1" size="medium" className={'mb-6'}>
-                {tekst('heading')}
-            </Heading>
             {props.sistInnsendteBekreftelse && !harTilgjengeligeBekreftelser && !visKvittering && (
                 <BekreftelseBesvart
                     besvarelse={props.sistInnsendteBekreftelse}

@@ -1,12 +1,12 @@
 'use client';
 
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Button, Radio, RadioGroup } from '@navikt/ds-react';
+import { Button, Heading, Radio, RadioGroup } from '@navikt/ds-react';
 import InfoTekst from './info-tekst';
 import { useEffect, useState } from 'react';
 import { BekreftelseSkjemaType, TilgjengeligBekreftelse } from '../../../types/bekreftelse';
 import { BekreftAvsluttPeriode } from '@/components/bekreftelse/bekreft-avslutt-periode';
-import {prettyPringDato} from '@/lib/date-utils';
+import {prettyPrintDato} from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/amplitude';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
 
@@ -26,6 +26,7 @@ export interface Props {
 
 const TEKSTER = {
     nb: {
+        heading: 'Bekreft at du vil være registrert som arbeidssøker',
         beenWorking: 'Har du vært i arbeid i perioden ',
         yes: 'Ja',
         no: 'Nei',
@@ -98,10 +99,11 @@ const BekreftelseSkjema = (props: Props) => {
         );
     }
 
-    const periode = `${prettyPringDato(gjelderFra)} - ${prettyPringDato(gjelderTil)}`;
+    const periode = `${prettyPrintDato(gjelderFra)} - ${prettyPrintDato(gjelderTil)}`;
 
     return (
         <>
+            <Heading level={'1'} size={'xlarge'} className={'mb-6'}>{tekst('heading')}</Heading>
             <InfoTekst sprak={sprak} />
             <RadioGroup
                 legend={`${tekst('beenWorking')} ${periode}?`}

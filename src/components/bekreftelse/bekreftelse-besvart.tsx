@@ -2,8 +2,7 @@
 
 import { Bekreftelse, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BodyShort, Button, Heading, List } from '@navikt/ds-react';
-import InfoTekst from './info-tekst';
-import { formaterDato, prettyPringDato } from '@/lib/date-utils';
+import { formaterDato, prettyPrintDato } from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/amplitude';
 
 export interface Props {
@@ -14,7 +13,8 @@ export interface Props {
 
 const TEKSTER = {
     nb: {
-        heading: 'Har du vært i arbeid i perioden',
+        heading: 'Du har bekreftet at du fortsatt ønsker å være registrert som arbeidssøker',
+        headingUtmeldt: 'Du er ikke lenger registrert som arbeidssøker',
         svarteDu: 'svarte du at:',
         vaertIArbeid: 'du har vært i arbeid foregående 14 dager',
         ikkeVaertIArbeid: 'du ikke har vært i arbeid foregående 14 dager',
@@ -49,9 +49,6 @@ const BesvarelseInfo = (props: { sprak: Sprak; besvarelse: Props['besvarelse']; 
     );
 };
 
-const getPeriode = (besvarelse: Bekreftelse) => {
-    return `${prettyPringDato(besvarelse.svar.gjelderFra)} - ${prettyPringDato(besvarelse.svar.gjelderTil)}`;
-};
 const getInnsendtDato = (besvarelse: Bekreftelse) => {
     return formaterDato(besvarelse.svar.sendtInnAv.tidspunkt);
 };
@@ -62,9 +59,8 @@ const OenskerAaVaereRegistrert = (props: Props) => {
 
     return (
         <>
-            <InfoTekst sprak={sprak} />
-            <Heading size={'xsmall'} className={'mb-4'}>
-                {tekst('heading')} <span className={'text-nowrap'}>{getPeriode(besvarelse)}?</span>
+            <Heading size={'xlarge'} level={'1'} className={'mb-4'}>
+                {tekst('heading')}
             </Heading>
             <div className={'px-4'}>
                 <BesvarelseInfo sprak={sprak} besvarelse={besvarelse} innsendtDato={getInnsendtDato(besvarelse)} />
@@ -83,8 +79,8 @@ const OenskerIkkeAaVaereRegistrert = (props: Props) => {
 
     return (
         <>
-            <Heading size={'xsmall'} className={'mb-4'}>
-                {tekst('heading')} <span className={'text-nowrap'}>{getPeriode(besvarelse)}</span>?
+            <Heading size={'xlarge'} level={'1'} className={'mb-4'}>
+                {tekst('headingUtmeldt')}
             </Heading>
             <div className={'px-4'}>
                 <BesvarelseInfo sprak={sprak} besvarelse={besvarelse} innsendtDato={getInnsendtDato(besvarelse)} />

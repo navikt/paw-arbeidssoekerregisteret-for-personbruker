@@ -6,7 +6,7 @@ import {
     Sprak,
 } from '@navikt/arbeidssokerregisteret-utils';
 
-import { prettyPringDato } from '@/lib/date-utils';
+import { prettyPrintDato } from '@/lib/date-utils';
 
 interface PeriodeInfoProps {
     arbeidssoekerperioder: ArbeidssokerperioderResponse;
@@ -45,13 +45,13 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
             {harAktivPeriode ? (
                 <>
                     {tekst('registreringsDato')}
-                    {prettyPringDato(opprettetDato)}
+                    {prettyPrintDato(opprettetDato)}
                 </>
             ) : (
                 <>
                     {tekst('varRegistrert')}
-                    {prettyPringDato(opprettetDato)} {tekst('til')}
-                    {periode.avsluttet && prettyPringDato(periode.avsluttet.tidspunkt)}
+                    {prettyPrintDato(opprettetDato)} {tekst('til')}
+                    {periode.avsluttet && prettyPrintDato(periode.avsluttet.tidspunkt)}
                 </>
             )}
         </div>
