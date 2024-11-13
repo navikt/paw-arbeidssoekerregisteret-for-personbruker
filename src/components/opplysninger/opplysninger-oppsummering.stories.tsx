@@ -22,5 +22,6 @@ export const OpplysningerOmArbeidssoker: Story = {
         sprak: 'nb',
         behovsvurdering: behovsvurderingMockData,
         harAktivPeriode: arbeidssokerperioderMock[0].avsluttet === null,
+        oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!
     },
 };
