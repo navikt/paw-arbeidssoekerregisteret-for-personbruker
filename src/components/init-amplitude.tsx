@@ -9,7 +9,6 @@ interface Props {
 
 const InitAmplitude = ({ apiKey }: Props) => {
     useEffect(() => {
-        console.log('Init amplitude');
         initAmplitude(apiKey);
     }, [apiKey]);
 

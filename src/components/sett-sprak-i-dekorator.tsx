@@ -18,8 +18,6 @@ const SettSprakIDekorator = ({ sprak }: { sprak: Sprak }) => {
 
         const slug = rest.join("/");
         const sprakUrl = language.locale === 'nb' ? '' : `/${language.locale}`;
-        console.log('language?', language);
-        console.log('ny URL', `${sprakUrl}/${slug}`);
 
         router.push(`${sprakUrl}/${slug}`);
     });
