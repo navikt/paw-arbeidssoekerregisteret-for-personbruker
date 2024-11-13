@@ -16,6 +16,7 @@ type Props = {
     sprak: Sprak;
     behovsvurdering: BehovsvurderingResponse;
     harAktivPeriode: boolean;
+    oppdaterOpplysningerUrl: string;
 };
 
 type OpplysningProps = { sporsmal: string; svar: Svar | string };
@@ -66,7 +67,7 @@ function mapOpplysninger(opplysninger: OpplysningerOmArbeidssoker, sprak: Sprak)
 }
 
 const OpplysningerOppsummering = (props: Props) => {
-    const { opplysninger, sprak } = props;
+    const { opplysninger, sprak, oppdaterOpplysningerUrl } = props;
     const besvarelser = mapOpplysninger(opplysninger, sprak);
     const tekst = lagHentTekstForSprak(SPORSMAL_TEKSTER, props.sprak);
 
@@ -74,7 +75,7 @@ const OpplysningerOppsummering = (props: Props) => {
         <FormSummary>
             <FormSummary.Header>
                 <FormSummary.Heading level="2">Opplysninger fra registrering</FormSummary.Heading>
-                <FormSummary.EditLink href={process.env.OPPDATER_OPPLYSNINGER_URL} />
+                <FormSummary.EditLink href={oppdaterOpplysningerUrl} />
             </FormSummary.Header>
             <FormSummary.Answers>
             {besvarelser.map((besvarelse, idx) => {

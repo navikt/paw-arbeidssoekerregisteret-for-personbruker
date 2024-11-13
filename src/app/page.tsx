@@ -59,6 +59,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                         sprak={sprak}
                         behovsvurdering={behovsvurdering}
                         harAktivPeriode={harAktivPeriode}
+                        oppdaterOpplysningerUrl={process.env.OPPDATER_OPPLYSNINGER_URL!}
                     />
                 </div>
             )}
