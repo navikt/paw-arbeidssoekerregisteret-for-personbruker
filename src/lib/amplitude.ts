@@ -4,8 +4,6 @@ import * as amplitude from '@amplitude/analytics-browser';
 
 const apiEndpoint = 'https://amplitude.nav.no/collect';
 
-// const AMPLITUDE_API_KEY_PROD = '913768927b84cde5eac0d0d18c737561';
-
 const config = {
     saveEvents: false,
     includeUtm: true,
