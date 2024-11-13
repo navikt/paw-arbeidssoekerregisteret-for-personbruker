@@ -25,7 +25,7 @@ export const BekreftelseBesvartStory: Story = {
             },
         } as any,
         sprak: 'nb',
-        registrerArbeidssokerUrl: process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!
+        registrerArbeidssokerUrl: process.env.REGISTRER_ARBEIDSSOKER_URL!
     },
 };
 
@@ -43,6 +43,6 @@ export const BekreftelseUtmeldtStory: Story = {
             },
         } as any,
         sprak: 'nb',
-        registrerArbeidssokerUrl: process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!
+        registrerArbeidssokerUrl: process.env.REGISTRER_ARBEIDSSOKER_URL!
     },
 };

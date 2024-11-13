@@ -26,7 +26,7 @@ async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
             erAktivArbeidssoker={erAktivArbeidssoker}
             tilgjengeligeBekreftelser={tilgjengeligeBekreftelser}
             sistInnsendteBekreftelse={sistInnsendteBekreftelse}
-            registrerArbeidssokerUrl={process.env.NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL!}
+            registrerArbeidssokerUrl={process.env.REGISTRER_ARBEIDSSOKER_URL!}
         />
     );
 }

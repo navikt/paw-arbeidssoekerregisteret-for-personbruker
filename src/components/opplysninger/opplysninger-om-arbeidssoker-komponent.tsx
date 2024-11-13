@@ -103,7 +103,7 @@ function OpplysningerOmArbeidssokerKomponent(props: Props) {
                     <BodyShort>
                         {tekst('opplysningerText1')}
                                 <Link
-                                    href={process.env.NEXT_PUBLIC_OPPDATER_OPPLYSNINGER_URL}
+                                    href={process.env.OPPDATER_OPPLYSNINGER_URL}
                                     variant="action"
                                     onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Endre opplysninger"' })}
                                 >

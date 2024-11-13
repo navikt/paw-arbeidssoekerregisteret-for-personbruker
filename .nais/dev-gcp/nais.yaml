@@ -38,8 +38,6 @@ spec:
           value: dev
         - name: NEXT_PUBLIC_BASE_PATH
           value: /arbeidssoekerregisteret
-        - name: NEXT_PUBLIC_SELF_URL
-          value: https://www.ansatt.dev.nav.no/arbeidssoekerregisteret
         - name: NEXT_PUBLIC_ASSET_PREFIX
           value: https://cdn.nav.no/paw/arbeidssoekerregisteret
         - name: BEKREFTELSE_API_URL
@@ -48,13 +46,11 @@ spec:
           value: http://paw-arbeidssoekerregisteret-api-oppslag
         - name: AIA_BACKEND_URL
           value: http://aia-backend/aia-backend
-        - name: NEXT_PUBLIC_MIN_SIDE_URL
-          value: https://www.ansatt.dev.nav.no/minside
-        - name: NEXT_PUBLIC_REGISTRER_ARBEIDSSOKER_URL
+        - name: REGISTRER_ARBEIDSSOKER_URL
           value: https://www.ansatt.dev.nav.no/arbeid/registrering
-        - name: NEXT_PUBLIC_OPPDATER_OPPLYSNINGER_URL
+        - name: OPPDATER_OPPLYSNINGER_URL
           value: https://www.ansatt.dev.nav.no/arbeid/registrering/oppdater-opplysninger
-        - name: NEXT_PUBLIC_AMPLITUDE_API_KEY
+        - name: AMPLITUDE_API_KEY
           value: 9845ded64c69cd068651cd0d968e0796
     envFrom:
         - secret: arbeidssoekerregisteret-for-personbruker-unleash-api-token

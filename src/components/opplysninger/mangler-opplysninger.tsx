@@ -20,7 +20,7 @@ const ManglerOpplysninger = (props: ManglerOpplysningerProps) => {
         <Box>
             <BodyShort>{tekst('header')}</BodyShort>
             <Link
-                href={process.env.NEXT_PUBLIC_OPPDATER_OPPLYSNINGER_URL}
+                href={process.env.OPPDATER_OPPLYSNINGER_URL}
                 onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Legg til opplysninger"' })}
             >
                 {tekst('linkText')}

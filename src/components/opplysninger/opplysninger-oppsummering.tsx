@@ -74,7 +74,7 @@ const OpplysningerOppsummering = (props: Props) => {
         <FormSummary>
             <FormSummary.Header>
                 <FormSummary.Heading level="2">Opplysninger fra registrering</FormSummary.Heading>
-                <FormSummary.EditLink href={process.env.NEXT_PUBLIC_OPPDATER_OPPLYSNINGER_URL} />
+                <FormSummary.EditLink href={process.env.OPPDATER_OPPLYSNINGER_URL} />
             </FormSummary.Header>
             <FormSummary.Answers>
             {besvarelser.map((besvarelse, idx) => {

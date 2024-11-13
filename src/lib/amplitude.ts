@@ -17,9 +17,9 @@ const config = {
 };
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
-export const initAmplitude = async () => {
+export const initAmplitude = async (apiKey: string) => {
     if (!brukerMock) {
-        amplitude.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY!, undefined, { ...config, serverUrl: apiEndpoint });
+        amplitude.init(apiKey, undefined, { ...config, serverUrl: apiEndpoint });
     } else {
         console.info('Initialiserer amplitude');
     }
