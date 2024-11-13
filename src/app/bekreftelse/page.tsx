@@ -36,7 +36,7 @@ export default async function BekreftelsePage({ params }: NextPageProps) {
     const sprakUrl = sprak === 'nb' ? '' : `/${sprak}`;
 
     return (
-        <div className={'flex flex-col items-center py-8'}>
+        <div className={'flex flex-col max-w-3xl mx-auto py-8'}>
             <SettSprakIDekorator sprak={sprak} />
             <Breadcrumbs
                 breadcrumbs={[

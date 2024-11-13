@@ -83,7 +83,7 @@ export default function Home({ params }: NextPageProps) {
     const sprakUrl = sprak === 'nb' ? '' : `/${sprak}`;
 
     return (
-        <main className="flex flex-col items-center px-4">
+        <main className="flex flex-col max-w-3xl mx-auto px-4">
             <SettSprakIDekorator sprak={sprak} />
             <Breadcrumbs
                 breadcrumbs={[

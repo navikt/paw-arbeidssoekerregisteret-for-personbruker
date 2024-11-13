@@ -52,7 +52,7 @@ const RegistrertTittel = (props: Props) => {
     const erPermittert = harPermittertSituasjon(opplysningerOmArbeidssoeker);
 
     return (
-        <Heading level={'1'} size={'medium'}>
+        <Heading level={'1'} size={'xlarge'}>
             {tekst(hentTekstNokkel(harAktivArbeidssokerperiode, erPermittert, harIkkeHattArbeidssoekerperiode))}
         </Heading>
     );
