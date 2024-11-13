@@ -28,6 +28,7 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
     const { arbeidssoekerperioder, sprak, bekreftelser } = props;
     const periode = hentSisteArbeidssokerPeriode(arbeidssoekerperioder);
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const bekreftet = bekreftelser[0]
 
     if (!periode.startet) {
         return (
@@ -39,13 +40,18 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
 
     const harAktivPeriode = !Boolean(periode.avsluttet);
     const opprettetDato = periode && periode.startet?.tidspunkt;
+    const harBekreftet = Boolean(bekreftet)
+    const bekreftetDato = bekreftet && bekreftet?.svar?.sendtInnAv?.tidspunkt 
 
     return (
-        <div className={'flex items-center flex-wrap mb-4'}>
+        <div className={'flex flex-wrap mb-4'}>
             {harAktivPeriode ? (
                 <>
                     {tekst('registreringsDato')}
                     {prettyPrintDato(opprettetDato)}
+                    {harBekreftet && (<>
+                        <br/>{tekst('sistBekreftetDato')} {prettyPrintDato(bekreftetDato)}
+                    </>)}
                 </>
             ) : (
                 <>

@@ -36,7 +36,7 @@ export const Registrert: Story = {
   args: {
     sprak: 'nb',
     arbeidssoekerperioder: arbeidssoekerperioder as any,
-    bekreftelser: [] as any
+    bekreftelser: bekreftelser as any
   },
 };
 
@@ -44,7 +44,7 @@ export const IkkeLengerRegistrert: Story = {
   args: {
     sprak: 'nb',
     arbeidssoekerperioder: avsluttetPeriode as any,
-    bekreftelser: [] as any
+    bekreftelser: bekreftelser as any
   },
 };
 
