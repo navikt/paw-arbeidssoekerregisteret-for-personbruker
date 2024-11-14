@@ -2,13 +2,13 @@ import { Alert, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
-import { fetchSisteSamletInformasjon } from '@/app/actions';
+import { fetchSamletInformasjon } from '@/app/actions';
 import { NextPageProps } from '../../../types/next';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 
 async function HistorikkServerComponent({ sprak }: { sprak: Sprak }) {
-    const { data: samletInformasjon, error: informasjonError } = await fetchSisteSamletInformasjon();
+    const { data: samletInformasjon, error: informasjonError } = await fetchSamletInformasjon({});
 
     if (informasjonError) {
         return <Alert variant={'error'}>Noe gikk dessverre galt ved henting av historikk</Alert>;

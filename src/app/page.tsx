@@ -2,7 +2,7 @@ import { Alert, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
-import { fetchBehovsvurdering, fetchSisteSamletInformasjon } from '@/app/actions';
+import { fetchBehovsvurdering, fetchSamletInformasjon } from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
 import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengelig-bekreftelse-link';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
@@ -18,7 +18,7 @@ interface Props {
 }
 
 async function SamletInformasjonServerComponent({ sprak }: Props) {
-    const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSisteSamletInformasjon();
+    const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSamletInformasjon({visKunSisteInformasjon: true});
     const { data: behovsvurdering, error: errorBehovsvurdering } = await fetchBehovsvurdering();
     const opplysninger = sisteSamletInformasjon?.opplysningerOmArbeidssoeker[0];
     const harAktivPeriode = sisteSamletInformasjon?.arbeidssoekerperioder[0]?.avsluttet === null;

@@ -2,7 +2,7 @@ import { Alert, Loader } from '@navikt/ds-react';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { Suspense } from 'react';
 import BekreftelseWrapper from '@/components/bekreftelse/bekreftelse-wrapper';
-import { fetchSisteSamletInformasjon } from '@/app/actions';
+import { fetchSamletInformasjon } from '@/app/actions';
 import { hentSisteArbeidssokerPeriode, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { NextPageProps } from '../../../types/next';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
@@ -10,7 +10,7 @@ import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 
 async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
     const { data: tilgjengeligeBekreftelser, error } = await fetchTilgjengeligeBekreftelser();
-    const { data: samletInformasjon, error: informasjonError } = await fetchSisteSamletInformasjon();
+    const { data: samletInformasjon, error: informasjonError } = await fetchSamletInformasjon({ visKunSisteInformasjon: true });
 
     if (error || informasjonError) {
         return <Alert variant={'error'}>Noe gikk dessverre galt</Alert>;

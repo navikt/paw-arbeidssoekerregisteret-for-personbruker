@@ -25,7 +25,11 @@ async function getTokenXToken(idPortenToken: string) {
     return oboToken.token;
 }
 
-async function fetchSisteSamletInformasjon(): Promise<{
+interface SamletInformasjonProps {
+    visKunSisteInformasjon?: boolean
+}
+
+async function fetchSamletInformasjon(props: SamletInformasjonProps): Promise<{
     data?: SamletInformasjon;
     error?: Error & { traceId?: string; data?: any };
 }> {
@@ -34,8 +38,8 @@ async function fetchSisteSamletInformasjon(): Promise<{
             data: samletInformasjonMockData as SamletInformasjon,
         });
     }
-
-    const SISTE_SAMLET_INFORMASJON_URL = `${process.env.ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL}/api/v1/samlet-informasjon?siste=true`;
+    const { visKunSisteInformasjon } = props
+    const SISTE_SAMLET_INFORMASJON_URL = `${process.env.ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL}/api/v1/samlet-informasjon${visKunSisteInformasjon ? '?siste=true' : ''}`;
     try {
         const reqHeaders = headers();
         const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!));
@@ -123,4 +127,4 @@ async function fetchBehovsvurdering(): Promise<{
     }
 }
 
-export { fetchSisteSamletInformasjon, fetchBehovsvurdering };
+export { fetchSamletInformasjon, fetchBehovsvurdering };
