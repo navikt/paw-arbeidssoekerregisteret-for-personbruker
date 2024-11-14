@@ -15,7 +15,6 @@ interface Props {
 const TEKSTER = {
     nb: {
         title: 'Bekreft at du fortsatt vil være arbeidssøker',
-        description: 'For å fortsatt være registrert som arbeidssøker hos Nav, må du bekrefte det her',
     },
 };
 
@@ -35,9 +34,13 @@ const TilgjengeligBekreftelseLink = (props: Props) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <LinkPanel href={tilSprakAvhengigAppPath('/bekreftelse', sprak)} onClick={onClick} as={NextLink}>
+        <LinkPanel
+            style={{ background: 'var(--a-surface-warning-subtle)' }}
+            href={tilSprakAvhengigAppPath('/bekreftelse', sprak)}
+            onClick={onClick}
+            as={NextLink}
+        >
             <LinkPanel.Title>{tekst('title')}</LinkPanel.Title>
-            <LinkPanel.Description>{tekst('description')}</LinkPanel.Description>
         </LinkPanel>
     );
 };
