@@ -74,7 +74,6 @@ spec:
             external:
                 - host: paw-unleash-api.nav.cloud.nais.io
             rules:
-                - application: paw-arbeidssokerregisteret-api-inngang
                 - application: paw-arbeidssoekerregisteret-api-oppslag
                 - application: paw-arbeidssoekerregisteret-api-bekreftelse
                 - application: aia-backend
