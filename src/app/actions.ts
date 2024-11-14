@@ -4,10 +4,11 @@ import { requestTokenxOboToken } from '@navikt/oasis';
 import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
-import { v4 as uuidv4 } from 'uuid';
-import { behovsvurderingMockData, samletInformasjonMockData } from './mockdata';
-import { BehovsvurderingResponse } from '../../types/behovsvurdering';
 import { SamletInformasjon } from '@navikt/arbeidssokerregisteret-utils';
+import { v4 as uuidv4 } from 'uuid';
+
+import { behovsvurderingMockData, samletInformasjonMockData, sisteSamletInformasjonMockData } from './mockdata';
+import { BehovsvurderingResponse } from '../../types/behovsvurdering';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -34,8 +35,9 @@ async function fetchSamletInformasjon(props: SamletInformasjonProps): Promise<{
     error?: Error & { traceId?: string; data?: any };
 }> {
     if (brukerMock) {
+        const infoData = props.visKunSisteInformasjon ? sisteSamletInformasjonMockData : samletInformasjonMockData
         return Promise.resolve({
-            data: samletInformasjonMockData as SamletInformasjon,
+            data:  infoData as SamletInformasjon,
         });
     }
     const { visKunSisteInformasjon } = props
