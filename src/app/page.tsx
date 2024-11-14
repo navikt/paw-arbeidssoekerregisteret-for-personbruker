@@ -18,7 +18,9 @@ interface Props {
 }
 
 async function SamletInformasjonServerComponent({ sprak }: Props) {
-    const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSamletInformasjon({visKunSisteInformasjon: true});
+    const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSamletInformasjon({
+        visKunSisteInformasjon: true,
+    });
     const { data: behovsvurdering, error: errorBehovsvurdering } = await fetchBehovsvurdering();
     const opplysninger = sisteSamletInformasjon?.opplysningerOmArbeidssoeker[0];
     const harAktivPeriode = sisteSamletInformasjon?.arbeidssoekerperioder[0]?.avsluttet === null;
@@ -63,7 +65,12 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                     />
                 </div>
             )}
-            {!harAktivPeriode && <RegistrerArbeidssoker className={'my-6'} />}
+            {!harAktivPeriode && (
+                <RegistrerArbeidssoker
+                    className={'my-6'}
+                    registrerArbeidssokerUrl={process.env.REGISTRER_ARBEIDSSOKER_URL!}
+                />
+            )}
         </>
     );
 }
