@@ -39,7 +39,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
     if (errorBehovsvurdering) {
         return (
             <>
-                <Alert variant={'error'}>Noe gikk dessverre galt ved henting av siste samlede informasjon</Alert>
+                <Alert variant={'error'}>Noe gikk dessverre galt ved henting av behovsvurdering</Alert>
                 <div>{errorBehovsvurdering?.data}</div>
                 <div>{errorBehovsvurdering?.message}</div>
                 <div>{errorBehovsvurdering?.traceId}</div>
