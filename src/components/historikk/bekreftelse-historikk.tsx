@@ -18,7 +18,7 @@ export function BekreftelseHistorikk (props: {bekreftelser: Bekreftelse[]}) {
     <Table>
       <Table.Header>
         <Table.Row>
-          {/* <Table.HeaderCell scope="col">Periode</Table.HeaderCell> */}
+          <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
           <Table.HeaderCell scope="col">Innsendt dato</Table.HeaderCell>
           <Table.HeaderCell scope="col">Innsendt av</Table.HeaderCell>
           <Table.HeaderCell scope="col">Jobbet i perioden</Table.HeaderCell>
@@ -29,7 +29,7 @@ export function BekreftelseHistorikk (props: {bekreftelser: Bekreftelse[]}) {
           {bekreftelser.map(({periodeId, svar}, i) => {
             return (
               <Table.Row key={i + periodeId}>
-                {/* <Table.HeaderCell scope="row">{prettyPrintDato(svar.gjelderFra)} - {prettyPrintDato(svar.gjelderTil)}</Table.HeaderCell> */}
+                <Table.HeaderCell scope="row">{prettyPrintDato(svar.gjelderFra)} - {prettyPrintDato(svar.gjelderTil)}</Table.HeaderCell>
                 <Table.DataCell>{prettyPrintDato(svar.sendtInnAv.tidspunkt)}</Table.DataCell>
                 <Table.DataCell>{svar.sendtInnAv.utfoertAv.type}</Table.DataCell>
                 <Table.DataCell>{svar.harJobbetIDennePerioden ? 'Ja' : 'Nei'}</Table.DataCell>
