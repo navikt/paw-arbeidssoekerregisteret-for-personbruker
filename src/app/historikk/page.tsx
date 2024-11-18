@@ -1,4 +1,4 @@
-import { Alert, Loader, Heading } from '@navikt/ds-react';
+import { Alert, Heading, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 import { SamletInformasjon, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
@@ -11,16 +11,24 @@ import { HistorikkWrapper } from '@/components/historikk/historikk-wrapper';
 
 async function HistorikkServerComponent({ sprak }: { sprak: Sprak }) {
     const { data: samletInformasjon, error: informasjonError } = await fetchSamletInformasjon({});
-    const repakket = byggSamletInformasjon(samletInformasjon as SamletInformasjon)
+    const repakket = byggSamletInformasjon(samletInformasjon as SamletInformasjon);
 
     if (informasjonError) {
         return <Alert variant={'error'}>Noe gikk dessverre galt ved henting av historikk</Alert>;
     }
 
     return (
-      <div className={'flex flex-col max-w-3xl mx-auto py-8'}>
-          {repakket.map(periode => (<HistorikkWrapper key={periode.periodeId} {...periode} />))}
-      </div>
+        <div className={'flex flex-col max-w-3xl mx-auto'}>
+            {repakket.map((periode, index) => (
+                <div
+                    className={'p-4'}
+                    key={periode.periodeId}
+                    style={{ background: index % 2 !== 0 ? 'var(--a-surface-subtle)' : undefined }}
+                >
+                    <HistorikkWrapper {...periode} />
+                </div>
+            ))}
+        </div>
     );
 }
 
@@ -42,13 +50,13 @@ export default async function HistorikkPage({ params }: NextPageProps) {
                         url: `/arbeidssoekerregisteret${sprakUrl}`,
                     },
                     {
-                      title: 'Historikk',
-                      url: `${sprakUrl}/historikk`,
-                  },
+                        title: 'Historikk',
+                        url: `${sprakUrl}/historikk`,
+                    },
                 ]}
             />
-            <Heading size='xlarge' level='1'>
-              Arbeidssøkerhistorikk
+            <Heading size="xlarge" level="1">
+                Arbeidssøkerhistorikk
             </Heading>
             <Suspense fallback={<Loader />}>
                 <HistorikkServerComponent sprak={sprak} />
