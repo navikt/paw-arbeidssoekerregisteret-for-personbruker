@@ -3,6 +3,7 @@ import { ArbeidssokerPeriode, Bekreftelse, OpplysningerOmArbeidssoker, Profileri
 import { Heading, BodyShort } from "@navikt/ds-react";
 
 import { BekreftelseHistorikk } from "./bekreftelse-historikk";
+import { OpplysningerHistorikk } from '@/components/historikk/opplysninger-historikk';
 
 export interface Historikk extends ArbeidssokerPeriode {
   bekreftelser: Bekreftelse[];
@@ -28,7 +29,7 @@ export function HistorikkWrapper (props: Historikk) {
         Sluttårsak: {avsluttet && avsluttet.aarsak ? avsluttet.aarsak : 'fortsatt aktiv'}
       </BodyShort>
       <BekreftelseHistorikk bekreftelser={bekreftelser} />
-      <pre>{JSON.stringify(props, null, 2)}</pre>
+      <OpplysningerHistorikk opplysningerOmArbeidssoker={opplysningerOmArbeidssoeker} sprak={'nb'} className={'mt-4'}/>
     </>
   )
 }
