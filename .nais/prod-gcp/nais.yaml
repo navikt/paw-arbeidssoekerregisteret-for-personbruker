@@ -1,0 +1,80 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+    name: arbeidssoekerregisteret-for-personbruker
+    namespace: paw
+    labels:
+        team: paw
+spec:
+    observability:
+        autoInstrumentation:
+            enabled: true
+            runtime: nodejs
+    image: {{image}}
+    port: 3000
+    liveness:
+        path: /arbeidssoekerregisteret/api/isalive
+        initialDelay: 3
+    readiness:
+        path: /arbeidssoekerregisteret/api/isready
+        initialDelay: 3
+#    prometheus:
+#        enabled: true
+#        path: /arbeidssoeker/api/prometheus
+    replicas:
+        min: 1
+        max: 3
+        cpuThresholdPercentage: 50
+    resources:
+        limits:
+            memory: 256Mi
+        requests:
+            cpu: 200m
+            memory: 256Mi
+    env:
+        - name: DEKORATOR_URL
+          value: https://dekoratoren.nav.no/
+        - name: DEKORATOR_ENV
+          value: prod
+        - name: NEXT_PUBLIC_BASE_PATH
+          value: /arbeidssoekerregisteret
+        - name: NEXT_PUBLIC_ASSET_PREFIX
+          value: https://cdn.nav.no/paw/arbeidssoekerregisteret
+        - name: BEKREFTELSE_API_URL
+          value: http://paw-arbeidssoekerregisteret-api-bekreftelse
+        - name: ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL
+          value: http://paw-arbeidssoekerregisteret-api-oppslag
+        - name: AIA_BACKEND_URL
+          value: http://aia-backend/aia-backend
+        - name: REGISTRER_ARBEIDSSOKER_URL
+          value: https://www.nav.no/arbeid/registrering
+        - name: OPPDATER_OPPLYSNINGER_URL
+          value: https://www.nav.no/arbeid/registrering/oppdater-opplysninger
+        - name: AMPLITUDE_API_KEY
+          value: 913768927b84cde5eac0d0d18c737561
+    envFrom:
+        - secret: arbeidssoekerregisteret-for-personbruker-unleash-api-token
+    ingresses:
+        - https://www.nav.no/arbeidssoekerregisteret
+    idporten:
+        enabled: true
+        sidecar:
+            autoLogin: true
+            autoLoginIgnorePaths:
+                - /arbeidssoekerregisteret/api/isalive
+                - /arbeidssoekerregisteret/api/isready
+                - /arbeidssoekerregisteret/storybook/**
+            enabled: true
+            level: Level4
+    tokenx:
+        enabled: true
+    accessPolicy:
+        outbound:
+            external:
+                - host: paw-unleash-api.nav.cloud.nais.io
+            rules:
+                - application: paw-arbeidssoekerregisteret-api-oppslag
+                - application: paw-arbeidssoekerregisteret-api-bekreftelse
+                - application: aia-backend
+                - application: nav-dekoratoren
+                  namespace: personbruker

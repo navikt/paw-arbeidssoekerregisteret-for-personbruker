@@ -106,24 +106,24 @@ jobs:
           VAR: image=${{ needs.build.outputs.image }}
           PRINT_PAYLOAD: true
 
-#  deploy-prod:
-#    name: Deploy to prod
-#    permissions:
-#      contents: "read"
-#      id-token: "write"
-#    needs: [test, build, apply-apitoken-unleash]
-#    if: github.ref == 'refs/heads/main'
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#      - name: Deploy
-#        uses: nais/deploy/actions/deploy@v2
-#        env:
-#          CLUSTER: prod-gcp
-#          RESOURCE: .nais/prod-gcp/nais.yaml
-#          VAR: image=${{ needs.build.outputs.image }}
-#          PRINT_PAYLOAD: true
+  deploy-prod:
+    name: Deploy to prod
+    permissions:
+      contents: "read"
+      id-token: "write"
+    needs: [test, build, apply-apitoken-unleash]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Deploy
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/prod-gcp/nais.yaml
+          VAR: image=${{ needs.build.outputs.image }}
+          PRINT_PAYLOAD: true
 
   apply-apitoken-unleash:
     name: Legger til ApiToken for Unleash
@@ -140,8 +140,8 @@ jobs:
         env:
           CLUSTER: dev-gcp
           RESOURCE: .nais/dev-gcp/unleash-apitoken.yaml
-#      - name: deploy to prod
-#        uses: nais/deploy/actions/deploy@v2
-#        env:
-#          CLUSTER: prod-gcp
-#          RESOURCE: .nais/prod-gcp/unleash-apitoken.yaml
+      - name: deploy to prod
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/prod-gcp/unleash-apitoken.yaml
