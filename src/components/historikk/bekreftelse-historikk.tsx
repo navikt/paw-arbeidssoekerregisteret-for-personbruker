@@ -1,7 +1,7 @@
 'use client'
 
 import { Bekreftelse } from "@navikt/arbeidssokerregisteret-utils";
-import { Heading, Table, ReadMore } from "@navikt/ds-react";
+import { Heading, Table, ReadMore, Box, BodyShort } from "@navikt/ds-react";
 
 import { prettyPrintDato } from "@/lib/date-utils";
 import { TableDataCell } from "@navikt/ds-react/Table";
@@ -16,35 +16,22 @@ function AlleBekreftelser (props: {bekreftelser: Bekreftelse[]}) {
 
   return (
     <ReadMore header="Se alle bekreftelser fra arbeidssøkerperioden">
-      <Table>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
-          <Table.HeaderCell scope="col">Innsendt dato</Table.HeaderCell>
-          <Table.HeaderCell scope="col">Innsendt av</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-          {bekreftelser.map(({periodeId, svar}, i) => {
+      {bekreftelser.map(({periodeId, svar}, i) => {
             return (
-              <>
-              <Table.Row key={i + periodeId}>
-                <Table.DataCell>{prettyPrintDato(svar.gjelderFra)} - {prettyPrintDato(svar.gjelderTil)}</Table.DataCell>
-                <Table.DataCell>{prettyPrintDato(svar.sendtInnAv.tidspunkt)}</Table.DataCell>
-                <Table.DataCell>{svar.sendtInnAv.utfoertAv.type}</Table.DataCell>
-              </Table.Row>
-              <Table.Row>
-                <TableDataCell colSpan={3}>
-                Jobbet i perioden: {svar.harJobbetIDennePerioden ? 'Ja' : 'Nei'}
-                {' '}
-                Vil fortsatt være arbeidssøker: {svar.vilFortsetteSomArbeidssoeker ? 'Ja' : 'Nei'}
-                </TableDataCell>
-              </Table.Row>
-              </>
-            )
-          })}
-      </Table.Body>
-    </Table>
+      <Box key={i + periodeId} className="mb-3">
+        <Heading size="small" level="3">
+          {prettyPrintDato(svar.gjelderFra)} - {prettyPrintDato(svar.gjelderTil)}
+        </Heading>
+        <BodyShort>
+          Innsendt {prettyPrintDato(svar.sendtInnAv.tidspunkt)} av {svar.sendtInnAv.utfoertAv.type}
+        </BodyShort>
+        <BodyShort>
+        Jobbet i perioden: {svar.harJobbetIDennePerioden ? 'Ja' : 'Nei'}
+        </BodyShort>
+        <BodyShort>
+        Vil fortsatt være arbeidssøker: {svar.vilFortsetteSomArbeidssoeker ? 'Ja' : 'Nei'}
+        </BodyShort>
+      </Box>)})}
     </ReadMore>
   )
 }
