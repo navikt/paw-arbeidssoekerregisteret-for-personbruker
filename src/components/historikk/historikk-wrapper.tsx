@@ -1,5 +1,11 @@
 import { prettyPrintDato } from "@/lib/date-utils";
-import { ArbeidssokerPeriode, Bekreftelse, OpplysningerOmArbeidssoker, Profilering } from "@navikt/arbeidssokerregisteret-utils";
+import {
+    ArbeidssokerPeriode,
+    Bekreftelse,
+    OpplysningerOmArbeidssoker,
+    Profilering,
+    Sprak
+} from '@navikt/arbeidssokerregisteret-utils';
 import { Heading, BodyShort } from "@navikt/ds-react";
 
 import { BekreftelseHistorikk } from "./bekreftelse-historikk";
@@ -8,11 +14,12 @@ import { OpplysningerHistorikk } from '@/components/historikk/opplysninger-histo
 export interface Historikk extends ArbeidssokerPeriode {
   bekreftelser: Bekreftelse[];
   opplysningerOmArbeidssoeker: OpplysningerOmArbeidssoker[];
-  profilering: Profilering[]
+  profilering: Profilering[];
+  sprak: Sprak;
 }
 
 export function HistorikkWrapper (props: Historikk) {
-  const {startet, avsluttet, bekreftelser, profilering, opplysningerOmArbeidssoeker} = props
+  const {startet, avsluttet, bekreftelser, profilering, opplysningerOmArbeidssoeker, sprak} = props
 
   return (
     <>
@@ -29,7 +36,7 @@ export function HistorikkWrapper (props: Historikk) {
         Sluttårsak: {avsluttet && avsluttet.aarsak ? avsluttet.aarsak : 'fortsatt aktiv'}
       </BodyShort>
       <BekreftelseHistorikk bekreftelser={bekreftelser} />
-      <OpplysningerHistorikk opplysningerOmArbeidssoker={opplysningerOmArbeidssoeker} sprak={'nb'} className={'mt-4'}/>
+      <OpplysningerHistorikk opplysningerOmArbeidssoker={opplysningerOmArbeidssoeker} sprak={sprak} className={'mt-4'}/>
     </>
   )
 }

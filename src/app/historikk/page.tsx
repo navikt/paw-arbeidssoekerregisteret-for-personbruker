@@ -25,7 +25,7 @@ async function HistorikkServerComponent({ sprak }: { sprak: Sprak }) {
                     key={periode.periodeId}
                     style={{ background: index % 2 !== 0 ? 'var(--a-surface-subtle)' : undefined }}
                 >
-                    <HistorikkWrapper {...periode} />
+                    <HistorikkWrapper {...periode} sprak={sprak}/>
                 </div>
             ))}
         </div>
