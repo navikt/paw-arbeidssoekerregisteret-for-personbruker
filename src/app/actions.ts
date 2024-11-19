@@ -7,8 +7,9 @@ import { headers } from 'next/headers';
 import { SamletInformasjon } from '@navikt/arbeidssokerregisteret-utils';
 import { v4 as uuidv4 } from 'uuid';
 
-import { behovsvurderingMockData, samletInformasjonMockData, sisteSamletInformasjonMockData } from './mockdata';
+import { behovsvurderingMockData, samletInformasjonMockData, sisteSamletInformasjonMockData, aggregertePerioderMockData } from './mockdata';
 import { BehovsvurderingResponse } from '../../types/behovsvurdering';
+import { AggregertePerioder } from '../../types/aggregerte-perioder'
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -85,13 +86,13 @@ interface AggregertePerioderProps {
 }
 
 async function fetchAggregertePerioder(props: AggregertePerioderProps): Promise<{
-    data?: SamletInformasjon;
+    data?: AggregertePerioder;
     error?: Error & { traceId?: string; data?: any };
 }> {
     if (brukerMock) {
-        const infoData = props.visKunSisteInformasjon ? sisteSamletInformasjonMockData : samletInformasjonMockData
+        const infoData = props.visKunSisteInformasjon ? aggregertePerioderMockData : aggregertePerioderMockData
         return Promise.resolve({
-            data:  infoData as SamletInformasjon,
+            data:  infoData as AggregertePerioder,
         });
     }
     const { visKunSisteInformasjon } = props
@@ -127,7 +128,7 @@ async function fetchAggregertePerioder(props: AggregertePerioderProps): Promise<
             return { error };
         }
 
-        return { data: (await response.json()) as SamletInformasjon };
+        return { data: (await response.json()) as AggregertePerioder };
     } catch (error: any) {
         logger.error(error, `Feil fra GET ${AGGREGERTE_PERIODER_URL}`);
         return { error };

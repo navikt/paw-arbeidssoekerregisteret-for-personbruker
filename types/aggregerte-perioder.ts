@@ -1,11 +1,11 @@
 import { ArbeidssokerPeriode, OpplysningerOmArbeidssoker, Bekreftelse, Profilering } from "@navikt/arbeidssokerregisteret-utils";
 
-interface OpplysningerMedProrilering extends OpplysningerOmArbeidssoker {
+interface OpplysningerMedProfilering extends OpplysningerOmArbeidssoker {
   profilering: Profilering
 }
 
 interface AggregertPeriode extends ArbeidssokerPeriode {
-  opplysningerOmArbeidssoeker: OpplysningerMedProrilering[];
+  opplysningerOmArbeidssoeker: OpplysningerMedProfilering[];
   bekreftelser: Bekreftelse[]
 }
 
