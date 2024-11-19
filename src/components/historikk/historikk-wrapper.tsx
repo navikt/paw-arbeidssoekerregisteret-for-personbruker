@@ -6,20 +6,18 @@ import {
     Profilering,
     Sprak
 } from '@navikt/arbeidssokerregisteret-utils';
+import { AggregertPeriode } from "../../../types/aggregerte-perioder";
 import { Heading, BodyShort } from "@navikt/ds-react";
 
 import { BekreftelseHistorikk } from "./bekreftelse-historikk";
 import { OpplysningerHistorikk } from '@/components/historikk/opplysninger-historikk';
 
-export interface Historikk extends ArbeidssokerPeriode {
-  bekreftelser: Bekreftelse[];
-  opplysningerOmArbeidssoeker: OpplysningerOmArbeidssoker[];
-  profilering: Profilering[];
+export interface Historikk extends AggregertPeriode {
   sprak: Sprak;
 }
 
 export function HistorikkWrapper (props: Historikk) {
-  const {startet, avsluttet, bekreftelser, profilering, opplysningerOmArbeidssoeker, sprak} = props
+  const {startet, avsluttet, bekreftelser, opplysningerOmArbeidssoeker, sprak} = props
 
   return (
     <>

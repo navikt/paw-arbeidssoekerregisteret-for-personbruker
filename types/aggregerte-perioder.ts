@@ -4,7 +4,7 @@ interface OpplysningerMedProfilering extends OpplysningerOmArbeidssoker {
   profilering: Profilering
 }
 
-interface AggregertPeriode extends ArbeidssokerPeriode {
+export interface AggregertPeriode extends ArbeidssokerPeriode {
   opplysningerOmArbeidssoeker: OpplysningerMedProfilering[];
   bekreftelser: Bekreftelse[]
 }
