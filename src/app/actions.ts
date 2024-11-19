@@ -80,6 +80,60 @@ async function fetchSamletInformasjon(props: SamletInformasjonProps): Promise<{
     }
 }
 
+interface AggregertePerioderProps {
+    visKunSisteInformasjon?: boolean
+}
+
+async function fetchAggregertePerioder(props: AggregertePerioderProps): Promise<{
+    data?: SamletInformasjon;
+    error?: Error & { traceId?: string; data?: any };
+}> {
+    if (brukerMock) {
+        const infoData = props.visKunSisteInformasjon ? sisteSamletInformasjonMockData : samletInformasjonMockData
+        return Promise.resolve({
+            data:  infoData as SamletInformasjon,
+        });
+    }
+    const { visKunSisteInformasjon } = props
+    const AGGREGERTE_PERIODER_URL = `${process.env.ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL}/api/v1/arbeidssoekerperioder-aggregert${visKunSisteInformasjon ? '?siste=true' : ''}`;
+    try {
+        const reqHeaders = headers();
+        const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!));
+        const traceId = uuidv4();
+        logger.info({ x_trace_id: traceId }, `Starter GET ${AGGREGERTE_PERIODER_URL}`);
+
+        const response = await fetch(AGGREGERTE_PERIODER_URL, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                accept: 'application/json',
+                'x-trace-id': traceId,
+                Authorization: `Bearer ${tokenXToken}`,
+            },
+        });
+
+        logger.info(
+            { x_trace_id: traceId },
+            `Ferdig GET ${AGGREGERTE_PERIODER_URL} ${response.status} ${response.statusText}`,
+        );
+
+        if (!response.ok) {
+            const error: any = new Error(`${response.status} ${response.statusText}`);
+            error.traceId = response.headers.get('x-trace-id');
+            try {
+                error.data = await response.json();
+            } catch (e) {}
+            logger.error(error, `Feil fra GET ${AGGREGERTE_PERIODER_URL}`);
+            return { error };
+        }
+
+        return { data: (await response.json()) as SamletInformasjon };
+    } catch (error: any) {
+        logger.error(error, `Feil fra GET ${AGGREGERTE_PERIODER_URL}`);
+        return { error };
+    }
+}
+
 async function fetchBehovsvurdering(): Promise<{
     data?: any;
     error?: Error & { traceId?: string; data?: any };
@@ -129,4 +183,4 @@ async function fetchBehovsvurdering(): Promise<{
     }
 }
 
-export { fetchSamletInformasjon, fetchBehovsvurdering };
+export { fetchSamletInformasjon, fetchBehovsvurdering, fetchAggregertePerioder };
