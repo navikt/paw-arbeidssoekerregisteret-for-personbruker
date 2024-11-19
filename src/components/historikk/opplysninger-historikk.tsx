@@ -1,5 +1,7 @@
+'use client';
+
 import { lagHentTekstForSprak, OpplysningerOmArbeidssoker, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Heading, ReadMore } from '@navikt/ds-react';
+import { Accordion, Heading } from '@navikt/ds-react';
 import Opplysninger from '@/components/opplysninger/opplysninger';
 import { prettyPrintDato } from '@/lib/date-utils';
 import React from 'react';
@@ -25,16 +27,20 @@ export function OpplysningerHistorikk(props: Props) {
             <Heading level="2" size="medium">
                 Registrerte opplysninger
             </Heading>
-            {opplysningerOmArbeidssoker.map((opplysninger) => {
-                return (
-                    <ReadMore
-                        header={`${tekst('sendtInn')} ${prettyPrintDato(opplysninger.sendtInnAv.tidspunkt)}`}
-                        key={opplysninger.opplysningerOmArbeidssoekerId}
-                    >
-                        <Opplysninger opplysninger={opplysninger} sprak={sprak} />
-                    </ReadMore>
-                );
-            })}
+            <Accordion>
+                {opplysningerOmArbeidssoker.map((opplysninger) => {
+                    return (
+                        <Accordion.Item key={opplysninger.opplysningerOmArbeidssoekerId}>
+                            <Accordion.Header>
+                                {tekst('sendtInn')} {prettyPrintDato(opplysninger.sendtInnAv.tidspunkt)}
+                            </Accordion.Header>
+                            <Accordion.Content>
+                                <Opplysninger opplysninger={opplysninger} sprak={sprak} />
+                            </Accordion.Content>
+                        </Accordion.Item>
+                    );
+                })}
+            </Accordion>
         </div>
     );
 }
