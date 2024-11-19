@@ -16,9 +16,9 @@ function AlleBekreftelser (props: {bekreftelser: Bekreftelse[]}) {
 
   return (
     <ReadMore header="Se alle bekreftelser fra arbeidssøkerperioden">
-      {bekreftelser.map(({periodeId, svar}, i) => {
+      {bekreftelser.map(({periodeId, svar}, index) => {
             return (
-      <Box key={i + periodeId} className="mb-3">
+      <Box key={index + periodeId} className="mb-3" style={{ background: index % 2 !== 0 ? 'var(--a-surface-subtle)' : undefined }}>
         <Heading size="small" level="3">
           {prettyPrintDato(svar.gjelderFra)} - {prettyPrintDato(svar.gjelderTil)}
         </Heading>
