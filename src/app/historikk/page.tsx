@@ -1,8 +1,9 @@
 import { Alert, Heading, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 import { SamletInformasjon, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { AggregertePerioder } from '../../../types/aggregerte-perioder';
 
-import { fetchSamletInformasjon } from '@/app/actions';
+import { fetchSamletInformasjon, fetchAggregertePerioder } from '@/app/actions';
 import { NextPageProps } from '../../../types/next';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
@@ -11,13 +12,19 @@ import { HistorikkWrapper } from '@/components/historikk/historikk-wrapper';
 
 async function HistorikkServerComponent({ sprak }: { sprak: Sprak }) {
     const { data: samletInformasjon, error: informasjonError } = await fetchSamletInformasjon({});
+    const { data: aggregertePerioder, error: aggregertError } = await fetchAggregertePerioder({});
     const repakket = byggSamletInformasjon(samletInformasjon as SamletInformasjon);
 
     if (informasjonError) {
         return <Alert variant={'error'}>Noe gikk dessverre galt ved henting av historikk</Alert>;
     }
 
+    if (aggregertError) {
+        return <Alert variant={'error'}>Noe gikk dessverre galt ved henting av aggregertePerioder</Alert>;
+    }
+
     return (
+        <>
         <div className={'flex flex-col max-w-3xl mx-auto'}>
             {repakket.map((periode, index) => (
                 <div
@@ -29,6 +36,11 @@ async function HistorikkServerComponent({ sprak }: { sprak: Sprak }) {
                 </div>
             ))}
         </div>
+        <div>
+            <h3>Aggregerte perioder</h3>
+            <pre>{JSON.stringify(aggregertePerioder, null, 2)}</pre>
+        </div>
+        </>
     );
 }
 
