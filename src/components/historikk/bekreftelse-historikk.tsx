@@ -1,7 +1,7 @@
 'use client'
 
 import { Bekreftelse } from "@navikt/arbeidssokerregisteret-utils";
-import { Heading, ReadMore, Box, BodyShort } from "@navikt/ds-react";
+import { Heading, ReadMore, Box, BodyShort, Accordion } from "@navikt/ds-react";
 
 import { prettyPrintDato } from "@/lib/date-utils";
 
@@ -10,14 +10,11 @@ function AlleBekreftelser (props: {bekreftelser: Bekreftelse[]}) {
 
   if (bekreftelser.length === 0) return null
 
-  const harMangeBekreftelser = bekreftelser.length > 1
-  if (!harMangeBekreftelser) return null
-
   return (
-    <ReadMore header="Se alle bekreftelser fra arbeidssøkerperioden">
+    <>
       {bekreftelser.map(({periodeId, svar}, index) => {
             return (
-      <Box key={index + periodeId} className="p-4" style={{ background: index % 2 !== 0 ? 'var(--a-surface-subtle)' : undefined }}>
+      <Box key={index + periodeId} className="p-4 border-b border-b-surface-neutral-active">
         <Heading size="small" level="3">
           {prettyPrintDato(svar.gjelderFra)} - {prettyPrintDato(svar.gjelderTil)}
         </Heading>
@@ -31,7 +28,7 @@ function AlleBekreftelser (props: {bekreftelser: Bekreftelse[]}) {
         Vil fortsatt være arbeidssøker: {svar.vilFortsetteSomArbeidssoeker ? 'Ja' : 'Nei'}
         </BodyShort>
       </Box>)})}
-    </ReadMore>
+      </>
   )
 }
 
@@ -47,21 +44,16 @@ export function BekreftelseHistorikk (props: {bekreftelser: Bekreftelse[]}) {
       <Heading level="2" size="medium">
         Arbeidsøkerperioden bekreftet
       </Heading>
-      <Box className="p-4">
-          <Heading size="small" level="3">
-            {prettyPrintDato(sisteBekreftelse.svar.gjelderFra)} - {prettyPrintDato(sisteBekreftelse.svar.gjelderTil)}
-          </Heading>
-          <BodyShort>
-            Innsendt {prettyPrintDato(sisteBekreftelse.svar.sendtInnAv.tidspunkt)} av {sisteBekreftelse.svar.sendtInnAv.utfoertAv.type}
-          </BodyShort>
-          <BodyShort>
-          Jobbet i perioden: {sisteBekreftelse.svar.harJobbetIDennePerioden ? 'Ja' : 'Nei'}
-          </BodyShort>
-          <BodyShort>
-          Vil fortsatt være arbeidssøker: {sisteBekreftelse.svar.vilFortsetteSomArbeidssoeker ? 'Ja' : 'Nei'}
-          </BodyShort>
-      </Box>
-      <AlleBekreftelser bekreftelser={bekreftelser} />
+      <Accordion>
+        <Accordion.Item>
+          <Accordion.Header>
+            Vis alle innsendte bekreftelser
+          </Accordion.Header>
+          <Accordion.Content>
+            <AlleBekreftelser bekreftelser={bekreftelser} />
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion>
     </>
   )
 }
