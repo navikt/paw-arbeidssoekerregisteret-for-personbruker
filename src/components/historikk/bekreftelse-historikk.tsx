@@ -1,7 +1,7 @@
 'use client'
 
 import { Bekreftelse } from "@navikt/arbeidssokerregisteret-utils";
-import { Heading, ReadMore, Box, BodyShort, Accordion } from "@navikt/ds-react";
+import { Heading, Box, BodyShort, Accordion } from "@navikt/ds-react";
 
 import { prettyPrintDato } from "@/lib/date-utils";
 
