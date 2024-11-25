@@ -17,8 +17,8 @@ export function SeHistorikkLenke (props: HistorikkLenkeProps) {
   const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
   return (
-    <Box className="text-right">
-      <Link href="/historikk">{tekst('lenkeTekst')}</Link>
+    <Box className="text-right mb-8">
+      <Link href="/arbeidssoekerregisteret/historikk">{tekst('lenkeTekst')}</Link>
     </Box>
   )
 }

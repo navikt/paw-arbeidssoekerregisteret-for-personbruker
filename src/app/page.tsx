@@ -12,6 +12,7 @@ import RegistrertTittel from '@/components/registrert-tittel/registrert-tittel';
 import { NextPageProps } from '../../types/next';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
+import { SeHistorikkLenke } from '@/components/historikk/se-historikk-lenke';
 
 interface Props {
     sprak: Sprak;
@@ -71,6 +72,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                     registrerArbeidssokerUrl={process.env.REGISTRER_ARBEIDSSOKER_URL!}
                 />
             )}
+            <SeHistorikkLenke sprak={sprak} />
         </>
     );
 }
