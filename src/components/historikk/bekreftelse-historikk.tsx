@@ -3,7 +3,7 @@
 import { Bekreftelse } from "@navikt/arbeidssokerregisteret-utils";
 import { Heading, Box, BodyShort, Accordion } from "@navikt/ds-react";
 
-import { prettyPrintDato } from "@/lib/date-utils";
+import { prettyPrintDato, prettyPrintDatoOgKlokkeslett } from "@/lib/date-utils";
 
 function AlleBekreftelser (props: {bekreftelser: Bekreftelse[]}) {
   const { bekreftelser } = props
@@ -19,7 +19,7 @@ function AlleBekreftelser (props: {bekreftelser: Bekreftelse[]}) {
           {prettyPrintDato(svar.gjelderFra)} - {prettyPrintDato(svar.gjelderTil)}
         </Heading>
         <BodyShort>
-          Innsendt {prettyPrintDato(svar.sendtInnAv.tidspunkt)} av {svar.sendtInnAv.utfoertAv.type}
+          Innsendt {prettyPrintDatoOgKlokkeslett(svar.sendtInnAv.tidspunkt)} av {svar.sendtInnAv.utfoertAv.type}
         </BodyShort>
         <BodyShort>
         Jobbet i perioden: {svar.harJobbetIDennePerioden ? 'Ja' : 'Nei'}

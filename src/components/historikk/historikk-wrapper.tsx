@@ -1,4 +1,4 @@
-import { prettyPrintDato } from '@/lib/date-utils';
+import { prettyPrintDato, prettyPrintDatoOgKlokkeslett } from '@/lib/date-utils';
 import {
     ArbeidssokerPeriode,
     Bekreftelse,
@@ -41,12 +41,12 @@ export function HistorikkWrapper(props: Historikk) {
                 {avsluttet && avsluttet.tidspunkt ? prettyPrintDato(avsluttet.tidspunkt) : tekst('fortsatt aktiv')}
             </Heading>
             <BodyShort>
-                {tekst('startet')}: {prettyPrintDato(startet.tidspunkt)} {tekst('av')} {tekst(startet.utfoertAv.type)}
+                {tekst('startet')}: {prettyPrintDatoOgKlokkeslett(startet.tidspunkt)} {tekst('av')} {tekst(startet.utfoertAv.type)}
             </BodyShort>
             <BodyShort>
                 {tekst('avsluttet')}:{' '}
                 {avsluttet && avsluttet.tidspunkt
-                    ? <>{prettyPrintDato(avsluttet.tidspunkt)} {tekst('av')} {tekst(avsluttet.utfoertAv.type)}</>
+                    ? <>{prettyPrintDatoOgKlokkeslett(avsluttet.tidspunkt)} {tekst('av')} {tekst(avsluttet.utfoertAv.type)}</>
                     : tekst('fortsatt aktiv')}
             </BodyShort>
             <BodyShort>{tekst('sluttarsak')}: {tekst(avsluttet?.aarsak.toLocaleLowerCase() ?? 'fortsatt aktiv')}</BodyShort>
