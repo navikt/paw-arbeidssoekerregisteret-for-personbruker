@@ -8,7 +8,13 @@ export interface HistorikkLenkeProps {
 const TEKSTER = {
   nb: {
       lenkeTekst: 'Se tidligere registreringer og opplysninger',
-  }
+  },
+  nn: {
+    lenkeTekst: 'Se tidligere registreringer og opplysninger',
+  },
+  en: {
+    lenkeTekst: 'Se tidligere registreringer og opplysninger',
+}
 };
 
 export function SeHistorikkLenke (props: HistorikkLenkeProps) {
