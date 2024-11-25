@@ -37,10 +37,8 @@ export function BekreftelseHistorikk (props: {bekreftelser: Bekreftelse[]}) {
 
   if (bekreftelser.length === 0) return null
 
-  const sisteBekreftelse = bekreftelser[0]
-
   return (
-    <>
+    <Box>
       <Heading level="2" size="medium">
         Arbeidsøkerperioden bekreftet
       </Heading>
@@ -54,6 +52,6 @@ export function BekreftelseHistorikk (props: {bekreftelser: Bekreftelse[]}) {
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
-    </>
+    </Box>
   )
 }

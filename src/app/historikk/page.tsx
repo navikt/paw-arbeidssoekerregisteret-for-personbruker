@@ -35,7 +35,7 @@ export default async function HistorikkPage({ params }: NextPageProps) {
     const sprakUrl = sprak === 'nb' ? '' : `/${sprak}`;
 
     return (
-        <div className={'flex flex-col max-w-3xl mx-auto py-8'}>
+        <div className={'max-w-3xl mx-auto py-8'}>
             <SettSprakIDekorator sprak={sprak} />
             <Breadcrumbs
                 breadcrumbs={[
@@ -53,7 +53,7 @@ export default async function HistorikkPage({ params }: NextPageProps) {
                     },
                 ]}
             />
-            <Heading size="xlarge" level="1">
+            <Heading size="xlarge" level="1" className='p-4'>
                 Arbeidssøkerhistorikk
             </Heading>
             <Suspense fallback={<Loader />}>
