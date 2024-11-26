@@ -14,7 +14,7 @@ function AlleBekreftelser (props: {bekreftelser: Bekreftelse[]}) {
     <>
       {bekreftelser.map(({periodeId, svar}, index) => {
             return (
-      <Box key={index + periodeId} className="p-4 border-b border-b-surface-neutral-active">
+      <Box key={index + periodeId} className="p-4 border-b border-b-surface-neutral-active last:border-b-0">
         <Heading size="small" level="3">
           {prettyPrintDato(svar.gjelderFra)} - {prettyPrintDato(svar.gjelderTil)}
         </Heading>
