@@ -32,6 +32,7 @@ const TEKSTER = {
         'stopp av periode': 'Stoppet av veileder',
     },
 };
+
 export function HistorikkWrapper(props: Historikk) {
     const { startet, avsluttet, bekreftelser, opplysningerOmArbeidssoeker, sprak } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
@@ -57,7 +58,7 @@ export function HistorikkWrapper(props: Historikk) {
                 {tekst('sluttarsak')}
             </Heading>
             <BodyShort>{tekst(avsluttet?.aarsak.toLocaleLowerCase() ?? 'fortsatt aktiv')}</BodyShort>
-            <BekreftelseHistorikk bekreftelser={bekreftelser} />
+            <BekreftelseHistorikk bekreftelser={bekreftelser} sprak={sprak}/>
             <OpplysningerHistorikk
                 opplysningerOmArbeidssoker={opplysningerOmArbeidssoeker}
                 sprak={sprak}

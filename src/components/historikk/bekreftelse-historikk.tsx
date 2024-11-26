@@ -1,14 +1,29 @@
 'use client'
 
-import { Bekreftelse } from "@navikt/arbeidssokerregisteret-utils";
+import { Bekreftelse, lagHentTekstForSprak, Sprak } from "@navikt/arbeidssokerregisteret-utils";
 import { Heading, Box, BodyShort, Accordion } from "@navikt/ds-react";
 
 import { prettyPrintDato, prettyPrintDatoOgKlokkeslett } from "@/lib/date-utils";
 
-function AlleBekreftelser (props: {bekreftelser: Bekreftelse[]}) {
-  const { bekreftelser } = props
+const TEKSTER = {
+  nb: {
+      periode: 'Periode',
+      av: 'av',
+      innsendt: 'Innsendt',
+      jobbet: 'Jobbet i perioden',
+      fortsette: 'Vil fortsatt være arbeidssøker',
+      SLUTTBRUKER: 'bruker',
+      SYSTEM: 'Nav',
+      VEILEDER: 'veileder',
+  },
+};
+
+function AlleBekreftelser (props: {bekreftelser: Bekreftelse[], sprak: Sprak}) {
+  const { bekreftelser, sprak } = props
 
   if (bekreftelser.length === 0) return null
+
+  const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
   return (
     <>
@@ -19,21 +34,24 @@ function AlleBekreftelser (props: {bekreftelser: Bekreftelse[]}) {
           {prettyPrintDato(svar.gjelderFra)} - {prettyPrintDato(svar.gjelderTil)}
         </Heading>
         <BodyShort>
-          Innsendt {prettyPrintDatoOgKlokkeslett(svar.sendtInnAv.tidspunkt)} av {svar.sendtInnAv.utfoertAv.type}
+          <dt className="font-semibold">{tekst('innsendt')}</dt>
+          <dd>{prettyPrintDatoOgKlokkeslett(svar.sendtInnAv.tidspunkt)} {tekst('av')} {tekst(svar.sendtInnAv.utfoertAv.type)}</dd>
         </BodyShort>
         <BodyShort>
-        Jobbet i perioden: {svar.harJobbetIDennePerioden ? 'Ja' : 'Nei'}
+          <dt className="font-semibold">{tekst('jobbet')}</dt>
+          <dd>{svar.harJobbetIDennePerioden ? 'Ja' : 'Nei'}</dd>
         </BodyShort>
         <BodyShort>
-        Vil fortsatt være arbeidssøker: {svar.vilFortsetteSomArbeidssoeker ? 'Ja' : 'Nei'}
+          <dt className="font-semibold">{tekst('fortsette')}</dt>
+          <dd>{svar.vilFortsetteSomArbeidssoeker ? 'Ja' : 'Nei'}</dd>
         </BodyShort>
       </Box>)})}
       </>
   )
 }
 
-export function BekreftelseHistorikk (props: {bekreftelser: Bekreftelse[]}) {
-  const { bekreftelser } = props
+export function BekreftelseHistorikk (props: {bekreftelser: Bekreftelse[], sprak: Sprak}) {
+  const { bekreftelser, sprak } = props
 
   if (bekreftelser.length === 0) return null
 
@@ -48,7 +66,7 @@ export function BekreftelseHistorikk (props: {bekreftelser: Bekreftelse[]}) {
             Vis alle innsendte bekreftelser
           </Accordion.Header>
           <Accordion.Content>
-            <AlleBekreftelser bekreftelser={bekreftelser} />
+            <AlleBekreftelser bekreftelser={bekreftelser} sprak={sprak} />
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
