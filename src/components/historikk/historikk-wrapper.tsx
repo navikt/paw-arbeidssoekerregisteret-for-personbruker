@@ -52,7 +52,7 @@ export function HistorikkWrapper(props: Historikk) {
                 <div className='font-semibold'>{tekst('avsluttet')}</div>
                 {avsluttet && avsluttet.tidspunkt
                     ? <><div>{prettyPrintDatoOgKlokkeslett(avsluttet.tidspunkt)}</div><div>{tekst('av')} {tekst(avsluttet.utfoertAv.type)}</div></>
-                    : <><div className='col-span-2'>tekst('fortsatt aktiv')</div></>}
+                    : <><div className='col-span-2'>{tekst('fortsatt aktiv')}</div></>}
             </div>
             <Heading level='3' size='small' className='mt-4'>
                 {tekst('sluttarsak')}
