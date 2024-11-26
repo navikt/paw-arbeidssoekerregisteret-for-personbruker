@@ -37,6 +37,30 @@ const TEKSTER = {
         alertText1: 'Hvis du ikke svarer i løpet av ',
         alertText2: ', vil du ikke lenger være registrert som arbeidssøker fra ',
     },
+    nn: {
+        heading: 'Stadfest at du ønskjer å vere registrert som arbeidssøkjar',
+        beenWorking: 'Har du vore i arbeid i perioden ',
+        yes: 'Ja',
+        no: 'Nei',
+        wantToBeRegistered: 'Ønskjer du å framleis vere registrert som arbeidssøkjar?',
+        submit: 'Send inn',
+        cancel: 'Avbryt',
+        noReply: 'Du har ikke svart',
+        alertText1: 'Hvis du ikke svarer i løpet av ',
+        alertText2: ', vil du ikke lenger være registrert som arbeidssøker fra ',
+    },
+    en: {
+        heading: 'Confirm that you wish to be registered as a jobseeker',
+        beenWorking: 'Have you worked in the period ',
+        yes: 'Ja',
+        no: 'Nei',
+        wantToBeRegistered: 'Do you wish to remain registered as a jobseeker?',
+        submit: 'Send inn',
+        cancel: 'Avbryt',
+        noReply: 'Du har ikke svart',
+        alertText1: 'Hvis du ikke svarer i løpet av ',
+        alertText2: ', vil du ikke lenger være registrert som arbeidssøker fra ',
+    },
 };
 
 const getRadioGroupValue = (skjemaVerdi: boolean | undefined) => {
