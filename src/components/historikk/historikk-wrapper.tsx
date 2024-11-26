@@ -22,6 +22,7 @@ const TEKSTER = {
         startet: 'Startet',
         avsluttet: 'Avsluttet',
         sluttarsak: 'Sluttårsak',
+        periode: 'Periode',
         av: 'av',
         SLUTTBRUKER: 'bruker',
         SYSTEM: 'Nav',
@@ -40,16 +41,22 @@ export function HistorikkWrapper(props: Historikk) {
                 {prettyPrintDato(startet.tidspunkt)} -{' '}
                 {avsluttet && avsluttet.tidspunkt ? prettyPrintDato(avsluttet.tidspunkt) : tekst('fortsatt aktiv')}
             </Heading>
-            <BodyShort>
-                {tekst('startet')}: {prettyPrintDatoOgKlokkeslett(startet.tidspunkt)} {tekst('av')} {tekst(startet.utfoertAv.type)}
-            </BodyShort>
-            <BodyShort>
-                {tekst('avsluttet')}:{' '}
+            <Heading level='3' size='small' className='mt-4'>
+                {tekst('periode')}
+            </Heading>
+            <div className='grid grid-cols-3 gap-x-2'>
+                <div className='font-semibold'>{tekst('startet')}</div>
+                <div>{prettyPrintDatoOgKlokkeslett(startet.tidspunkt)}</div>
+                <div>{tekst('av')} {tekst(startet.utfoertAv.type)}</div>
+                <div className='font-semibold'>{tekst('avsluttet')}</div>
                 {avsluttet && avsluttet.tidspunkt
-                    ? <>{prettyPrintDatoOgKlokkeslett(avsluttet.tidspunkt)} {tekst('av')} {tekst(avsluttet.utfoertAv.type)}</>
-                    : tekst('fortsatt aktiv')}
-            </BodyShort>
-            <BodyShort>{tekst('sluttarsak')}: {tekst(avsluttet?.aarsak.toLocaleLowerCase() ?? 'fortsatt aktiv')}</BodyShort>
+                    ? <><div>{prettyPrintDatoOgKlokkeslett(avsluttet.tidspunkt)}</div><div>{tekst('av')} {tekst(avsluttet.utfoertAv.type)}</div></>
+                    : <><div className='col-span-2'>tekst('fortsatt aktiv')</div></>}
+            </div>
+            <Heading level='3' size='small' className='mt-4'>
+                {tekst('sluttarsak')}
+            </Heading>
+            <BodyShort>{tekst(avsluttet?.aarsak.toLocaleLowerCase() ?? 'fortsatt aktiv')}</BodyShort>
             <BekreftelseHistorikk bekreftelser={bekreftelser} />
             <OpplysningerHistorikk
                 opplysningerOmArbeidssoker={opplysningerOmArbeidssoeker}
