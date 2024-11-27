@@ -54,7 +54,9 @@ export default async function RootLayout({
             <body>
                 <Decorator.Header />
                 <InitAmplitude apiKey={process.env.AMPLITUDE_API_KEY!} />
-                {children}
+                <main>
+                    {children}
+                </main>
                 <Decorator.Footer />
                 <Decorator.Scripts loader={Script} />
             </body>
