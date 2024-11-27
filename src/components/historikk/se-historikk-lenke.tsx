@@ -1,5 +1,9 @@
+'use client'
+
 import { Box, Link } from "@navikt/ds-react";
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+
+import { loggAktivitet } from "@/lib/amplitude";
 
 export interface HistorikkLenkeProps {
   sprak: Sprak;
@@ -17,6 +21,11 @@ const TEKSTER = {
 }
 };
 
+async function loggKlikk() {
+  loggAktivitet({aktivitet: 'Går til siden for historikk'})
+  console.log('du klikka mæ')
+}
+
 export function SeHistorikkLenke (props: HistorikkLenkeProps) {
   const { sprak } = props;
 
@@ -24,7 +33,7 @@ export function SeHistorikkLenke (props: HistorikkLenkeProps) {
 
   return (
     <Box className="text-right mb-8">
-      <Link href="/arbeidssoekerregisteret/historikk">{tekst('lenkeTekst')}</Link>
+      <Link href="/arbeidssoekerregisteret/historikk" onClick={loggKlikk}>{tekst('lenkeTekst')}</Link>
     </Box>
   )
 }
