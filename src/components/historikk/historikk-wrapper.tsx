@@ -1,10 +1,6 @@
 import { prettyPrintDato, prettyPrintDatoOgKlokkeslett } from '@/lib/date-utils';
 import {
-    ArbeidssokerPeriode,
-    Bekreftelse,
     lagHentTekstForSprak,
-    OpplysningerOmArbeidssoker,
-    Profilering,
     Sprak,
 } from '@navikt/arbeidssokerregisteret-utils';
 import { AggregertPeriode } from '../../../types/aggregerte-perioder';

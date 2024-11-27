@@ -33,18 +33,14 @@ function AlleBekreftelser (props: {bekreftelser: Bekreftelse[], sprak: Sprak}) {
         <Heading size="small" level="3">
           {prettyPrintDato(svar.gjelderFra)} - {prettyPrintDato(svar.gjelderTil)}
         </Heading>
-        <BodyShort>
+        <dl>
           <dt className="font-semibold">{tekst('innsendt')}</dt>
           <dd>{prettyPrintDatoOgKlokkeslett(svar.sendtInnAv.tidspunkt)} {tekst('av')} {tekst(svar.sendtInnAv.utfoertAv.type)}</dd>
-        </BodyShort>
-        <BodyShort>
           <dt className="font-semibold">{tekst('jobbet')}</dt>
           <dd>{svar.harJobbetIDennePerioden ? 'Ja' : 'Nei'}</dd>
-        </BodyShort>
-        <BodyShort>
           <dt className="font-semibold">{tekst('fortsette')}</dt>
           <dd>{svar.vilFortsetteSomArbeidssoeker ? 'Ja' : 'Nei'}</dd>
-        </BodyShort>
+        </dl>
       </Box>)})}
       </>
   )
