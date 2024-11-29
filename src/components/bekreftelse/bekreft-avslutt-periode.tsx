@@ -71,7 +71,7 @@ const BekreftAvsluttPeriode = (props: Props) => {
                 <BodyLong>{tekst('bodyText2')}</BodyLong>
                 <div className={'my-4'}>
                     <Button
-                        variant={'primary'}
+                        variant={'secondary-neutral'}
                         onClick={onSubmit}
                         className={'w-full'}
                         disabled={senderSkjema}
@@ -80,7 +80,7 @@ const BekreftAvsluttPeriode = (props: Props) => {
                         {tekst('confirm')}
                     </Button>
                 </div>
-                <Button variant={'secondary-neutral'} onClick={onCancel} className={'w-full'} disabled={senderSkjema}>
+                <Button variant={'tertiary-neutral'} onClick={onCancel} className={'w-full'} disabled={senderSkjema}>
                     {tekst('cancel')}
                 </Button>
                 {error && <Feilmelding />}
