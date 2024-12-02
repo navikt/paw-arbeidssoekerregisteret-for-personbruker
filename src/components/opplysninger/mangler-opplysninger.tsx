@@ -1,9 +1,12 @@
-import { BodyShort, Box, Link } from '@navikt/ds-react';
+'use client';
+
+import { BodyShort, Box, Button, Link } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggAktivitet } from '@/lib/amplitude';
 
 interface ManglerOpplysningerProps {
     sprak: Sprak;
+    oppdaterOpplysningerUrl: string;
 }
 
 const TEKSTER = {
@@ -14,17 +17,21 @@ const TEKSTER = {
 };
 
 const ManglerOpplysninger = (props: ManglerOpplysningerProps) => {
-    const tekst = lagHentTekstForSprak(TEKSTER, props.sprak);
+    const { sprak, oppdaterOpplysningerUrl } = props;
+    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <Box>
+        <Box background="surface-default" padding="6" borderRadius="xlarge" borderColor="border-subtle" borderWidth="1">
             <BodyShort>{tekst('header')}</BodyShort>
-            <Link
-                href={process.env.OPPDATER_OPPLYSNINGER_URL}
-                onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Legg til opplysninger"' })}
+            <Button
+                variant={'secondary-neutral'}
+                onClick={() => {
+                    loggAktivitet({ aktivitet: 'Trykker på "Legg til opplysninger"' });
+                    document.location.href = oppdaterOpplysningerUrl;
+                }}
             >
                 {tekst('linkText')}
-            </Link>
+            </Button>
         </Box>
     );
 };

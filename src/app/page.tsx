@@ -13,6 +13,7 @@ import { NextPageProps } from '../../types/next';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 import { SeHistorikkLenke } from '@/components/historikk/se-historikk-lenke';
+import ManglerOpplysninger from '@/components/opplysninger/mangler-opplysninger';
 
 interface Props {
     sprak: Sprak;
@@ -62,6 +63,14 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                         sprak={sprak}
                         behovsvurdering={behovsvurdering}
                         harAktivPeriode={harAktivPeriode}
+                        oppdaterOpplysningerUrl={process.env.OPPDATER_OPPLYSNINGER_URL!}
+                    />
+                </div>
+            )}
+            {harAktivPeriode && !opplysninger && (
+                <div className={'my-6'}>
+                    <ManglerOpplysninger
+                        sprak={sprak}
                         oppdaterOpplysningerUrl={process.env.OPPDATER_OPPLYSNINGER_URL!}
                     />
                 </div>
