@@ -1,4 +1,4 @@
-import { Alert, Loader } from '@navikt/ds-react';
+import { Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
@@ -30,7 +30,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
     if (errorSisteSamletInformasjon) {
         return (
             <div className={'mb-6'}>
-                <Feil sprak={sprak} error={errorSisteSamletInformasjon} />
+                <Feil sprak={sprak} error={errorSisteSamletInformasjon?.message} />
             </div>
         );
     }

@@ -7,7 +7,7 @@ import { loggVisning } from '@/lib/amplitude';
 
 interface Props {
     sprak: Sprak;
-    error: any;
+    error: string;
 }
 
 const TEKSTER = {
@@ -21,7 +21,7 @@ function Feil(props: Props) {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak)
 
     useEffect(() => {
-        loggVisning({ viser: 'ErrorBoundaryFeil', error: error?.message });
+        loggVisning({ viser: 'ErrorBoundaryFeil', error });
     }, []);
 
     return <Alert variant={'error'}>{tekst('melding')}</Alert>
