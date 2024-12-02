@@ -6,7 +6,6 @@ import {
     SPORSMAL_TEKSTER,
     Sprak,
 } from '@navikt/arbeidssokerregisteret-utils';
-import { BehovsvurderingResponse } from '../../../types/behovsvurdering';
 import { FormSummary } from '@navikt/ds-react';
 import { mapOpplysninger } from '@/components/opplysninger/opplysninger';
 import { loggAktivitet } from '@/lib/amplitude';
@@ -14,8 +13,6 @@ import { loggAktivitet } from '@/lib/amplitude';
 type Props = {
     opplysninger: OpplysningerOmArbeidssoker;
     sprak: Sprak;
-    behovsvurdering: BehovsvurderingResponse;
-    harAktivPeriode: boolean;
     oppdaterOpplysningerUrl: string;
 };
 
