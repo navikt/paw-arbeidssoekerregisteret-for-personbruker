@@ -2,7 +2,7 @@ import { Alert, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
-import { fetchBehovsvurdering, fetchSamletInformasjon } from '@/app/actions';
+import { fetchSamletInformasjon } from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
 import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengelig-bekreftelse-link';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
@@ -14,6 +14,7 @@ import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 import { SeHistorikkLenke } from '@/components/historikk/se-historikk-lenke';
 import ManglerOpplysninger from '@/components/opplysninger/mangler-opplysninger';
+import Feil from '@/components/feil';
 
 interface Props {
     sprak: Sprak;
@@ -23,29 +24,14 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
     const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSamletInformasjon({
         visKunSisteInformasjon: true,
     });
-    const { data: behovsvurdering, error: errorBehovsvurdering } = await fetchBehovsvurdering();
     const opplysninger = sisteSamletInformasjon?.opplysningerOmArbeidssoeker[0];
     const harAktivPeriode = sisteSamletInformasjon?.arbeidssoekerperioder[0]?.avsluttet === null;
 
     if (errorSisteSamletInformasjon) {
         return (
-            <>
-                <Alert variant={'error'}>Noe gikk dessverre galt ved henting av siste samlede informasjon</Alert>
-                <div>{errorSisteSamletInformasjon?.data}</div>
-                <div>{errorSisteSamletInformasjon?.message}</div>
-                <div>{errorSisteSamletInformasjon?.traceId}</div>
-            </>
-        );
-    }
-
-    if (errorBehovsvurdering) {
-        return (
-            <>
-                <Alert variant={'error'}>Noe gikk dessverre galt ved henting av behovsvurdering</Alert>
-                <div>{errorBehovsvurdering?.data}</div>
-                <div>{errorBehovsvurdering?.message}</div>
-                <div>{errorBehovsvurdering?.traceId}</div>
-            </>
+            <div className={'mb-6'}>
+                <Feil sprak={sprak} error={errorSisteSamletInformasjon} />
+            </div>
         );
     }
 
@@ -61,8 +47,6 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                     <OpplysningerOppsummering
                         opplysninger={opplysninger}
                         sprak={sprak}
-                        behovsvurdering={behovsvurdering}
-                        harAktivPeriode={harAktivPeriode}
                         oppdaterOpplysningerUrl={process.env.OPPDATER_OPPLYSNINGER_URL!}
                     />
                 </div>
