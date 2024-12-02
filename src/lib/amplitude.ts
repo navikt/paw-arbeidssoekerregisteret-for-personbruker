@@ -37,6 +37,7 @@ type AktivitetData =
     | { aktivitet: 'Trykker på "Jeg ønsker å registrere meg på nytt" fra bekreftelse' }
     | { aktivitet: 'Trykker på "Legg til opplysninger"' }
     | { aktivitet: 'Trykker på "Endre opplysninger"' }
+    | { aktivitet: 'Trykker på "Registrer deg som arbeidssøker"' }
     | { aktivitet: 'Går til siden for historikk' }
     | { aktivitet: 'Trykker på "Gå til Bekreftelse" fra forsiden' };
 

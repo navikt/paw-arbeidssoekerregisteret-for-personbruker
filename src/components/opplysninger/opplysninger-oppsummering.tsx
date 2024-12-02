@@ -9,6 +9,7 @@ import {
 import { BehovsvurderingResponse } from '../../../types/behovsvurdering';
 import { FormSummary } from '@navikt/ds-react';
 import { mapOpplysninger } from '@/components/opplysninger/opplysninger';
+import { loggAktivitet } from '@/lib/amplitude';
 
 type Props = {
     opplysninger: OpplysningerOmArbeidssoker;
@@ -27,7 +28,10 @@ const OpplysningerOppsummering = (props: Props) => {
         <FormSummary>
             <FormSummary.Header>
                 <FormSummary.Heading level="2">Opplysninger fra registrering</FormSummary.Heading>
-                <FormSummary.EditLink href={oppdaterOpplysningerUrl} />
+                <FormSummary.EditLink
+                    href={oppdaterOpplysningerUrl}
+                    onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Endre opplysninger"' })}
+                />
             </FormSummary.Header>
             <FormSummary.Answers>
                 {besvarelser.map((besvarelse, idx) => {
