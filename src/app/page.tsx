@@ -26,6 +26,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
     });
     const opplysninger = sisteSamletInformasjon?.opplysningerOmArbeidssoeker[0];
     const harAktivPeriode = sisteSamletInformasjon?.arbeidssoekerperioder[0]?.avsluttet === null;
+    const harHistorikk = sisteSamletInformasjon?.arbeidssoekerperioder.length as any > 0;
 
     if (errorSisteSamletInformasjon) {
         return (
@@ -65,7 +66,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                     registrerArbeidssokerUrl={process.env.REGISTRER_ARBEIDSSOKER_URL!}
                 />
             )}
-            <SeHistorikkLenke sprak={sprak} />
+            {harHistorikk && <SeHistorikkLenke sprak={sprak} />}
         </>
     );
 }
