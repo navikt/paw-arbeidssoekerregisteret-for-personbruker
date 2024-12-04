@@ -5,6 +5,13 @@ import { useEffect } from 'react';
 import { onLanguageSelect, setParams } from '@navikt/nav-dekoratoren-moduler';
 import { useRouter } from 'next/navigation';
 
+const getSprakAttribute = (sprak: Sprak) => {
+    if (['nb', 'en', 'nn'].includes(sprak)) {
+        return sprak;
+    }
+    return 'nb';
+}
+
 const SettSprakIDekorator = ({ sprak }: { sprak: Sprak }) => {
     const router = useRouter();
 
@@ -24,6 +31,7 @@ const SettSprakIDekorator = ({ sprak }: { sprak: Sprak }) => {
 
     useEffect(() => {
         setParams({ language: sprak });
+        document.querySelector('html')?.setAttribute('lang', getSprakAttribute(sprak));
     }, [sprak]);
     return null;
 };

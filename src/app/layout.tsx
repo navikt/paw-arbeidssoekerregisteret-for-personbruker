@@ -47,7 +47,7 @@ export default async function RootLayout({
         },
     });
     return (
-        <html lang="no">
+        <html lang="nb">
             <head>
                 <Decorator.HeadAssets />
             </head>
