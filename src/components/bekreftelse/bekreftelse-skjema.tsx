@@ -33,6 +33,7 @@ const TEKSTER = {
         wantToBeRegistered: 'Vil du fortsatt være registrert som arbeidssøker?',
         submit: 'Send inn',
         cancel: 'Avbryt',
+        validationError: 'Du må svare før du kan sende inn'
     },
     nn: {
         heading: 'Stadfest at du ønskjer å vere registrert som arbeidssøkjar',
@@ -51,6 +52,7 @@ const TEKSTER = {
         wantToBeRegistered: 'Do you wish to remain registered as a jobseeker?',
         submit: 'Submit',
         cancel: 'Cancel',
+        validationError: 'You must answer before submitting'
     }
 };
 
@@ -75,6 +77,7 @@ const BekreftelseSkjema = (props: Props) => {
     const [visBekreftAvsluttPeriode, settVisBekreftAvsluttPeriode] = useState<boolean>(false);
     const [senderSkjema, settSenderSkjema] = useState<boolean>(false);
     const [error, settError] = useState<any>(null);
+    const [visFeilmeldingISkjema, settVisFeilmeldingISkjema] = useState<boolean>(false);
 
     useEffect(() => {
         settHarGyldigSkjema(
@@ -84,7 +87,13 @@ const BekreftelseSkjema = (props: Props) => {
     }, [skjemaState]);
 
     const onSubmit = async () => {
+        if (!harGyldigSkjema) {
+            settVisFeilmeldingISkjema(true);
+            return;
+        }
+
         settError(null);
+        settVisFeilmeldingISkjema(false);
 
         if (!skjemaState.vilFortsetteSomArbeidssoeker) {
             settVisBekreftAvsluttPeriode(true);
@@ -125,6 +134,7 @@ const BekreftelseSkjema = (props: Props) => {
                 value={getRadioGroupValue(skjemaState.harJobbetIDennePerioden)}
                 onChange={(e) => settSkjemaState((state) => ({ ...state, harJobbetIDennePerioden: e === 'ja' }))}
                 className={'mb-4'}
+                error={visFeilmeldingISkjema && skjemaState.harJobbetIDennePerioden === undefined && tekst('validationError')}
             >
                 <Radio value="ja" checked={skjemaState.harJobbetIDennePerioden === true}>
                     {tekst('yes')}
@@ -138,11 +148,12 @@ const BekreftelseSkjema = (props: Props) => {
                 value={getRadioGroupValue(skjemaState.vilFortsetteSomArbeidssoeker)}
                 onChange={(e) => settSkjemaState((state) => ({ ...state, vilFortsetteSomArbeidssoeker: e === 'ja' }))}
                 className={'mb-4'}
+                error={visFeilmeldingISkjema && skjemaState.vilFortsetteSomArbeidssoeker === undefined && tekst('validationError')}
             >
                 <Radio value="ja">{tekst('yes')}</Radio>
                 <Radio value="nei">{tekst('no')}</Radio>
             </RadioGroup>
-            <Button variant="primary" disabled={!harGyldigSkjema} onClick={onSubmit} loading={senderSkjema}>
+            <Button variant="primary" disabled={senderSkjema} onClick={onSubmit} loading={senderSkjema}>
                 {tekst('submit')}
             </Button>
             <Button className={'ml-4'} variant={'tertiary'} onClick={onCancel} disabled={senderSkjema}>
