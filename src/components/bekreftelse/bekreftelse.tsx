@@ -67,7 +67,7 @@ function Bekreftelse(props: BekreftelseProps) {
     }
 
     return (
-        <div className={'py-4'}>
+        <div className={'px-4'}>
             {props.sistInnsendteBekreftelse && !harTilgjengeligeBekreftelser && !visKvittering && (
                 <BekreftelseBesvart
                     besvarelse={props.sistInnsendteBekreftelse}
