@@ -15,10 +15,10 @@ const TEKSTER = {
         lenkeTekst: 'Se tidligere registreringer og opplysninger',
     },
     nn: {
-        lenkeTekst: 'Se tidligere registreringer og opplysninger',
+        lenkeTekst: 'Sjå tidlegare registreringar og opplysningar',
     },
     en: {
-        lenkeTekst: 'Se tidligere registreringer og opplysninger',
+        lenkeTekst: 'View previous registrations and information',
     },
 };
 
