@@ -41,12 +41,12 @@ function AlleBekreftelser(props: { bekreftelser: Bekreftelse[]; sprak: Sprak }) 
                         className="p-4 border-b border-b-surface-neutral-active last:border-b-0"
                     >
                         <Heading size="small" level="3">
-                            {prettyPrintDato(svar.gjelderFra)} - {prettyPrintDato(svar.gjelderTil)}
+                            {prettyPrintDato(svar.gjelderFra, sprak)} - {prettyPrintDato(svar.gjelderTil, sprak)}
                         </Heading>
                         <dl>
                             <dt className="font-semibold">{tekst('innsendt')}</dt>
                             <dd>
-                                {prettyPrintDatoOgKlokkeslett(svar.sendtInnAv.tidspunkt)} {tekst('av')}{' '}
+                                {prettyPrintDatoOgKlokkeslett(svar.sendtInnAv.tidspunkt, sprak)} {tekst('av')}{' '}
                                 {tekst(svar.sendtInnAv.utfoertAv.type)}
                             </dd>
                             <dt className="font-semibold">{tekst('jobbet')}</dt>

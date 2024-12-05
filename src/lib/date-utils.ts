@@ -71,7 +71,7 @@ function prettyPrintDatoOgKlokkeslett (dato: string, locale?: Sprak) {
     const month = monthNames[valgtSprak][date.getMonth()];
 
     if (valgtSprak === 'en') {
-        return `${month} ${date.getDate()}.${thisYear !== year ? ' ' + year : ''} at {timer.toString().length === 1 ? '0': ''}${timer}:${minutter.toString().length === 1 ? '0': ''}${minutter}`;
+        return `${month} ${date.getDate()}.${thisYear !== year ? ' ' + year : ''} at ${timer.toString().length === 1 ? '0': ''}${timer}:${minutter.toString().length === 1 ? '0': ''}${minutter}`;
     }
 
     return `${date.getDate()}. ${month}${thisYear !== year ? ' ' + year : ''} klokken ${timer.toString().length === 1 ? '0': ''}${timer}:${minutter.toString().length === 1 ? '0': ''}${minutter}`;

@@ -35,19 +35,19 @@ export function HistorikkWrapper(props: Historikk) {
     return (
         <>
             <Heading level="2" size="large">
-                {prettyPrintDato(startet.tidspunkt)} -{' '}
-                {avsluttet && avsluttet.tidspunkt ? prettyPrintDato(avsluttet.tidspunkt) : tekst('fortsatt aktiv')}
+                {prettyPrintDato(startet.tidspunkt, sprak)} -{' '}
+                {avsluttet && avsluttet.tidspunkt ? prettyPrintDato(avsluttet.tidspunkt, sprak) : tekst('fortsatt aktiv')}
             </Heading>
             <Heading level='3' size='small' className='mt-4'>
                 {tekst('periode')}
             </Heading>
             <div className='grid grid-cols-3 gap-x-2'>
                 <div className='font-semibold'>{tekst('startet')}</div>
-                <div>{prettyPrintDatoOgKlokkeslett(startet.tidspunkt)}</div>
+                <div>{prettyPrintDatoOgKlokkeslett(startet.tidspunkt, sprak)}</div>
                 <div>{tekst('av')} {tekst(startet.utfoertAv.type)}</div>
                 <div className='font-semibold'>{tekst('avsluttet')}</div>
                 {avsluttet && avsluttet.tidspunkt
-                    ? <><div>{prettyPrintDatoOgKlokkeslett(avsluttet.tidspunkt)}</div><div>{tekst('av')} {tekst(avsluttet.utfoertAv.type)}</div></>
+                    ? <><div>{prettyPrintDatoOgKlokkeslett(avsluttet.tidspunkt, sprak)}</div><div>{tekst('av')} {tekst(avsluttet.utfoertAv.type)}</div></>
                     : <><div className='col-span-2'>{tekst('fortsatt aktiv')}</div></>}
             </div>
             <Heading level='3' size='small' className='mt-4'>
