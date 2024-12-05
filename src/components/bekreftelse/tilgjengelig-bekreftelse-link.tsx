@@ -16,6 +16,12 @@ const TEKSTER = {
     nb: {
         title: 'Bekreft at du fortsatt vil være arbeidssøker',
     },
+    nn: {
+        title: 'Stadfest at du framleis vil vera arbeidssøkjar',
+    },
+    en: {
+        title: 'Confirm that you will still be a job seeker',
+    },
 };
 
 const TilgjengeligBekreftelseLink = (props: Props) => {
