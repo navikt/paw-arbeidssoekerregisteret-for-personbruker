@@ -22,6 +22,20 @@ const TEKSTER = {
         til: 'til ',
         ikkeTidligereRegistrert: 'Du har ikke tidligere vært registrert som arbeidssøker'
     },
+    nn: {
+        registreringsDato: 'Registrert: ',
+        sistBekreftetDato: 'Sist stadfesta: ',
+        varRegistrert: 'Du var registrert som arbeidssøkjar frå ',
+        til: 'til ',
+        ikkeTidligereRegistrert: 'Du har ikkje tidlegare vore registrert som arbeidssøkjar'
+    },
+    en: {
+        registreringsDato: 'Registered: ',
+        sistBekreftetDato: 'Last confirmed: ',
+        varRegistrert: 'You were registered as a job seeker from ',
+        til: 'to ',
+        ikkeTidligereRegistrert: 'You have not previously been registered as a job seeker'
+    }
 };
 
 const PeriodeInfo = (props: PeriodeInfoProps) => {
@@ -48,16 +62,16 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
             {harAktivPeriode ? (
                 <>
                     {tekst('registreringsDato')}
-                    {prettyPrintDato(opprettetDato)}
+                    {prettyPrintDato(opprettetDato, sprak)}
                     {harBekreftet && (<>
-                        <br/>{tekst('sistBekreftetDato')} {prettyPrintDato(bekreftetDato)}
+                        <br/>{tekst('sistBekreftetDato')} {prettyPrintDato(bekreftetDato, sprak)}
                     </>)}
                 </>
             ) : (
                 <>
                     {tekst('varRegistrert')}
-                    {prettyPrintDato(opprettetDato)} {tekst('til')}
-                    {periode.avsluttet && prettyPrintDato(periode.avsluttet.tidspunkt)}
+                    {prettyPrintDato(opprettetDato, sprak)} {tekst('til')}
+                    {periode.avsluttet && prettyPrintDato(periode.avsluttet.tidspunkt, sprak)}
                 </>
             )}
         </div>
