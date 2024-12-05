@@ -8,8 +8,13 @@ import React from 'react';
 
 const TEKSTER = {
     nb: {
+        heading: 'Registrerte opplysninger',
         sendtInn: 'Sendt inn ',
     },
+    en: {
+        heading: 'Information',
+        sendtInn: 'Registered '
+    }
 };
 interface Props extends React.HTMLProps<any> {
     opplysningerOmArbeidssoker: OpplysningerOmArbeidssoker[];
@@ -25,14 +30,14 @@ export function OpplysningerHistorikk(props: Props) {
     return (
         <div className={props.className ?? ''}>
             <Heading level="2" size="medium">
-                Registrerte opplysninger
+                {tekst('heading')}
             </Heading>
             <Accordion>
                 {opplysningerOmArbeidssoker.map((opplysninger) => {
                     return (
                         <Accordion.Item key={opplysninger.opplysningerOmArbeidssoekerId}>
                             <Accordion.Header>
-                                {tekst('sendtInn')} {prettyPrintDato(opplysninger.sendtInnAv.tidspunkt)}
+                                {tekst('sendtInn')} {prettyPrintDato(opplysninger.sendtInnAv.tidspunkt, sprak)}
                             </Accordion.Header>
                             <Accordion.Content>
                                 <Opplysninger opplysninger={opplysninger} sprak={sprak} />
