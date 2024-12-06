@@ -14,6 +14,7 @@ type Story = StoryObj<typeof meta>;
 
 export const RegistrertArbeidssoker: Story = {
     args: {
-        registrerArbeidssokerUrl: process.env.REGISTRER_ARBEIDSSOKER_URL!
+        registrerArbeidssokerUrl: process.env.REGISTRER_ARBEIDSSOKER_URL!,
+        sprak: 'nb'
     }
 }
