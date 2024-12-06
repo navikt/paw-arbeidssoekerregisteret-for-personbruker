@@ -1,12 +1,24 @@
 import { Alert, Heading, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { Sprak, lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
 
 import { fetchAggregertePerioder } from '@/app/actions';
 import { NextPageProps } from '../../../types/next';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 import { HistorikkWrapper } from '@/components/historikk/historikk-wrapper';
+
+const TEKSTER = {
+    nb: {
+        tittel: 'Arbeidssøkerhistorikk',
+    },
+    nn: {
+        tittel: 'Arbeidssøkjarhistorikk',
+    },
+    en: {
+        tittel: 'Job seeker history',
+    }
+};
 
 async function HistorikkServerComponent({ sprak }: { sprak: Sprak }) {
     const { data: aggregertePerioder, error: aggregertError } = await fetchAggregertePerioder({});
@@ -33,6 +45,7 @@ async function HistorikkServerComponent({ sprak }: { sprak: Sprak }) {
 export default async function HistorikkPage({ params }: NextPageProps) {
     const sprak = params.lang ?? 'nb';
     const sprakUrl = sprak === 'nb' ? '' : `/${sprak}`;
+    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
         <div className={'max-w-3xl mx-auto py-8'}>
@@ -54,7 +67,7 @@ export default async function HistorikkPage({ params }: NextPageProps) {
                 ]}
             />
             <Heading size="xlarge" level="1" className='p-4'>
-                Arbeidssøkerhistorikk
+                {tekst('tittel')}
             </Heading>
             <Suspense fallback={<Loader />}>
                 <HistorikkServerComponent sprak={sprak} />
