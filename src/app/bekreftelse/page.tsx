@@ -7,13 +7,16 @@ import { hentSisteArbeidssokerPeriode, Sprak } from '@navikt/arbeidssokerregiste
 import { NextPageProps } from '../../../types/next';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
+import Feil from '@/components/feil';
 
 async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
     const { data: tilgjengeligeBekreftelser, error } = await fetchTilgjengeligeBekreftelser();
-    const { data: samletInformasjon, error: informasjonError } = await fetchSamletInformasjon({ visKunSisteInformasjon: true });
+    const { data: samletInformasjon, error: informasjonError } = await fetchSamletInformasjon({
+        visKunSisteInformasjon: true,
+    });
 
     if (error || informasjonError) {
-        return <Alert variant={'error'}>Noe gikk dessverre galt</Alert>;
+        return <Feil sprak={sprak} error={error?.message ?? informasjonError?.message ?? ''} />;
     }
 
     const sisteArbeidssokerPeriode = hentSisteArbeidssokerPeriode(samletInformasjon?.arbeidssoekerperioder ?? []);
