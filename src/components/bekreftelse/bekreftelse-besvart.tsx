@@ -2,7 +2,7 @@
 
 import { Bekreftelse, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BodyShort, Button, Heading, List } from '@navikt/ds-react';
-import { formaterDato, prettyPrintDato } from '@/lib/date-utils';
+import { formaterDato } from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/amplitude';
 
 export interface Props {
@@ -20,8 +20,27 @@ const TEKSTER = {
         ikkeVaertIArbeid: 'du ikke har vært i arbeid foregående 14 dager',
         onskerAaVaereRegistrert: 'at du ønsker å være registrert som arbeidssøker',
         onskerIkkeAaVaereRegistrert: 'at du ønsker ikke å være registrert som arbeidssøker',
-        buttonText: 'Jeg ønsker å endre svarene mine',
         buttonTextUtmeldt: 'Jeg ønsker å registrere meg på nytt',
+    },
+    nn: {
+        heading: 'Du har stadfesta at du fortsatt ønskjer å være registrert som arbeidssøkjar',
+        headingUtmeldt: 'Du er ikkje lenger registrert som arbeidssøkjar',
+        svarteDu: 'svarte du at:',
+        vaertIArbeid: 'du har vore i arbeid foregående 14 dager',
+        ikkeVaertIArbeid: 'du ikkje har vore i arbeid foregående 14 dager',
+        onskerAaVaereRegistrert: 'at du ønskjer å være registrert som arbeidssøkjar',
+        onskerIkkeAaVaereRegistrert: 'at du ikkje ønskjer å være registrert som arbeidssøkjar',
+        buttonTextUtmeldt: 'Eg ønskjer å registrere meg på nytt',
+    },
+    en: {
+        heading: 'You have confirmed that you still want to be registered as a jobseeker',
+        headingUtmeldt: 'You are no longer registered as a jobseeker',
+        svarteDu: 'you answered:',
+        vaertIArbeid: 'you have been working during the last 14 days',
+        ikkeVaertIArbeid: 'you have not been working during the last 14 days',
+        onskerAaVaereRegistrert: 'you wish to be registered as a jobseeker',
+        onskerIkkeAaVaereRegistrert: 'you do not wish to be registered as a jobseekre',
+        buttonTextUtmeldt: 'I wish to register as a jobseeker',
     },
 };
 
