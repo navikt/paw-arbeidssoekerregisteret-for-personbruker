@@ -64,6 +64,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                 <RegistrerArbeidssoker
                     className={'my-6'}
                     registrerArbeidssokerUrl={process.env.REGISTRER_ARBEIDSSOKER_URL!}
+                    sprak={sprak}
                 />
             )}
             {harHistorikk && <SeHistorikkLenke sprak={sprak} />}
