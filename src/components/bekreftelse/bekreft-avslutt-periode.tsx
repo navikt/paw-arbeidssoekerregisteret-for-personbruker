@@ -15,28 +15,29 @@ const TEKSTER = {
         heading: 'Bekreft at du ikke lenger ønsker å være arbeidssøker',
         alertHeading: 'Du har svart at du ikke lenger ønsker å være registrert som arbeidssøker',
         bodyText1: 'Du har status som arbeidssøker hos Nav fram til ',
-        bodyText2: 'Hvis du mottar eller har søkt om tjenester eller ytelser som krever at du er registrert arbeidssøker vil disse stoppes.',
+        bodyText2:
+            'Hvis du mottar eller har søkt om tjenester eller ytelser som krever at du er registrert arbeidssøker vil disse stoppes.',
         confirm: 'Jeg vil ikke være registrert som arbeidssøker',
         cancel: 'Avbryt og gå tilbake',
     },
     nn: {
-        heading: 'Bekreft at du ikke lenger ønsker å være arbeidssøker',
-        alertHeading: 'Du har svart at du ikke lenger ønsker å være registrert som arbeidssøker',
-        bodyText1: 'Du har status som arbeidssøker hos Nav fram til ',
-        bodyText2: 'Hvis du mottar eller har søkt om tjenester eller ytelser som krever at du er registrert arbeidssøker vil disse stoppes.',
-        confirm: 'Jeg vil ikke være registrert som arbeidssøker',
+        heading: 'Stadfest at du ikkje ønskjer å være arbeidssøkjar',
+        alertHeading: 'Du har svart at du ikkje ønskjer å være registrert som arbeidssøkjar',
+        bodyText1: 'Du har status som arbeidssøkjar hos Nav fram til ',
+        bodyText2:
+            'Om du mottek eller har søkt om tjenestar eller ytelsar som krev at du er registrert arbeidssøkjar vil disse stoppes',
+        confirm: 'Eg ønskjer ikkje å være registrert som arbeidssøkjar',
         cancel: 'Avbryt og gå tilbake',
     },
     en: {
-        nn: {
-            heading: 'Bekreft at du ikke lenger ønsker å være arbeidssøker',
-            alertHeading: 'Du har svart at du ikke lenger ønsker å være registrert som arbeidssøker',
-            bodyText1: 'Du har status som arbeidssøker hos Nav fram til ',
-            bodyText2: 'Hvis du mottar eller har søkt om tjenester eller ytelser som krever at du er registrert arbeidssøker vil disse stoppes.',
-            confirm: 'Jeg vil ikke være registrert som arbeidssøker',
-            cancel: 'Avbryt og gå tilbake',
-        }
-    }
+        heading: 'Confirm that you no longer want to be registered as a jobseeker',
+        alertHeading: 'You have answered that you do not want to be registered as a jobseeker',
+        bodyText1: 'You will be registered as a jobseeker within Nav until ',
+        bodyText2:
+            'If you receive unemployment benefits requiring that you are registered as a jobseeker, these will be stopped',
+        confirm: 'I do not wish to be registered as a jobseeker',
+        cancel: 'Cancel and go back',
+    },
 };
 
 const BekreftAvsluttPeriode = (props: Props) => {
@@ -67,7 +68,9 @@ const BekreftAvsluttPeriode = (props: Props) => {
                 <Heading level={'3'} size={'small'} className={'mb-4'}>
                     {tekst('alertHeading')}
                 </Heading>
-                <BodyLong className={'mb-4'}>{tekst('bodyText1')} {prettyPrintDato(new Date().toISOString())}.</BodyLong>
+                <BodyLong className={'mb-4'}>
+                    {tekst('bodyText1')} {prettyPrintDato(new Date().toISOString(), sprak)}
+                </BodyLong>
                 <BodyLong>{tekst('bodyText2')}</BodyLong>
                 <div className={'my-4'}>
                     <Button
