@@ -14,6 +14,14 @@ const TEKSTER = {
         heading: 'Du er ikke registert som aktiv arbeidssøker',
         buttonText: 'Jeg ønsker å registrere meg på nytt',
     },
+    nn: {
+        heading: 'Du er ikkje registert som aktiv arbeidssøkjar',
+        buttonText: 'Eg ønskjer å registrere meg på nytt',
+    },
+    en: {
+        heading: 'You are not registered as an active jobseeker',
+        buttonText: 'I want to register as a jobseeker',
+    },
 };
 
 const IkkeAktivArbeidssoker = (props: Props) => {
