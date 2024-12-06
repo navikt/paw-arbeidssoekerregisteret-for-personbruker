@@ -13,6 +13,12 @@ interface Props {
 const TEKSTER = {
     nb: {
         melding: 'Noe gikk dessverre galt'
+    },
+    nn: {
+        melding: 'Noko gikk dessverre galt',
+    },
+    en: {
+        melding: 'We\'re sorry, an error occured'
     }
 }
 
