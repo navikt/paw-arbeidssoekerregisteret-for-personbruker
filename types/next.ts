@@ -4,7 +4,7 @@ export interface NextPageProps {
     params: Promise<{
         lang?: Sprak;
     }>;
-    searchParams: {
+    searchParams: Promise<{
         [key: string]: string;
-    };
+    }>;
 }
