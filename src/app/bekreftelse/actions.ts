@@ -40,7 +40,7 @@ async function fetchTilgjengeligeBekreftelser(): Promise<ApiResponse<Tilgjengeli
     }
 
     try {
-        const reqHeaders = headers();
+        const reqHeaders = await headers();
         const idPortenToken = stripBearer(reqHeaders.get('authorization')!);
         const tokenXToken = await getTokenXToken(idPortenToken);
         const traceId = uuidv4();

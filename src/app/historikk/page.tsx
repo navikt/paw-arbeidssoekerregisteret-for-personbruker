@@ -43,7 +43,7 @@ async function HistorikkServerComponent({ sprak }: { sprak: Sprak }) {
 }
 
 export default async function HistorikkPage({ params }: NextPageProps) {
-    const sprak = params.lang ?? 'nb';
+    const sprak = (await params).lang ?? 'nb';
     const sprakUrl = sprak === 'nb' ? '' : `/${sprak}`;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 

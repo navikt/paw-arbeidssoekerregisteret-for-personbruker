@@ -18,7 +18,7 @@ export const POST = async (request: Request) => {
     const traceId = uuidv4();
 
     try {
-        const reqHeaders = headers();
+        const reqHeaders = await headers();
         const idPortenToken = stripBearer(reqHeaders.get('authorization')!);
         const tokenXToken = await requestTokenxOboToken(idPortenToken, BEKREFTELSE_API_CLIENT_ID);
 

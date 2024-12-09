@@ -44,7 +44,7 @@ async function fetchSamletInformasjon(props: SamletInformasjonProps): Promise<{
     const { visKunSisteInformasjon } = props
     const SISTE_SAMLET_INFORMASJON_URL = `${process.env.ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL}/api/v1/samlet-informasjon${visKunSisteInformasjon ? '?siste=true' : ''}`;
     try {
-        const reqHeaders = headers();
+        const reqHeaders = await headers();
         const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!));
         const traceId = uuidv4();
         logger.info({ x_trace_id: traceId }, `Starter GET ${SISTE_SAMLET_INFORMASJON_URL}`);
@@ -98,7 +98,7 @@ async function fetchAggregertePerioder(props: AggregertePerioderProps): Promise<
     const { visKunSisteInformasjon } = props
     const AGGREGERTE_PERIODER_URL = `${process.env.ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL}/api/v1/arbeidssoekerperioder-aggregert${visKunSisteInformasjon ? '?siste=true' : ''}`;
     try {
-        const reqHeaders = headers();
+        const reqHeaders = await headers();
         const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!));
         const traceId = uuidv4();
         logger.info({ x_trace_id: traceId }, `Starter GET ${AGGREGERTE_PERIODER_URL}`);
@@ -147,7 +147,7 @@ async function fetchBehovsvurdering(): Promise<{
 
     const BEHOVSVURDERING_URL = `${process.env.AIA_BACKEND_URL}/behov-for-veiledning`;
     try {
-        const reqHeaders = headers();
+        const reqHeaders = await headers();
         const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!));
         const traceId = uuidv4();
         logger.info({ x_trace_id: traceId }, `Starter GET ${BEHOVSVURDERING_URL}`);

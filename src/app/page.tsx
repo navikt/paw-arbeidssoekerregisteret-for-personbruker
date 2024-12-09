@@ -82,8 +82,8 @@ const TilgjengeligBekreftelseKomponent = async ({ sprak }: Props) => {
     return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data!} sprak={sprak} />;
 };
 
-export default function Home({ params }: NextPageProps) {
-    const sprak = params.lang ?? 'nb';
+export default async function Home({ params }: NextPageProps) {
+    const sprak = (await params).lang ?? 'nb';
     const sprakUrl = sprak === 'nb' ? '' : `/${sprak}`;
 
     return (
