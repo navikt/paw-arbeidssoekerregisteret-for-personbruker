@@ -35,7 +35,7 @@ async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
 }
 
 export default async function BekreftelsePage({ params }: NextPageProps) {
-    const sprak = params.lang ?? 'nb';
+    const sprak = (await params).lang ?? 'nb';
     const sprakUrl = sprak === 'nb' ? '' : `/${sprak}`;
 
     return (

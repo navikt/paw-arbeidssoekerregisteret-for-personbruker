@@ -22,7 +22,7 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
 
       - name: Install
-        run: npm install --no-save --no-audit --prefer-offline --ignore-scripts
+        run: npm install --no-save --no-audit --prefer-offline --ignore-scripts --force
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
@@ -50,7 +50,7 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
 
       - name: Install
-        run: npm install --no-save --no-audit --prefer-offline --ignore-scripts
+        run: npm install --no-save --no-audit --prefer-offline --ignore-scripts --force
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 

@@ -1,10 +1,10 @@
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 export interface NextPageProps {
-    params: {
+    params: Promise<{
         lang?: Sprak;
-    };
-    searchParams: {
-        [key:string]: string
-    }
+    }>;
+    searchParams: Promise<{
+        [key: string]: string;
+    }>;
 }
