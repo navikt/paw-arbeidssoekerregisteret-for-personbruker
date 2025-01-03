@@ -38,7 +38,7 @@ export const ViserFeilmelding: Story = {
         const canvas = context.canvas;
         await userEvent.click((await canvas.findAllByText('Ja'))[0]);
         await userEvent.click(await canvas.findByText('Send inn'));
-        await expect(await  canvas.findByText('Du må svare før du kan sende inn')).toBeInTheDOM()
+        await expect(await  canvas.findByText('Du må svare før du kan sende inn')).toBeDefined()
     },
 };
 export const FeilVedSubmit: Story = {
@@ -70,6 +70,6 @@ export const FeilVedSubmit: Story = {
         await userEvent.click(await canvas.findByText('Send inn'));
         await expect(
             await canvas.findByText('Noe gikk dessverre galt. Forsøk igjen, eller kontakt NAV.'),
-        ).toBeInTheDOM();
+        ).toBeDefined();
     }
 };
