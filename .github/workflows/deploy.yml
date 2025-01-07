@@ -79,6 +79,11 @@ jobs:
       - name: Build storybook-static
         run: npm run build-storybook
 
+      - name: Run test-storybook
+        run: npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+          "npx http-server public/storybook --port 6006 --silent" \
+          "npx wait-on tcp:127.0.0.1:6006 && npm run test-storybook"
+
       - name: Push docker image to GAR
         uses: nais/docker-build-push@v0
         id: docker-build-push
