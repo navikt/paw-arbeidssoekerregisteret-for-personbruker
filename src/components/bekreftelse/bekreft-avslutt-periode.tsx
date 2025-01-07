@@ -16,7 +16,7 @@ const TEKSTER = {
         alertHeading: 'Du har svart at du ikke lenger ønsker å være registrert som arbeidssøker',
         bodyText1: 'Du har status som arbeidssøker hos Nav fram til ',
         bodyText2:
-            'Hvis du mottar eller har søkt om tjenester eller ytelser som krever at du er registrert arbeidssøker vil disse stoppes.',
+            'Hvis du mottar eller har søkt om tjenester eller ytelser som krever at du er registrert arbeidssøker vil disse bli stoppet.',
         confirm: 'Jeg vil ikke være registrert som arbeidssøker',
         cancel: 'Avbryt og gå tilbake',
     },
@@ -65,29 +65,29 @@ const BekreftAvsluttPeriode = (props: Props) => {
                 {tekst('heading')}
             </Heading>
             <Alert variant={'warning'}>
-                <Heading level={'3'} size={'small'} className={'mb-4'}>
+                <Heading level={'3'} size={'small'}>
                     {tekst('alertHeading')}
                 </Heading>
-                <BodyLong className={'mb-4'}>
-                    {tekst('bodyText1')} {prettyPrintDato(new Date().toISOString(), sprak)}
-                </BodyLong>
-                <BodyLong>{tekst('bodyText2')}</BodyLong>
-                <div className={'my-4'}>
-                    <Button
-                        variant={'secondary-neutral'}
-                        onClick={onSubmit}
-                        className={'w-full'}
-                        disabled={senderSkjema}
-                        loading={senderSkjema}
-                    >
-                        {tekst('confirm')}
-                    </Button>
-                </div>
-                <Button variant={'tertiary-neutral'} onClick={onCancel} className={'w-full'} disabled={senderSkjema}>
-                    {tekst('cancel')}
-                </Button>
-                {error && <Feilmelding />}
             </Alert>
+            <BodyLong className={'my-4'}>
+                {tekst('bodyText1')} {prettyPrintDato(new Date().toISOString(), sprak)}.
+            </BodyLong>
+            <BodyLong>{tekst('bodyText2')}</BodyLong>
+            <div className={'my-4'}>
+                <Button
+                    variant={'primary'}
+                    onClick={onSubmit}
+                    className={'w-full'}
+                    disabled={senderSkjema}
+                    loading={senderSkjema}
+                >
+                    {tekst('confirm')}
+                </Button>
+            </div>
+            <Button variant={'secondary'} onClick={onCancel} className={'w-full'} disabled={senderSkjema}>
+                {tekst('cancel')}
+            </Button>
+            {error && <Feilmelding />}
         </>
     );
 };

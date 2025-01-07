@@ -54,15 +54,19 @@ const Kvittering = (props: Props) => {
         <>
             {erUtmeldt ? (
                 <>
-                    <Heading size={'xlarge'} level={'1'} className={'mb-4'}>{tekst('headingUtmeldt')}</Heading>
-                    <Alert variant={'warning'} className={'mb-4'}>
+                    <Heading size={'xlarge'} level={'1'} className={'mb-4'}>
+                        {tekst('headingUtmeldt')}
+                    </Heading>
+                    <Alert variant={'info'} className={'mb-4'}>
                         <Heading size={'xsmall'}>{tekst('alertHeadingUtmeldt')}</Heading>
                         <BodyLong>{tekst('alertBodyUtmeldt')}</BodyLong>
                     </Alert>
                 </>
             ) : (
                 <>
-                    <Heading size={'xlarge'} level={'1'} className={'mb-4'}>{tekst('heading')}</Heading>
+                    <Heading size={'xlarge'} level={'1'} className={'mb-4'}>
+                        {tekst('heading')}
+                    </Heading>
                     <Alert variant={'success'} className={'mb-4'}>
                         <Heading size={'xsmall'}>{tekst('alertHeading')}</Heading>
                         <BodyLong>{tekst('alertBody')}</BodyLong>
