@@ -16,8 +16,23 @@ const config = {
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
+const getCookieConsent = () => {
+    return getCurrentConsent() ?? {
+        consent: {
+            analytics: false,
+            surveys: false
+        },
+        meta: {
+            createdAt: '',
+            updatedAt: '',
+            version: -1
+        },
+        userActionTaken: false
+    }
+}
+
 export const initAmplitude = async (apiKey: string) => {
-    const currentConsent = getCurrentConsent();
+    const currentConsent = getCookieConsent();
     if (!currentConsent.consent.analytics) {
         return;
     }
@@ -50,7 +65,7 @@ type AktivitetData =
 type EventData = VisningsData | AktivitetData;
 
 function logAmplitudeEvent(eventName: string, data: EventData) {
-    const currentConsent = getCurrentConsent();
+    const currentConsent = getCookieConsent();
     if (!currentConsent.consent.analytics) {
         return;
     }
