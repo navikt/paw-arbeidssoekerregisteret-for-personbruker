@@ -1,7 +1,7 @@
 'use client';
 
 import * as amplitude from '@amplitude/analytics-browser';
-
+import { getCurrentConsent } from '@navikt/nav-dekoratoren-moduler';
 const apiEndpoint = 'https://amplitude.nav.no/collect';
 
 const config = {
@@ -15,7 +15,28 @@ const config = {
 };
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
+
+const isConsentingToAnalytics = () => {
+    const currentConsent =  getCurrentConsent() ?? {
+        consent: {
+            analytics: false,
+            surveys: false
+        },
+        meta: {
+            createdAt: '',
+            updatedAt: '',
+            version: -1
+        },
+        userActionTaken: false
+    }
+    return currentConsent.consent.analytics;
+}
+
 export const initAmplitude = async (apiKey: string) => {
+    if (!isConsentingToAnalytics()) {
+        return;
+    }
+
     if (!brukerMock) {
         amplitude.init(apiKey, undefined, { ...config, serverUrl: apiEndpoint });
     } else {
@@ -44,6 +65,10 @@ type AktivitetData =
 type EventData = VisningsData | AktivitetData;
 
 function logAmplitudeEvent(eventName: string, data: EventData) {
+    if (!isConsentingToAnalytics()) {
+        return;
+    }
+
     const eventData = data || {};
     if (!brukerMock) {
         amplitude.logEvent(eventName, { ...eventData });
