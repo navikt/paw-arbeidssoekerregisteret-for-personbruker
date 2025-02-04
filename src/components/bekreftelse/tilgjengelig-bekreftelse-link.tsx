@@ -17,12 +17,14 @@ interface Props {
 const TEKSTER = {
     nb: {
         title: 'Bekreft at du fortsatt vil være arbeidssøker',
+        iconTitle: 'Varseltrekant ikon'
     },
     nn: {
         title: 'Stadfest at du framleis vil vera arbeidssøkjar',
     },
     en: {
         title: 'Confirm that you will still be a job seeker',
+        iconTitle: 'Warning icon'
     },
 };
 
@@ -51,6 +53,7 @@ const TilgjengeligBekreftelseLink = (props: Props) => {
         >
             <LinkPanel.Title className={'flex items-center'}>
                 <ExclamationmarkTriangleFillIcon
+                    title={tekst('iconTitle')}
                     className={`mr-4 ${styles.ikon}`}
                     style={{ color: 'var(--a-icon-warning)'}}
                 />
