@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Button, Heading } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
@@ -17,6 +17,9 @@ const TEKSTER = {
         bodyText1: 'Du har status som arbeidssøker hos Nav fram til ',
         bodyText2:
             'Hvis du mottar eller har søkt om tjenester eller ytelser som krever at du er registrert arbeidssøker vil disse bli stoppet.',
+        usikkerTekst: 'Er du usikker på om du trenger å være registrert som arbeidssøker så',
+        usikkerKontaktOssLenkeTekst: 'ta kontakt med oss',
+        kontaktOssLenke: 'https://www.nav.no/kontaktoss',            
         confirm: 'Jeg vil ikke være registrert som arbeidssøker',
         cancel: 'Avbryt og gå tilbake',
     },
@@ -26,6 +29,9 @@ const TEKSTER = {
         bodyText1: 'Du har status som arbeidssøkjar hos Nav fram til ',
         bodyText2:
             'Om du mottek eller har søkt om tjenestar eller ytelsar som krev at du er registrert arbeidssøkjar vil disse stoppes',
+        usikkerTekst: 'Er du usikker på om du treng å vera registrert som arbeidssøkjar så',
+        usikkerKontaktOssLenkeTekst: 'ta kontakt med oss',
+        kontaktOssLenke: 'https://www.nav.no/kontaktoss', 
         confirm: 'Eg ønskjer ikkje å være registrert som arbeidssøkjar',
         cancel: 'Avbryt og gå tilbake',
     },
@@ -35,6 +41,9 @@ const TEKSTER = {
         bodyText1: 'You will be registered as a jobseeker within Nav until ',
         bodyText2:
             'If you receive unemployment benefits requiring that you are registered as a jobseeker, these will be stopped',
+        usikkerTekst: 'If you are unsure whether you need to be registered as a job seeker,',
+        usikkerKontaktOssLenkeTekst: 'please contact us',
+        kontaktOssLenke: 'https://www.nav.no/kontaktoss', 
         confirm: 'I do not wish to be registered as a jobseeker',
         cancel: 'Cancel and go back',
     },
@@ -72,7 +81,8 @@ const BekreftAvsluttPeriode = (props: Props) => {
             <BodyLong className={'my-4'}>
                 {tekst('bodyText1')} {prettyPrintDato(new Date().toISOString(), sprak)}.
             </BodyLong>
-            <BodyLong>{tekst('bodyText2')}</BodyLong>
+            <BodyLong className='mb-4'>{tekst('bodyText2')}</BodyLong>
+            <BodyLong>{tekst('usikkerTekst')}{' '}<Link href={tekst('kontaktOssLenke')}>{tekst('usikkerKontaktOssLenkeTekst')}</Link></BodyLong>
             <div className={'my-4'}>
                 <Button
                     variant={'primary'}
