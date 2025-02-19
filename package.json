@@ -17,8 +17,8 @@
   "dependencies": {
     "@amplitude/analytics-browser": "2.11.12",
     "@navikt/arbeidssokerregisteret-utils": "1.4.0",
-    "@navikt/ds-react": "7.13.0",
-    "@navikt/ds-tailwind": "7.13.0",
+    "@navikt/ds-react": "7.14.0",
+    "@navikt/ds-tailwind": "7.14.0",
     "@navikt/nav-dekoratoren-moduler": "3.2.2",
     "@navikt/next-logger": "2.0.0",
     "@navikt/oasis": "3.7.0",
