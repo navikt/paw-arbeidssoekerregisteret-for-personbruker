@@ -65,7 +65,7 @@ spec:
                 - /arbeidssoekerregisteret/api/isready
                 - /arbeidssoekerregisteret/storybook/**
             enabled: true
-            level: Level4
+            level: Level3
     tokenx:
         enabled: true
     accessPolicy:
