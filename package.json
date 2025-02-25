@@ -22,6 +22,7 @@
     "@navikt/nav-dekoratoren-moduler": "3.2.2",
     "@navikt/next-logger": "2.0.0",
     "@navikt/oasis": "3.7.0",
+    "jose": "5.9.6",
     "next": "15.1.7",
     "react": "19.0.0",
     "react-dom": "19.0.0",

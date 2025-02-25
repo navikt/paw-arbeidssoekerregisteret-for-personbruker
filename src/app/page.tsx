@@ -15,6 +15,7 @@ import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 import { SeHistorikkLenke } from '@/components/historikk/se-historikk-lenke';
 import ManglerOpplysninger from '@/components/opplysninger/mangler-opplysninger';
 import Feil from '@/components/feil';
+import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
 
 interface Props {
     sprak: Sprak;
@@ -24,9 +25,12 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
     const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSamletInformasjon({
         visKunSisteInformasjon: true,
     });
+
+    const { data: innloggingsNivaa } = await hentInnloggingsNivaa();
+
     const opplysninger = sisteSamletInformasjon?.opplysningerOmArbeidssoeker[0];
     const harAktivPeriode = sisteSamletInformasjon?.arbeidssoekerperioder[0]?.avsluttet === null;
-    const harHistorikk = sisteSamletInformasjon?.arbeidssoekerperioder.length as any > 0;
+    const harHistorikk = (sisteSamletInformasjon?.arbeidssoekerperioder.length as any) > 0;
 
     if (errorSisteSamletInformasjon) {
         return (
@@ -49,6 +53,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                         opplysninger={opplysninger}
                         sprak={sprak}
                         oppdaterOpplysningerUrl={process.env.OPPDATER_OPPLYSNINGER_URL!}
+                        visEndreLink={innloggingsNivaa === 'idporten-loa-high'}
                     />
                 </div>
             )}
