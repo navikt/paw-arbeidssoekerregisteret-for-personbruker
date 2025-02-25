@@ -22,9 +22,9 @@ const ManglerOpplysninger = (props: ManglerOpplysningerProps) => {
 
     return (
         <Box background="surface-default" padding="6" borderRadius="xlarge" borderColor="border-subtle" borderWidth="1">
-            <BodyShort>{tekst('header')}</BodyShort>
+            <BodyShort className={'mb-2'}>{tekst('header')}</BodyShort>
             <Button
-                variant={'secondary-neutral'}
+                variant={'secondary'}
                 onClick={() => {
                     loggAktivitet({ aktivitet: 'Trykker på "Legg til opplysninger"' });
                     document.location.href = oppdaterOpplysningerUrl;

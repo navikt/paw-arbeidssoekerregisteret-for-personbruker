@@ -30,7 +30,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
 
     const opplysninger = sisteSamletInformasjon?.opplysningerOmArbeidssoeker[0];
     const harAktivPeriode = sisteSamletInformasjon?.arbeidssoekerperioder[0]?.avsluttet === null;
-    const harHistorikk = sisteSamletInformasjon?.arbeidssoekerperioder.length as any > 0;
+    const harHistorikk = (sisteSamletInformasjon?.arbeidssoekerperioder.length as any) > 0;
 
     if (errorSisteSamletInformasjon) {
         return (
@@ -47,13 +47,13 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
             <Suspense fallback={<Loader />}>
                 <TilgjengeligBekreftelseKomponent sprak={sprak} />
             </Suspense>
-            <div><h3>TEST Innloggingsnivå: {innloggingsNivaa}</h3></div>
             {harAktivPeriode && opplysninger && (
                 <div className={'my-6'}>
                     <OpplysningerOppsummering
                         opplysninger={opplysninger}
                         sprak={sprak}
                         oppdaterOpplysningerUrl={process.env.OPPDATER_OPPLYSNINGER_URL!}
+                        visEndreLink={innloggingsNivaa === 'idporten-loa-high'}
                     />
                 </div>
             )}

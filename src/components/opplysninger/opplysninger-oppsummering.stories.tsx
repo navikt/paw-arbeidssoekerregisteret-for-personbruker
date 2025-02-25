@@ -17,6 +17,16 @@ type Story = StoryObj<typeof meta>;
 
 export const OpplysningerOmArbeidssoker: Story = {
     args: {
+        visEndreLink: true,
+        opplysninger: opplysningerOmArbeidssoker[0] as any,
+        sprak: 'nb',
+        oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
+    },
+};
+
+export const UtenEndreLenke: Story = {
+    args: {
+        visEndreLink: false,
         opplysninger: opplysningerOmArbeidssoker[0] as any,
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,

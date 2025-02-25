@@ -14,6 +14,7 @@ type Props = {
     opplysninger: OpplysningerOmArbeidssoker;
     sprak: Sprak;
     oppdaterOpplysningerUrl: string;
+    visEndreLink: boolean;
 };
 
 const TEKSTER = {
@@ -32,7 +33,7 @@ const TEKSTER = {
 };
 
 const OpplysningerOppsummering = (props: Props) => {
-    const { opplysninger, sprak, oppdaterOpplysningerUrl } = props;
+    const { opplysninger, sprak, oppdaterOpplysningerUrl, visEndreLink } = props;
     const besvarelser = mapOpplysninger(opplysninger, sprak);
     const besvarelseTekst = lagHentTekstForSprak(SPORSMAL_TEKSTER, sprak);
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
@@ -40,12 +41,14 @@ const OpplysningerOppsummering = (props: Props) => {
         <FormSummary>
             <FormSummary.Header>
                 <FormSummary.Heading level="2">{tekst('heading')}</FormSummary.Heading>
-                <FormSummary.EditLink
-                    href={oppdaterOpplysningerUrl}
-                    onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Endre opplysninger"' })}
-                >
-                    {tekst('linkText')}
-                </FormSummary.EditLink>
+                {visEndreLink && (
+                    <FormSummary.EditLink
+                        href={oppdaterOpplysningerUrl}
+                        onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Endre opplysninger"' })}
+                    >
+                        {tekst('linkText')}
+                    </FormSummary.EditLink>
+                )}
             </FormSummary.Header>
             <FormSummary.Answers>
                 {besvarelser.map((besvarelse, idx) => {
