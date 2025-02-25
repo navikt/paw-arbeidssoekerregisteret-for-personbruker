@@ -58,10 +58,11 @@ const TEKSTER = {
 export function HistorikkWrapper(props: Historikk) {
     const { startet, avsluttet, bekreftelser, opplysningerOmArbeidssoeker, sprak } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const startTidspunkt = startet.tidspunktFraKilde?.tidspunkt ?? startet.tidspunkt;
     return (
         <>
             <Heading level="2" size="large">
-                {prettyPrintDato(startet.tidspunkt, sprak)} -{' '}
+                {prettyPrintDato(startTidspunkt, sprak)} -{' '}
                 {avsluttet && avsluttet.tidspunkt ? prettyPrintDato(avsluttet.tidspunkt, sprak) : tekst('fortsatt aktiv')}
             </Heading>
             <Heading level='3' size='small' className='mt-4'>

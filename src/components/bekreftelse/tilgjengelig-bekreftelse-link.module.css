@@ -1,0 +1,9 @@
+.ikon {
+    scale: 1;
+    transition: scale ease-out 0.2s;
+}
+.tilgjengeligBekreftelseLink:hover {
+    .ikon {
+        scale: 1.05;
+    }
+}
