@@ -1,7 +1,7 @@
 'use client';
 
 import * as amplitude from '@amplitude/analytics-browser';
-import { getCurrentConsent } from '@navikt/nav-dekoratoren-moduler';
+import { awaitDecoratorData, getCurrentConsent } from '@navikt/nav-dekoratoren-moduler';
 const apiEndpoint = 'https://amplitude.nav.no/collect';
 
 const config = {
@@ -33,6 +33,8 @@ const isConsentingToAnalytics = () => {
 }
 
 export const initAmplitude = async (apiKey: string) => {
+    await awaitDecoratorData();
+
     if (!isConsentingToAnalytics()) {
         return;
     }
