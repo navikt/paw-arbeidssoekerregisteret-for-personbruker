@@ -52,6 +52,8 @@ spec:
           value: https://www.nav.no/arbeid/registrering/oppdater-opplysninger
         - name: AMPLITUDE_API_KEY
           value: 913768927b84cde5eac0d0d18c737561
+        - name: UNLEASH_SERVER_API_URL
+          value: https://paw-unleash-api.nav.cloud.nais.io/api
     envFrom:
         - secret: arbeidssoekerregisteret-for-personbruker-unleash-api-token
     ingresses:

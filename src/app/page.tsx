@@ -16,6 +16,8 @@ import { SeHistorikkLenke } from '@/components/historikk/se-historikk-lenke';
 import ManglerOpplysninger from '@/components/opplysninger/mangler-opplysninger';
 import Feil from '@/components/feil';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
+import EndringAlert from '@/components/endring-alert';
+import { isEnabled } from '@/lib/unleash-is-enabled';
 
 interface Props {
     sprak: Sprak;
@@ -27,6 +29,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
     });
 
     const { data: innloggingsNivaa } = await hentInnloggingsNivaa();
+    const erEndringAlertToggletPaa = await isEnabled('arbeidssoekerregisteret.vis-endring-alert');
 
     const opplysninger = sisteSamletInformasjon?.opplysningerOmArbeidssoeker[0];
     const harAktivPeriode = sisteSamletInformasjon?.arbeidssoekerperioder[0]?.avsluttet === null;
@@ -44,6 +47,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
         <>
             <RegistrertTittel {...sisteSamletInformasjon!} sprak={sprak} />
             <PeriodeInfo {...sisteSamletInformasjon!} sprak={sprak} />
+            {harAktivPeriode && erEndringAlertToggletPaa && <EndringAlert sprak={sprak} />}
             <Suspense fallback={<Loader />}>
                 <TilgjengeligBekreftelseKomponent sprak={sprak} />
             </Suspense>
