@@ -26,6 +26,7 @@ const TEKSTER = {
         'fortsatt aktiv': 'fortsatt aktiv',
         'graceperiode utløpt': 'Ikke bekreftet arbeidssøkerstatus',
         'stopp av periode': 'Stoppet av veileder',
+        'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stoppet av bruker'
     },
     nn: {
         startet: 'Starta',
@@ -39,6 +40,7 @@ const TEKSTER = {
         'fortsatt aktiv': 'framleis aktiv',
         'graceperiode utløpt': 'Ikkje stadfesta arbeidssøkjarstatus',
         'stopp av periode': 'Stoppet av rettleiar',
+        'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stoppet av bruker'
     },
     en: {
         startet: 'Started',
@@ -52,6 +54,7 @@ const TEKSTER = {
         'fortsatt aktiv': 'still active',
         'graceperiode utløpt': 'Job seeker status not confirmed',
         'stopp av periode': 'Stopped by supervisor',
+        'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stopped by user'
     },
 };
 
