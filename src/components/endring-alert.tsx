@@ -5,7 +5,7 @@ const TEKSTER = {
     nb: {
         heading: 'Endring i meldekort for arbeidssøkere',
         bodyText1:
-            'Fra 12. mars må du bekrefte at du fortsatt vil være arbeidssøker på en ny måte hvis du ikke mottar dagpenger.  Du vil du få en oppgave på min side om å bekrefte at du vil være arbeidssøker hver 14. dag. Fristene vil være de samme som i dag.',
+            'Fra 20. mars må du bekrefte at du fortsatt vil være arbeidssøker på en ny måte hvis du ikke mottar dagpenger.  Du vil du få en oppgave på min side om å bekrefte at du vil være arbeidssøker hver 14. dag. Fristene vil være de samme som i dag.',
         bodyText2:
             'Hvis du ikke mottar pengestøtte fra Nav vil du ikke lenger måtte sende inn meldekort, kun bekrefte at du fortsatt vil være arbeidssøker.',
         bodyText3: 'Spørsmålet om du fortsatt vil være registrert som arbeidssøker vil forsvinne fra meldekortet. ',
