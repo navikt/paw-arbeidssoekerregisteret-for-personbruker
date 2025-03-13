@@ -1,6 +1,6 @@
 import { Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 import { fetchSamletInformasjon } from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
@@ -18,6 +18,7 @@ import Feil from '@/components/feil';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
 import EndringAlert from '@/components/endring-alert';
 import { isEnabled } from '@/lib/unleash-is-enabled';
+import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 
 interface Props {
     sprak: Sprak;
@@ -93,22 +94,17 @@ const TilgjengeligBekreftelseKomponent = async ({ sprak }: Props) => {
 
 export default async function Home({ params }: NextPageProps) {
     const sprak = (await params).lang ?? 'nb';
-    const sprakUrl = sprak === 'nb' ? '' : `/${sprak}`;
+    const title = lagHentTekstForSprak(BREADCRUMBS_TITLES, sprak);
+    const url = lagHentTekstForSprak(BREADCRUMBS_URLS, sprak);
 
     return (
         <main className="flex flex-col max-w-3xl mx-auto px-4">
             <SettSprakIDekorator sprak={sprak} />
             <Breadcrumbs
-                breadcrumbs={[
-                    {
-                        title: 'Min side',
-                        url: `/minside${sprakUrl}`,
-                    },
-                    {
-                        title: 'Arbeidssøkerregisteret',
-                        url: `/arbeidssoekerregisteret${sprakUrl}`,
-                    },
-                ]}
+                breadcrumbs={['minside', 'registeret'].map((key) => ({
+                    title: title(key),
+                    url: url(key),
+                }))}
             />
             <Suspense fallback={<Loader />}>
                 <SamletInformasjonServerComponent sprak={sprak} />

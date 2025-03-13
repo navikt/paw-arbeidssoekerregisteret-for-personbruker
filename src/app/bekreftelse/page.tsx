@@ -3,11 +3,12 @@ import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { Suspense } from 'react';
 import BekreftelseWrapper from '@/components/bekreftelse/bekreftelse-wrapper';
 import { fetchSamletInformasjon } from '@/app/actions';
-import { hentSisteArbeidssokerPeriode, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { hentSisteArbeidssokerPeriode, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { NextPageProps } from '../../../types/next';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 import Feil from '@/components/feil';
+import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 
 async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
     const { data: tilgjengeligeBekreftelser, error } = await fetchTilgjengeligeBekreftelser();
@@ -36,26 +37,17 @@ async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
 
 export default async function BekreftelsePage({ params }: NextPageProps) {
     const sprak = (await params).lang ?? 'nb';
-    const sprakUrl = sprak === 'nb' ? '' : `/${sprak}`;
+    const title = lagHentTekstForSprak(BREADCRUMBS_TITLES, sprak);
+    const url = lagHentTekstForSprak(BREADCRUMBS_URLS, sprak);
 
     return (
         <div className={'flex flex-col max-w-3xl mx-auto py-8'}>
             <SettSprakIDekorator sprak={sprak} />
             <Breadcrumbs
-                breadcrumbs={[
-                    {
-                        title: 'Min side',
-                        url: `/minside${sprakUrl}`,
-                    },
-                    {
-                        title: 'Arbeidssøkerregisteret',
-                        url: `/arbeidssoekerregisteret${sprakUrl}`,
-                    },
-                    {
-                        title: 'Bekreftelse',
-                        url: `${sprakUrl}/bekreftelse`,
-                    },
-                ]}
+                breadcrumbs={['minside', 'registeret', 'bekreftelse'].map((key) => ({
+                    title: title(key),
+                    url: url(key),
+                }))}
             />
             <Suspense fallback={<Loader />}>
                 <BekreftelseServerComponent sprak={sprak} />
