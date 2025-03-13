@@ -6,7 +6,7 @@ import InfoTekst from './info-tekst';
 import { useEffect, useState } from 'react';
 import { BekreftelseSkjemaType, TilgjengeligBekreftelse } from '../../../types/bekreftelse';
 import { BekreftAvsluttPeriode } from '@/components/bekreftelse/bekreft-avslutt-periode';
-import {prettyPrintDato} from '@/lib/date-utils';
+import { prettyPrintDato } from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/amplitude';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
 
@@ -33,7 +33,7 @@ const TEKSTER = {
         wantToBeRegistered: 'Vil du fortsatt være registrert som arbeidssøker?',
         submit: 'Send inn',
         cancel: 'Avbryt',
-        validationError: 'Du må svare før du kan sende inn'
+        validationError: 'Du må svare før du kan sende inn',
     },
     nn: {
         heading: 'Stadfest at du ønskjer å vere registrert som arbeidssøkjar',
@@ -52,8 +52,8 @@ const TEKSTER = {
         wantToBeRegistered: 'Do you wish to remain registered as a jobseeker?',
         submit: 'Submit',
         cancel: 'Cancel',
-        validationError: 'You must answer before submitting'
-    }
+        validationError: 'You must answer before submitting',
+    },
 };
 
 const getRadioGroupValue = (skjemaVerdi: boolean | undefined) => {
@@ -113,7 +113,12 @@ const BekreftelseSkjema = (props: Props) => {
     if (visBekreftAvsluttPeriode) {
         return (
             <BekreftAvsluttPeriode
-                onSubmit={() => props.onSubmit({ ...skjemaState, bekreftelseId: bekreftelse.bekreftelseId } as BekreftelseSkjemaType)}
+                onSubmit={() =>
+                    props.onSubmit({
+                        ...skjemaState,
+                        bekreftelseId: bekreftelse.bekreftelseId,
+                    } as BekreftelseSkjemaType)
+                }
                 onCancel={() => {
                     settVisBekreftAvsluttPeriode(false);
                     loggAktivitet({ aktivitet: 'Avbryter avslutning av periode' });
@@ -127,14 +132,21 @@ const BekreftelseSkjema = (props: Props) => {
 
     return (
         <>
-            <Heading level={'1'} size={'xlarge'} className={'mb-6'}>{tekst('heading')}</Heading>
+            <Heading level={'1'} size={'xlarge'} className={'mb-6'}>
+                {tekst('heading')}
+            </Heading>
             <InfoTekst sprak={sprak} />
             <RadioGroup
+                autoFocus={true}
                 legend={`${tekst('beenWorking')} ${periode}?`}
                 value={getRadioGroupValue(skjemaState.harJobbetIDennePerioden)}
                 onChange={(e) => settSkjemaState((state) => ({ ...state, harJobbetIDennePerioden: e === 'ja' }))}
                 className={'mb-4'}
-                error={visFeilmeldingISkjema && skjemaState.harJobbetIDennePerioden === undefined && tekst('validationError')}
+                error={
+                    visFeilmeldingISkjema &&
+                    skjemaState.harJobbetIDennePerioden === undefined &&
+                    tekst('validationError')
+                }
             >
                 <Radio value="ja" checked={skjemaState.harJobbetIDennePerioden === true}>
                     {tekst('yes')}
@@ -148,7 +160,11 @@ const BekreftelseSkjema = (props: Props) => {
                 value={getRadioGroupValue(skjemaState.vilFortsetteSomArbeidssoeker)}
                 onChange={(e) => settSkjemaState((state) => ({ ...state, vilFortsetteSomArbeidssoeker: e === 'ja' }))}
                 className={'mb-4'}
-                error={visFeilmeldingISkjema && skjemaState.vilFortsetteSomArbeidssoeker === undefined && tekst('validationError')}
+                error={
+                    visFeilmeldingISkjema &&
+                    skjemaState.vilFortsetteSomArbeidssoeker === undefined &&
+                    tekst('validationError')
+                }
             >
                 <Radio value="ja">{tekst('yes')}</Radio>
                 <Radio value="nei">{tekst('no')}</Radio>
