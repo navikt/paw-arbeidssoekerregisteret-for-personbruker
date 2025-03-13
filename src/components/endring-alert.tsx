@@ -19,12 +19,12 @@ const TEKSTER = {
         bodyText3: 'Dagpengemottakarar skal halda fram med å stadfesta statusen sin som arbeidssøkjarar gjennom dagpengemeldekortet . Dei får derfor ikkje stadfestingsoppgåve på Min side, så lenge dei har meldekort for dagpengar.',
     },
     en: {
-        heading: 'Change for those who send employment status form for job seekers',
+        heading: 'Change for those who send employment status form',
         bodyText1:
             'From March 20th, there will be changes for those of you who are registered as a job seeker with Nav. Every 14 days you will receive a task on My Page where you confirm that you will still be registered as a job seeker. The deadlines will be the same as today.',
         bodyText2:
             'If you receive financial support, you must also submit a report card for the relevant financial support.',
-        bodyText3: 'Unemployment benefit recipients must continue to confirm their status as job seekers through their employment status form for job seekers. They will therefore not receive a confirmation form on My Page as long as they have a employment status form for job seekers.',
+        bodyText3: 'Unemployment benefit recipients must continue to confirm their status as job seekers through their employment status form. They will therefore not receive a confirmation form on My Page as long as they have an employment status form.',
     },
 };
 
