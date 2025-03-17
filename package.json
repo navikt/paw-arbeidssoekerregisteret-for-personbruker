@@ -15,10 +15,10 @@
     "refresh": "rm -rf node_modules && rm package-lock.json && npm i"
   },
   "dependencies": {
-    "@amplitude/analytics-browser": "2.11.13",
+    "@amplitude/analytics-browser": "2.12.0",
     "@navikt/arbeidssokerregisteret-utils": "1.4.0",
-    "@navikt/ds-react": "7.17.2",
-    "@navikt/ds-tailwind": "7.17.2",
+    "@navikt/ds-react": "7.17.3",
+    "@navikt/ds-tailwind": "7.17.3",
     "@navikt/nav-dekoratoren-moduler": "3.2.2",
     "@navikt/next-logger": "2.0.0",
     "@navikt/oasis": "3.7.0",
@@ -30,16 +30,16 @@
     "uuid": "11.1.0"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "3.2.5",
-    "@storybook/addon-a11y": "8.6.4",
-    "@storybook/addon-essentials": "8.6.4",
-    "@storybook/addon-interactions": "8.6.4",
-    "@storybook/addon-links": "8.6.4",
-    "@storybook/addon-onboarding": "8.6.4",
-    "@storybook/blocks": "8.6.4",
-    "@storybook/nextjs": "8.6.4",
-    "@storybook/react": "8.6.4",
-    "@storybook/test": "8.6.4",
+    "@chromatic-com/storybook": "3.2.6",
+    "@storybook/addon-a11y": "8.6.6",
+    "@storybook/addon-essentials": "8.6.6",
+    "@storybook/addon-interactions": "8.6.6",
+    "@storybook/addon-links": "8.6.6",
+    "@storybook/addon-onboarding": "8.6.6",
+    "@storybook/blocks": "8.6.6",
+    "@storybook/nextjs": "8.6.6",
+    "@storybook/react": "8.6.6",
+    "@storybook/test": "8.6.6",
     "@storybook/test-runner": "0.22.0",
     "@testing-library/dom": "10.4.0",
     "@testing-library/react": "16.2.0",
@@ -57,10 +57,10 @@
     "jsdom": "26.0.0",
     "postcss": "8.5.3",
     "prettier": "3.5.3",
-    "storybook": "8.6.4",
+    "storybook": "8.6.6",
     "tailwindcss": "3.4.17",
     "typescript": "5.7.3",
-    "vitest": "3.0.8"
+    "vitest": "3.0.9"
   },
   "prettier": {
     "printWidth": 120,
