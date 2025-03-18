@@ -1,6 +1,6 @@
 'use client';
 
-import { BodyShort, Box, Button, Link } from '@navikt/ds-react';
+import { BodyLong, BodyShort, Box, Button, Link } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggAktivitet } from '@/lib/amplitude';
 
@@ -11,7 +11,8 @@ interface ManglerOpplysningerProps {
 
 const TEKSTER = {
     nb: {
-        header: 'Du har registrert deg som arbeidssøker, men ikke lagt til opplysninger enda.',
+        header: 'Du er registrert som arbeidssøker',
+        body: 'For å kunne vurdere hva slags tjenester du trenger, må vi ha opplysninger om, alderen din, om du har vært i jobb, om utdanningen din og eventuelle utfordringer',
         linkText: 'Legg til opplysninger',
     },
 };
@@ -23,6 +24,7 @@ const ManglerOpplysninger = (props: ManglerOpplysningerProps) => {
     return (
         <Box background="surface-default" padding="6" borderRadius="xlarge" borderColor="border-subtle" borderWidth="1">
             <BodyShort className={'mb-2'}>{tekst('header')}</BodyShort>
+            <BodyLong spacing>{tekst('body')}</BodyLong>
             <Button
                 variant={'secondary'}
                 onClick={() => {
