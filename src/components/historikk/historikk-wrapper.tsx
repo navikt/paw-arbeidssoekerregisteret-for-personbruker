@@ -24,9 +24,12 @@ const TEKSTER = {
         SYSTEM: 'Nav',
         VEILEDER: 'veileder',
         'fortsatt aktiv': 'fortsatt aktiv',
-        'graceperiode utløpt': 'Ikke bekreftet arbeidssøkerstatus',
+        'graceperiode utløpt': 'Ikke svart på bekreftelse',
+        '[bekreftelse] ikke levert innen fristen': 'Ikke svart på bekreftelse',
+        '[bekreftelse:ytelse/støtte] ikke levert innen fristen': 'Ikke svart på bekreftelse',
         'stopp av periode': 'Stoppet av veileder',
-        'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stoppet av bruker'
+        'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stoppet av deg',
+        '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Svarte "Nei" på bekreftelse',
     },
     nn: {
         startet: 'Starta',
@@ -38,9 +41,12 @@ const TEKSTER = {
         SYSTEM: 'Nav',
         VEILEDER: 'rettleiar',
         'fortsatt aktiv': 'framleis aktiv',
-        'graceperiode utløpt': 'Ikkje stadfesta arbeidssøkjarstatus',
-        'stopp av periode': 'Stoppet av rettleiar',
-        'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stoppet av bruker'
+        'graceperiode utløpt': 'Ikkje svart på stadfesting',
+        '[bekreftelse] ikke levert innen fristen': 'Ikkje svart på stadfesting',
+        '[bekreftelse:ytelse/støtte] ikke levert innen fristen': 'Ikkje svart på stadfesting',
+        'stopp av periode': 'Stoppa av rettleiar',
+        'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stoppa av deg',
+        '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Svara "Nei" på stadfesting'
     },
     en: {
         startet: 'Started',
@@ -53,8 +59,11 @@ const TEKSTER = {
         VEILEDER: 'supervisor',
         'fortsatt aktiv': 'still active',
         'graceperiode utløpt': 'Job seeker status not confirmed',
+        '[bekreftelse] ikke levert innen fristen': 'Job seeker status not confirmed',
+        '[bekreftelse:ytelse/støtte] ikke levert innen fristen': 'Job seeker status not confirmed',
         'stopp av periode': 'Stopped by supervisor',
-        'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stopped by user'
+        'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stopped by you',
+        '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Did not want to be registered as job seeker'
     },
 };
 

@@ -14,7 +14,7 @@ avsluttetPeriode[0].avsluttet = {
     "id": "12345678910"
   },
   "kilde": "string",
-  "aarsak": "string",
+  "aarsak": "[Bekreftelse] Ønsket ikke lenger å være arbeidssøker",
   "tidspunktFraKilde": {
     "tidspunkt": "2021-10-31T11:20:33.444Z",
     "avviksType": "UKJENT_VERDI"
