@@ -11,9 +11,19 @@ interface ManglerOpplysningerProps {
 
 const TEKSTER = {
     nb: {
-        header: 'Du er registrert som arbeidssøker',
-        body: 'For å kunne vurdere hva slags tjenester du trenger, må vi ha opplysninger om, alderen din, om du har vært i jobb, om utdanningen din og eventuelle utfordringer',
-        linkText: 'Legg til opplysninger',
+        header: 'Du er registrert som arbeidssøker.',
+        body: 'Du kan legge inn flere opplysninger om din situasjon slik at det er enklere for oss å tilby riktige tjenester.',
+        linkText: 'Legg til flere opplysninger',
+    },
+    nn: {
+        header: 'Du er registrert som arbeidssøkjar.',
+        body: 'Du kan leggja inn fleire opplysningar om din situasjon slik at det er enklare for oss å tilby rette tenester.',
+        linkText: 'Legg til fleire opplysningar',
+    },
+    en: {
+        header: 'You are registered as a job seeker.',
+        body: 'You can enter more information about your situation to make it easier for us to provide the right services.',
+        linkText: 'Add more information',
     },
 };
 
