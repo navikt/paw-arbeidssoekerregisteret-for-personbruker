@@ -67,6 +67,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                     <ManglerOpplysninger
                         sprak={sprak}
                         oppdaterOpplysningerUrl={process.env.OPPDATER_OPPLYSNINGER_URL!}
+                        visAdvarsel={innloggingsNivaa === 'idporten-loa-high'}
                     />
                 </div>
             )}

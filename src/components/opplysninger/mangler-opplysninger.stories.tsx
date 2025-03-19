@@ -16,5 +16,15 @@ export const ManglerOpplysningerKomponent: Story = {
     args: {
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
+        visAdvarsel: false
     },
 };
+
+export const ManglerOpplysningerMedInnlogginsAdvarsel: Story = {
+    args: {
+        sprak: 'nb',
+        oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
+        visAdvarsel: true
+    },
+};
+
