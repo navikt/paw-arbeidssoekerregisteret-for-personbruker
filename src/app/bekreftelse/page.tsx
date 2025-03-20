@@ -19,11 +19,9 @@ async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
     if (error || informasjonError) {
         return <Feil sprak={sprak} error={error?.message ?? informasjonError?.message ?? ''} />;
     }
-
     const sisteArbeidssokerPeriode = hentSisteArbeidssokerPeriode(samletInformasjon?.arbeidssoekerperioder ?? []);
-    const erAktivArbeidssoker = !Boolean(sisteArbeidssokerPeriode?.avsluttet);
+    const erAktivArbeidssoker = Boolean(sisteArbeidssokerPeriode.periodeId) && !Boolean(sisteArbeidssokerPeriode.avsluttet);
     const sistInnsendteBekreftelse = samletInformasjon?.bekreftelser[0];
-
     return (
         <BekreftelseWrapper
             sprak={sprak}

@@ -12,11 +12,11 @@ interface Props {
 const TEKSTER = {
     nb: {
         heading: 'Du er ikke registert som aktiv arbeidssøker',
-        buttonText: 'Jeg ønsker å registrere meg på nytt',
+        buttonText: 'Jeg ønsker å registrere meg som arbeidssøker',
     },
     nn: {
         heading: 'Du er ikkje registert som aktiv arbeidssøkjar',
-        buttonText: 'Eg ønskjer å registrere meg på nytt',
+        buttonText: 'Eg ønskjer å registrere meg som arbeidssøkjar',
     },
     en: {
         heading: 'You are not registered as an active jobseeker',
@@ -37,7 +37,7 @@ const IkkeAktivArbeidssoker = (props: Props) => {
     }, []);
 
     return (
-        <div className={'py-4'}>
+        <div className={'px-4'}>
             <Heading level="1" size="medium" className={'mb-6'}>
                 {tekst('heading')}
             </Heading>
