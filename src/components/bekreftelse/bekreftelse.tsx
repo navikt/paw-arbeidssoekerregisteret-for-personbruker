@@ -11,6 +11,7 @@ import { loggAktivitet, loggVisning } from '@/lib/amplitude';
 import { BekreftelseSkjemaType, TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
 import { useRouter } from 'next/navigation';
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
+import IngenTilgjengeligeBekreftelser from '@/components/bekreftelse/ingen-tilgjengelige-bekreftelser';
 
 export interface BekreftelseProps {
     sprak: Sprak;
@@ -95,6 +96,7 @@ function Bekreftelse(props: BekreftelseProps) {
                     }}
                 />
             )}
+            {!harTilgjengeligeBekreftelser && <IngenTilgjengeligeBekreftelser sprak={sprak} />}
         </div>
     );
 }

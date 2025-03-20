@@ -55,8 +55,8 @@ export const BekreftArbeidssokerStatus: Story = {
         await expect(
             await canvas.findByText('Du har bekreftet at du fortsatt vil være registrert som arbeidssøker'),
         ).toBeDefined();
-    }
-}
+    },
+};
 
 export const AvsluttArbeidssokerStatus: Story = {
     play: async ({ canvas }) => {
@@ -65,8 +65,24 @@ export const AvsluttArbeidssokerStatus: Story = {
         await userEvent.click(await canvas.findByText('Send inn'));
         await userEvent.click(await canvas.findByText('Jeg vil ikke være registrert som arbeidssøker'));
 
-        await expect(
-            await canvas.findByText('Du er ikke lenger registrert som arbeidssøker'),
-        ).toBeDefined();
-    }
-}
+        await expect(await canvas.findByText('Du er ikke lenger registrert som arbeidssøker')).toBeDefined();
+    },
+};
+
+export const IngenTilgjengelige: Story = {
+    args: {
+        sprak: 'nb',
+        erAktivArbeidssoker: true,
+        sistInnsendteBekreftelse: undefined,
+        tilgjengeligeBekreftelser: [],
+        registrerArbeidssokerUrl: process.env.REGISTRER_ARBEIDSSOKER_URL!,
+        onSubmit(data: BekreftelseSkjemaType): Promise<void> {
+            console.log('onSubmit', data);
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve();
+                }, 1000);
+            });
+        },
+    },
+};
