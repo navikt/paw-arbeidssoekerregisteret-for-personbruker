@@ -65,27 +65,9 @@ function Bekreftelse(props: BekreftelseProps) {
 
     if (!erAktivArbeidssoker) {
         return <IkkeAktivArbeidssoker sprak={sprak} registrerArbeidssokerUrl={registrerArbeidssokerUrl} />;
-    }
-
-    return (
-        <div className={'px-4'}>
-            {props.sistInnsendteBekreftelse && !harTilgjengeligeBekreftelser && !visKvittering && (
-                <BekreftelseBesvart
-                    besvarelse={props.sistInnsendteBekreftelse}
-                    sprak={sprak}
-                    registrerArbeidssokerUrl={registrerArbeidssokerUrl}
-                />
-            )}
-            {harTilgjengeligeBekreftelser && !visKvittering && (
-                <BekreftelseSkjema
-                    sprak={sprak}
-                    fristDato={'2024-09-01'}
-                    bekreftelse={gjeldendeBekreftelse}
-                    onSubmit={onSubmitSkjema}
-                    onCancel={onCancel}
-                />
-            )}
-            {visKvittering && (
+    } else if (visKvittering) {
+        return (
+            <div className={'px-4'}>
                 <Kvittering
                     sprak={sprak}
                     erUtmeldt={!sisteBekreftlse?.vilFortsetteSomArbeidssoeker}
@@ -94,6 +76,30 @@ function Bekreftelse(props: BekreftelseProps) {
                         settVisKvittering(false);
                         loggAktivitet({ aktivitet: 'Trykker på "Bekreft neste periode"' });
                     }}
+                />
+            </div>
+        );
+    } else if (harTilgjengeligeBekreftelser) {
+        return (
+            <div className={'px-4'}>
+                <BekreftelseSkjema
+                    sprak={sprak}
+                    fristDato={'2024-09-01'}
+                    bekreftelse={gjeldendeBekreftelse}
+                    onSubmit={onSubmitSkjema}
+                    onCancel={onCancel}
+                />
+            </div>
+        );
+    }
+
+    return (
+        <div className={'px-4'}>
+            {props.sistInnsendteBekreftelse && (
+                <BekreftelseBesvart
+                    besvarelse={props.sistInnsendteBekreftelse}
+                    sprak={sprak}
+                    registrerArbeidssokerUrl={registrerArbeidssokerUrl}
                 />
             )}
             {!harTilgjengeligeBekreftelser && <IngenTilgjengeligeBekreftelser sprak={sprak} />}
