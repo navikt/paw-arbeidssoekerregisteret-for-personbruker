@@ -17,20 +17,20 @@ const config = {
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
 const isConsentingToAnalytics = () => {
-    const currentConsent =  getCurrentConsent() ?? {
+    const currentConsent = getCurrentConsent() ?? {
         consent: {
             analytics: false,
-            surveys: false
+            surveys: false,
         },
         meta: {
             createdAt: '',
             updatedAt: '',
-            version: -1
+            version: -1,
         },
-        userActionTaken: false
-    }
+        userActionTaken: false,
+    };
     return currentConsent.consent.analytics;
-}
+};
 
 export const initAmplitude = async (apiKey: string) => {
     await awaitDecoratorData();
@@ -62,7 +62,8 @@ type AktivitetData =
     | { aktivitet: 'Trykker på "Endre opplysninger"' }
     | { aktivitet: 'Trykker på "Registrer deg som arbeidssøker"' }
     | { aktivitet: 'Går til siden for historikk' }
-    | { aktivitet: 'Trykker på "Gå til Bekreftelse" fra forsiden' };
+    | { aktivitet: 'Trykker på "Gå til Bekreftelse" fra forsiden' }
+    | { aktivitet: 'Trykker på "Kontakt oss" fra avbryt bekreftelse' };
 
 type EventData = VisningsData | AktivitetData;
 

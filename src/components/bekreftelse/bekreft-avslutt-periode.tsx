@@ -3,6 +3,7 @@ import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-util
 import { useState } from 'react';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
 import { prettyPrintDato } from '@/lib/date-utils';
+import { loggAktivitet } from '@/lib/amplitude';
 
 interface Props {
     onSubmit(): void;
@@ -68,6 +69,11 @@ const BekreftAvsluttPeriode = (props: Props) => {
         }
     };
 
+    const onClikcKontaktOss = (e: any) => {
+        loggAktivitet({ aktivitet: 'Trykker på "Kontakt oss" fra avbryt bekreftelse' });
+        return e;
+    };
+
     return (
         <>
             <Heading level={'1'} size={'xlarge'} className={'mb-4'}>
@@ -81,8 +87,13 @@ const BekreftAvsluttPeriode = (props: Props) => {
             <BodyLong className={'my-4'}>
                 {tekst('bodyText1')} {prettyPrintDato(new Date().toISOString(), sprak)}.
             </BodyLong>
-            <BodyLong className='mb-4'>{tekst('bodyText2')}</BodyLong>
-            <BodyLong>{tekst('usikkerTekst')}{' '}<Link href={tekst('kontaktOssLenke')}>{tekst('usikkerKontaktOssLenkeTekst')}</Link></BodyLong>
+            <BodyLong className="mb-4">{tekst('bodyText2')}</BodyLong>
+            <BodyLong>
+                {tekst('usikkerTekst')}{' '}
+                <Link onClick={onClikcKontaktOss} href={tekst('kontaktOssLenke')}>
+                    {tekst('usikkerKontaktOssLenkeTekst')}
+                </Link>
+            </BodyLong>
             <div className={'my-4'}>
                 <Button
                     variant={'primary'}
