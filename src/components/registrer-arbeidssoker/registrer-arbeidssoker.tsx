@@ -17,7 +17,7 @@ const TEKSTER = {
         tittel: 'Registrer deg som arbeidssøkjar',
     },
     en: {
-        tittel: 'Register as a job seeker',
+        tittel: 'Register as a jobseeker',
     }
 };
 

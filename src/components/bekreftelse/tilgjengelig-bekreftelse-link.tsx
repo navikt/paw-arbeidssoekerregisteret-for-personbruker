@@ -23,7 +23,7 @@ const TEKSTER = {
         title: 'Stadfest at du framleis vil vera arbeidssøkjar',
     },
     en: {
-        title: 'Confirm that you will still be a job seeker',
+        title: 'Confirm that you want to stay registered as a jobseeker',
         iconTitle: 'Warning icon'
     },
 };

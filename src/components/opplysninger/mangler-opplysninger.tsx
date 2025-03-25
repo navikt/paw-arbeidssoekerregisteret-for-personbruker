@@ -26,7 +26,7 @@ const TEKSTER = {
             'Du har logga inn med Min ID. For å kunna leggja til opplysningar, vil du bli bede om å logga inn med BankID, Buypass eller Commfides.',
     },
     en: {
-        header: 'You are registered as a job seeker.',
+        header: 'You are registered as a jobseeker.',
         body: 'You can enter more information about your situation to make it easier for us to provide the right services.',
         linkText: 'Add more information',
         alertText:

@@ -58,12 +58,12 @@ const TEKSTER = {
         SYSTEM: 'Nav',
         VEILEDER: 'supervisor',
         'fortsatt aktiv': 'still active',
-        'graceperiode utløpt': 'Job seeker status not confirmed',
-        '[bekreftelse] ikke levert innen fristen': 'Job seeker status not confirmed',
-        '[bekreftelse:ytelse/støtte] ikke levert innen fristen': 'Job seeker status not confirmed',
+        'graceperiode utløpt': 'Jobseeker status not confirmed',
+        '[bekreftelse] ikke levert innen fristen': 'Jobseeker status not confirmed',
+        '[bekreftelse:ytelse/støtte] ikke levert innen fristen': 'Jobseeker status not confirmed',
         'stopp av periode': 'Stopped by supervisor',
         'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stopped by you',
-        '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Did not want to be registered as job seeker'
+        '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Did not want to be registered as jobseeker'
     },
 };
 

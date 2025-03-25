@@ -16,7 +16,7 @@ const TEKSTER = {
         tittel: 'Arbeidssøkjarhistorikk',
     },
     en: {
-        tittel: 'Job seeker history',
+        tittel: 'Jobseeker history',
     }
 };
 

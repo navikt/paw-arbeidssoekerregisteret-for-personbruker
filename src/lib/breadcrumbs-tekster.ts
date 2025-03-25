@@ -11,7 +11,7 @@ export const BREADCRUMBS_TITLES = {
     },
     en: {
         minside: 'My Page',
-        registeret: 'Job seeker',
+        registeret: 'Jobseeker',
         bekreftelse: 'Confirm registration',
     },
 };

@@ -13,10 +13,10 @@ export const TEKSTER = {
         ikkeRegistrertLenger: 'Du er ikke lenger registrert som arbeidssøker',
     },
     en: {
-        registrert: 'You are registered as job seeker',
-        registrertPermittert: 'You are registered as a temporarily layed off job seeker',
-        ikkeRegistrert: 'You are not registered as job seeker',
-        ikkeRegistrertLenger: 'You are no longer registered as job seeker',
+        registrert: 'You are registered as jobseeker',
+        registrertPermittert: 'You are registered as a temporarily layed off jobseeker',
+        ikkeRegistrert: 'You are not registered as jobseeker',
+        ikkeRegistrertLenger: 'You are no longer registered as jobseeker',
     },
 };
 

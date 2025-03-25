@@ -39,9 +39,9 @@ const TEKSTER = {
     en: {
         registreringsDato: 'Registered: ',
         sistBekreftetDato: 'Last confirmed: ',
-        varRegistrert: 'You were registered as a job seeker from ',
+        varRegistrert: 'You were registered as a jobseeker from ',
         til: 'to ',
-        ikkeTidligereRegistrert: 'You have not previously been registered as a job seeker',
+        ikkeTidligereRegistrert: 'You have not previously been registered as a jobseeker',
     },
 };
 

@@ -42,7 +42,7 @@ const TEKSTER = {
         bodyText1: 'You will be registered as a jobseeker within Nav until ',
         bodyText2:
             'If you receive unemployment benefits requiring that you are registered as a jobseeker, these will be stopped',
-        usikkerTekst: 'If you are unsure whether you need to be registered as a job seeker,',
+        usikkerTekst: 'If you are unsure whether you need to be registered as a jobseeker,',
         usikkerKontaktOssLenkeTekst: 'please contact us',
         kontaktOssLenke: 'https://www.nav.no/kontaktoss',
         confirm: 'I do not wish to be registered as a jobseeker',
