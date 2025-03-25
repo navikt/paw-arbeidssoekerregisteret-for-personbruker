@@ -63,7 +63,9 @@ type AktivitetData =
     | { aktivitet: 'Trykker på "Registrer deg som arbeidssøker"' }
     | { aktivitet: 'Går til siden for historikk' }
     | { aktivitet: 'Trykker på "Gå til Bekreftelse" fra forsiden' }
+    | { aktivitet: 'Trykker på "Les mer om å bekrefte at du vil være arbeidssøker" på nav.no fra varsel på forsiden' }
     | { aktivitet: 'Trykker på "Kontakt oss" fra avbryt bekreftelse' };
+
 
 type EventData = VisningsData | AktivitetData;
 
