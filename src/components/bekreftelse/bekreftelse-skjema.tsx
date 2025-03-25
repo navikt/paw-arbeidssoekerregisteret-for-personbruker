@@ -45,7 +45,7 @@ const TEKSTER = {
         cancel: 'Avbryt',
     },
     en: {
-        heading: 'Confirm that you wish to be registered as a jobseeker',
+        heading: 'Confirm that you want to stay registered as a jobseekerr',
         beenWorking: 'Have you worked in the period ',
         yes: 'Yes',
         no: 'No',
