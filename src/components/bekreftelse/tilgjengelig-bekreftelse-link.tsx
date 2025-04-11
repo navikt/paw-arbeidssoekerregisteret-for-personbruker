@@ -16,14 +16,15 @@ interface Props {
 
 const TEKSTER = {
     nb: {
-        title: 'Bekreft at du fortsatt vil være arbeidssøker',
+        title: 'Bekreft at du vil være registrert som arbeidssøker hos Nav',
         iconTitle: 'Varseltrekant ikon'
     },
     nn: {
-        title: 'Stadfest at du framleis vil vera arbeidssøkjar',
+        title: 'Stadfest at du vil vera registrert som arbeidssøkjar hos Nav',
+        iconTitle: 'Varseltrekant ikon'
     },
     en: {
-        title: 'Confirm that you want to stay registered as a jobseeker',
+        title: 'Confirm that you want to be registered as a jobseeker with Nav',
         iconTitle: 'Warning icon'
     },
 };
