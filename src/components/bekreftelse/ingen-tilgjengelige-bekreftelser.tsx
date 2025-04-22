@@ -1,4 +1,5 @@
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import LenkeTilBekreftelseArtikkel from '../lenke-til-bekreftelse-artikkel';
 import { Alert } from '@navikt/ds-react';
 
 interface Props {
@@ -18,5 +19,12 @@ const TEKSTER = {
 
 export default function IngenTilgjengeligeBekreftelser(props: Props) {
     const tekst = lagHentTekstForSprak(TEKSTER, props.sprak);
-    return <Alert variant={'info'}>{tekst('melding')}</Alert>;
+    return (
+            <>
+                <Alert variant={'info'}>
+                    {tekst('melding')}
+                </Alert>
+                <LenkeTilBekreftelseArtikkel sprak={props.sprak}/>
+            </>
+        );
 }
