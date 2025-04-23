@@ -1,4 +1,5 @@
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import LenkeTilBekreftelseArtikkel from '../lenke-til-bekreftelse-artikkel';
 import { Alert } from '@navikt/ds-react';
 
 interface Props {
@@ -6,17 +7,24 @@ interface Props {
 }
 const TEKSTER = {
     nb: {
-        melding: 'Det er ingen tilgjengelige bekreftelser å sende inn',
+        melding: 'Du har ingen bekreftelser å sende inn',
     },
     nn: {
-        melding: 'Det er ingen tilgjengelege stadfestingar å senda inn',
+        melding: 'Du har ingen stadfestingar å senda inn',
     },
     en: {
-        melding: 'No confirmation forms available at the moment'
+        melding: 'You have no confirmation forms to submit'
     }
 };
 
 export default function IngenTilgjengeligeBekreftelser(props: Props) {
     const tekst = lagHentTekstForSprak(TEKSTER, props.sprak);
-    return <Alert variant={'info'}>{tekst('melding')}</Alert>;
+    return (
+            <>
+                <Alert variant={'info'}>
+                    {tekst('melding')}
+                </Alert>
+                <LenkeTilBekreftelseArtikkel sprak={props.sprak}/>
+            </>
+        );
 }

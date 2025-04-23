@@ -7,6 +7,7 @@ import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-util
 import { loggAktivitet } from '@/lib/amplitude';
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
+import LenkeTilBekreftelseArtikkel from '../lenke-til-bekreftelse-artikkel';
 import styles from './tilgjengelig-bekreftelse-link.module.css';
 
 interface Props {
@@ -45,21 +46,24 @@ const TilgjengeligBekreftelseLink = (props: Props) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
+        <>
         <LinkPanel
             className={styles.tilgjengeligBekreftelseLink}
             style={{ background: 'var(--a-surface-warning-subtle)' }}
             href={tilSprakAvhengigAppPath('/bekreftelse', sprak)}
             onClick={onClick}
             as={NextLink}
-        >
+            >
             <LinkPanel.Title className={'flex items-center'}>
                 <ExclamationmarkTriangleFillIcon
                     title={tekst('iconTitle')}
                     className={`mr-4 ${styles.ikon}`}
                     style={{ color: 'var(--a-icon-warning)'}}
-                />
+                    />
                 {tekst('title')}</LinkPanel.Title>
         </LinkPanel>
+        <LenkeTilBekreftelseArtikkel sprak={sprak} />
+        </>
     );
 };
 
