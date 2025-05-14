@@ -11,8 +11,8 @@ spec:
             enabled: true
             runtime: nodejs
         logging:
-        destinations:
-          - id: loki
+          destinations:
+            - id: loki
     image: {{image}}
     port: 3000
     liveness:
