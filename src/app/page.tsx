@@ -1,8 +1,8 @@
 import { Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { hentSisteProfilering, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
-import { fetchSamletInformasjon } from '@/app/actions';
+import { fetchSamletInformasjon, fetchTilgjengeligEgenvurdering } from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
 import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengelig-bekreftelse-link';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
@@ -17,6 +17,7 @@ import ManglerOpplysninger from '@/components/opplysninger/mangler-opplysninger'
 import Feil from '@/components/feil';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
+import Egenvurdering from '@/components/egenvurdering/egenvurdering';
 
 interface Props {
     sprak: Sprak;
@@ -47,6 +48,9 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
             <PeriodeInfo {...sisteSamletInformasjon!} sprak={sprak} />
             <Suspense fallback={<Loader />}>
                 <TilgjengeligBekreftelseKomponent sprak={sprak} />
+            </Suspense>
+            <Suspense fallback={<Loader />}>
+                <EgenvurderingServerKomponent sprak={sprak} />
             </Suspense>
             {harAktivPeriode && opplysninger && (
                 <div className={'my-6'}>
@@ -87,6 +91,18 @@ const TilgjengeligBekreftelseKomponent = async ({ sprak }: Props) => {
     }
 
     return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data!} sprak={sprak} />;
+};
+
+const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
+    const { data } = await fetchTilgjengeligEgenvurdering();
+
+    if (!data) {
+        return null;
+    }
+
+    const profilering = hentSisteProfilering(data);
+
+    return <Egenvurdering sprak={sprak} profilering={profilering} />;
 };
 
 export default async function Home({ params }: NextPageProps) {

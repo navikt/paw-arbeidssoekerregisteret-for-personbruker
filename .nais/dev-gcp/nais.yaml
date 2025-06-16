@@ -57,6 +57,8 @@ spec:
           value: 9845ded64c69cd068651cd0d968e0796
         - name: UNLEASH_SERVER_API_URL
           value: https://paw-unleash-api.nav.cloud.nais.io/api
+        - name: EGENVURDERING_API_URL
+          value: http://paw-arbeidssoekerregisteret-egenvurdering-api
     envFrom:
         - secret: arbeidssoekerregisteret-for-personbruker-unleash-api-token
     ingresses:
