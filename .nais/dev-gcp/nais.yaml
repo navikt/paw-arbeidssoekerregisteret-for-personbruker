@@ -83,5 +83,6 @@ spec:
                 - application: paw-arbeidssoekerregisteret-api-oppslag
                 - application: paw-arbeidssoekerregisteret-api-bekreftelse
                 - application: aia-backend
+                - application: paw-arbeidssoekerregisteret-egenvurdering-api
                 - application: nav-dekoratoren
                   namespace: personbruker
