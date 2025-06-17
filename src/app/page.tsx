@@ -96,13 +96,11 @@ const TilgjengeligBekreftelseKomponent = async ({ sprak }: Props) => {
 const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
     const { data } = await fetchTilgjengeligEgenvurdering();
 
-    if (!data) {
+    if (!data?.grunnlag) {
         return null;
     }
 
-    const profilering = hentSisteProfilering(data);
-
-    return <Egenvurdering sprak={sprak} profilering={profilering} />;
+    return <Egenvurdering sprak={sprak} profilering={data.grunnlag} />;
 };
 
 export default async function Home({ params }: NextPageProps) {

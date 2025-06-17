@@ -7,13 +7,7 @@ import { headers } from 'next/headers';
 import { SamletInformasjon } from '@navikt/arbeidssokerregisteret-utils';
 import { v4 as uuidv4 } from 'uuid';
 
-import {
-    behovsvurderingMockData,
-    samletInformasjonMockData,
-    sisteSamletInformasjonMockData,
-    aggregertePerioderMockData,
-} from './mockdata';
-import { BehovsvurderingResponse } from '../../types/behovsvurdering';
+import { aggregertePerioderMockData, samletInformasjonMockData, sisteSamletInformasjonMockData } from './mockdata';
 import { AggregertePerioder } from '../../types/aggregerte-perioder';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
@@ -144,13 +138,20 @@ async function fetchTilgjengeligEgenvurdering(): Promise<{ data?: any; error?: a
     if (brukerMock) {
         return new Promise((resolve) => {
             setTimeout(() => {
-                resolve({ data: null });
+                resolve({
+                    data: {
+                        grunnlag: {
+                            profileringId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+                            profilertTil: 'ANTATT_GODE_MULIGHETER',
+                        },
+                    },
+                });
             }, 3000);
         });
-        // return Promise.resolve({ data: null });
+        // return Promise.resolve({ data: {}});
     }
 
-    const EGENVURDERING_API_URL = `${process.env.EGENVURDERING_API_URL}/api/v1/egenvurdering?`;
+    const EGENVURDERING_API_URL = `${process.env.EGENVURDERING_API_URL}/api/v1/arbeidssoeker/profilering/egenvurdering/grunnlag`;
 
     try {
         const reqHeaders = await headers();
