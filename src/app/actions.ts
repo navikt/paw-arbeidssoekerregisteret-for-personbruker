@@ -170,6 +170,11 @@ async function fetchTilgjengeligEgenvurdering(): Promise<{ data?: any; error?: a
             },
         });
 
+        logger.info(
+            { x_trace_id: traceId },
+            `Ferdig GET ${EGENVURDERING_API_URL} ${response.status} ${response.statusText}`,
+        );
+
         if (!response.ok) {
             const error: any = new Error(`${response.status} ${response.statusText}`);
             error.traceId = response.headers.get('x-trace-id');
@@ -182,6 +187,7 @@ async function fetchTilgjengeligEgenvurdering(): Promise<{ data?: any; error?: a
 
         return { data: await response.json() };
     } catch (error) {
+        logger.error(error, `Feil fra GET ${EGENVURDERING_API_URL}`);
         return { error };
     }
 }
