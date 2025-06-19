@@ -31,5 +31,6 @@ export const EgenvurderingStory: Story = {
             jobbetSammenhengendeSeksAvTolvSisteManeder: true,
             alder: 42,
         },
+        arbeidssokerPeriodeId: '42'
     },
 };
