@@ -3,7 +3,7 @@ import Egenvurdering from '@/components/egenvurdering/egenvurdering-stateless';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
 
 const meta = {
-    title: 'Komponenter/EgenvurderingStateless',
+    title: 'Komponenter/Egenvurdering/Stateless',
     component: Egenvurdering,
     tags: ['autodocs'],
     args: {},
