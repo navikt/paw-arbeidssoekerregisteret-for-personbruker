@@ -16,17 +16,17 @@ interface Props {
 
 const TEKSTER = {
     nb: {
-        'heading-standard': 'Vi tror du har gode muligheter til å komme i jobb uten en veileder eller tiltak fra NAV',
+        'heading-standard': 'Vi tror du har gode muligheter til å komme i jobb uten en veileder eller tiltak fra Nav',
         'beskrivelse-standard':
             'En veileders oppgave er å hjelpe deg med å søke stillinger og finne aktuelle tiltak på veien til arbeid.',
-        'svarEnigKnappetekst-standard': 'Jeg klarer meg uten veileder',
-        'svarUenigKnappetekst-standard': 'Jeg trenger en veileder for å komme i arbeid',
+        'svarEnigKnappetekst-standard': 'Jeg klarer meg uten hjelp',
+        'svarUenigKnappetekst-standard': 'Jeg ønsker hjelp fra en veileder',
         veilederKanIkke: 'En veileder kan ikke svare på spørsmål om dagpenger eller meldekort.',
         'heading-situasjonsbestemt': 'Ønsker du hjelp fra en veileder?',
         'beskrivelse-situasjonsbestemt': 'Vi tror du vil trenge hjelp fra en veileder for å nå ditt mål om arbeid.',
         'svarEnigKnappetekst-situasjonsbestemt': 'Ja, jeg ønsker hjelp',
         'svarUenigKnappetekst-situasjonsbestemt': 'Nei, jeg vil gjerne klare meg selv',
-        feilmelding: 'Vi klarte ikke lagre svaret ditt prøv igjen om et par minutter.',
+        feilmelding: 'Vi klarte ikke lagre svaret ditt, prøv igjen om et par minutter.',
     },
 };
 
