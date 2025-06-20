@@ -18,7 +18,7 @@ const Egenvurdering = (props: Props) => {
         ProfilertTil.ANTATT_GODE_MULIGHETER | ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING | null
     >(null);
     const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
-    const [visAvklartKomponent, settVisAvklartKomponent] = useState<ProfilertTil.ANTATT_GODE_MULIGHETER | ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING | null>(null);
+    const [innsendtEgenvurdering, settInnsendtEgenvurdering] = useState<ProfilertTil.ANTATT_GODE_MULIGHETER | ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING | null>(null);
 
     async function onSubmit(
         egenvurdering: ProfilertTil.ANTATT_GODE_MULIGHETER | ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING,
@@ -40,7 +40,7 @@ const Egenvurdering = (props: Props) => {
             if (!response.ok) {
                 settVisFeilmelding(true);
             } else {
-                settVisAvklartKomponent(true);
+                settInnsendtEgenvurdering(egenvurdering);
             }
         } catch (error) {
             settVisFeilmelding(true);
@@ -49,8 +49,8 @@ const Egenvurdering = (props: Props) => {
         }
     }
 
-    if (visAvklartKomponent) {
-        return <EgenvurderingAvklart sprak={sprak} egenvurdering={visAvklartKomponent} profilering={profilering}/>;
+    if (innsendtEgenvurdering) {
+        return <EgenvurderingAvklart sprak={sprak} egenvurdering={innsendtEgenvurdering} profilering={profilering}/>;
     }
 
     return (
