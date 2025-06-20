@@ -5,8 +5,8 @@ import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/p
 
 interface BehovvurderingAvklartProps {
     sprak: Sprak;
-    profilering?: any;
-    egenvurdering?: ProfilertTil.ANTATT_GODE_MULIGHETER | ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING;
+    profilering: any;
+    egenvurdering: ProfilertTil.ANTATT_GODE_MULIGHETER | ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING;
 }
 
 const TEKSTER = {

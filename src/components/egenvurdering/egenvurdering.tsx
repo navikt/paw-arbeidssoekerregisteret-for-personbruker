@@ -4,6 +4,7 @@ import { Profilering, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
 import EgenvurderingStateless from '@/components/egenvurdering/egenvurdering-stateless';
+import EgenvurderingAvklart from '@/components/egenvurdering/egenvurdering-avklart';
 
 interface Props {
     sprak: Sprak;
@@ -17,6 +18,7 @@ const Egenvurdering = (props: Props) => {
         ProfilertTil.ANTATT_GODE_MULIGHETER | ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING | null
     >(null);
     const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
+    const [visAvklartKomponent, settVisAvklartKomponent] = useState<ProfilertTil.ANTATT_GODE_MULIGHETER | ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING | null>(null);
 
     async function onSubmit(
         egenvurdering: ProfilertTil.ANTATT_GODE_MULIGHETER | ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING,
@@ -37,12 +39,18 @@ const Egenvurdering = (props: Props) => {
             });
             if (!response.ok) {
                 settVisFeilmelding(true);
+            } else {
+                settVisAvklartKomponent(true);
             }
         } catch (error) {
             settVisFeilmelding(true);
         } finally {
             settPendingRequest(null);
         }
+    }
+
+    if (visAvklartKomponent) {
+        return <EgenvurderingAvklart sprak={sprak} egenvurdering={visAvklartKomponent} profilering={profilering}/>;
     }
 
     return (
