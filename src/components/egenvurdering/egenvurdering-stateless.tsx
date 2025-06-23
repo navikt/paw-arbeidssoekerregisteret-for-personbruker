@@ -1,8 +1,9 @@
-import { Alert, BodyLong, Box, Button, Heading } from '@navikt/ds-react';
+import { Alert, BodyLong, Box, Button, Heading, Hide } from '@navikt/ds-react';
 import ReadMoreVeileder from '@/components/egenvurdering/readmore-veileder';
 import ReadMoreVurdering from '@/components/egenvurdering/readmore-vurdering';
 import { lagHentTekstForSprak, Profilering, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
+import { InformationSquareIcon } from '@navikt/aksel-icons';
 
 interface Props {
     sprak: Sprak;
@@ -45,14 +46,17 @@ const EgenvurderingStateless = (props: Props) => {
     return (
         <Box
             background="surface-default"
-            borderRadius="xlarge"
+            borderRadius="large"
             borderColor={'border-subtle'}
             borderWidth={'1'}
             className={'divide-y divide-gray-300'}
         >
-            <Heading level="2" size="small" className={'pt-4 pb-3 px-5'}>
-                {tekst(`heading-${tekstnoekkel}`)}
-            </Heading>
+            <div className={'flex items-center p-6'} style={{ background: 'var(--a-blue-100)', borderRadius: 'var(--a-border-radius-large) var(--a-border-radius-large) 0 0'}}>
+                <Hide below={'sm'}><InformationSquareIcon title="a11y-title" fontSize="1.5rem" className={'mr-4'}/></Hide>
+                <Heading level="2" size="small">
+                    {tekst(`heading-${tekstnoekkel}`)}
+                </Heading>
+            </div>
             <div className={'py-4 px-6'}>
                 <BodyLong className={'mt-4'}>{tekst(`beskrivelse-${tekstnoekkel}`)}</BodyLong>
                 <BodyLong spacing>{tekst('veilederKanIkke')}</BodyLong>
