@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Egenvurdering from '@/components/egenvurdering/egenvurdering';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
-import { http, HttpResponse } from 'msw'
+import { http, HttpResponse } from 'msw';
 
 const meta = {
     title: 'Komponenter/Egenvurdering',
@@ -13,10 +13,10 @@ const meta = {
             handlers: [
                 http.post(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/egenvurdering`, () => {
                     return new HttpResponse(null, { status: 202 });
-                })
-            ]
-        }
-    }
+                }),
+            ],
+        },
+    },
 } satisfies Meta<typeof Egenvurdering>;
 
 export default meta;
@@ -41,6 +41,5 @@ export const EgenvurderingStory: Story = {
             jobbetSammenhengendeSeksAvTolvSisteManeder: true,
             alder: 42,
         },
-        arbeidssokerPeriodeId: '42'
     },
 };

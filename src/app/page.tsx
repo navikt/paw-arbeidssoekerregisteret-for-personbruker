@@ -1,6 +1,6 @@
 import { Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
-import { hentSisteArbeidssokerPeriode, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 import { fetchSamletInformasjon, fetchTilgjengeligEgenvurdering } from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
@@ -42,8 +42,6 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
         );
     }
 
-    const sistePeriode = hentSisteArbeidssokerPeriode(sisteSamletInformasjon?.arbeidssoekerperioder ?? []);
-
     return (
         <>
             <RegistrertTittel {...sisteSamletInformasjon!} sprak={sprak} />
@@ -52,7 +50,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                 <TilgjengeligBekreftelseKomponent sprak={sprak} />
             </Suspense>
             <Suspense fallback={<Loader />}>
-                <EgenvurderingServerKomponent sprak={sprak} arbeidssokerPeriodeId={sistePeriode?.periodeId}/>
+                <EgenvurderingServerKomponent sprak={sprak} />
             </Suspense>
             {harAktivPeriode && opplysninger && (
                 <div className={'my-6'}>
@@ -95,17 +93,14 @@ const TilgjengeligBekreftelseKomponent = async ({ sprak }: Props) => {
     return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data!} sprak={sprak} />;
 };
 
-interface EgenvurderingProps extends Props {
-    arbeidssokerPeriodeId: string;
-}
-const EgenvurderingServerKomponent = async ({ sprak, arbeidssokerPeriodeId }: EgenvurderingProps) => {
+const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
     const { data } = await fetchTilgjengeligEgenvurdering();
 
     if (!data?.grunnlag) {
         return null;
     }
 
-    return <Egenvurdering sprak={sprak} profilering={data.grunnlag} arbeidssokerPeriodeId={arbeidssokerPeriodeId} />;
+    return <Egenvurdering sprak={sprak} profilering={data.grunnlag} />;
 };
 
 export default async function Home({ params }: NextPageProps) {

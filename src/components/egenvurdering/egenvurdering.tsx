@@ -9,11 +9,10 @@ import EgenvurderingAvklart from '@/components/egenvurdering/egenvurdering-avkla
 interface Props {
     sprak: Sprak;
     profilering: Profilering;
-    arbeidssokerPeriodeId: string;
 }
 
 const Egenvurdering = (props: Props) => {
-    const { sprak, profilering, arbeidssokerPeriodeId } = props;
+    const { sprak, profilering } = props;
     const [pendingRequest, settPendingRequest] = useState<
         ProfilertTil.ANTATT_GODE_MULIGHETER | ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING | null
     >(null);
@@ -33,7 +32,6 @@ const Egenvurdering = (props: Props) => {
                 },
                 body: JSON.stringify({
                     profileringId: profilering.profileringId,
-                    periodeId: arbeidssokerPeriodeId,
                     egenvurdering,
                 }),
             });
