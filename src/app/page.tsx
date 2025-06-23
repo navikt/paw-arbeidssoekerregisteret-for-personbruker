@@ -1,8 +1,8 @@
 import { Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { hentSisteArbeidssokerPeriode, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
-import { fetchSamletInformasjon } from '@/app/actions';
+import { fetchSamletInformasjon, fetchTilgjengeligEgenvurdering } from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
 import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengelig-bekreftelse-link';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
@@ -17,6 +17,7 @@ import ManglerOpplysninger from '@/components/opplysninger/mangler-opplysninger'
 import Feil from '@/components/feil';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
+import Egenvurdering from '@/components/egenvurdering/egenvurdering';
 
 interface Props {
     sprak: Sprak;
@@ -41,12 +42,17 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
         );
     }
 
+    const sistePeriode = hentSisteArbeidssokerPeriode(sisteSamletInformasjon?.arbeidssoekerperioder ?? []);
+
     return (
         <>
             <RegistrertTittel {...sisteSamletInformasjon!} sprak={sprak} />
             <PeriodeInfo {...sisteSamletInformasjon!} sprak={sprak} />
             <Suspense fallback={<Loader />}>
                 <TilgjengeligBekreftelseKomponent sprak={sprak} />
+            </Suspense>
+            <Suspense fallback={<Loader />}>
+                <EgenvurderingServerKomponent sprak={sprak} arbeidssokerPeriodeId={sistePeriode?.periodeId}/>
             </Suspense>
             {harAktivPeriode && opplysninger && (
                 <div className={'my-6'}>
@@ -87,6 +93,19 @@ const TilgjengeligBekreftelseKomponent = async ({ sprak }: Props) => {
     }
 
     return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data!} sprak={sprak} />;
+};
+
+interface EgenvurderingProps extends Props {
+    arbeidssokerPeriodeId: string;
+}
+const EgenvurderingServerKomponent = async ({ sprak, arbeidssokerPeriodeId }: EgenvurderingProps) => {
+    const { data } = await fetchTilgjengeligEgenvurdering();
+
+    if (!data?.grunnlag) {
+        return null;
+    }
+
+    return <Egenvurdering sprak={sprak} profilering={data.grunnlag} arbeidssokerPeriodeId={arbeidssokerPeriodeId} />;
 };
 
 export default async function Home({ params }: NextPageProps) {

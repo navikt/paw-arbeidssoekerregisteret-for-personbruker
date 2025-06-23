@@ -7,17 +7,16 @@ import { headers } from 'next/headers';
 import { SamletInformasjon } from '@navikt/arbeidssokerregisteret-utils';
 import { v4 as uuidv4 } from 'uuid';
 
-import { behovsvurderingMockData, samletInformasjonMockData, sisteSamletInformasjonMockData, aggregertePerioderMockData } from './mockdata';
-import { BehovsvurderingResponse } from '../../types/behovsvurdering';
-import { AggregertePerioder } from '../../types/aggregerte-perioder'
+import { aggregertePerioderMockData, samletInformasjonMockData, sisteSamletInformasjonMockData } from './mockdata';
+import { AggregertePerioder } from '../../types/aggregerte-perioder';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
-async function getTokenXToken(idPortenToken: string) {
-    const oboToken = await requestTokenxOboToken(
-        idPortenToken,
-        `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag`,
-    );
+async function getTokenXToken(
+    idPortenToken: string,
+    audience: string = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag`,
+) {
+    const oboToken = await requestTokenxOboToken(idPortenToken, audience);
 
     if (!oboToken.ok) {
         logger.warn(oboToken.error);
@@ -28,7 +27,7 @@ async function getTokenXToken(idPortenToken: string) {
 }
 
 interface SamletInformasjonProps {
-    visKunSisteInformasjon?: boolean
+    visKunSisteInformasjon?: boolean;
 }
 
 async function fetchSamletInformasjon(props: SamletInformasjonProps): Promise<{
@@ -36,12 +35,12 @@ async function fetchSamletInformasjon(props: SamletInformasjonProps): Promise<{
     error?: Error & { traceId?: string; data?: any };
 }> {
     if (brukerMock) {
-        const infoData = props.visKunSisteInformasjon ? sisteSamletInformasjonMockData : samletInformasjonMockData
+        const infoData = props.visKunSisteInformasjon ? sisteSamletInformasjonMockData : samletInformasjonMockData;
         return Promise.resolve({
-            data:  infoData as SamletInformasjon,
+            data: infoData as SamletInformasjon,
         });
     }
-    const { visKunSisteInformasjon } = props
+    const { visKunSisteInformasjon } = props;
     const SISTE_SAMLET_INFORMASJON_URL = `${process.env.ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL}/api/v1/samlet-informasjon${visKunSisteInformasjon ? '?siste=true' : ''}`;
     try {
         const reqHeaders = await headers();
@@ -82,7 +81,7 @@ async function fetchSamletInformasjon(props: SamletInformasjonProps): Promise<{
 }
 
 interface AggregertePerioderProps {
-    visKunSisteInformasjon?: boolean
+    visKunSisteInformasjon?: boolean;
 }
 
 async function fetchAggregertePerioder(props: AggregertePerioderProps): Promise<{
@@ -90,12 +89,12 @@ async function fetchAggregertePerioder(props: AggregertePerioderProps): Promise<
     error?: Error & { traceId?: string; data?: any };
 }> {
     if (brukerMock) {
-        const infoData = props.visKunSisteInformasjon ? aggregertePerioderMockData : aggregertePerioderMockData
+        const infoData = props.visKunSisteInformasjon ? aggregertePerioderMockData : aggregertePerioderMockData;
         return Promise.resolve({
-            data:  infoData as AggregertePerioder,
+            data: infoData as AggregertePerioder,
         });
     }
-    const { visKunSisteInformasjon } = props
+    const { visKunSisteInformasjon } = props;
     const AGGREGERTE_PERIODER_URL = `${process.env.ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL}/api/v1/arbeidssoekerperioder-aggregert${visKunSisteInformasjon ? '?siste=true' : ''}`;
     try {
         const reqHeaders = await headers();
@@ -135,24 +134,33 @@ async function fetchAggregertePerioder(props: AggregertePerioderProps): Promise<
     }
 }
 
-async function fetchBehovsvurdering(): Promise<{
-    data?: any;
-    error?: Error & { traceId?: string; data?: any };
-}> {
+async function fetchTilgjengeligEgenvurdering(): Promise<{ data?: any; error?: any }> {
     if (brukerMock) {
-        return Promise.resolve({
-            data: behovsvurderingMockData as BehovsvurderingResponse,
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    data: {
+                        grunnlag: {
+                            profileringId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+                            profilertTil: 'ANTATT_GODE_MULIGHETER',
+                        },
+                    },
+                });
+            }, 3000);
         });
+        // return Promise.resolve({ data: {}});
     }
 
-    const BEHOVSVURDERING_URL = `${process.env.AIA_BACKEND_URL}/behov-for-veiledning`;
+    const EGENVURDERING_API_URL = `${process.env.EGENVURDERING_API_URL}/api/v1/arbeidssoeker/profilering/egenvurdering/grunnlag`;
+
     try {
         const reqHeaders = await headers();
-        const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!));
+        const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-egenvurdering-api`;
+        const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!), audience);
         const traceId = uuidv4();
-        logger.info({ x_trace_id: traceId }, `Starter GET ${BEHOVSVURDERING_URL}`);
+        logger.info({ x_trace_id: traceId }, `Starter GET ${EGENVURDERING_API_URL}`);
 
-        const response = await fetch(BEHOVSVURDERING_URL, {
+        const response = await fetch(EGENVURDERING_API_URL, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -164,7 +172,7 @@ async function fetchBehovsvurdering(): Promise<{
 
         logger.info(
             { x_trace_id: traceId },
-            `Ferdig GET ${BEHOVSVURDERING_URL} ${response.status} ${response.statusText}`,
+            `Ferdig GET ${EGENVURDERING_API_URL} ${response.status} ${response.statusText}`,
         );
 
         if (!response.ok) {
@@ -173,15 +181,15 @@ async function fetchBehovsvurdering(): Promise<{
             try {
                 error.data = await response.json();
             } catch (e) {}
-            logger.error(error, `Feil fra GET ${BEHOVSVURDERING_URL}`);
+            logger.error(error, `Feil fra GET ${EGENVURDERING_API_URL}`);
             return { error };
         }
 
-        return { data: response.status === 204 ? null : (await response.json()) as BehovsvurderingResponse };
-    } catch (error: any) {
-        logger.error(error, `Feil fra GET ${BEHOVSVURDERING_URL}`);
+        return { data: await response.json() };
+    } catch (error) {
+        logger.error(error, `Feil fra GET ${EGENVURDERING_API_URL}`);
         return { error };
     }
 }
 
-export { fetchSamletInformasjon, fetchBehovsvurdering, fetchAggregertePerioder };
+export { fetchSamletInformasjon, fetchAggregertePerioder, fetchTilgjengeligEgenvurdering };
