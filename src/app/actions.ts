@@ -212,38 +212,32 @@ async function fetchBekreftelserMedStatus(props: BekreftelserMedStatusProps): Pr
     try {
         const reqHeaders = await headers();
         const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!), audience);
-        const traceId = uuidv4();
-        logger.info({ x_trace_id: traceId }, `Starter GET ${BEKREFTELSER_MED_STATUS_URL}`);
+        logger.info(`Starter POST ${BEKREFTELSER_MED_STATUS_URL}`);
 
         const response = await fetch(BEKREFTELSER_MED_STATUS_URL, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
                 accept: 'application/json',
-                'x-trace-id': traceId,
                 Authorization: `Bearer ${tokenXToken}`,
             },
             body: JSON.stringify(perioder)
         });
 
-        logger.info(
-            { x_trace_id: traceId },
-            `Ferdig GET ${BEKREFTELSER_MED_STATUS_URL} ${response.status} ${response.statusText}`,
-        );
+        logger.info(`Ferdig POST ${BEKREFTELSER_MED_STATUS_URL} ${response.status} ${response.statusText}`);
 
         if (!response.ok) {
             const error: any = new Error(`${response.status} ${response.statusText}`);
-            error.traceId = response.headers.get('x-trace-id');
             try {
                 error.data = await response.json();
             } catch (e) {}
-            logger.error(error, `Feil fra GET ${BEKREFTELSER_MED_STATUS_URL}`);
+            logger.error(error, `Feil fra POST ${BEKREFTELSER_MED_STATUS_URL}`);
             return { error };
         }
 
         return { data: (await response.json()) as BekreftelserMedStatusResponse };
     } catch (error: any) {
-        logger.error(error, `Feil fra GET ${BEKREFTELSER_MED_STATUS_URL}`);
+        logger.error(error, `Feil fra POST ${BEKREFTELSER_MED_STATUS_URL}`);
         return { error };
     }
 }
