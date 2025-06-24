@@ -44,6 +44,8 @@ spec:
           value: http://paw-arbeidssoekerregisteret-api-bekreftelse
         - name: ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL
           value: http://paw-arbeidssoekerregisteret-api-oppslag
+        - name: OPPSLAG_API_V2_URL
+          value: http://paw-arbeidssoekerregisteret-api-oppslag-v2
         - name: AIA_BACKEND_URL
           value: http://aia-backend/aia-backend
         - name: REGISTRER_ARBEIDSSOKER_URL
@@ -78,6 +80,7 @@ spec:
                 - host: paw-unleash-api.nav.cloud.nais.io
             rules:
                 - application: paw-arbeidssoekerregisteret-api-oppslag
+                - application: paw-arbeidssoekerregisteret-api-oppslag-v2
                 - application: paw-arbeidssoekerregisteret-api-bekreftelse
                 - application: aia-backend
                 - application: paw-arbeidssoekerregisteret-egenvurdering-api
