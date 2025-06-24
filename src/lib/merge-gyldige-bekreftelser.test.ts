@@ -6,7 +6,7 @@ import {
     AggregertPeriode,
     AggregertePerioder,
     AggregertePerioderMedBekreftelseStatus,
-} from '../types/aggregerte-perioder';
+} from '../../types/aggregerte-perioder';
 
 const dataAggregertePerioder = [
     {
@@ -225,7 +225,7 @@ const dataAggregertePerioder = [
                         },
                         kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.14.142-1',
                         aarsak: 'Bekreftelse levert',
-                        tidspunktFraKilde: null,
+                        tidspunktFraKilde: {},
                     },
                     gjelderFra: '2024-11-15T12:48:25.398Z',
                     gjelderTil: '2024-11-15T12:53:25.398Z',
@@ -400,7 +400,7 @@ const dataAggregertePerioder = [
                         },
                         kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.13.139-1',
                         aarsak: 'Bekreftelse levert',
-                        tidspunktFraKilde: null,
+                        tidspunktFraKilde: {},
                     },
                     gjelderFra: '2024-11-13T11:01:24.345Z',
                     gjelderTil: '2024-11-13T11:06:24.345Z',
@@ -513,7 +513,7 @@ const dataAggregertePerioder = [
                         },
                         kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.13.139-1',
                         aarsak: 'Bekreftelse levert',
-                        tidspunktFraKilde: null,
+                        tidspunktFraKilde: {},
                     },
                     gjelderFra: '2024-11-13T09:29:28.896Z',
                     gjelderTil: '2024-11-13T09:34:28.896Z',
@@ -533,7 +533,7 @@ const dataAggregertePerioder = [
                         },
                         kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.13.139-1',
                         aarsak: 'Bekreftelse levert',
-                        tidspunktFraKilde: null,
+                        tidspunktFraKilde: {},
                     },
                     gjelderFra: '2024-11-13T09:24:28.896Z',
                     gjelderTil: '2024-11-13T09:29:28.896Z',
@@ -563,7 +563,7 @@ const dataAggregertePerioder = [
             },
         ],
     },
-] as AggregertePerioder;
+] as any;
 
 const dataBekreftelserMedStatus = {
     'd70c0256-e3bc-470e-b3fe-f5999691fef8': [],
@@ -581,7 +581,10 @@ const dataBekreftelserMedStatus = {
                     },
                     kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.14.142-1',
                     aarsak: 'Bekreftelse levert',
-                    tidspunktFraKilde: null,
+                    tidspunktFraKilde: {
+                        tidspunkt: '',
+                        avviksType: ''
+                    },
                 },
                 gjelderFra: '2024-11-15T12:48:25.398Z',
                 gjelderTil: '2024-11-15T12:53:25.398Z',
@@ -602,7 +605,10 @@ const dataBekreftelserMedStatus = {
                     },
                     kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.14.142-1',
                     aarsak: 'Bekreftelse levert',
-                    tidspunktFraKilde: null,
+                    tidspunktFraKilde: {
+                        tidspunkt: '',
+                        avviksType: ''
+                    },
                 },
                 gjelderFra: '2024-11-16T12:48:25.398Z',
                 gjelderTil: '2024-11-16T12:53:25.398Z',
@@ -625,7 +631,10 @@ const dataBekreftelserMedStatus = {
                     },
                     kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.14.142-1',
                     aarsak: 'Bekreftelse levert',
-                    tidspunktFraKilde: null,
+                    tidspunktFraKilde: {
+                        tidspunkt: '',
+                        avviksType: ''
+                    },
                 },
                 gjelderFra: '2024-11-16T12:48:25.398Z',
                 gjelderTil: '2024-11-16T12:53:25.398Z',
@@ -648,7 +657,10 @@ const dataBekreftelserMedStatus = {
                     },
                     kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.13.139-1',
                     aarsak: 'Bekreftelse levert',
-                    tidspunktFraKilde: null,
+                    tidspunktFraKilde: {
+                        tidspunkt: '',
+                        avviksType: ''
+                    },
                 },
                 gjelderFra: '2024-11-13T11:01:24.345Z',
                 gjelderTil: '2024-11-13T11:06:24.345Z',
@@ -671,7 +683,10 @@ const dataBekreftelserMedStatus = {
                     },
                     kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.13.139-1',
                     aarsak: 'Bekreftelse levert',
-                    tidspunktFraKilde: null,
+                    tidspunktFraKilde: {
+                        tidspunkt: '',
+                        avviksType: ''
+                    },
                 },
                 gjelderFra: '2024-11-13T09:34:28.896Z',
                 gjelderTil: '2024-11-13T09:39:28.896Z',
@@ -692,7 +707,10 @@ const dataBekreftelserMedStatus = {
                     },
                     kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.13.139-1',
                     aarsak: 'Bekreftelse levert',
-                    tidspunktFraKilde: null,
+                    tidspunktFraKilde: {
+                        tidspunkt: '',
+                        avviksType: ''
+                    },
                 },
                 gjelderFra: '2024-11-13T09:29:28.896Z',
                 gjelderTil: '2024-11-13T09:34:28.896Z',
@@ -713,7 +731,10 @@ const dataBekreftelserMedStatus = {
                     },
                     kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.13.139-1',
                     aarsak: 'Bekreftelse levert',
-                    tidspunktFraKilde: null,
+                    tidspunktFraKilde: {
+                        tidspunkt: '',
+                        avviksType: ''
+                    },
                 },
                 gjelderFra: '2024-11-13T09:24:28.896Z',
                 gjelderTil: '2024-11-13T09:29:28.896Z',
@@ -734,7 +755,10 @@ const dataBekreftelserMedStatus = {
                     },
                     kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.13.139-1',
                     aarsak: 'Bekreftelse levert',
-                    tidspunktFraKilde: null,
+                    tidspunktFraKilde: {
+                        tidspunkt: '',
+                        avviksType: ''
+                    },
                 },
                 gjelderFra: '2024-11-13T09:19:28.896Z',
                 gjelderTil: '2024-11-13T09:24:28.896Z',
@@ -743,7 +767,7 @@ const dataBekreftelserMedStatus = {
             },
         },
     ],
-};
+} as AggregerteBekreftelser;
 
 describe('mergeGyldigeBekreftelser', () => {
     const mergedeData = mergeGyldigeBekreftelser(dataAggregertePerioder, dataBekreftelserMedStatus) as any;

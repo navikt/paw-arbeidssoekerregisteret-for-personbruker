@@ -1,9 +1,10 @@
 import { AggregerteBekreftelser, BekreftelseMedStatus, BekreftelseStatus } from '../model/bekreftelse';
+
 import {
     AggregertPeriode,
     AggregertePerioder,
     AggregertePerioderMedBekreftelseStatus,
-} from '../types/aggregerte-perioder';
+} from '../../types/aggregerte-perioder';
 
 function isGyldigBekreftelse(bekreftelse: BekreftelseMedStatus | undefined) {
     return bekreftelse && bekreftelse.status === BekreftelseStatus.GYLDIG;
