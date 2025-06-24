@@ -9,20 +9,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { aggregertePerioderMockData, samletInformasjonMockData, sisteSamletInformasjonMockData, bekreftelserMedStatusMockdata } from './mockdata';
 import { AggregertePerioder } from '../../types/aggregerte-perioder';
-import { BekreftelseMedStatusResponse, AggregerteBekreftelser, BekreftelserMedStatusResponse } from '../model/bekreftelse';
+import { BekreftelserMedStatusResponse } from '../model/bekreftelse';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
-
-function repackBekreftelserMedStatus(bekreftelserMedStatus: BekreftelseMedStatusResponse[]) {
-    return bekreftelserMedStatus.reduce((total, current) => {
-        const { periodeId } = current.bekreftelse;
-        if (!Object.keys(total).includes(periodeId)) {
-            total[periodeId] = [];
-        }
-        total[periodeId].push({ status: current.status, ...current.bekreftelse });
-        return total;
-    }, {} as AggregerteBekreftelser);
-}
 
 async function getTokenXToken(
     idPortenToken: string,
