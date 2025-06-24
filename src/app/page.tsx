@@ -100,7 +100,7 @@ const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
         return null;
     }
 
-    return <Egenvurdering sprak={sprak} profilering={data.grunnlag} />;
+    return <div className={'mt-4'}><Egenvurdering sprak={sprak} profilering={data.grunnlag} /></div>;
 };
 
 export default async function Home({ params }: NextPageProps) {

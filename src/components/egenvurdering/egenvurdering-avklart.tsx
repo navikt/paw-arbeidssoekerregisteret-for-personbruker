@@ -1,7 +1,8 @@
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { BodyLong, Box, Heading } from '@navikt/ds-react';
+import { BodyLong, Box, Heading, Hide } from '@navikt/ds-react';
 import ReadMoreVeileder from '@/components/egenvurdering/readmore-veileder';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
+import { InformationSquareIcon } from '@navikt/aksel-icons';
 
 interface BehovvurderingAvklartProps {
     sprak: Sprak;
@@ -46,9 +47,12 @@ function EgenvurderingAvklart(props: BehovvurderingAvklartProps) {
             borderColor={'border-subtle'}
             className={'divide-y divide-gray-300'}
         >
-            <Heading level="2" size="small" className={'pt-4 pb-3 px-5'}>
-                {tekst(`heading-${enig}-${tekstnoekkel}`)}
-            </Heading>
+            <div className={'flex items-center py-4 px-6'} style={{ background: 'var(--a-blue-100)', borderRadius: 'var(--a-border-radius-large) var(--a-border-radius-large) 0 0'}}>
+                <Hide below={'sm'}><InformationSquareIcon title="a11y-title" fontSize="1.5rem" className={'mr-4'}/></Hide>
+                <Heading level="2" size="medium">
+                    {tekst(`heading-${enig}-${tekstnoekkel}`)}
+                </Heading>
+            </div>
             <div className={'py-4 px-6'}>
                 <BodyLong className={'mt-4'}>{tekst(`beskrivelse-${enig}-${tekstnoekkel}`)}</BodyLong>
                 <BodyLong spacing>{tekst(`veiledning-${enig}-${tekstnoekkel}`)}</BodyLong>

@@ -2,7 +2,7 @@
 
 import { TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
 import NextLink from 'next/link';
-import { LinkPanel } from '@navikt/ds-react';
+import { Hide, LinkPanel } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggAktivitet } from '@/lib/amplitude';
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
@@ -18,15 +18,15 @@ interface Props {
 const TEKSTER = {
     nb: {
         title: 'Bekreft at du vil være registrert som arbeidssøker hos Nav',
-        iconTitle: 'Varseltrekant ikon'
+        iconTitle: 'Varseltrekant ikon',
     },
     nn: {
         title: 'Stadfest at du vil vera registrert som arbeidssøkjar hos Nav',
-        iconTitle: 'Varseltrekant ikon'
+        iconTitle: 'Varseltrekant ikon',
     },
     en: {
         title: 'Confirm that you want to be registered as a jobseeker with Nav',
-        iconTitle: 'Warning icon'
+        iconTitle: 'Warning icon',
     },
 };
 
@@ -47,22 +47,25 @@ const TilgjengeligBekreftelseLink = (props: Props) => {
 
     return (
         <>
-        <LinkPanel
-            className={styles.tilgjengeligBekreftelseLink}
-            style={{ background: 'var(--a-surface-warning-subtle)' }}
-            href={tilSprakAvhengigAppPath('/bekreftelse', sprak)}
-            onClick={onClick}
-            as={NextLink}
+            <LinkPanel
+                className={styles.tilgjengeligBekreftelseLink}
+                style={{ background: 'var(--a-surface-warning-subtle)' }}
+                href={tilSprakAvhengigAppPath('/bekreftelse', sprak)}
+                onClick={onClick}
+                as={NextLink}
             >
-            <LinkPanel.Title className={'flex items-center'}>
-                <ExclamationmarkTriangleFillIcon
-                    title={tekst('iconTitle')}
-                    className={`mr-4 ${styles.ikon}`}
-                    style={{ color: 'var(--a-icon-warning)'}}
-                    />
-                {tekst('title')}</LinkPanel.Title>
-        </LinkPanel>
-        <LenkeTilBekreftelseArtikkel sprak={sprak} />
+                <LinkPanel.Title className={'flex items-center'}>
+                    <Hide below={'sm'}>
+                        <ExclamationmarkTriangleFillIcon
+                            title={tekst('iconTitle')}
+                            className={`mr-4 ${styles.ikon}`}
+                            style={{ color: 'var(--a-icon-warning)' }}
+                        />
+                    </Hide>
+                    {tekst('title')}
+                </LinkPanel.Title>
+            </LinkPanel>
+            <LenkeTilBekreftelseArtikkel sprak={sprak} />
         </>
     );
 };
