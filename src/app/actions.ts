@@ -7,8 +7,9 @@ import { headers } from 'next/headers';
 import { SamletInformasjon } from '@navikt/arbeidssokerregisteret-utils';
 import { v4 as uuidv4 } from 'uuid';
 
-import { aggregertePerioderMockData, samletInformasjonMockData, sisteSamletInformasjonMockData } from './mockdata';
+import { aggregertePerioderMockData, samletInformasjonMockData, sisteSamletInformasjonMockData, bekreftelserMedStatusMockdata } from './mockdata';
 import { AggregertePerioder } from '../../types/aggregerte-perioder';
+import { BekreftelserMedStatusResponse } from '@/model/bekreftelse';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -192,4 +193,59 @@ async function fetchTilgjengeligEgenvurdering(): Promise<{ data?: any; error?: a
     }
 }
 
-export { fetchSamletInformasjon, fetchAggregertePerioder, fetchTilgjengeligEgenvurdering };
+interface BekreftelserMedStatusProps {
+    perioder: string[];
+}
+
+async function fetchBekreftelserMedStatus(props: BekreftelserMedStatusProps): Promise<{
+    data?: BekreftelserMedStatusResponse;
+    error?: Error & { traceId?: string; data?: any };
+}> {
+    if (brukerMock) {
+        return Promise.resolve({
+            data: bekreftelserMedStatusMockdata,
+        });
+    }
+    const { perioder } = props
+    const BEKREFTELSER_MED_STATUS_URL = `${process.env.OPPSLAG_API_V2_URL}/api/v2/bekreftelser`;
+    const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag-v2`
+    try {
+        const reqHeaders = await headers();
+        const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!), audience);
+        const traceId = uuidv4();
+        logger.info({ x_trace_id: traceId }, `Starter GET ${BEKREFTELSER_MED_STATUS_URL}`);
+
+        const response = await fetch(BEKREFTELSER_MED_STATUS_URL, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                accept: 'application/json',
+                'x-trace-id': traceId,
+                Authorization: `Bearer ${tokenXToken}`,
+            },
+            body: JSON.stringify(perioder)
+        });
+
+        logger.info(
+            { x_trace_id: traceId },
+            `Ferdig GET ${BEKREFTELSER_MED_STATUS_URL} ${response.status} ${response.statusText}`,
+        );
+
+        if (!response.ok) {
+            const error: any = new Error(`${response.status} ${response.statusText}`);
+            error.traceId = response.headers.get('x-trace-id');
+            try {
+                error.data = await response.json();
+            } catch (e) {}
+            logger.error(error, `Feil fra GET ${BEKREFTELSER_MED_STATUS_URL}`);
+            return { error };
+        }
+
+        return { data: (await response.json()) as BekreftelserMedStatusResponse };
+    } catch (error: any) {
+        logger.error(error, `Feil fra GET ${BEKREFTELSER_MED_STATUS_URL}`);
+        return { error };
+    }
+}
+
+export { fetchSamletInformasjon, fetchAggregertePerioder, fetchTilgjengeligEgenvurdering, fetchBekreftelserMedStatus };

@@ -1,5 +1,5 @@
 import { ForeslattInnsatsgruppe } from "../../types/behovsvurdering";
-import { BekreftelseStatus } from "@/model/bekreftelse";
+import { BekreftelserMedStatusResponse, BekreftelseStatus } from "@/model/bekreftelse";
 
 export const behovsvurderingMockData = {
   dato: '2024-03-22',
@@ -1064,7 +1064,7 @@ export const bekreftelserMedStatusMockdata = {
                         },
                         kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.14.142-1',
                         aarsak: 'Bekreftelse levert',
-                        tidspunktFraKilde: null,
+                        tidspunktFraKilde: {},
                     },
                     gjelderFra: '2024-11-15T12:48:25.398Z',
                     gjelderTil: '2024-11-15T12:53:25.398Z',
@@ -1087,7 +1087,7 @@ export const bekreftelserMedStatusMockdata = {
                         },
                         kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.14.142-1',
                         aarsak: 'Bekreftelse levert',
-                        tidspunktFraKilde: null,
+                        tidspunktFraKilde: {},
                     },
                     gjelderFra: '2024-11-16T12:48:25.398Z',
                     gjelderTil: '2024-11-16T12:53:25.398Z',
@@ -1110,7 +1110,7 @@ export const bekreftelserMedStatusMockdata = {
                         },
                         kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.14.142-1',
                         aarsak: 'Bekreftelse levert',
-                        tidspunktFraKilde: null,
+                        tidspunktFraKilde: {},
                     },
                     gjelderFra: '2024-11-16T12:48:25.398Z',
                     gjelderTil: '2024-11-16T12:53:25.398Z',
@@ -1133,7 +1133,7 @@ export const bekreftelserMedStatusMockdata = {
                         },
                         kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.13.139-1',
                         aarsak: 'Bekreftelse levert',
-                        tidspunktFraKilde: null,
+                        tidspunktFraKilde: {},
                     },
                     gjelderFra: '2024-11-13T11:01:24.345Z',
                     gjelderTil: '2024-11-13T11:06:24.345Z',
@@ -1156,7 +1156,7 @@ export const bekreftelserMedStatusMockdata = {
                         },
                         kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.13.139-1',
                         aarsak: 'Bekreftelse levert',
-                        tidspunktFraKilde: null,
+                        tidspunktFraKilde: {},
                     },
                     gjelderFra: '2024-11-13T09:34:28.896Z',
                     gjelderTil: '2024-11-13T09:39:28.896Z',
@@ -1179,7 +1179,7 @@ export const bekreftelserMedStatusMockdata = {
                         },
                         kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.13.139-1',
                         aarsak: 'Bekreftelse levert',
-                        tidspunktFraKilde: null,
+                        tidspunktFraKilde: {},
                     },
                     gjelderFra: '2024-11-13T09:29:28.896Z',
                     gjelderTil: '2024-11-13T09:34:28.896Z',
@@ -1202,7 +1202,7 @@ export const bekreftelserMedStatusMockdata = {
                         },
                         kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.13.139-1',
                         aarsak: 'Bekreftelse levert',
-                        tidspunktFraKilde: null,
+                        tidspunktFraKilde: {},
                     },
                     gjelderFra: '2024-11-13T09:24:28.896Z',
                     gjelderTil: '2024-11-13T09:29:28.896Z',
@@ -1225,7 +1225,7 @@ export const bekreftelserMedStatusMockdata = {
                         },
                         kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-api-bekreftelse:24.11.13.139-1',
                         aarsak: 'Bekreftelse levert',
-                        tidspunktFraKilde: null,
+                        tidspunktFraKilde: {},
                     },
                     gjelderFra: '2024-11-13T09:19:28.896Z',
                     gjelderTil: '2024-11-13T09:24:28.896Z',
@@ -1235,4 +1235,4 @@ export const bekreftelserMedStatusMockdata = {
             },
         },
     ],
-};
+} as BekreftelserMedStatusResponse;

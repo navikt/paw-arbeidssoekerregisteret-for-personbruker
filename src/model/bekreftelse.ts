@@ -10,6 +10,15 @@ export interface BekreftelseMedStatus extends Bekreftelse {
     status?: BekreftelseStatus;
 }
 
+export interface BekreftelseMedStatusResponse {
+    status?: BekreftelseStatus,
+    bekreftelse: Bekreftelse
+}
+
 export interface AggregerteBekreftelser {
     [index: string]: BekreftelseMedStatus[];
+}
+
+export interface BekreftelserMedStatusResponse {
+    bekreftelser: BekreftelseMedStatusResponse[]
 }
