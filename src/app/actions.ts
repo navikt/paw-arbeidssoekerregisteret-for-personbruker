@@ -221,7 +221,7 @@ async function fetchBekreftelserMedStatus(props: BekreftelserMedStatusProps): Pr
                 accept: 'application/json',
                 Authorization: `Bearer ${tokenXToken}`,
             },
-            body: JSON.stringify(perioder)
+            body: JSON.stringify({perioder: perioder})
         });
 
         logger.info(`Ferdig POST ${BEKREFTELSER_MED_STATUS_URL} ${response.status} ${response.statusText}`);
