@@ -15,17 +15,17 @@
     "refresh": "rm -rf node_modules && rm package-lock.json && npm i"
   },
   "dependencies": {
-    "@amplitude/analytics-browser": "2.17.6",
-    "@navikt/arbeidssokerregisteret-utils": "1.4.0",
-    "@navikt/ds-css": "7.22.0",
-    "@navikt/ds-react": "7.22.0",
-    "@navikt/ds-tailwind": "7.22.0",
+    "@amplitude/analytics-browser": "2.17.10",
+    "@navikt/arbeidssokerregisteret-utils": "1.5.1",
+    "@navikt/ds-css": "7.23.2",
+    "@navikt/ds-react": "7.23.2",
+    "@navikt/ds-tailwind": "7.23.2",
     "@navikt/nav-dekoratoren-moduler": "3.2.3",
     "@navikt/next-logger": "3.0.3",
     "@navikt/oasis": "3.8.0",
     "@unleash/nextjs": "1.6.2",
     "jose": "6.0.11",
-    "next": "15.3.2",
+    "next": "15.3.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "uuid": "11.1.0"
@@ -42,28 +42,28 @@
     "@storybook/react": "8.6.14",
     "@storybook/test": "8.6.14",
     "@storybook/test-runner": "0.22.0",
-    "@tailwindcss/postcss": "4.1.7",
+    "@tailwindcss/postcss": "4.1.10",
     "@testing-library/dom": "10.4.0",
     "@testing-library/react": "16.3.0",
-    "@types/jest": "29.5.14",
-    "@types/node": "22.15.19",
-    "@types/react": "19.1.4",
-    "@types/react-dom": "19.1.5",
-    "@vitejs/plugin-react": "4.4.1",
+    "@types/jest": "30.0.0",
+    "@types/node": "24.0.3",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "@vitejs/plugin-react": "4.6.0",
     "axe-playwright": "2.1.0",
-    "concurrently": "9.1.2",
-    "eslint": "9.27.0",
-    "eslint-config-next": "15.3.2",
+    "concurrently": "9.2.0",
+    "eslint": "9.29.0",
+    "eslint-config-next": "15.3.4",
     "eslint-plugin-storybook": "0.12.0",
     "jsdom": "26.1.0",
     "msw": "2.10.2",
     "msw-storybook-addon": "2.0.5",
-    "postcss": "8.5.3",
-    "prettier": "3.5.3",
+    "postcss": "8.5.6",
+    "prettier": "3.6.0",
     "storybook": "8.6.14",
-    "tailwindcss": "4.1.7",
+    "tailwindcss": "4.1.10",
     "typescript": "5.8.3",
-    "vitest": "3.1.3"
+    "vitest": "3.2.4"
   },
   "prettier": {
     "printWidth": 120,
@@ -71,7 +71,7 @@
     "tabWidth": 4
   },
   "engines": {
-    "node": ">=22.15.0"
+    "node": ">=22.16.0"
   },
   "msw": {
     "workerDirectory": [

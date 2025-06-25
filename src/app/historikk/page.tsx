@@ -2,11 +2,14 @@ import { Alert, Heading, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 import { Sprak, lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
 
-import { fetchAggregertePerioder } from '@/app/actions';
+import { fetchAggregertePerioder, fetchBekreftelserMedStatus } from '@/app/actions';
 import { NextPageProps } from '../../../types/next';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 import { HistorikkWrapper } from '@/components/historikk/historikk-wrapper';
+
+import { repackBekreftelserMedStatus } from '@/lib/repack-bekreftelser-med-status';
+import { mergeGyldigeBekreftelser } from '@/lib/merge-gyldige-bekreftelser';
 
 const TEKSTER = {
     nb: {
@@ -27,9 +30,21 @@ async function HistorikkServerComponent({ sprak }: { sprak: Sprak }) {
         return <Alert variant={'error'}>Noe gikk dessverre galt ved henting av historikk</Alert>;
     }
 
+    const periodeids = aggregertePerioder?.map(periode => periode.periodeId as string) || []
+
+    const { data: bekreftelserMedStatus, error: bekreftelserMedStatusError } = await fetchBekreftelserMedStatus({perioder: periodeids});
+
+    if (bekreftelserMedStatusError) {
+        return <Alert variant={'error'}>Noe gikk dessverre galt ved henting av historikk</Alert>;
+    }
+
+    const repakkedeBekreftelser = repackBekreftelserMedStatus(bekreftelserMedStatus?.bekreftelser || [])
+
+    const aggregertePerioderMedGyldigeBekreftelser = aggregertePerioder ? mergeGyldigeBekreftelser(aggregertePerioder, repakkedeBekreftelser) : []
+
     return (
         <div className={'flex flex-col max-w-3xl mx-auto'}>
-            {aggregertePerioder && aggregertePerioder.map((periode, index) => (
+            {aggregertePerioder && aggregertePerioderMedGyldigeBekreftelser.map((periode, index) => (
                 <div
                     className={'p-4'}
                     key={periode.periodeId}
