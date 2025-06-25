@@ -43,8 +43,9 @@ function EgenvurderingAvklart(props: BehovvurderingAvklartProps) {
     return (
         <Box
             background="surface-default"
-            borderRadius="xlarge"
+            borderRadius="large"
             borderColor={'border-subtle'}
+            borderWidth={'1'}
             className={'divide-y divide-gray-300'}
         >
             <div className={'flex items-center py-4 px-6'} style={{ background: 'var(--a-blue-100)', borderRadius: 'var(--a-border-radius-large) var(--a-border-radius-large) 0 0'}}>
