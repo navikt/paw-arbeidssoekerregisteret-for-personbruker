@@ -60,7 +60,7 @@ spec:
         - name: UNLEASH_SERVER_API_URL
           value: https://paw-unleash-api.nav.cloud.nais.io/api
         - name: EGENVURDERING_API_URL
-          value: http://paw-arbeidssoekerregisteret-egenvurdering-api
+          value: http://paw-arbeidssoekerregisteret-api-egenvurdering
     envFrom:
         - secret: arbeidssoekerregisteret-for-personbruker-unleash-api-token
     ingresses:
@@ -86,6 +86,6 @@ spec:
                 - application: paw-arbeidssoekerregisteret-api-oppslag-v2
                 - application: paw-arbeidssoekerregisteret-api-bekreftelse
                 - application: aia-backend
-                - application: paw-arbeidssoekerregisteret-egenvurdering-api
+                - application: paw-arbeidssoekerregisteret-api-egenvurdering
                 - application: nav-dekoratoren
                   namespace: personbruker

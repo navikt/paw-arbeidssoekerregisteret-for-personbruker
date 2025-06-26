@@ -5,7 +5,7 @@ import { requestTokenxOboToken } from '@navikt/oasis';
 import { logger } from '@navikt/next-logger';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
-const EGENVURDERING_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-egenvurdering-api`;
+const EGENVURDERING_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-egenvurdering`;
 const EGENVURDERING_API_URL = `${process.env.EGENVURDERING_API_URL}/api/v1/arbeidssoeker/profilering/egenvurdering`;
 
 export const POST = async (request: Request) => {

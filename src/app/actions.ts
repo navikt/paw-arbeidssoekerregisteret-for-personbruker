@@ -156,7 +156,7 @@ async function fetchTilgjengeligEgenvurdering(): Promise<{ data?: any; error?: a
 
     try {
         const reqHeaders = await headers();
-        const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-egenvurdering-api`;
+        const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-egenvurdering`;
         const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!), audience);
         const traceId = uuidv4();
         logger.info({ x_trace_id: traceId }, `Starter GET ${EGENVURDERING_API_URL}`);
