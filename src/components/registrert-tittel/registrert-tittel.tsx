@@ -50,8 +50,8 @@ const RegistrertTittel = (props: Props) => {
 
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const harIkkeHattArbeidssoekerperiode = aggregertePerioder.length === 0;
-    const harAktivArbeidssokerperiode = aggregertePerioder.length > 0 && !Boolean(aggregertePerioder[0].avsluttet);
-    const erPermittert = harPermittertSituasjon(aggregertePerioder[0]?.opplysningerOmArbeidssoeker);
+    const harAktivArbeidssokerperiode = aggregertePerioder.length > 0 && !Boolean(aggregertePerioder[0]?.avsluttet);
+    const erPermittert = aggregertePerioder.length > 0 && harPermittertSituasjon(aggregertePerioder[0]?.opplysningerOmArbeidssoeker);
 
     return (
         <Heading level={'1'} size={'xlarge'}>

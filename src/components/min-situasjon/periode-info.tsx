@@ -51,7 +51,7 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const bekreftet = periode?.bekreftelser[0];
 
-    if (!periode.startet) {
+    if (!periode?.startet) {
         return <div className={'flex items-center flex-wrap mb-4'}>{tekst('ikkeTidligereRegistrert')}</div>;
     }
 
