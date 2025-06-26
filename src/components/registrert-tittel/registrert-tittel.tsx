@@ -1,9 +1,13 @@
 import { hentSisteArbeidssokerPeriode, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Heading } from '@navikt/ds-react';
-import { ArbeidssokerperioderResponse } from '@navikt/arbeidssokerregisteret-utils/dist/models/arbeidssokerperiode';
+import {
+    ArbeidssokerPeriode,
+    ArbeidssokerperioderResponse
+} from '@navikt/arbeidssokerregisteret-utils/dist/models/arbeidssokerperiode';
 import { OpplysningerOmArbeidssokerResponse } from '@navikt/arbeidssokerregisteret-utils/dist/models/opplysninger-om-arbeidssoker';
 
 import { harPermittertSituasjon } from '@/lib/har-permittert-situasjon';
+import { AggregertePerioder } from '../../../types/aggregerte-perioder';
 
 export const TEKSTER = {
     nb: {
@@ -38,18 +42,16 @@ function hentTekstNokkel(harAktivArbeidssokerperiode: boolean, erPermittert: boo
 
 interface Props {
     sprak: Sprak;
-    arbeidssoekerperioder: ArbeidssokerperioderResponse;
-    opplysningerOmArbeidssoeker: OpplysningerOmArbeidssokerResponse;
+    aggregertePerioder: AggregertePerioder;
 }
 
 const RegistrertTittel = (props: Props) => {
-    const { arbeidssoekerperioder, opplysningerOmArbeidssoeker, sprak } = props;
+    const { aggregertePerioder, sprak } = props;
 
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const periode = hentSisteArbeidssokerPeriode(arbeidssoekerperioder);
-    const harIkkeHattArbeidssoekerperiode = arbeidssoekerperioder.length === 0
-    const harAktivArbeidssokerperiode = arbeidssoekerperioder.length > 0 && !Boolean(periode.avsluttet);
-    const erPermittert = harPermittertSituasjon(opplysningerOmArbeidssoeker);
+    const harIkkeHattArbeidssoekerperiode = aggregertePerioder.length === 0;
+    const harAktivArbeidssokerperiode = aggregertePerioder.length > 0 && !Boolean(aggregertePerioder[0].avsluttet);
+    const erPermittert = harPermittertSituasjon(aggregertePerioder[0]?.opplysningerOmArbeidssoeker);
 
     return (
         <Heading level={'1'} size={'xlarge'}>

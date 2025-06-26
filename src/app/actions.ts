@@ -90,7 +90,7 @@ async function fetchAggregertePerioder(props: AggregertePerioderProps): Promise<
     error?: Error & { traceId?: string; data?: any };
 }> {
     if (brukerMock) {
-        const infoData = props.visKunSisteInformasjon ? aggregertePerioderMockData : aggregertePerioderMockData;
+        const infoData = props.visKunSisteInformasjon ? aggregertePerioderMockData.slice(0, 1) : aggregertePerioderMockData;
         return Promise.resolve({
             data: infoData as AggregertePerioder,
         });
