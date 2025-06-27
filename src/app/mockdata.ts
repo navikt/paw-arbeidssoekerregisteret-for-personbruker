@@ -1,5 +1,8 @@
 import { ForeslattInnsatsgruppe } from "../../types/behovsvurdering";
 import { BekreftelserMedStatusResponse, BekreftelseStatus } from "@/model/bekreftelse";
+import { AggregertePerioder } from '../../types/aggregerte-perioder';
+import { JaEllerNei } from '@navikt/arbeidssokerregisteret-utils';
+import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
 
 export const behovsvurderingMockData = {
   dato: '2024-03-22',
@@ -462,7 +465,7 @@ export const samletInformasjonMockData = {
   ]
 }
 
-export const aggregertePerioderMockData = [
+export const aggregertePerioderMockData: AggregertePerioder = [
   {
     "periodeId": "d70c0256-e3bc-470e-b3fe-f5999691fef8",
     "startet": {
@@ -491,7 +494,7 @@ export const aggregertePerioderMockData = [
           },
           "kilde": "europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssokerregisteret-api-inngang:24.11.15.143-1",
           "aarsak": "opplysning om arbeidssøker sendt inn",
-          "tidspunktFraKilde": null
+          // "tidspunktFraKilde": null
         },
         "jobbsituasjon": [
           {
@@ -504,14 +507,14 @@ export const aggregertePerioderMockData = [
         ],
         "utdanning": {
           "nus": "4",
-          "bestaatt": "NEI",
-          "godkjent": "VET_IKKE"
+          "bestaatt": "NEI" as JaEllerNei,
+          "godkjent": "VET_IKKE" as JaEllerNei,
         },
         "helse": {
-          "helsetilstandHindrerArbeid": "NEI"
+          "helsetilstandHindrerArbeid": "NEI" as JaEllerNei,
         },
         "annet": {
-          "andreForholdHindrerArbeid": "NEI"
+          "andreForholdHindrerArbeid": "NEI" as JaEllerNei,
         },
         "profilering": {
           "profileringId": "657d1408-280c-4a99-9d1e-b57d5ea707a7",
@@ -521,22 +524,22 @@ export const aggregertePerioderMockData = [
             "tidspunkt": "2024-11-19T08:44:01.886Z",
             "utfoertAv": {
               "type": "SYSTEM",
-              "id": "paw-arbeidssoekerregisteret-monorepo-ekstern-24.11.18.41-1"
+              // "id": "paw-arbeidssoekerregisteret-monorepo-ekstern-24.11.18.41-1" as any
             },
             "kilde": "paw-arbeidssoekerregisteret-monorepo-ekstern-24.11.18.41-1",
             "aarsak": "opplysninger-mottatt",
-            "tidspunktFraKilde": {
-              "tidspunkt": "2024-11-19T08:44:01.611Z",
-              "avviksType": "FORSINKELSE"
-            }
+            // "tidspunktFraKilde": {
+            //   "tidspunkt": "2024-11-19T08:44:01.611Z",
+            //   "avviksType": "FORSINKELSE"
+            // }
           },
-          "profilertTil": "ANTATT_GODE_MULIGHETER",
+          "profilertTil": "ANTATT_GODE_MULIGHETER" as ProfilertTil,
           "jobbetSammenhengendeSeksAvTolvSisteManeder": true,
           "alder": 38,
           "egenvurdering": {
             "egenvurderingId": "42",
-            "egenvurdering": "ANTATT_BEHOV_FOR_VEILEDNING"
-          }
+            "egenvurdering": "ANTATT_BEHOV_FOR_VEILEDNING" as ProfilertTil
+          } as any
         }
       },
       {
@@ -550,7 +553,7 @@ export const aggregertePerioderMockData = [
           },
           "kilde": "europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssokerregisteret-api-inngang:24.11.15.143-1",
           "aarsak": "opplysning om arbeidssøker sendt inn",
-          "tidspunktFraKilde": null
+          // "tidspunktFraKilde": null
         },
         "jobbsituasjon": [
           {
@@ -596,7 +599,7 @@ export const aggregertePerioderMockData = [
       }
     ],
     "bekreftelser": []
-  },
+  } as any,
   {
     "periodeId": "e3a33f8c-586e-45c6-b1e8-2e4573983608",
     "startet": {
