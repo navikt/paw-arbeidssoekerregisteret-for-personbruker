@@ -1,12 +1,12 @@
 'use client';
 
-import { LinkPanel } from '@navikt/ds-react';
+import { Box, LinkCard } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggAktivitet } from '@/lib/amplitude';
 
 interface Props extends React.HTMLProps<any> {
     registrerArbeidssokerUrl: string;
-    sprak: Sprak
+    sprak: Sprak;
 }
 
 const TEKSTER = {
@@ -18,20 +18,24 @@ const TEKSTER = {
     },
     en: {
         tittel: 'Register as a jobseeker',
-    }
+    },
 };
 
 export default function RegistrerArbeidssoker(props: Props) {
     const { sprak } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     return (
-        <LinkPanel
-            style={{ background: 'var(--a-surface-action-subtle)' }}
-            href={props.registrerArbeidssokerUrl}
-            className={props.className ?? ''}
-            onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Registrer deg som arbeidssøker"' })}
-        >
-            <LinkPanel.Title>{tekst('tittel')}</LinkPanel.Title>
-        </LinkPanel>
+        <Box>
+            <LinkCard style={{ background: 'var(--a-surface-action-subtle)' }} className={props.className ?? ''}>
+                <LinkCard.Title>
+                    <LinkCard.Anchor
+                        href={props.registrerArbeidssokerUrl}
+                        onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Registrer deg som arbeidssøker"' })}
+                    >
+                        {tekst('tittel')}
+                    </LinkCard.Anchor>
+                </LinkCard.Title>
+            </LinkCard>
+        </Box>
     );
 }
