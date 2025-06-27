@@ -1,8 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { samletInformasjonMockData } from '@/app/mockdata';
+import { aggregertePerioderMockData } from '@/app/mockdata';
 import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
+import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
 
-const opplysningerOmArbeidssoker = samletInformasjonMockData.opplysningerOmArbeidssoeker;
+const opplysningerOmArbeidssoker = aggregertePerioderMockData[0].opplysningerOmArbeidssoeker;
 
 const meta = {
     title: 'Komponenter/OpplysningerOppsummering',
@@ -32,3 +33,35 @@ export const UtenEndreLenke: Story = {
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
     },
 };
+
+export const MedEgenvurderingGodeMuligheter: Story = {
+    args: {
+        visEndreLink: true,
+        opplysninger: {
+            ...opplysningerOmArbeidssoker[0],
+            profilering: {
+                egenvurdering: {
+                    egenvurdering: ProfilertTil.ANTATT_GODE_MULIGHETER
+                }
+            }
+        } as any,
+        sprak: 'nb',
+        oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
+    },
+}
+
+export const MedEgenvurderingBehov: Story = {
+    args: {
+        visEndreLink: true,
+        opplysninger: {
+            ...opplysningerOmArbeidssoker[0],
+            profilering: {
+                egenvurdering: {
+                    egenvurdering: ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING
+                }
+            }
+        } as any,
+        sprak: 'nb',
+        oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
+    },
+}

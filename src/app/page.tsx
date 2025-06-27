@@ -2,7 +2,7 @@ import { Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
-import { fetchSamletInformasjon, fetchTilgjengeligEgenvurdering } from '@/app/actions';
+import { fetchAggregertePerioder, fetchTilgjengeligEgenvurdering } from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
 import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengelig-bekreftelse-link';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
@@ -24,28 +24,29 @@ interface Props {
 }
 
 async function SamletInformasjonServerComponent({ sprak }: Props) {
-    const { data: sisteSamletInformasjon, error: errorSisteSamletInformasjon } = await fetchSamletInformasjon({
+    const { data: aggregerteData, error: errorAggregerteData } = await fetchAggregertePerioder({
         visKunSisteInformasjon: true,
     });
 
     const { data: innloggingsNivaa } = await hentInnloggingsNivaa();
 
-    const opplysninger = sisteSamletInformasjon?.opplysningerOmArbeidssoeker[0];
-    const harAktivPeriode = sisteSamletInformasjon?.arbeidssoekerperioder[0]?.avsluttet === null;
-    const harHistorikk = (sisteSamletInformasjon?.arbeidssoekerperioder.length as any) > 0;
-
-    if (errorSisteSamletInformasjon) {
+    if (errorAggregerteData) {
         return (
             <div className={'mb-6'}>
-                <Feil sprak={sprak} error={errorSisteSamletInformasjon?.message} />
+                <Feil sprak={sprak} error={errorAggregerteData?.message} />
             </div>
         );
     }
 
+    const sisteInformasjon = aggregerteData && aggregerteData[0];
+    const opplysninger = sisteInformasjon?.opplysningerOmArbeidssoeker[0];
+    const harAktivPeriode = !Boolean(sisteInformasjon?.avsluttet);
+    const harHistorikk = (aggregerteData?.length as any) > 0;
+
     return (
         <>
-            <RegistrertTittel {...sisteSamletInformasjon!} sprak={sprak} />
-            <PeriodeInfo {...sisteSamletInformasjon!} sprak={sprak} />
+            <RegistrertTittel aggregertePerioder={aggregerteData ?? []} sprak={sprak} />
+            <PeriodeInfo aggregertePerioder={aggregerteData ?? []} sprak={sprak} />
             <Suspense fallback={<Loader />}>
                 <TilgjengeligBekreftelseKomponent sprak={sprak} />
             </Suspense>
@@ -100,7 +101,11 @@ const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
         return null;
     }
 
-    return <div className={'mt-4'}><Egenvurdering sprak={sprak} profilering={data.grunnlag} /></div>;
+    return (
+        <div className={'mt-4'}>
+            <Egenvurdering sprak={sprak} profilering={data.grunnlag} />
+        </div>
+    );
 };
 
 export default async function Home({ params }: NextPageProps) {

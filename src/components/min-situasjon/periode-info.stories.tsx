@@ -1,57 +1,56 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from '@storybook/react';
 
-import PeriodeInfo from "./periode-info";
-import { samletInformasjonMockData } from "@/app/mockdata";
+import PeriodeInfo from './periode-info';
+import { aggregertePerioderMockData } from '@/app/mockdata';
+import { AggregertePerioder } from '../../../types/aggregerte-perioder';
 
-const { arbeidssoekerperioder, bekreftelser } = samletInformasjonMockData
-const avsluttetPeriode = JSON.parse(JSON.stringify(arbeidssoekerperioder))
+const aggregertePerioder = aggregertePerioderMockData.slice(0, 1) as AggregertePerioder;
+
+const avsluttetPeriode = JSON.parse(JSON.stringify(aggregertePerioder));
 
 // Avslutter arbeidssøkerperioden
 avsluttetPeriode[0].avsluttet = {
-  "tidspunkt": "2021-10-31T11:22:33.444Z",
-  "utfoertAv": {
-    "type": "UKJENT_VERDI",
-    "id": "12345678910"
-  },
-  "kilde": "string",
-  "aarsak": "[Bekreftelse] Ønsket ikke lenger å være arbeidssøker",
-  "tidspunktFraKilde": {
-    "tidspunkt": "2021-10-31T11:20:33.444Z",
-    "avviksType": "UKJENT_VERDI"
-  }
-}
+    tidspunkt: '2021-10-31T11:22:33.444Z',
+    utfoertAv: {
+        type: 'UKJENT_VERDI',
+        id: '12345678910',
+    },
+    kilde: 'string',
+    aarsak: '[Bekreftelse] Ønsket ikke lenger å være arbeidssøker',
+    tidspunktFraKilde: {
+        tidspunkt: '2021-10-31T11:20:33.444Z',
+        avviksType: 'UKJENT_VERDI',
+    },
+};
 
 const meta = {
-  title: "Komponenter/PeriodeInfo",
-  component: PeriodeInfo,
-  decorators: [],
-  args: {},
-  tags: ["autodocs"],
+    title: 'Komponenter/PeriodeInfo',
+    component: PeriodeInfo,
+    decorators: [],
+    args: {},
+    tags: ['autodocs'],
 } satisfies Meta<typeof PeriodeInfo>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Registrert: Story = {
-  args: {
-    sprak: 'nb',
-    arbeidssoekerperioder: arbeidssoekerperioder as any,
-    bekreftelser: bekreftelser as any
-  },
+    args: {
+        sprak: 'nb',
+        aggregertePerioder,
+    },
 };
 
 export const IkkeLengerRegistrert: Story = {
-  args: {
-    sprak: 'nb',
-    arbeidssoekerperioder: avsluttetPeriode as any,
-    bekreftelser: bekreftelser as any
-  },
+    args: {
+        sprak: 'nb',
+        aggregertePerioder: avsluttetPeriode,
+    },
 };
 
 export const IkkeRegistrert: Story = {
-  args: {
-    sprak: 'nb',
-    arbeidssoekerperioder: [] as any,
-    bekreftelser: [] as any
-  },
+    args: {
+        sprak: 'nb',
+        aggregertePerioder: [],
+    },
 };

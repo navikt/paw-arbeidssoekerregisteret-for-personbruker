@@ -7,11 +7,11 @@ import {
 } from '@navikt/arbeidssokerregisteret-utils';
 
 import { prettyPrintDato } from '@/lib/date-utils';
+import { AggregertePerioder } from '../../../types/aggregerte-perioder';
 
 interface PeriodeInfoProps {
-    arbeidssoekerperioder: ArbeidssokerperioderResponse;
-    bekreftelser: BekreftelseResponse;
     sprak: Sprak;
+    aggregertePerioder: AggregertePerioder;
 }
 
 const TEKSTER = {
@@ -46,12 +46,12 @@ const TEKSTER = {
 };
 
 const PeriodeInfo = (props: PeriodeInfoProps) => {
-    const { arbeidssoekerperioder, sprak, bekreftelser } = props;
-    const periode = hentSisteArbeidssokerPeriode(arbeidssoekerperioder);
+    const { aggregertePerioder, sprak } = props;
+    const periode = aggregertePerioder[0];
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const bekreftet = bekreftelser[0];
+    const bekreftet = periode?.bekreftelser[0];
 
-    if (!periode.startet) {
+    if (!periode?.startet) {
         return <div className={'flex items-center flex-wrap mb-4'}>{tekst('ikkeTidligereRegistrert')}</div>;
     }
 
