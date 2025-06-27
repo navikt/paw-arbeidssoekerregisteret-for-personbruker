@@ -11,7 +11,10 @@ const meta = {
     parameters: {
         msw: {
             handlers: [
-                http.post(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/egenvurdering`, () => {
+                http.post(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/egenvurdering`, async () => {
+                    await new Promise((resolve) => {
+                        setTimeout(() => resolve(null), 3000);
+                    });
                     return new HttpResponse(null, { status: 202 });
                 }),
             ],
