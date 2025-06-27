@@ -5,13 +5,14 @@ import {
     SPORSMAL_TEKSTER,
     SporsmalId,
     Sprak,
-    Svar,
+    Svar
 } from '@navikt/arbeidssokerregisteret-utils';
 import { identity } from '@/lib/utils';
 import { BodyShort } from '@navikt/ds-react';
+import { OpplysningerMedProfilering } from '../../../types/aggregerte-perioder';
 
 type Props = {
-    opplysninger: OpplysningerOmArbeidssoker;
+    opplysninger: OpplysningerMedProfilering;
     sprak: Sprak;
 };
 
@@ -42,7 +43,7 @@ function getDinSituasjonSvar(opplysninger: OpplysningerOmArbeidssoker) {
     return situasjon ? situasjon.beskrivelse : 'Ikke oppgitt';
 }
 
-export function mapOpplysninger(opplysninger: OpplysningerOmArbeidssoker, sprak: Sprak): OpplysningProps[] {
+export function mapOpplysninger(opplysninger: OpplysningerMedProfilering, sprak: Sprak): OpplysningProps[] {
     return [
         {
             sporsmal: SporsmalId.dinSituasjon,
@@ -72,7 +73,11 @@ export function mapOpplysninger(opplysninger: OpplysningerOmArbeidssoker, sprak:
             sporsmal: SporsmalId.andreForhold,
             svar: opplysninger.annet.andreForholdHindrerArbeid,
         },
-    ].filter(identity);
+        opplysninger.profilering?.egenvurdering && {
+            sporsmal: 'egenvurdering',
+            svar: `egenvurdering-${opplysninger.profilering.egenvurdering!.egenvurdering}`
+        }
+    ].filter(identity) as OpplysningProps[];
 }
 
 const Opplysninger = ({ opplysninger, sprak }: Props) => {

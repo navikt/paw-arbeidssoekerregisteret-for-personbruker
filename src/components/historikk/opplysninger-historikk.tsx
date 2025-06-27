@@ -5,6 +5,7 @@ import { Accordion, Heading } from '@navikt/ds-react';
 import Opplysninger from '@/components/opplysninger/opplysninger';
 import { prettyPrintDato } from '@/lib/date-utils';
 import React from 'react';
+import { OpplysningerMedProfilering } from '../../../types/aggregerte-perioder';
 
 const TEKSTER = {
     nb: {
@@ -17,7 +18,7 @@ const TEKSTER = {
     }
 };
 interface Props extends React.HTMLProps<any> {
-    opplysningerOmArbeidssoker: OpplysningerOmArbeidssoker[];
+    opplysningerOmArbeidssoker: OpplysningerMedProfilering[];
     sprak: Sprak;
 }
 export function OpplysningerHistorikk(props: Props) {

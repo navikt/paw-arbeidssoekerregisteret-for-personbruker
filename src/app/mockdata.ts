@@ -511,7 +511,7 @@ export const aggregertePerioderMockData = [
           "helsetilstandHindrerArbeid": "NEI"
         },
         "annet": {
-          "andreForholdHindrerArbeid": "JA"
+          "andreForholdHindrerArbeid": "NEI"
         },
         "profilering": {
           "profileringId": "657d1408-280c-4a99-9d1e-b57d5ea707a7",
@@ -530,9 +530,13 @@ export const aggregertePerioderMockData = [
               "avviksType": "FORSINKELSE"
             }
           },
-          "profilertTil": "OPPGITT_HINDRINGER",
+          "profilertTil": "ANTATT_GODE_MULIGHETER",
           "jobbetSammenhengendeSeksAvTolvSisteManeder": true,
-          "alder": 38
+          "alder": 38,
+          "egenvurdering": {
+            "egenvurderingId": "42",
+            "egenvurdering": "ANTATT_BEHOV_FOR_VEILEDNING"
+          }
         }
       },
       {
