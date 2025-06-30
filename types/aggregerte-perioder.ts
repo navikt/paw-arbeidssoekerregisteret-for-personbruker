@@ -10,13 +10,14 @@ import { BekreftelseMedStatus } from '@/model/bekreftelse';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
 
 export interface ProfileringMedEgenvurdering extends Profilering {
-    egenvurdering?: {
+    egenvurderinger?: {
         egenvurderingId: string;
         periodeId: string;
         opplysningerOmArbeidssoekerId: string;
+        profileringId: string;
         sendtInnAv: SendtInnAv;
         egenvurdering: ProfilertTil;
-    };
+    }[];
 }
 
 export interface OpplysningerMedProfilering extends OpplysningerOmArbeidssoker {

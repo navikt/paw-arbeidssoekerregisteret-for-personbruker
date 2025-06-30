@@ -5,7 +5,7 @@ import {
     SPORSMAL_TEKSTER,
     SporsmalId,
     Sprak,
-    Svar
+    Svar,
 } from '@navikt/arbeidssokerregisteret-utils';
 import { identity } from '@/lib/utils';
 import { BodyShort } from '@navikt/ds-react';
@@ -73,10 +73,11 @@ export function mapOpplysninger(opplysninger: OpplysningerMedProfilering, sprak:
             sporsmal: SporsmalId.andreForhold,
             svar: opplysninger.annet.andreForholdHindrerArbeid,
         },
-        opplysninger.profilering?.egenvurdering && {
-            sporsmal: 'egenvurdering',
-            svar: `egenvurdering-${opplysninger.profilering.egenvurdering!.egenvurdering}`
-        }
+        opplysninger.profilering?.egenvurderinger &&
+            opplysninger.profilering?.egenvurderinger.length > 0 && {
+                sporsmal: 'egenvurdering',
+                svar: `egenvurdering-${opplysninger.profilering.egenvurderinger[0].egenvurdering}`,
+            },
     ].filter(identity) as OpplysningProps[];
 }
 
