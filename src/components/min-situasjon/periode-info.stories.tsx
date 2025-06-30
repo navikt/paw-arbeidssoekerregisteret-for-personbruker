@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/nextjs';
 
 import PeriodeInfo from './periode-info';
 import { aggregertePerioderMockData } from '@/app/mockdata';
