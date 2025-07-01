@@ -1,14 +1,13 @@
 'use client';
 
-import { TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
 import NextLink from 'next/link';
-import { Hide, LinkPanel } from '@navikt/ds-react';
+import { TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
+import { Hide, LinkCard } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggAktivitet } from '@/lib/amplitude';
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import LenkeTilBekreftelseArtikkel from '../lenke-til-bekreftelse-artikkel';
-import styles from './tilgjengelig-bekreftelse-link.module.css';
 
 interface Props {
     tilgjengeligeBekreftelser: TilgjengeligeBekreftelser;
@@ -47,24 +46,21 @@ const TilgjengeligBekreftelseLink = (props: Props) => {
 
     return (
         <>
-            <LinkPanel
-                className={styles.tilgjengeligBekreftelseLink}
-                style={{ background: 'var(--a-surface-warning-subtle)' }}
-                href={tilSprakAvhengigAppPath('/bekreftelse', sprak)}
-                onClick={onClick}
-                as={NextLink}
-            >
-                <LinkPanel.Title className={'flex items-center'}>
+            <LinkCard style={{ background: 'var(--a-surface-warning-subtle)' }}>
+                <LinkCard.Icon>
                     <Hide below={'sm'}>
                         <ExclamationmarkTriangleFillIcon
                             title={tekst('iconTitle')}
-                            className={`mr-4 ${styles.ikon}`}
                             style={{ color: 'var(--a-icon-warning)' }}
                         />
                     </Hide>
-                    {tekst('title')}
-                </LinkPanel.Title>
-            </LinkPanel>
+                </LinkCard.Icon>
+                <LinkCard.Title className={'flex items-center'} as={'h3'}>
+                    <LinkCard.Anchor asChild onClick={onClick}>
+                        <NextLink href={tilSprakAvhengigAppPath('/bekreftelse', sprak)}>{tekst('title')}</NextLink>
+                    </LinkCard.Anchor>
+                </LinkCard.Title>
+            </LinkCard>
             <LenkeTilBekreftelseArtikkel sprak={sprak} />
         </>
     );
