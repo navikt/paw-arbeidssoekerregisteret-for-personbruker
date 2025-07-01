@@ -14,7 +14,7 @@ const config = {
     },
 };
 
-const brukerMock = process.env.ENABLE_MOCK === 'enabled';
+const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
 
 const isConsentingToAnalytics = () => {
     const currentConsent = getCurrentConsent() ?? {
