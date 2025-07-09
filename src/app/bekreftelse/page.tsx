@@ -1,9 +1,9 @@
-import { Alert, Loader } from '@navikt/ds-react';
+import { Loader } from '@navikt/ds-react';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { Suspense } from 'react';
 import BekreftelseWrapper from '@/components/bekreftelse/bekreftelse-wrapper';
-import { fetchSamletInformasjon } from '@/app/actions';
-import { hentSisteArbeidssokerPeriode, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { fetchAggregertePerioder } from '@/app/actions';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { NextPageProps } from '../../../types/next';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
@@ -12,16 +12,17 @@ import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster'
 
 async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
     const { data: tilgjengeligeBekreftelser, error } = await fetchTilgjengeligeBekreftelser();
-    const { data: samletInformasjon, error: informasjonError } = await fetchSamletInformasjon({
+    const { data: aggregertePerioder, error: aggregertePerioderError } = await fetchAggregertePerioder({
         visKunSisteInformasjon: true,
     });
 
-    if (error || informasjonError) {
-        return <Feil sprak={sprak} error={error?.message ?? informasjonError?.message ?? ''} />;
+    if (error || aggregertePerioderError) {
+        return <Feil sprak={sprak} error={error?.message ?? aggregertePerioderError?.message ?? ''} />;
     }
-    const sisteArbeidssokerPeriode = hentSisteArbeidssokerPeriode(samletInformasjon?.arbeidssoekerperioder ?? []);
-    const erAktivArbeidssoker = Boolean(sisteArbeidssokerPeriode.periodeId) && !Boolean(sisteArbeidssokerPeriode.avsluttet);
-    const sistInnsendteBekreftelse = samletInformasjon?.bekreftelser[0];
+    const sisteInformasjon = aggregertePerioder && aggregertePerioder[0];
+    const erAktivArbeidssoker = Boolean(sisteInformasjon?.periodeId) && !Boolean(sisteInformasjon?.avsluttet);
+    const sistInnsendteBekreftelse = sisteInformasjon?.bekreftelser[0];
+
     return (
         <BekreftelseWrapper
             sprak={sprak}
