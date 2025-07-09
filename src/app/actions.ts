@@ -4,10 +4,9 @@ import { requestTokenxOboToken } from '@navikt/oasis';
 import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
-import { SamletInformasjon } from '@navikt/arbeidssokerregisteret-utils';
 import { v4 as uuidv4 } from 'uuid';
 
-import { aggregertePerioderMockData, samletInformasjonMockData, sisteSamletInformasjonMockData, bekreftelserMedStatusMockdata } from './mockdata';
+import { aggregertePerioderMockData, bekreftelserMedStatusMockdata } from './mockdata';
 import { AggregertePerioder } from '../../types/aggregerte-perioder';
 import { BekreftelserMedStatusResponse } from '../model/bekreftelse';
 
@@ -27,60 +26,6 @@ async function getTokenXToken(
     return oboToken.token;
 }
 
-interface SamletInformasjonProps {
-    visKunSisteInformasjon?: boolean;
-}
-
-async function fetchSamletInformasjon(props: SamletInformasjonProps): Promise<{
-    data?: SamletInformasjon;
-    error?: Error & { traceId?: string; data?: any };
-}> {
-    if (brukerMock) {
-        const infoData = props.visKunSisteInformasjon ? sisteSamletInformasjonMockData : samletInformasjonMockData;
-        return Promise.resolve({
-            data: infoData as SamletInformasjon,
-        });
-    }
-    const { visKunSisteInformasjon } = props;
-    const SISTE_SAMLET_INFORMASJON_URL = `${process.env.ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL}/api/v1/samlet-informasjon${visKunSisteInformasjon ? '?siste=true' : ''}`;
-    try {
-        const reqHeaders = await headers();
-        const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!));
-        const traceId = uuidv4();
-        logger.info({ x_trace_id: traceId }, `Starter GET ${SISTE_SAMLET_INFORMASJON_URL}`);
-
-        const response = await fetch(SISTE_SAMLET_INFORMASJON_URL, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                accept: 'application/json',
-                'x-trace-id': traceId,
-                Authorization: `Bearer ${tokenXToken}`,
-            },
-        });
-
-        logger.info(
-            { x_trace_id: traceId },
-            `Ferdig GET ${SISTE_SAMLET_INFORMASJON_URL} ${response.status} ${response.statusText}`,
-        );
-
-        if (!response.ok) {
-            const error: any = new Error(`${response.status} ${response.statusText}`);
-            error.traceId = response.headers.get('x-trace-id');
-            try {
-                error.data = await response.json();
-            } catch (e) {}
-            logger.error(error, `Feil fra GET ${SISTE_SAMLET_INFORMASJON_URL}`);
-            return { error };
-        }
-
-        return { data: (await response.json()) as SamletInformasjon };
-    } catch (error: any) {
-        logger.error(error, `Feil fra GET ${SISTE_SAMLET_INFORMASJON_URL}`);
-        return { error };
-    }
-}
-
 interface AggregertePerioderProps {
     visKunSisteInformasjon?: boolean;
 }
@@ -90,7 +35,9 @@ async function fetchAggregertePerioder(props: AggregertePerioderProps): Promise<
     error?: Error & { traceId?: string; data?: any };
 }> {
     if (brukerMock) {
-        const infoData = props.visKunSisteInformasjon ? aggregertePerioderMockData.slice(0, 1) : aggregertePerioderMockData;
+        const infoData = props.visKunSisteInformasjon
+            ? aggregertePerioderMockData.slice(0, 1)
+            : aggregertePerioderMockData;
         return Promise.resolve({
             data: infoData as AggregertePerioder,
         });
@@ -206,9 +153,9 @@ async function fetchBekreftelserMedStatus(props: BekreftelserMedStatusProps): Pr
             data: bekreftelserMedStatusMockdata,
         });
     }
-    const { perioder } = props
+    const { perioder } = props;
     const BEKREFTELSER_MED_STATUS_URL = `${process.env.OPPSLAG_API_V2_URL}/api/v2/bekreftelser`;
-    const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag-v2`
+    const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag-v2`;
     try {
         const reqHeaders = await headers();
         const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!), audience);
@@ -221,7 +168,7 @@ async function fetchBekreftelserMedStatus(props: BekreftelserMedStatusProps): Pr
                 accept: 'application/json',
                 Authorization: `Bearer ${tokenXToken}`,
             },
-            body: JSON.stringify({perioder: perioder})
+            body: JSON.stringify({ perioder: perioder }),
         });
 
         logger.info(`Ferdig POST ${BEKREFTELSER_MED_STATUS_URL} ${response.status} ${response.statusText}`);
@@ -242,4 +189,4 @@ async function fetchBekreftelserMedStatus(props: BekreftelserMedStatusProps): Pr
     }
 }
 
-export { fetchSamletInformasjon, fetchAggregertePerioder, fetchTilgjengeligEgenvurdering, fetchBekreftelserMedStatus };
+export { fetchAggregertePerioder, fetchTilgjengeligEgenvurdering, fetchBekreftelserMedStatus };
