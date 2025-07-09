@@ -40,7 +40,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
 
     const sisteInformasjon = aggregerteData && aggregerteData[0];
     const opplysninger = sisteInformasjon?.opplysningerOmArbeidssoeker[0];
-    const harAktivPeriode = !Boolean(sisteInformasjon?.avsluttet);
+    const harAktivPeriode = Boolean(sisteInformasjon?.periodeId) && !Boolean(sisteInformasjon?.avsluttet);
     const harHistorikk = (aggregerteData?.length as any) > 0;
 
     return (
