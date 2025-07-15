@@ -1,18 +1,19 @@
 'use server';
 
-import { parseIdportenToken, requestTokenxOboToken } from '@navikt/oasis';
+import { parseIdportenToken } from '@navikt/oasis';
 import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
 import { ApiResponse } from '../../../types/api-response';
 import { TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
+import { requestTexasOboToken } from '@/lib/texas';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const TILGJENGELIGE_BEKREFTELSER_URL = `${process.env.BEKREFTELSE_API_URL}/api/v1/tilgjengelige-bekreftelser`;
 
 async function getTokenXToken(idPortenToken: string) {
-    const oboToken = await requestTokenxOboToken(
+    const oboToken = await requestTexasOboToken(
         idPortenToken,
         `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-bekreftelse`,
     );

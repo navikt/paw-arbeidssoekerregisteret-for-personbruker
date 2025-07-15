@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { headers } from 'next/headers';
 import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
-import { requestTokenxOboToken } from '@navikt/oasis';
 import { logger } from '@navikt/next-logger';
+import { requestTexasOboToken } from '@/lib/texas';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const EGENVURDERING_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-egenvurdering`;
@@ -18,7 +18,7 @@ export const POST = async (request: Request) => {
     try {
         const reqHeaders = await headers();
         const idPortenToken = stripBearer(reqHeaders.get('authorization')!);
-        const tokenXToken = await requestTokenxOboToken(idPortenToken, EGENVURDERING_CLIENT_ID);
+        const tokenXToken = await requestTexasOboToken(idPortenToken, EGENVURDERING_CLIENT_ID);
 
         if (!tokenXToken.ok) {
             return new Response(null, { status: 401 });

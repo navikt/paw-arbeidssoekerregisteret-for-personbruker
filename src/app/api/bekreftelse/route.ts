@@ -2,8 +2,9 @@ import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
 import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
-import { parseIdportenToken, requestTokenxOboToken } from '@navikt/oasis';
+import { parseIdportenToken } from '@navikt/oasis';
 import { IdportenPayload } from '@navikt/oasis/dist/validate';
+import { requestTexasOboToken } from '@/lib/texas';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const BEKREFTELSE_URL = `${process.env.BEKREFTELSE_API_URL}/api/v1/bekreftelse`;
@@ -20,7 +21,7 @@ export const POST = async (request: Request) => {
     try {
         const reqHeaders = await headers();
         const idPortenToken = stripBearer(reqHeaders.get('authorization')!);
-        const tokenXToken = await requestTokenxOboToken(idPortenToken, BEKREFTELSE_API_CLIENT_ID);
+        const tokenXToken = await requestTexasOboToken(idPortenToken, BEKREFTELSE_API_CLIENT_ID);
 
         if (!tokenXToken.ok) {
             return new Response(null, { status: 401 });
