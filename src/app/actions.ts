@@ -1,6 +1,5 @@
 'use server';
 
-import { requestTokenxOboToken } from '@navikt/oasis';
 import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
@@ -9,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { aggregertePerioderMockData, bekreftelserMedStatusMockdata } from './mockdata';
 import { AggregertePerioder } from '../../types/aggregerte-perioder';
 import { BekreftelserMedStatusResponse } from '../model/bekreftelse';
+import { requestTexasOboToken } from '@/lib/texas';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -16,7 +16,7 @@ async function getTokenXToken(
     idPortenToken: string,
     audience: string = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag`,
 ) {
-    const oboToken = await requestTokenxOboToken(idPortenToken, audience);
+    const oboToken = await requestTexasOboToken(idPortenToken, audience);
 
     if (!oboToken.ok) {
         logger.warn(oboToken.error);
