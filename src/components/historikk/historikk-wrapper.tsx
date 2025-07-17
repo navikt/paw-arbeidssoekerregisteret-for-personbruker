@@ -1,9 +1,9 @@
 import { prettyPrintDato, prettyPrintDatoOgKlokkeslett } from '@/lib/date-utils';
 import {
+    AggregertPeriode,
     lagHentTekstForSprak,
-    Sprak,
+    Sprak
 } from '@navikt/arbeidssokerregisteret-utils';
-import { AggregertPeriode } from '../../../types/aggregerte-perioder';
 import { Heading, BodyShort } from '@navikt/ds-react';
 
 import { BekreftelseHistorikk } from './bekreftelse-historikk';

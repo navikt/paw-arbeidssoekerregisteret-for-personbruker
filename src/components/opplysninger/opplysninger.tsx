@@ -1,15 +1,14 @@
 import {
     lagHentTekstForSprak,
-    mapNusKodeTilUtdannignsnivaa,
+    mapNusKodeTilUtdannignsnivaa, OpplysningerMedProfilering,
     OpplysningerOmArbeidssoker,
     SPORSMAL_TEKSTER,
     SporsmalId,
     Sprak,
-    Svar,
+    Svar
 } from '@navikt/arbeidssokerregisteret-utils';
 import { identity } from '@/lib/utils';
 import { BodyShort } from '@navikt/ds-react';
-import { OpplysningerMedProfilering } from '../../../types/aggregerte-perioder';
 
 type Props = {
     opplysninger: OpplysningerMedProfilering;

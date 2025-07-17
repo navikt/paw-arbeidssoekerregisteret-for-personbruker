@@ -1,7 +1,8 @@
 'use client';
 
 import { Bekreftelse, BekreftelseProps } from '@/components/bekreftelse/bekreftelse';
-import { BekreftelseSkjemaType } from '../../../types/bekreftelse';
+
+import { BekreftelseSkjemaType } from '@/model/bekreftelse';
 
 function BekreftelseWrapper(props: Omit<BekreftelseProps, 'onSubmit'>) {
     const onSubmit = (data: BekreftelseSkjemaType) => {

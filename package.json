@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@amplitude/analytics-browser": "2.17.12",
-    "@navikt/arbeidssokerregisteret-utils": "1.6.0",
+    "@navikt/arbeidssokerregisteret-utils": "1.7.0",
     "@navikt/ds-css": "7.24.0",
     "@navikt/ds-react": "7.24.0",
     "@navikt/ds-tailwind": "7.24.0",

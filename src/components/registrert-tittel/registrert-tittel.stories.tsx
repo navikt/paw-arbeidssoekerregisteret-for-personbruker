@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/nextjs';
 import RegistrertTittel from './registrert-tittel';
 import { aggregertePerioderMockData } from '@/app/mockdata';
-import { AggregertePerioder } from '../../../types/aggregerte-perioder';
+import { AggregertePerioder } from '@navikt/arbeidssokerregisteret-utils';
 
 const aggregertePerioder = aggregertePerioderMockData.slice(0, 1) as AggregertePerioder;
 const avsluttetPeriode = JSON.parse(JSON.stringify(aggregertePerioder));

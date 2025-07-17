@@ -1,5 +1,11 @@
 import { TokenResult } from '@navikt/oasis';
 
+type TexasTokenResponse = {
+    access_token: string;
+    expires_in: number;
+    token_type: string;
+};
+
 export async function requestTexasOboToken(token: string, audience: string): Promise<TokenResult> {
     try {
         const response = await fetch(`${process.env.NAIS_TOKEN_EXCHANGE_ENDPOINT}`, {
@@ -15,7 +21,7 @@ export async function requestTexasOboToken(token: string, audience: string): Pro
         });
 
         if (response.ok) {
-            const data = await response.json();
+            const data = await response.json() as TexasTokenResponse;
             return {
                 ok: true,
                 token: data.access_token,

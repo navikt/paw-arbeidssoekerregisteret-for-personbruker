@@ -11,8 +11,8 @@ export interface BekreftelseMedStatus extends Bekreftelse {
 }
 
 export interface BekreftelseMedStatusResponse {
-    status?: BekreftelseStatus,
-    bekreftelse: Bekreftelse
+    status?: BekreftelseStatus;
+    bekreftelse: Bekreftelse;
 }
 
 export interface AggregerteBekreftelser {
@@ -20,5 +20,11 @@ export interface AggregerteBekreftelser {
 }
 
 export interface BekreftelserMedStatusResponse {
-    bekreftelser: BekreftelseMedStatusResponse[]
+    bekreftelser: BekreftelseMedStatusResponse[];
+}
+
+export interface BekreftelseSkjemaType {
+    harJobbetIDennePerioden: boolean;
+    vilFortsetteSomArbeidssoeker: boolean;
+    bekreftelseId: string;
 }

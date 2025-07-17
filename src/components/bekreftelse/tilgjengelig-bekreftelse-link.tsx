@@ -1,9 +1,8 @@
 'use client';
 
 import NextLink from 'next/link';
-import { TilgjengeligeBekreftelser } from '../../../types/bekreftelse';
 import { Hide, LinkCard } from '@navikt/ds-react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, Sprak, TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
 import { loggAktivitet } from '@/lib/amplitude';
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';

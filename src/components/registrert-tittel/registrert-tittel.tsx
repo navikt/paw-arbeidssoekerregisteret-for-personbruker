@@ -1,13 +1,7 @@
-import { hentSisteArbeidssokerPeriode, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { AggregertePerioder, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Heading } from '@navikt/ds-react';
-import {
-    ArbeidssokerPeriode,
-    ArbeidssokerperioderResponse
-} from '@navikt/arbeidssokerregisteret-utils/dist/models/arbeidssokerperiode';
-import { OpplysningerOmArbeidssokerResponse } from '@navikt/arbeidssokerregisteret-utils/dist/models/opplysninger-om-arbeidssoker';
 
 import { harPermittertSituasjon } from '@/lib/har-permittert-situasjon';
-import { AggregertePerioder } from '../../../types/aggregerte-perioder';
 
 export const TEKSTER = {
     nb: {
@@ -24,8 +18,12 @@ export const TEKSTER = {
     },
 };
 
-function hentTekstNokkel(harAktivArbeidssokerperiode: boolean, erPermittert: boolean, harIkkeHattArbeidssoekerperiode: boolean) {
-    if(harIkkeHattArbeidssoekerperiode) {
+function hentTekstNokkel(
+    harAktivArbeidssokerperiode: boolean,
+    erPermittert: boolean,
+    harIkkeHattArbeidssoekerperiode: boolean,
+) {
+    if (harIkkeHattArbeidssoekerperiode) {
         return 'ikkeRegistrert';
     }
 
@@ -51,7 +49,8 @@ const RegistrertTittel = (props: Props) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const harIkkeHattArbeidssoekerperiode = aggregertePerioder.length === 0;
     const harAktivArbeidssokerperiode = aggregertePerioder.length > 0 && !Boolean(aggregertePerioder[0]?.avsluttet);
-    const erPermittert = aggregertePerioder.length > 0 && harPermittertSituasjon(aggregertePerioder[0]?.opplysningerOmArbeidssoeker);
+    const erPermittert =
+        aggregertePerioder.length > 0 && harPermittertSituasjon(aggregertePerioder[0]?.opplysningerOmArbeidssoeker);
 
     return (
         <Heading level={'1'} size={'xlarge'}>

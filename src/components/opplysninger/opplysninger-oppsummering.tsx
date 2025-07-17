@@ -1,10 +1,14 @@
 'use client';
 
-import { lagHentTekstForSprak, SPORSMAL_TEKSTER, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import {
+    lagHentTekstForSprak,
+    OpplysningerMedProfilering,
+    SPORSMAL_TEKSTER,
+    Sprak,
+} from '@navikt/arbeidssokerregisteret-utils';
 import { FormSummary } from '@navikt/ds-react';
 import { mapOpplysninger } from '@/components/opplysninger/opplysninger';
 import { loggAktivitet } from '@/lib/amplitude';
-import { OpplysningerMedProfilering } from '../../../types/aggregerte-perioder';
 
 type Props = {
     opplysninger: OpplysningerMedProfilering;

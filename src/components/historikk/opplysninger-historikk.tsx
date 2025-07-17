@@ -1,11 +1,10 @@
 'use client';
 
-import { lagHentTekstForSprak, OpplysningerOmArbeidssoker, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, OpplysningerMedProfilering, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Accordion, Heading } from '@navikt/ds-react';
 import Opplysninger from '@/components/opplysninger/opplysninger';
 import { prettyPrintDato } from '@/lib/date-utils';
 import React from 'react';
-import { OpplysningerMedProfilering } from '../../../types/aggregerte-perioder';
 
 const TEKSTER = {
     nb: {

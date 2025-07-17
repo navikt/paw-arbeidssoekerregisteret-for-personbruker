@@ -6,9 +6,9 @@ import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
 
 import { aggregertePerioderMockData, bekreftelserMedStatusMockdata } from './mockdata';
-import { AggregertePerioder } from '../../types/aggregerte-perioder';
-import { BekreftelserMedStatusResponse } from '../model/bekreftelse';
+import { BekreftelserMedStatusResponse } from '@/model/bekreftelse';
 import { requestTexasOboToken } from '@/lib/texas';
+import { AggregertePerioder } from '@navikt/arbeidssokerregisteret-utils';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { BekreftelseSkjema } from './bekreftelse-skjema';
-import { BekreftelseSkjemaType } from '../../../types/bekreftelse';
 import { userEvent, expect } from 'storybook/test';
+import { BekreftelseSkjemaType } from '@/model/bekreftelse';
 
 const meta = {
     title: 'Bekreftelse/Komponenter/Bekreftelse skjema',

@@ -1,13 +1,6 @@
-import {
-    ArbeidssokerperioderResponse,
-    BekreftelseResponse,
-    hentSisteArbeidssokerPeriode,
-    lagHentTekstForSprak,
-    Sprak,
-} from '@navikt/arbeidssokerregisteret-utils';
+import { AggregertePerioder, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 import { prettyPrintDato } from '@/lib/date-utils';
-import { AggregertePerioder } from '../../../types/aggregerte-perioder';
 
 interface PeriodeInfoProps {
     sprak: Sprak;
