@@ -1,14 +1,4 @@
-import { Bekreftelse } from '@navikt/arbeidssokerregisteret-utils';
-
-export enum BekreftelseStatus {
-    'GYLDIG' = 'GYLDIG',
-    'UVENTET_KILDE' = 'UVENTET_KILDE',
-    'UTENFOR_PERIODE' = 'UTENFOR_PERIODE',
-}
-
-export interface BekreftelseMedStatus extends Bekreftelse {
-    status?: BekreftelseStatus;
-}
+import { Bekreftelse, BekreftelseStatus } from '@navikt/arbeidssokerregisteret-utils';
 
 export interface BekreftelseMedStatusResponse {
     status?: BekreftelseStatus;
@@ -16,7 +6,7 @@ export interface BekreftelseMedStatusResponse {
 }
 
 export interface AggregerteBekreftelser {
-    [index: string]: BekreftelseMedStatus[];
+    [index: string]: Bekreftelse[];
 }
 
 export interface BekreftelserMedStatusResponse {
