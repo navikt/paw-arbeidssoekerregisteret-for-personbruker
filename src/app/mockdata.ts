@@ -1,5 +1,5 @@
-import { BekreftelserMedStatusResponse, BekreftelseStatus } from '@/model/bekreftelse';
-import { AggregertePerioder, JaEllerNei } from '@navikt/arbeidssokerregisteret-utils';
+import { BekreftelserMedStatusResponse } from '@/model/bekreftelse';
+import { AggregertePerioder, BekreftelseStatus, JaEllerNei } from '@navikt/arbeidssokerregisteret-utils';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
 
 export const aggregertePerioderMockData: AggregertePerioder = [
