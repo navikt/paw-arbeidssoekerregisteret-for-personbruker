@@ -3,7 +3,7 @@ import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-util
 import { useState } from 'react';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
 import { prettyPrintDato } from '@/lib/date-utils';
-import { loggAktivitet } from '@/lib/amplitude';
+import { loggAktivitet } from '@/lib/tracking/logg-aktivitet';
 
 interface Props {
     onSubmit(): void;

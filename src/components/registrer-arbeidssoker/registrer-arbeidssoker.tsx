@@ -2,7 +2,7 @@
 
 import { Box, LinkCard } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { loggAktivitet } from '@/lib/amplitude';
+import { loggAktivitet } from '@/lib/tracking/logg-aktivitet';
 
 interface Props extends React.HTMLProps<any> {
     registrerArbeidssokerUrl: string;

@@ -3,7 +3,7 @@
 import NextLink from 'next/link';
 import { Hide, LinkCard } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak, TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
-import { loggAktivitet } from '@/lib/amplitude';
+import { loggAktivitet } from '@/lib/tracking/logg-aktivitet';
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import LenkeTilBekreftelseArtikkel from '../lenke-til-bekreftelse-artikkel';

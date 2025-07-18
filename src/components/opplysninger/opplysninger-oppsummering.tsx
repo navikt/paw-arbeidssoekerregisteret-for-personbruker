@@ -8,7 +8,7 @@ import {
 } from '@navikt/arbeidssokerregisteret-utils';
 import { FormSummary } from '@navikt/ds-react';
 import { mapOpplysninger } from '@/components/opplysninger/opplysninger';
-import { loggAktivitet } from '@/lib/amplitude';
+import { loggAktivitet } from '@/lib/tracking/logg-aktivitet';
 
 type Props = {
     opplysninger: OpplysningerMedProfilering;

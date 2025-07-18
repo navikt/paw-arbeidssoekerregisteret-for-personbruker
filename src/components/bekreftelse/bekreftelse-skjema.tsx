@@ -6,7 +6,7 @@ import InfoTekst from './info-tekst';
 import { useEffect, useState } from 'react';
 import { BekreftAvsluttPeriode } from '@/components/bekreftelse/bekreft-avslutt-periode';
 import { prettyPrintDato } from '@/lib/date-utils';
-import { loggAktivitet } from '@/lib/amplitude';
+import { loggAktivitet } from '@/lib/tracking/logg-aktivitet';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
 import { BekreftelseSkjemaType } from '@/model/bekreftelse';
 

@@ -3,7 +3,8 @@
 import { Button, Heading } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useEffect } from 'react';
-import { loggAktivitet, loggVisning } from '@/lib/amplitude';
+import { loggAktivitet } from '@/lib/tracking/logg-aktivitet';
+import { loggVisning } from '@/lib/tracking/amplitude';
 
 interface Props {
     sprak: Sprak;

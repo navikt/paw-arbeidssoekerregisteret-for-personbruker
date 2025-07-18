@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { initAmplitude } from '@/lib/amplitude';
+import { initAmplitude } from '@/lib/tracking/amplitude';
 
 interface Props {
     apiKey: string;
