@@ -59,7 +59,15 @@ export default async function RootLayout({
                 <Decorator.Header />
                 <InitAmplitude apiKey={process.env.AMPLITUDE_API_KEY!} />
                 <main>
-                    <FlagProvider>{children}</FlagProvider>
+                    <FlagProvider
+                        config={{
+                            url: process.env.UNLEASH_SERVER_API_URL,
+                            clientKey: process.env.UNLEASH_SERVER_API_TOKEN,
+                            environment: process.env.UNLEASH_SERVER_API_ENV,
+                        }}
+                    >
+                        {children}
+                    </FlagProvider>
                 </main>
                 <Decorator.Footer />
                 <Decorator.Scripts loader={Script} />
