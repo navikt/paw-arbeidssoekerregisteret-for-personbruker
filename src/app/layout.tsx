@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import './globals.css';
 import InitAmplitude from '@/components/init-amplitude';
 import { isEnabled } from '@/lib/unleash-is-enabled';
-import { FlagProvider } from '@unleash/nextjs/client';
 import unleashKeys from '@/unleash-keys';
 
 export const metadata: Metadata = {
@@ -58,17 +57,7 @@ export default async function RootLayout({
             <body>
                 <Decorator.Header />
                 <InitAmplitude apiKey={process.env.AMPLITUDE_API_KEY!} />
-                <main>
-                    <FlagProvider
-                        config={{
-                            url: process.env.UNLEASH_SERVER_API_URL,
-                            clientKey: process.env.UNLEASH_SERVER_API_TOKEN,
-                            environment: process.env.UNLEASH_SERVER_API_ENV,
-                        }}
-                    >
-                        {children}
-                    </FlagProvider>
-                </main>
+                <main>{children}</main>
                 <Decorator.Footer />
                 <Decorator.Scripts loader={Script} />
                 {inkluderUmami && (
