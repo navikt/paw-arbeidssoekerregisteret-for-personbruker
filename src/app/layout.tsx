@@ -4,6 +4,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import InitAmplitude from '@/components/init-amplitude';
 import { isEnabled } from '@/lib/unleash-is-enabled';
+import { FlagProvider } from '@unleash/nextjs/client';
+import unleashKeys from '@/unleash-keys';
 
 export const metadata: Metadata = {
     title: 'Arbeidssøkerregisteret',
@@ -47,7 +49,7 @@ export default async function RootLayout({
             ],
         },
     });
-    const inkluderUmami = await isEnabled('arbeidssoekerregisteret.bruk-umami');
+    const inkluderUmami = await isEnabled(unleashKeys.BRUK_UMAMI);
     return (
         <html lang="nb">
             <head>
@@ -56,7 +58,9 @@ export default async function RootLayout({
             <body>
                 <Decorator.Header />
                 <InitAmplitude apiKey={process.env.AMPLITUDE_API_KEY!} />
-                <main>{children}</main>
+                <main>
+                    <FlagProvider>{children}</FlagProvider>
+                </main>
                 <Decorator.Footer />
                 <Decorator.Scripts loader={Script} />
                 {inkluderUmami && (

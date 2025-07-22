@@ -3,7 +3,7 @@
 import { Box, Link } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
-import { loggAktivitet } from '@/lib/tracking/logg-aktivitet';
+import { useLoggAktivitet } from '@/lib/tracking/logg-aktivitet';
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 
 export interface HistorikkLenkeProps {
@@ -22,13 +22,12 @@ const TEKSTER = {
     },
 };
 
-async function loggKlikk() {
-    loggAktivitet({ aktivitet: 'Går til siden for historikk' });
-    console.log('du klikka mæ');
-}
-
 export function SeHistorikkLenke(props: HistorikkLenkeProps) {
     const { sprak } = props;
+    const loggAktivitet = useLoggAktivitet();
+    function loggKlikk() {
+        loggAktivitet({ aktivitet: 'Går til siden for historikk' });
+    }
 
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
