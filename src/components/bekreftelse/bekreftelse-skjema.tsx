@@ -6,9 +6,9 @@ import InfoTekst from './info-tekst';
 import { useEffect, useState } from 'react';
 import { BekreftAvsluttPeriode } from '@/components/bekreftelse/bekreft-avslutt-periode';
 import { prettyPrintDato } from '@/lib/date-utils';
-import { loggAktivitet } from '@/lib/tracking/logg-aktivitet';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
 import { BekreftelseSkjemaType } from '@/model/bekreftelse';
+import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
 
 interface Skjema {
     harJobbetIDennePerioden?: boolean;
@@ -78,6 +78,7 @@ const BekreftelseSkjema = (props: Props) => {
     const [senderSkjema, settSenderSkjema] = useState<boolean>(false);
     const [error, settError] = useState<any>(null);
     const [visFeilmeldingISkjema, settVisFeilmeldingISkjema] = useState<boolean>(false);
+    const loggAktivitet = useLoggAktivitet();
 
     useEffect(() => {
         settHarGyldigSkjema(

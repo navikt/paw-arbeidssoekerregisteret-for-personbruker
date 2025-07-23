@@ -2,11 +2,11 @@
 
 import { Box, Link } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { loggAktivitet } from '@/lib/tracking/logg-aktivitet';
+import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
 
 const TEKSTER = {
     nb: {
-       linkText: 'Les mer om å bekrefte at du vil være arbeidssøker',
+        linkText: 'Les mer om å bekrefte at du vil være arbeidssøker',
     },
     nn: {
         linkText: 'Les meir om å stadfesta at du vil vera arbeidssøkjar',
@@ -32,19 +32,19 @@ const getUrl = (sprak: Sprak) => {
 const LenkeTilBekreftelseArtikkel = (props: Props) => {
     const { sprak } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const loggAktivitet = useLoggAktivitet();
 
     const onClick = () => {
         loggAktivitet({
-            aktivitet:
-                'Trykker på "Les mer om å bekrefte at du vil være arbeidssøker"',
+            aktivitet: 'Trykker på "Les mer om å bekrefte at du vil være arbeidssøker"',
         });
     };
 
     return (
         <Box className={'mb-2 mt-2'}>
-          <Link href={getUrl(sprak)} onClick={onClick}>
-              {tekst('linkText')}
-          </Link>
+            <Link href={getUrl(sprak)} onClick={onClick}>
+                {tekst('linkText')}
+            </Link>
         </Box>
     );
 };
