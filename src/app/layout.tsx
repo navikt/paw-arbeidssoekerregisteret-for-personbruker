@@ -5,6 +5,7 @@ import './globals.css';
 import InitAmplitude from '@/components/init-amplitude';
 import { isEnabled } from '@/lib/unleash-is-enabled';
 import unleashKeys from '@/unleash-keys';
+import { FeatureTogglesProvider } from '@/contexts/feature-toggle-context';
 
 export const metadata: Metadata = {
     title: 'Arbeidssøkerregisteret',
@@ -57,7 +58,9 @@ export default async function RootLayout({
             <body>
                 <Decorator.Header />
                 <InitAmplitude apiKey={process.env.AMPLITUDE_API_KEY!} />
-                <main>{children}</main>
+                <FeatureTogglesProvider>
+                    <main>{children}</main>
+                </FeatureTogglesProvider>
                 <Decorator.Footer />
                 <Decorator.Scripts loader={Script} />
                 {inkluderUmami && (

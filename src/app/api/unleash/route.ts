@@ -6,18 +6,25 @@ const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
-    const toggle = searchParams.get('toggle');
+    const toggles = searchParams.getAll('toggle');
 
-    if (!toggle) {
+    if (!toggles || toggles.length === 0) {
         return new HttpResponse(null, { status: 400 });
     }
 
     if (brukerMock) {
-        return HttpResponse.json({
-            [toggle]: true,
-        });
+        const mockResponse = toggles.reduce((acc, key) => {
+            return { ...acc, [key]: true };
+        }, {});
+        return HttpResponse.json(mockResponse);
     }
 
-    const enabled = await isEnabled(toggle);
-    return HttpResponse.json({ [toggle]: enabled });
+    const response = toggles.reduce(async (acc, key) => {
+        return {
+            ...acc,
+            [key]: await isEnabled(key),
+        };
+    }, {});
+
+    return HttpResponse.json(response);
 }
