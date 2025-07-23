@@ -3,9 +3,8 @@ import Script from 'next/script';
 import type { Metadata } from 'next';
 import './globals.css';
 import InitAmplitude from '@/components/init-amplitude';
-import { isEnabled } from '@/lib/unleash-is-enabled';
-import unleashKeys from '@/unleash-keys';
 import { FeatureTogglesProvider } from '@/contexts/feature-toggle-context';
+import InitUmami from '@/components/init-umami';
 
 export const metadata: Metadata = {
     title: 'Arbeidssøkerregisteret',
@@ -49,7 +48,6 @@ export default async function RootLayout({
             ],
         },
     });
-    const inkluderUmami = await isEnabled(unleashKeys.BRUK_UMAMI);
     return (
         <html lang="nb">
             <head>
@@ -59,19 +57,11 @@ export default async function RootLayout({
                 <Decorator.Header />
                 <InitAmplitude apiKey={process.env.AMPLITUDE_API_KEY!} />
                 <FeatureTogglesProvider>
+                    <InitUmami trackingId={process.env.UMAMI_TRACKING_ID!} />
                     <main>{children}</main>
                 </FeatureTogglesProvider>
                 <Decorator.Footer />
                 <Decorator.Scripts loader={Script} />
-                {inkluderUmami && (
-                    <Script
-                        defer
-                        strategy="afterInteractive"
-                        src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
-                        data-host-url="https://umami.nav.no"
-                        data-website-id={process.env.UMAMI_TRACKING_ID!}
-                    ></Script>
-                )}
             </body>
         </html>
     );
