@@ -1,8 +1,8 @@
 'use client';
 
-import { Alert, BodyLong, BodyShort, Box, Button, Link } from '@navikt/ds-react';
+import { Alert, BodyLong, BodyShort, Box, Button } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { loggAktivitet } from '@/lib/amplitude';
+import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
 
 interface ManglerOpplysningerProps {
     sprak: Sprak;
@@ -37,12 +37,17 @@ const TEKSTER = {
 const ManglerOpplysninger = (props: ManglerOpplysningerProps) => {
     const { sprak, oppdaterOpplysningerUrl, visAdvarsel } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const loggAktivitet = useLoggAktivitet();
 
     return (
         <Box background="surface-default" padding="6" borderRadius="xlarge" borderColor="border-subtle" borderWidth="1">
             <BodyShort className={'mb-2'}>{tekst('header')}</BodyShort>
             <BodyLong spacing={!visAdvarsel}>{tekst('body')}</BodyLong>
-            {visAdvarsel && <Alert className={'my-4'} variant={'info'}>{tekst('alertText')}</Alert>}
+            {visAdvarsel && (
+                <Alert className={'my-4'} variant={'info'}>
+                    {tekst('alertText')}
+                </Alert>
+            )}
             <Button
                 variant={'secondary'}
                 onClick={() => {

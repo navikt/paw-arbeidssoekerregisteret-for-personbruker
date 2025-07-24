@@ -3,7 +3,7 @@
 import { Alert } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useEffect } from 'react';
-import { loggVisning } from '@/lib/amplitude';
+import { loggVisning } from '@/lib/tracking/amplitude';
 
 interface Props {
     sprak: Sprak;

@@ -3,8 +3,6 @@
 import { BodyShort, List, ReadMore } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
-import { loggAktivitet } from '@/lib/amplitude';
-
 
 interface ReadmoreProps {
     sprak: Sprak;

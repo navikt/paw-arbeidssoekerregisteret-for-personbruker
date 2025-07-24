@@ -3,7 +3,7 @@
 import { Bekreftelse, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BodyShort, Button, Heading, List } from '@navikt/ds-react';
 import { formaterDato } from '@/lib/date-utils';
-import { loggAktivitet } from '@/lib/amplitude';
+import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
 
 export interface Props {
     besvarelse: Bekreftelse;
@@ -91,6 +91,8 @@ const OenskerAaVaereRegistrert = (props: Props) => {
 const OenskerIkkeAaVaereRegistrert = (props: Props) => {
     const { sprak, besvarelse, registrerArbeidssokerUrl } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const loggAktivitet = useLoggAktivitet();
+
     const onClick = () => {
         loggAktivitet({ aktivitet: 'Trykker på "Jeg ønsker å registrere meg på nytt" fra bekreftelse' });
         document.location.href = registrerArbeidssokerUrl;

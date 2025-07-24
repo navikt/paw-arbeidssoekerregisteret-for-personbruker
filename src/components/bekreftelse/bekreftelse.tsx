@@ -3,7 +3,7 @@
 import {
     Bekreftelse as InnsendtBekreftelse,
     Sprak,
-    TilgjengeligeBekreftelser
+    TilgjengeligeBekreftelser,
 } from '@navikt/arbeidssokerregisteret-utils';
 import { BekreftelseSkjema } from './bekreftelse-skjema';
 import { useEffect, useState } from 'react';
@@ -11,11 +11,12 @@ import { BekreftelseBesvart } from './bekreftelse-besvart';
 import { Kvittering } from './kvittering';
 import { sorterEtterEldsteFoerst } from '@/lib/sorter-etter-eldste-foerst';
 import { IkkeAktivArbeidssoker } from './ikke-aktiv-arbeidssoker';
-import { loggAktivitet, loggVisning } from '@/lib/amplitude';
 import { useRouter } from 'next/navigation';
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import IngenTilgjengeligeBekreftelser from '@/components/bekreftelse/ingen-tilgjengelige-bekreftelser';
 import { BekreftelseSkjemaType } from '@/model/bekreftelse';
+import { loggVisning } from '@/lib/tracking/amplitude';
+import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
 
 export interface BekreftelseProps {
     sprak: Sprak;
@@ -35,6 +36,7 @@ function Bekreftelse(props: BekreftelseProps) {
     );
 
     const router = useRouter();
+    const loggAktivitet = useLoggAktivitet();
 
     const harTilgjengeligeBekreftelser = tilgjengeligeBekreftelser.length > 0;
     const gjeldendeBekreftelse = tilgjengeligeBekreftelser[0];

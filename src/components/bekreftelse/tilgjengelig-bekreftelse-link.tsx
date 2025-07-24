@@ -3,10 +3,10 @@
 import NextLink from 'next/link';
 import { Hide, LinkCard } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak, TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
-import { loggAktivitet } from '@/lib/amplitude';
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import LenkeTilBekreftelseArtikkel from '../lenke-til-bekreftelse-artikkel';
+import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
 
 interface Props {
     tilgjengeligeBekreftelser: TilgjengeligeBekreftelser;
@@ -30,6 +30,7 @@ const TEKSTER = {
 
 const TilgjengeligBekreftelseLink = (props: Props) => {
     const { sprak, tilgjengeligeBekreftelser = [] } = props;
+    const loggAktivitet = useLoggAktivitet();
 
     if (tilgjengeligeBekreftelser.length === 0) {
         return null;

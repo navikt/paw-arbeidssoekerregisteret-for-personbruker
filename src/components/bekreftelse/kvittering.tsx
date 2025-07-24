@@ -1,6 +1,6 @@
 import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { loggAktivitet } from '@/lib/amplitude';
+import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
 
 export interface Props {
     sprak: Sprak;
@@ -45,6 +45,7 @@ const TEKSTER = {
 const Kvittering = (props: Props) => {
     const { sprak, erUtmeldt, harFlereBekreftelser, onClick } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const loggAktivitet = useLoggAktivitet();
 
     const loggKlikk = () => {
         loggAktivitet({ aktivitet: 'Trykker på "Gå tilbake til min side" fra bekreftelse-kvittering' });

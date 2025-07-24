@@ -2,7 +2,7 @@
 
 import { Box, LinkCard } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { loggAktivitet } from '@/lib/amplitude';
+import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
 
 interface Props extends React.HTMLProps<any> {
     registrerArbeidssokerUrl: string;
@@ -24,6 +24,8 @@ const TEKSTER = {
 export default function RegistrerArbeidssoker(props: Props) {
     const { sprak } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const loggAktivitet = useLoggAktivitet();
+
     return (
         <Box>
             <LinkCard style={{ background: 'var(--a-surface-action-subtle)' }} className={props.className ?? ''}>

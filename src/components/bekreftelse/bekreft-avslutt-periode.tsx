@@ -3,7 +3,7 @@ import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-util
 import { useState } from 'react';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
 import { prettyPrintDato } from '@/lib/date-utils';
-import { loggAktivitet } from '@/lib/amplitude';
+import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
 
 interface Props {
     onSubmit(): void;
@@ -55,6 +55,7 @@ const BekreftAvsluttPeriode = (props: Props) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const [senderSkjema, settSenderSkjema] = useState<boolean>(false);
     const [error, settError] = useState<any>(null);
+    const loggAktivitet = useLoggAktivitet();
 
     const onSubmit = async () => {
         settSenderSkjema(true);
