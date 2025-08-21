@@ -57,7 +57,6 @@ export default async function RootLayout({
                 <Decorator.Header />
                 <InitAmplitude apiKey={process.env.AMPLITUDE_API_KEY!} />
                 <FeatureTogglesProvider>
-                    <InitUmami trackingId={process.env.UMAMI_TRACKING_ID!} />
                     <main>{children}</main>
                 </FeatureTogglesProvider>
                 <Decorator.Footer />

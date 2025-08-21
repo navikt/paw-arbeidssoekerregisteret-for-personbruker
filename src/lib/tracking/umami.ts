@@ -1,15 +1,17 @@
 import { AktivitetData } from '@/lib/tracking/common';
+import { getAnalyticsInstance } from '@navikt/nav-dekoratoren-moduler';
+
 const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
 
-export function logUmamiEvent(eventName: string, data: AktivitetData) {
-    // @ts-ignore
-    if (!window.umami) {
-        console.warn('umami ikke lastet');
-    }
-    if (!brukerMock) {
-        // @ts-ignore
-        window.umami.track(eventName, data);
-    } else {
-        console.log(`Logger til umami: ${eventName}`, data);
+export async function logUmamiEvent(eventName: string, data: AktivitetData) {
+    try {
+        if (!brukerMock) {
+            const tracker = getAnalyticsInstance('arbeidssoekerregisteret-for-personbruker');
+            await tracker(eventName, data);
+        } else {
+            console.log(`Logger til umami: ${eventName}`, data);
+        }
+    } catch (e) {
+        console.warn('Feil ved logging til umami', e);
     }
 }
