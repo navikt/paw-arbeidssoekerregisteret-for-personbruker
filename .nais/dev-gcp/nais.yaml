@@ -57,8 +57,6 @@ spec:
           value: https://www.ansatt.dev.nav.no/arbeid/registrering/oppdater-opplysninger
         - name: AMPLITUDE_API_KEY
           value: 9845ded64c69cd068651cd0d968e0796
-        - name: UMAMI_TRACKING_ID
-          value: 11d917b9-a4b2-4153-be9f-5bf20ead6f90
         - name: UNLEASH_SERVER_API_URL
           value: https://paw-unleash-api.nav.cloud.nais.io/api
         - name: EGENVURDERING_API_URL
