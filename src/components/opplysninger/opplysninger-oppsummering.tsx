@@ -8,7 +8,7 @@ import {
 } from '@navikt/arbeidssokerregisteret-utils';
 import { FormSummary } from '@navikt/ds-react';
 import { mapOpplysninger } from '@/components/opplysninger/opplysninger';
-import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
+import { loggAktivitet } from '@/lib/tracking';
 
 type Props = {
     opplysninger: OpplysningerMedProfilering;
@@ -37,7 +37,6 @@ const OpplysningerOppsummering = (props: Props) => {
     const besvarelser = mapOpplysninger(opplysninger, sprak);
     const besvarelseTekst = lagHentTekstForSprak(SPORSMAL_TEKSTER, sprak);
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const loggAktivitet = useLoggAktivitet();
 
     return (
         <FormSummary>

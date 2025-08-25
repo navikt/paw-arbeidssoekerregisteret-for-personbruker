@@ -6,7 +6,7 @@ import { lagHentTekstForSprak, Sprak, TilgjengeligeBekreftelser } from '@navikt/
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import LenkeTilBekreftelseArtikkel from '../lenke-til-bekreftelse-artikkel';
-import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
+import { loggAktivitet } from '@/lib/tracking';
 
 interface Props {
     tilgjengeligeBekreftelser: TilgjengeligeBekreftelser;
@@ -30,7 +30,6 @@ const TEKSTER = {
 
 const TilgjengeligBekreftelseLink = (props: Props) => {
     const { sprak, tilgjengeligeBekreftelser = [] } = props;
-    const loggAktivitet = useLoggAktivitet();
 
     if (tilgjengeligeBekreftelser.length === 0) {
         return null;
