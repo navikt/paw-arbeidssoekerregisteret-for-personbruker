@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import './globals.css';
 import InitAmplitude from '@/components/init-amplitude';
 import { FeatureTogglesProvider } from '@/contexts/feature-toggle-context';
-import InitUmami from '@/components/init-umami';
 
 export const metadata: Metadata = {
     title: 'Arbeidssøkerregisteret',
