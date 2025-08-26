@@ -43,10 +43,11 @@ async function fetchAggregertePerioder(props: AggregertePerioderProps): Promise<
         });
     }
     const { visKunSisteInformasjon } = props;
-    const AGGREGERTE_PERIODER_URL = `${process.env.ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL}/api/v1/arbeidssoekerperioder-aggregert${visKunSisteInformasjon ? '?siste=true' : ''}`;
+    const AGGREGERTE_PERIODER_URL = `${process.env.OPPSLAG_API_V2_URL}/api/v1/arbeidssoekerperioder-aggregert${visKunSisteInformasjon ? '?siste=true' : ''}`;
+    const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag-v2`;
     try {
         const reqHeaders = await headers();
-        const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!));
+        const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!), audience);
         const traceId = uuidv4();
         logger.info({ x_trace_id: traceId }, `Starter GET ${AGGREGERTE_PERIODER_URL}`);
 
