@@ -30,6 +30,7 @@ const TEKSTER = {
         'stopp av periode': 'Stoppet av veileder',
         'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stoppet av deg',
         '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Svarte "Nei" på bekreftelse',
+        'feilregistrering': 'Slettet på grunn av feilregistrering'
     },
     nn: {
         startet: 'Starta',
@@ -46,7 +47,8 @@ const TEKSTER = {
         '[bekreftelse:ytelse/støtte] ikke levert innen fristen': 'Ikkje svart på stadfesting',
         'stopp av periode': 'Stoppa av rettleiar',
         'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stoppa av deg',
-        '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Svara "Nei" på stadfesting'
+        '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Svara "Nei" på stadfesting',
+        'feilregistrering': 'Sletta på grunn av feilregistrering'
     },
     en: {
         startet: 'Started',
@@ -63,7 +65,8 @@ const TEKSTER = {
         '[bekreftelse:ytelse/støtte] ikke levert innen fristen': 'Jobseeker status not confirmed',
         'stopp av periode': 'Stopped by supervisor',
         'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stopped by you',
-        '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Did not want to be registered as jobseeker'
+        '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Did not want to be registered as jobseeker',
+        'feilregistrering': 'Deleted due to misregistration'
     },
 };
 
