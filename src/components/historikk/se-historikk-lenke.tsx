@@ -4,7 +4,7 @@ import { Box, Link } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
-import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
+import { loggAktivitet } from '@/lib/tracking';
 
 export interface HistorikkLenkeProps {
     sprak: Sprak;
@@ -24,7 +24,6 @@ const TEKSTER = {
 
 export function SeHistorikkLenke(props: HistorikkLenkeProps) {
     const { sprak } = props;
-    const loggAktivitet = useLoggAktivitet();
 
     function loggKlikk() {
         loggAktivitet({ aktivitet: 'Går til siden for historikk' });

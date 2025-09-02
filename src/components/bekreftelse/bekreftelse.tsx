@@ -16,7 +16,7 @@ import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import IngenTilgjengeligeBekreftelser from '@/components/bekreftelse/ingen-tilgjengelige-bekreftelser';
 import { BekreftelseSkjemaType } from '@/model/bekreftelse';
 import { loggVisning } from '@/lib/tracking/amplitude';
-import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
+import { loggAktivitet } from '@/lib/tracking';
 
 export interface BekreftelseProps {
     sprak: Sprak;
@@ -36,7 +36,6 @@ function Bekreftelse(props: BekreftelseProps) {
     );
 
     const router = useRouter();
-    const loggAktivitet = useLoggAktivitet();
 
     const harTilgjengeligeBekreftelser = tilgjengeligeBekreftelser.length > 0;
     const gjeldendeBekreftelse = tilgjengeligeBekreftelser[0];

@@ -1,3 +1,3 @@
-export default {
-    BRUK_UMAMI: 'arbeidssoekerregisteret.bruk-umami'
-}
+const unleashKeys = {};
+
+export default unleashKeys;

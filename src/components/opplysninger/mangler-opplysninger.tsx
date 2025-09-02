@@ -2,7 +2,7 @@
 
 import { Alert, BodyLong, BodyShort, Box, Button } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
+import { loggAktivitet } from '@/lib/tracking';
 
 interface ManglerOpplysningerProps {
     sprak: Sprak;
@@ -37,7 +37,6 @@ const TEKSTER = {
 const ManglerOpplysninger = (props: ManglerOpplysningerProps) => {
     const { sprak, oppdaterOpplysningerUrl, visAdvarsel } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const loggAktivitet = useLoggAktivitet();
 
     return (
         <Box background="surface-default" padding="6" borderRadius="xlarge" borderColor="border-subtle" borderWidth="1">

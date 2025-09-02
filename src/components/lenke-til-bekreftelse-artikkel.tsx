@@ -2,7 +2,7 @@
 
 import { Box, Link } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { useLoggAktivitet } from '@/hooks/use-logg-aktivitet';
+import { loggAktivitet } from '@/lib/tracking';
 
 const TEKSTER = {
     nb: {
@@ -32,7 +32,6 @@ const getUrl = (sprak: Sprak) => {
 const LenkeTilBekreftelseArtikkel = (props: Props) => {
     const { sprak } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const loggAktivitet = useLoggAktivitet();
 
     const onClick = () => {
         loggAktivitet({
