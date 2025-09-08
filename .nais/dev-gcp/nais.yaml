@@ -55,8 +55,6 @@ spec:
           value: https://www.ansatt.dev.nav.no/arbeid/registrering
         - name: OPPDATER_OPPLYSNINGER_URL
           value: https://www.ansatt.dev.nav.no/arbeid/registrering/oppdater-opplysninger
-        - name: AMPLITUDE_API_KEY
-          value: 9845ded64c69cd068651cd0d968e0796
         - name: UNLEASH_SERVER_API_URL
           value: https://paw-unleash-api.nav.cloud.nais.io/api
         - name: EGENVURDERING_API_URL

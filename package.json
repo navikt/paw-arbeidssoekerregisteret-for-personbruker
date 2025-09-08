@@ -15,7 +15,6 @@
     "refresh": "rm -rf node_modules && rm package-lock.json && npm i"
   },
   "dependencies": {
-    "@amplitude/analytics-browser": "2.23.3",
     "@navikt/arbeidssokerregisteret-utils": "1.7.0",
     "@navikt/ds-css": "7.28.1",
     "@navikt/ds-react": "7.28.1",

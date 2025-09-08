@@ -1,5 +1,10 @@
 import { getCurrentConsent } from '@navikt/nav-dekoratoren-moduler';
 
+export type VisningsData =
+    | { viser: 'IkkeAktivArbeidssøker fra Bekreftelse' }
+    | { viser: 'Bekreftelse'; antallTilgjengeligeBekreftelser: number; erAktivArbeidssoker: boolean }
+    | { viser: 'ErrorBoundaryFeil'; error: any };
+
 export type AktivitetData =
     | { aktivitet: 'Sender inn bekreftelse'; vilFortsetteSomArbeidssoeker: boolean }
     | { aktivitet: 'Avbryter avslutning av periode' }
@@ -15,6 +20,8 @@ export type AktivitetData =
     | { aktivitet: 'Trykker på "Les mer om å bekrefte at du vil være arbeidssøker" på nav.no fra varsel på forsiden' }
     | { aktivitet: 'Trykker på "Les mer om å bekrefte at du vil være arbeidssøker"' }
     | { aktivitet: 'Trykker på "Kontakt oss" fra avbryt bekreftelse' };
+
+export type EventData = VisningsData | AktivitetData;
 
 export const isConsentingToAnalytics = () => {
     const currentConsent = getCurrentConsent() ?? {

@@ -2,7 +2,6 @@ import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import Script from 'next/script';
 import type { Metadata } from 'next';
 import './globals.css';
-import InitAmplitude from '@/components/init-amplitude';
 import { FeatureTogglesProvider } from '@/contexts/feature-toggle-context';
 
 export const metadata: Metadata = {
@@ -54,7 +53,6 @@ export default async function RootLayout({
             </head>
             <body>
                 <Decorator.Header />
-                <InitAmplitude apiKey={process.env.AMPLITUDE_API_KEY!} />
                 <FeatureTogglesProvider>
                     <main>{children}</main>
                 </FeatureTogglesProvider>

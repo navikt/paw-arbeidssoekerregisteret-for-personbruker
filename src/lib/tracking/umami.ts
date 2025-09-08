@@ -1,9 +1,9 @@
-import { AktivitetData } from '@/lib/tracking/common';
 import { getAnalyticsInstance } from '@navikt/nav-dekoratoren-moduler';
+import { EventData } from '@/lib/tracking/common';
 
 const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
 
-export async function logUmamiEvent(eventName: string, data: AktivitetData) {
+export async function logUmamiEvent(eventName: string, data: EventData) {
     try {
         if (!brukerMock) {
             const tracker = getAnalyticsInstance('arbeidssoekerregisteret-for-personbruker');
