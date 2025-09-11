@@ -3,6 +3,7 @@ import Script from 'next/script';
 import type { Metadata } from 'next';
 import './globals.css';
 import { FeatureTogglesProvider } from '@/contexts/feature-toggle-context';
+import InitFaroKomponent from '@/components/init-faro-komponent';
 
 export const metadata: Metadata = {
     title: 'Arbeidssøkerregisteret',
@@ -53,6 +54,7 @@ export default async function RootLayout({
             </head>
             <body>
                 <Decorator.Header />
+                <InitFaroKomponent />
                 <FeatureTogglesProvider>
                     <main>{children}</main>
                 </FeatureTogglesProvider>
