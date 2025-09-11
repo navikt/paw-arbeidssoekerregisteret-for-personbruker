@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint",
     "test": "npm run lint && vitest",
     "test:ci": "npm run lint && vitest run",
     "storybook": "storybook dev -p 6006",
@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "4.1.1",
+    "@eslint/eslintrc": "3.3.1",
     "@storybook/addon-a11y": "9.1.5",
     "@storybook/addon-docs": "9.1.5",
     "@storybook/addon-links": "9.1.5",
