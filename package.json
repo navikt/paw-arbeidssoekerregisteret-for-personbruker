@@ -28,7 +28,7 @@
     "next": "15.5.3",
     "react": "19.1.1",
     "react-dom": "19.1.1",
-    "uuid": "11.1.0"
+    "uuid": "13.0.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "4.1.1",
