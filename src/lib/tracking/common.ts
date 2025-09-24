@@ -1,9 +1,13 @@
 import { getCurrentConsent } from '@navikt/nav-dekoratoren-moduler';
 
+export const AktivitetEventNavn = 'arbeidssoekerregisteret-for-personbruker.aktivitet';
+export const VisningEventNavn = 'arbeidssoekerregisteret-for-personbruker.visning';
 export type VisningsData =
     | { viser: 'IkkeAktivArbeidssøker fra Bekreftelse' }
     | { viser: 'Bekreftelse'; antallTilgjengeligeBekreftelser: number; erAktivArbeidssoker: boolean }
-    | { viser: 'ErrorBoundaryFeil'; error: any };
+    | { viser: 'ErrorBoundaryFeil'; error: any }
+    | { viser: 'Egenvurdering' }
+    | { viser: 'Egenvurdering avklart' };
 
 export type AktivitetData =
     | { aktivitet: 'Sender inn bekreftelse'; vilFortsetteSomArbeidssoeker: boolean }
@@ -19,7 +23,9 @@ export type AktivitetData =
     | { aktivitet: 'Trykker på "Gå til Bekreftelse" fra forsiden' }
     | { aktivitet: 'Trykker på "Les mer om å bekrefte at du vil være arbeidssøker" på nav.no fra varsel på forsiden' }
     | { aktivitet: 'Trykker på "Les mer om å bekrefte at du vil være arbeidssøker"' }
-    | { aktivitet: 'Trykker på "Kontakt oss" fra avbryt bekreftelse' };
+    | { aktivitet: 'Trykker på "Kontakt oss" fra avbryt bekreftelse' }
+    | { aktivitet: 'Trykker på "Klarer meg uten veileder"' }
+    | { aktivitet: 'Trykker på "Behov for veileder"' };
 
 export type EventData = VisningsData | AktivitetData;
 

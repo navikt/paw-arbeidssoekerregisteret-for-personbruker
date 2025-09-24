@@ -3,6 +3,7 @@ import { BodyLong, Box, Heading, Hide } from '@navikt/ds-react';
 import ReadMoreVeileder from '@/components/egenvurdering/readmore-veileder';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
 import { InformationSquareIcon } from '@navikt/aksel-icons';
+import { VisningEventNavn } from '@/lib/tracking/common';
 
 interface BehovvurderingAvklartProps {
     sprak: Sprak;
@@ -47,6 +48,8 @@ function EgenvurderingAvklart(props: BehovvurderingAvklartProps) {
             borderColor={'border-subtle'}
             borderWidth={'1'}
             className={'divide-y divide-gray-300'}
+            data-umami-event={VisningEventNavn}
+            data-umami-event-viser={'Egenvurdering avklart'}
         >
             <div className={'flex items-center py-4 px-6'} style={{ background: 'var(--a-blue-100)', borderRadius: 'var(--a-border-radius-large) var(--a-border-radius-large) 0 0'}}>
                 <Hide below={'sm'}><InformationSquareIcon title="a11y-title" fontSize="1.5rem" className={'mr-4'}/></Hide>

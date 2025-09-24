@@ -4,6 +4,8 @@ import ReadMoreVurdering from '@/components/egenvurdering/readmore-vurdering';
 import { lagHentTekstForSprak, Profilering, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
 import { InformationSquareIcon } from '@navikt/aksel-icons';
+import { loggAktivitet } from '@/lib/tracking';
+import { VisningEventNavn } from '@/lib/tracking/common';
 
 interface Props {
     sprak: Sprak;
@@ -50,6 +52,8 @@ const EgenvurderingStateless = (props: Props) => {
             borderColor={'border-subtle'}
             borderWidth={'1'}
             className={'divide-y divide-gray-300'}
+            data-umami-event={VisningEventNavn}
+            data-umami-event-viser={'Egenvurdering'}
         >
             <div className={'flex items-center py-4 px-6'} style={{ background: 'var(--a-blue-100)', borderRadius: 'var(--a-border-radius-large) var(--a-border-radius-large) 0 0'}}>
                 <Hide below={'sm'}><InformationSquareIcon title="a11y-title" fontSize="1.5rem" className={'mr-4'}/></Hide>
@@ -63,7 +67,7 @@ const EgenvurderingStateless = (props: Props) => {
                 <Button
                     onClick={() => {
                         onSubmit(enigRespons);
-                        // loggAktivitet({ aktivitet: 'Trykker på "Klarer meg uten veileder"' });
+                        loggAktivitet({ aktivitet: 'Trykker på "Klarer meg uten veileder"' });
                     }}
                     disabled={pendingRequest !== null}
                     loading={pendingRequest === enigRespons}
@@ -74,7 +78,7 @@ const EgenvurderingStateless = (props: Props) => {
                     <Button
                         onClick={() => {
                             onSubmit(uenigRespons);
-                            // loggAktivitet({ aktivitet: 'Trykker på "Behov for veileder"' });
+                            loggAktivitet({ aktivitet: 'Trykker på "Behov for veileder"' });
                         }}
                         disabled={pendingRequest !== null}
                         loading={pendingRequest === uenigRespons}
