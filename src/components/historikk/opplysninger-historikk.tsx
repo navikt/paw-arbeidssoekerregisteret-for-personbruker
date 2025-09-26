@@ -11,6 +11,10 @@ const TEKSTER = {
         heading: 'Registrerte opplysninger',
         sendtInn: 'Sendt inn ',
     },
+    nn: {
+        heading: 'Registrerte opplysningar',
+        sendtInn: 'Sendt inn ',
+    },
     en: {
         heading: 'Information',
         sendtInn: 'Registered '
