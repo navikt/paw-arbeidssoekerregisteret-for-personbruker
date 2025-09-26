@@ -52,7 +52,7 @@
     "eslint": "9.36.0",
     "eslint-config-next": "15.5.4",
     "eslint-plugin-storybook": "9.1.8",
-    "jsdom": "26.1.0",
+    "jsdom": "27.0.0",
     "msw": "2.11.3",
     "msw-storybook-addon": "2.0.5",
     "postcss": "8.5.6",
