@@ -2,7 +2,7 @@ import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggAktivitet } from '@/lib/tracking';
 
-export interface Props {
+interface Props {
     sprak: Sprak;
     erUtmeldt: boolean;
     harFlereBekreftelser: boolean;

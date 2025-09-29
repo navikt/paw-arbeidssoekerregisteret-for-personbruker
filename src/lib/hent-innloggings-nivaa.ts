@@ -4,7 +4,7 @@ import { decodeJwt } from 'jose';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
-export type AuthLevel = 'idporten-loa-substantial' | 'idporten-loa-high';
+type AuthLevel = 'idporten-loa-substantial' | 'idporten-loa-high';
 
 export async function hentInnloggingsNivaa(): Promise<{ data?: AuthLevel, error?: any }> {
     if (brukerMock) {

@@ -15,7 +15,7 @@ interface Skjema {
     vilFortsetteSomArbeidssoeker?: boolean;
 }
 
-export interface Props {
+interface Props {
     visIkkeSvartAdvarsel?: 'warning' | 'error';
     sprak: Sprak;
     fristDato: string;

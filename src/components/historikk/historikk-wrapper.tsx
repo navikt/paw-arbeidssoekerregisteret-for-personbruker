@@ -9,7 +9,7 @@ import { Heading, BodyShort } from '@navikt/ds-react';
 import { BekreftelseHistorikk } from './bekreftelse-historikk';
 import { OpplysningerHistorikk } from '@/components/historikk/opplysninger-historikk';
 
-export interface Historikk extends AggregertPeriode {
+interface Historikk extends AggregertPeriode {
     sprak: Sprak;
 }
 

@@ -5,7 +5,7 @@ import { BodyShort, Button, Heading, List } from '@navikt/ds-react';
 import { formaterDato } from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/tracking';
 
-export interface Props {
+interface Props {
     besvarelse: Bekreftelse;
     sprak: Sprak;
     registrerArbeidssokerUrl: string;

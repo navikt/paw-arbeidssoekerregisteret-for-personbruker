@@ -3,7 +3,7 @@ import { Heading } from '@navikt/ds-react';
 
 import { harPermittertSituasjon } from '@/lib/har-permittert-situasjon';
 
-export const TEKSTER = {
+const TEKSTER = {
     nb: {
         registrert: 'Du er registrert som arbeidssøker',
         registrertPermittert: 'Du er registrert som permittert arbeidssøker',

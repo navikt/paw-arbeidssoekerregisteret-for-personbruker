@@ -6,7 +6,7 @@ import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-util
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import { loggAktivitet } from '@/lib/tracking';
 
-export interface HistorikkLenkeProps {
+interface HistorikkLenkeProps {
     sprak: Sprak;
 }
 
