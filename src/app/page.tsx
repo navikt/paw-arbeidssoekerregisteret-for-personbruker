@@ -18,6 +18,7 @@ import Feil from '@/components/feil';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import Egenvurdering from '@/components/egenvurdering/egenvurdering';
+import InitSkyraSurvey from '@/components/init-skyra-survey';
 
 interface Props {
     sprak: Sprak;
@@ -80,6 +81,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                 />
             )}
             {harHistorikk && <SeHistorikkLenke sprak={sprak} />}
+            <InitSkyraSurvey aggregerteData={aggregerteData!} />
         </>
     );
 }
