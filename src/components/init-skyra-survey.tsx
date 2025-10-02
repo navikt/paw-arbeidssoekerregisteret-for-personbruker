@@ -12,19 +12,19 @@ import {
 } from '@navikt/arbeidssokerregisteret-utils';
 
 interface Props {
-    aggregerteData: AggregertePerioder;
+    aggregerteData: AggregertePerioder | undefined;
 }
 
 function InitSkyraSurvey(props: Props) {
     const toggles = useFeatureToggles();
-    if (!toggles[unleashKeys.BRUK_SKYRA]) {
+    if (!toggles[unleashKeys.BRUK_SKYRA] || !props.aggregerteData) {
         return null;
     }
 
-    const sisteInformasjon = props.aggregerteData && props.aggregerteData[0];
+    const sisteInformasjon = props.aggregerteData[0];
     const harAktivPeriode = Boolean(sisteInformasjon?.periodeId) && !Boolean(sisteInformasjon?.avsluttet);
     const sisteOpplysninger = hentSisteOpplysningerOmArbeidssoker(
-        sisteInformasjon.opplysningerOmArbeidssoeker as OpplysningerOmArbeidssoker[],
+        sisteInformasjon?.opplysningerOmArbeidssoeker as OpplysningerOmArbeidssoker[] ?? [],
     ) as OpplysningerMedProfilering;
     const harAntattGodeMuligheter = sisteOpplysninger.profilering?.profilertTil === ProfilertTil.ANTATT_GODE_MULIGHETER;
 
