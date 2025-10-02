@@ -38,12 +38,12 @@ function InitSkyraSurvey(props: Props) {
                 {`
                 skyra-survey::part(wrapper) {
                     position: fixed;
-                    bottom: 0,
-                    right: 2rem,
-                    background: 'var(--a-bg-subtle)',
-                    padding: '2rem',
-                    box-shadow: 'var(--a-shadow-small)',
-                    border: '1px solid var(--a-surface-subtle)',
+                    bottom: 0;
+                    right: 2rem;
+                    background: var(--a-bg-subtle);
+                    padding: 2rem;
+                    box-shadow: var(--a-shadow-small);
+                    border: 1px solid var(--a-surface-subtle);
                 }
                 `}
             </style>
