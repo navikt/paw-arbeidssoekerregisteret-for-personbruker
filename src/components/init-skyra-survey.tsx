@@ -24,7 +24,7 @@ function InitSkyraSurvey(props: Props) {
     const sisteInformasjon = props.aggregerteData[0];
     const harAktivPeriode = Boolean(sisteInformasjon?.periodeId) && !Boolean(sisteInformasjon?.avsluttet);
     const sisteOpplysninger = hentSisteOpplysningerOmArbeidssoker(
-        sisteInformasjon?.opplysningerOmArbeidssoeker as OpplysningerOmArbeidssoker[] ?? [],
+        (sisteInformasjon?.opplysningerOmArbeidssoeker as OpplysningerOmArbeidssoker[]) ?? [],
     ) as OpplysningerMedProfilering;
     const harAntattGodeMuligheter = sisteOpplysninger.profilering?.profilertTil === ProfilertTil.ANTATT_GODE_MULIGHETER;
 
@@ -32,8 +32,22 @@ function InitSkyraSurvey(props: Props) {
         return null;
     }
 
-    // @ts-ignore
-    return <skyra-survey slug={'arbeids-og-velferdsetaten-nav/test-undersokelse'} consent={false} />;
+    return (
+        <div
+            style={{
+                position: 'fixed',
+                bottom: 0,
+                right: '2rem',
+                background: 'var(--a-bg-subtle)',
+                padding: '2rem',
+                boxShadow: 'var(--a-shadow-small)',
+                border: '1px solid var(--a-surface-subtle)',
+            }}
+        >
+            {/* @ts-ignore */}
+            <skyra-survey slug={'arbeids-og-velferdsetaten-nav/test-undersokelse'} consent={false} />
+        </div>
+    );
 }
 
 export default InitSkyraSurvey;
