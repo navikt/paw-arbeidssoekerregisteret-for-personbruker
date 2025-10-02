@@ -33,20 +33,23 @@ function InitSkyraSurvey(props: Props) {
     }
 
     return (
-        <div
-            style={{
-                position: 'fixed',
-                bottom: 0,
-                right: '2rem',
-                background: 'var(--a-bg-subtle)',
-                padding: '2rem',
-                boxShadow: 'var(--a-shadow-small)',
-                border: '1px solid var(--a-surface-subtle)',
-            }}
-        >
+        <>
+            <style>
+                {`
+                skyra-survey::part(wrapper) {
+                    position: fixed;
+                    bottom: 0,
+                    right: 2rem,
+                    background: 'var(--a-bg-subtle)',
+                    padding: '2rem',
+                    box-shadow: 'var(--a-shadow-small)',
+                    border: '1px solid var(--a-surface-subtle)',
+                }
+                `}
+            </style>
             {/* @ts-ignore */}
             <skyra-survey slug={'arbeids-og-velferdsetaten-nav/test-undersokelse'} consent={false} />
-        </div>
+        </>
     );
 }
 
