@@ -48,7 +48,7 @@ function InitSkyraSurvey(props: Props) {
                 `}
             </style>
             {/* @ts-ignore */}
-            <skyra-survey slug={'arbeids-og-velferdsetaten-nav/test-undersokelse'} consent={false} />
+            <skyra-survey slug={'arbeids-og-velferdsetaten-nav/baseline-for-styrkeloft'} consent={false} />
         </>
     );
 }
