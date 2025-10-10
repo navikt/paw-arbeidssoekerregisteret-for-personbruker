@@ -80,7 +80,6 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                 />
             )}
             {harHistorikk && <SeHistorikkLenke sprak={sprak} />}
-            {/*<InitSkyraSurvey aggregerteData={aggregerteData!} />*/}
         </>
     );
 }
