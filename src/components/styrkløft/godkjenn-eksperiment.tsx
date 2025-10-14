@@ -1,5 +1,6 @@
 import { BodyShort, Box, Button, Checkbox, Heading } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import Beta from '@/components/styrkløft/beta';
 
 const TEKSTER = {
     nb: {
@@ -20,9 +21,10 @@ function GodkjennEksperiment(props: Props) {
     const { sprak } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     return (
-        <Box>
+        <Box padding="space-16" borderRadius="large" shadow="xsmall">
             <Heading level="3" size="large">
                 {tekst('heading')}
+                <div className={'float-right'}><Beta sprak={sprak}/></div>
             </Heading>
             <BodyShort className={'py-4'}>{tekst('body')}</BodyShort>
             <Checkbox value={'ok'}>{tekst('checkboxText')}</Checkbox>
