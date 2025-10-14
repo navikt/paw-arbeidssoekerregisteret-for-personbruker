@@ -13,7 +13,7 @@ function FilterVelger(props: Props) {
     const { tekst, heading, options, onChange, defaultOpen } = props;
     return (
         <Dropdown defaultOpen={defaultOpen}>
-            <Button as={Dropdown.Toggle} iconPosition="right" icon={<PencilIcon aria-hidden />}>
+            <Button as={Dropdown.Toggle} iconPosition="right" icon={<PencilIcon title={'Endre'}/>}>
                 {tekst}
             </Button>
             <Dropdown.Menu>
@@ -21,6 +21,7 @@ function FilterVelger(props: Props) {
                     <Dropdown.Menu.GroupedList.Heading>
                         {heading}
                     </Dropdown.Menu.GroupedList.Heading>
+                    <Dropdown.Menu.Divider />
                     {options.map((option) => {
                         return <Dropdown.Menu.GroupedList.Item key={option} onClick={() => { onChange(option)}}>
                             { option }
