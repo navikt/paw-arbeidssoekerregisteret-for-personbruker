@@ -4,7 +4,7 @@ import unleashKeys from '@/unleash-keys';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 interface FeatureTogglesContextState {
-    [unleashKeys.BRUK_SKYRA]: boolean;
+    [unleashKeys.BRUK_UXSIGNALS]: boolean;
 }
 
 const FeatureTogglesContext = createContext<FeatureTogglesContextState>({} as any);

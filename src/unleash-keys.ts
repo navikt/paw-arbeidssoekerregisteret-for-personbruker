@@ -1,5 +1,5 @@
 const unleashKeys = {
-    BRUK_SKYRA: 'arbeidssoekerregisteret.bruk-skyra'
+    BRUK_UXSIGNALS: 'arbeidssoekerregisteret.bruk-uxsignals',
 };
 
 export default unleashKeys;
