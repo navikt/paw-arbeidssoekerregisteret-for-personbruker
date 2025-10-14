@@ -20,15 +20,15 @@ export const IkkeValgt: Story = {
     }
 };
 
-export const ÅpenDropdown: Story = {
-    args: {
-        tekst: 'Velg kategori',
-        options: ['Baker', 'Kokk'],
-        heading: 'Velg kategori',
-        onChange: console.log,
-        defaultOpen: true
-    }
-}
+// export const ÅpenDropdown: Story = {
+//     args: {
+//         tekst: 'Velg kategori',
+//         options: ['Baker', 'Kokk'],
+//         heading: 'Velg kategori',
+//         onChange: console.log,
+//         defaultOpen: true
+//     }
+// }
 
 export const MedVerdi: Story = {
     args: {
