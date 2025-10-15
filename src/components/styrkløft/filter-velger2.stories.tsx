@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import FilterVelger from '@/components/styrkløft/filter-velger';
+import FilterVelger2 from '@/components/styrkløft/filter-velger2';
 
 const meta = {
-    title: 'Styrkløft/FilterVelger',
-    component: FilterVelger,
+    title: 'Styrkløft/FilterVelger2',
+    component: FilterVelger2,
     tags: ['autodocs'],
     args: {},
-} satisfies Meta<typeof FilterVelger>;
+} satisfies Meta<typeof FilterVelger2>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -17,8 +17,18 @@ export const IkkeValgt: Story = {
         options: ['Baker', 'Kokk'],
         heading: 'Velg kategori',
         onChange: console.log,
-    }
+    },
 };
+
+// export const ÅpenDropdown: Story = {
+//     args: {
+//         tekst: 'Velg kategori',
+//         options: ['Baker', 'Kokk'],
+//         heading: 'Velg kategori',
+//         onChange: console.log,
+//         defaultOpen: true
+//     }
+// }
 
 export const MedVerdi: Story = {
     args: {
@@ -26,5 +36,5 @@ export const MedVerdi: Story = {
         options: ['Baker', 'Kokk'],
         heading: 'Velg kategori',
         onChange: console.log,
-    }
-}
+    },
+};
