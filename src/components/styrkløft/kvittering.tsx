@@ -9,7 +9,7 @@ function Kvittering(props: Props) {
     return (
         <Box padding="space-16" borderRadius="large" shadow="xsmall">
             <Heading level="3" size="large">
-                Velg yrkeskategori og fylke du vil se stillinger fra
+                Velg yrkeskategorier og fylker du vil se stillinger fra
             </Heading>
             <section className={'my-4'}>
                 <FilterVelger3
