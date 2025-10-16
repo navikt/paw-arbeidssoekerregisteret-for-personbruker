@@ -1,0 +1,48 @@
+import { Button, Chips, Dropdown, Tag } from '@navikt/ds-react';
+import { PencilIcon } from '@navikt/aksel-icons';
+
+interface Props {
+    values: any[];
+    options: any[];
+    heading: string;
+    onChange: (values: any[]) => void;
+    defaultOpen?: boolean;
+}
+
+function FilterVelger2(props: Props) {
+    const { values, heading, options, onChange, defaultOpen } = props;
+    return (
+        <div className={'flex'}>
+            <Dropdown defaultOpen={defaultOpen}>
+                <Button variant={'secondary'} as={Dropdown.Toggle} size={'small'} iconPosition="right" icon={<PencilIcon title={'Endre'}/>}>
+                    {heading}
+                </Button>
+                <Dropdown.Menu>
+                    <Dropdown.Menu.GroupedList>
+                        <Dropdown.Menu.GroupedList.Heading>
+                            {heading}
+                        </Dropdown.Menu.GroupedList.Heading>
+                        <Dropdown.Menu.Divider />
+                        {options.map((option) => {
+                            return <Dropdown.Menu.GroupedList.Item key={option} onClick={() => { onChange(values.concat(option))}}>
+                                { option }
+                            </Dropdown.Menu.GroupedList.Item>
+                        })}
+                    </Dropdown.Menu.GroupedList>
+                </Dropdown.Menu>
+            </Dropdown>
+            <Chips className={'ml-2'}>
+                {values.map((c) => (
+                    <Chips.Removable
+                        key={c}
+                        onClick={() => onChange(values.filter(v => v !== c)) }
+                    >
+                        {c}
+                    </Chips.Removable>
+                ))}
+            </Chips>
+        </div>
+    );
+}
+
+export default FilterVelger2;
