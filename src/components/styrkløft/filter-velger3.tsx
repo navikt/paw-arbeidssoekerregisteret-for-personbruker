@@ -14,29 +14,39 @@ function FilterVelger2(props: Props) {
     return (
         <div className={'flex'}>
             <Dropdown defaultOpen={defaultOpen}>
-                <Button variant={'secondary'} as={Dropdown.Toggle} size={'small'} iconPosition="right" icon={<PencilIcon title={'Endre'}/>}>
+                <Button
+                    variant={'secondary'}
+                    as={Dropdown.Toggle}
+                    size={'small'}
+                    iconPosition="right"
+                    icon={<PencilIcon title={'Endre'} />}
+                >
                     {heading}
                 </Button>
                 <Dropdown.Menu>
                     <Dropdown.Menu.GroupedList>
-                        <Dropdown.Menu.GroupedList.Heading>
-                            {heading}
-                        </Dropdown.Menu.GroupedList.Heading>
+                        <Dropdown.Menu.GroupedList.Heading>{heading}</Dropdown.Menu.GroupedList.Heading>
                         <Dropdown.Menu.Divider />
                         {options.map((option) => {
-                            return <Dropdown.Menu.GroupedList.Item key={option} onClick={() => { onChange(values.concat(option))}}>
-                                { option }
-                            </Dropdown.Menu.GroupedList.Item>
+                            const isDisabled = values.indexOf(option) !== -1;
+                            return (
+                                <Dropdown.Menu.GroupedList.Item
+                                    key={option}
+                                    disabled={isDisabled}
+                                    onClick={() => {
+                                        onChange(values.concat(option));
+                                    }}
+                                >
+                                    {option}
+                                </Dropdown.Menu.GroupedList.Item>
+                            );
                         })}
                     </Dropdown.Menu.GroupedList>
                 </Dropdown.Menu>
             </Dropdown>
             <Chips className={'ml-2'}>
                 {values.map((c) => (
-                    <Chips.Removable
-                        key={c}
-                        onClick={() => onChange(values.filter(v => v !== c)) }
-                    >
+                    <Chips.Removable key={c} onClick={() => onChange(values.filter((v) => v !== c))}>
                         {c}
                     </Chips.Removable>
                 ))}
