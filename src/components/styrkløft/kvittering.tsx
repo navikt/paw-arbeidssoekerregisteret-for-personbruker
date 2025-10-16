@@ -2,6 +2,7 @@ import { Box, Button, Heading } from '@navikt/ds-react';
 import { yrkeskategorier } from '@/components/styrkløft/yrkeskategorier';
 import { fylker } from '@/components/styrkløft/fylker';
 import FilterVelger3 from '@/components/styrkløft/filter-velger3';
+import FilterVelger4 from '@/components/styrkløft/filter-velger4';
 
 interface Props {}
 
@@ -20,7 +21,7 @@ function Kvittering(props: Props) {
                 />
             </section>
             <section className={'my-4'}>
-                <FilterVelger3
+                <FilterVelger4
                     values={['Østfold', 'Oslo']}
                     options={fylker}
                     heading={'Velg fylke'}
