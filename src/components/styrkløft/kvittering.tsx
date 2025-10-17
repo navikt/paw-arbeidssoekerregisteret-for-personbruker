@@ -13,7 +13,7 @@ function Kvittering(props: Props) {
                 Velg yrkeskategorier og fylker du vil se stillinger fra
             </Heading>
             <section className={'my-4'}>
-                <FilterVelger3
+                <FilterVelger4
                     values={['IT', 'Bygg og anlegg']}
                     options={yrkeskategorier}
                     heading={'Velg yrkeskategori'}

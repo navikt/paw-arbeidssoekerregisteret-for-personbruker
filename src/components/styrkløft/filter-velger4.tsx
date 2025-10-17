@@ -15,7 +15,7 @@ function FilterVelger2(props: Props) {
         <div className={'flex'}>
             <Dropdown defaultOpen={defaultOpen}>
                 <Button
-                    variant={'primary'}
+                    variant={'secondary'}
                     size={'small'}
                     as={Dropdown.Toggle}
                     iconPosition="right"
