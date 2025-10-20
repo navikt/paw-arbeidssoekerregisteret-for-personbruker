@@ -23,7 +23,6 @@ export function opprettLinkTilArbeidsplassen(brukerprofil: BrukerprofilTemp): st
 
     // formater geografi
     const alleFylker = stedSoek?.fylker?.map((el) => el.navn);
-    console.log(alleFylker);
     const formaterteFylker = alleFylker?.map((fylke) => `county=${encodeURIComponent(fylke.toUpperCase())}`).join('&');
 
     return `${BASE_URL}${urlFormaterteKategorier}&v=5&${formaterteFylker}`;
