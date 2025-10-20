@@ -80,6 +80,7 @@ spec:
                 - application: paw-arbeidssoekerregisteret-api-oppslag
                 - application: paw-arbeidssoekerregisteret-api-oppslag-v2
                 - application: paw-arbeidssoekerregisteret-api-bekreftelse
+                - application: paw-arbeidssoekerregisteret-api-mine-stillinger
                 - application: aia-backend
                 - application: paw-arbeidssoekerregisteret-api-egenvurdering
                 - application: nav-dekoratoren
