@@ -1,5 +1,5 @@
 import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
-import { Buildings3Icon } from '@navikt/aksel-icons';
+import { Buildings3Icon, LocationPinIcon } from '@navikt/aksel-icons';
 
 interface Props {
     ledigStilling: any;
@@ -24,7 +24,7 @@ function LedigStilling(props: Props) {
                     <BodyShort>{ledigStilling.arbeidsgiver}</BodyShort>
                 </HStack>
                 <HStack gap="space-2">
-                    <Buildings3Icon title="a11y-title" fontSize="1.5rem" />
+                    <LocationPinIcon title="a11y-title" fontSize="1.5rem" />
                     <BodyShort>{ledigStilling.sted}</BodyShort>
                 </HStack>
             </VStack>
