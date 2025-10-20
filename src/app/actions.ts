@@ -9,6 +9,7 @@ import { aggregertePerioderMockData, bekreftelserMedStatusMockdata } from './moc
 import { BekreftelserMedStatusResponse } from '@/model/bekreftelse';
 import { requestTexasOboToken } from '@/lib/texas';
 import { AggregertePerioder } from '@navikt/arbeidssokerregisteret-utils';
+import { Brukerprofil } from '@/model/brukerprofil';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -190,4 +191,51 @@ async function fetchBekreftelserMedStatus(props: BekreftelserMedStatusProps): Pr
     }
 }
 
-export { fetchAggregertePerioder, fetchTilgjengeligEgenvurdering, fetchBekreftelserMedStatus };
+async function fetchBrukerprofil(): Promise<{
+    data?: Brukerprofil;
+    error?: Error & { traceId?: string; data?: any };
+}> {
+    if (brukerMock) {
+        return Promise.resolve({
+            data: {
+                identitetsnummer: '42',
+                kanTilbysTjenestenLedigeStillinger: true,
+                erTjenestenLedigeStillingerAktiv: false
+            },
+        });
+    }
+    const BRUKERPROFIL_URL = `${process.env.BRUKERPROFIL_API_URL}/api/v1/brukerprofil/`;
+    const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-mine-stillinger`;
+    try {
+        const reqHeaders = await headers();
+        const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!), audience);
+        logger.info(`Starter GET ${BRUKERPROFIL_URL}`);
+
+        const response = await fetch(BRUKERPROFIL_URL, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                accept: 'application/json',
+                Authorization: `Bearer ${tokenXToken}`,
+            },
+        });
+
+        logger.info(`Ferdig GET ${BRUKERPROFIL_URL} ${response.status} ${response.statusText}`);
+
+        if (!response.ok) {
+            const error: any = new Error(`${response.status} ${response.statusText}`);
+            try {
+                error.data = await response.json();
+            } catch (e) {}
+            logger.error(error, `Feil fra GET ${BRUKERPROFIL_URL}`);
+            return { error };
+        }
+
+        return { data: (await response.json()) as Brukerprofil };
+    } catch (error: any) {
+        logger.error(error, `Feil fra GET ${BRUKERPROFIL_URL}`);
+        return { error };
+    }
+}
+
+export { fetchAggregertePerioder, fetchTilgjengeligEgenvurdering, fetchBekreftelserMedStatus, fetchBrukerprofil };
