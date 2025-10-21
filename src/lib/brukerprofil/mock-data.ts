@@ -1,35 +1,8 @@
-export type BrukerprofilTemp = {
-    identitetsnummer: string;
-    kanTilbysTjenestenLedigeStillinger: boolean;
-    erTjenestenLedigeStillingerAktiv: boolean;
-    stillingssoek: Stillingssoek[];
-    erIkkeInteressert: boolean;
-};
+import { Brukerprofil } from '@/model/brukerprofil';
 
-export type Stillingssoek = {
-    soekType: 'STED_SOEK_V1' | 'REISEVEI_SOEK_V1';
-    fylker?: Fylker[];
-    soekeord: string[];
-    styrk08?: string[];
-    maksAvstandKm?: number;
-    postnummer?: string;
-};
-
-export type Fylker = {
-    navn: string;
-    kommuner?: Kommuner[];
-    fylkesnummer: string;
-};
-
-export type Kommuner = {
-    navn: string;
-    kommunenummer: string;
-};
-
-export const mockBrukerprofil: BrukerprofilTemp = {
+export const mockBrukerprofil: Brukerprofil = {
     identitetsnummer: '12345678901',
-    kanTilbysTjenestenLedigeStillinger: true,
-    erTjenestenLedigeStillingerAktiv: true,
+    tjenestestatus: 'AKTIV',
     stillingssoek: [
         {
             soekType: 'STED_SOEK_V1',
@@ -46,6 +19,7 @@ export const mockBrukerprofil: BrukerprofilTemp = {
                 },
                 {
                     navn: 'Oslo',
+                    kommuner: [],
                     fylkesnummer: '03',
                 },
             ],
@@ -59,5 +33,4 @@ export const mockBrukerprofil: BrukerprofilTemp = {
             soekeord: ['Tryllekunstner'],
         },
     ],
-    erIkkeInteressert: false,
 };
