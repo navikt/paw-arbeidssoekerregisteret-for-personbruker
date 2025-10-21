@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import Kvittering from '@/components/styrkløft/kvittering';
+import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 import LedigStilling from '@/components/styrkløft/ledig-stilling';
 
 const meta = {

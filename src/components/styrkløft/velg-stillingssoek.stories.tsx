@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 
 const meta = {
-    title: 'Styrkløft/Kvittering',
+    title: 'Styrkløft/VelgStillingssoek',
     component: VelgStillingssoek,
     tags: ['autodocs'],
     args: {},
@@ -11,4 +11,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const DefaultKvittering: Story = {};
+export const DefaultKvittering: Story = {
+    args: {
+        onSubmit: () => Promise.resolve(),
+        sprak: 'nb'
+    }
+};

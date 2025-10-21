@@ -1,29 +1,16 @@
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { useState } from 'react';
 import { Tjenestestatus } from '@/model/brukerprofil';
 import GodkjennEksperimentStatic from '@/components/styrkløft/godkjenn-eksperiment-static';
 
 interface Props {
     sprak: Sprak;
     onSubmit(val: Tjenestestatus): Promise<void>;
+    error?: string | null;
+    pending?: string | null;
 }
 
 function GodkjennEksperiment(props: Props) {
-    const { sprak, onSubmit } = props;
-    const [pending, setPending] = useState<string | null>(null);
-    const [error, setError] = useState<string | null>(null);
-
-    const onSubmitWrapper = (status: Tjenestestatus) => async () => {
-        try {
-            setPending(status);
-            setError(null);
-            await onSubmit(status);
-        } catch (err: any) {
-            setError(err.message);
-        } finally {
-            setPending(null);
-        }
-    };
+    const { sprak, onSubmit, pending, error } = props;
 
     return (
         <GodkjennEksperimentStatic
@@ -31,8 +18,8 @@ function GodkjennEksperiment(props: Props) {
             visAvmeldtLoader={pending === 'OPT_OUT'}
             visGodkjennLoader={pending === 'AKTIV'}
             visFeilmelding={Boolean(error)}
-            onGodkjennSubmit={onSubmitWrapper('AKTIV')}
-            onAvmeldSubmit={onSubmitWrapper('OPT_OUT')}
+            onGodkjennSubmit={() => onSubmit('AKTIV')}
+            onAvmeldSubmit={() => onSubmit('OPT_OUT')}
         />
     );
 }
