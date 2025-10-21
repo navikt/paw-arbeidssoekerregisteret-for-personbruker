@@ -17,18 +17,18 @@ function LedigStilling(props: Props) {
                     {ledigStilling.tittel}
                 </a>
             </Heading>
-            <BodyShort weight="semibold" className={'mt-2 mb-4'}>{ledigStilling.underTittel}</BodyShort>
+            <BodyShort weight="semibold" className={'mt-2 mb-4'}>{ledigStilling.stillingbeskrivelse}</BodyShort>
             <VStack gap="space-1">
                 <HStack gap="space-2">
                     <Buildings3Icon title="a11y-title" fontSize="1.5rem" />
-                    <BodyShort>{ledigStilling.arbeidsgiver}</BodyShort>
+                    <BodyShort>{ledigStilling.selskap}</BodyShort>
                 </HStack>
                 <HStack gap="space-2">
                     <LocationPinIcon title="a11y-title" fontSize="1.5rem" />
-                    <BodyShort>{ledigStilling.sted}</BodyShort>
+                    <BodyShort>{ledigStilling.kommune}</BodyShort>
                 </HStack>
             </VStack>
-            <BodyShort weight="semibold" textColor="subtle" className={'mt-4'}>{ledigStilling.soknadsFrist}</BodyShort>
+            <BodyShort weight="semibold" textColor="subtle" className={'mt-4'}>{ledigStilling.soknadsfrist?.raw}</BodyShort>
         </Box>
     );
 }

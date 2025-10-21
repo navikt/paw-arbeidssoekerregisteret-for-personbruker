@@ -17,10 +17,12 @@ export const DefaultLedigStilling: Story = {
         ledigStilling: {
             uuid: 'uuid',
             tittel: 'Nittedal Tannlegesenter har ledig stilling som tannhelsesekretær/tannlegeassistent, er du den rette?',
-            underTittel: 'Tannlegeassistent, Tannhelsesekretær, Klinikkassistent',
-            arbeidsgiver: 'Nittedal Tannlegesenter Og Tannlegevakt',
-            sted: 'Nittedal, Norge, Oslo, Akershus',
-            soknadsFrist: 'Søk senest torsdag 6. november'
+            stillingbeskrivelse: 'Tannlegeassistent, Tannhelsesekretær, Klinikkassistent',
+            selskap: 'Nittedal Tannlegesenter Og Tannlegevakt',
+            kommune: 'Nittedal, Norge, Oslo, Akershus',
+            soeknadsfrist: {
+                raw: 'Søk senest torsdag 6. november'
+            }
         },
     },
 };
