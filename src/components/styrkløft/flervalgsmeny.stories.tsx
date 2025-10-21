@@ -11,7 +11,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const DefaultLinkTilArbeidsplassen: Story = {
+export const DefaultFlerValgsMeny: Story = {
     args: {
         onEditSearch: () => console.log('onEditSearch'),
         onEnd: () => console.log('onEndSearch'),
