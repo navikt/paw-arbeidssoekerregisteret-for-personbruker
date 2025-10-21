@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import Kvittering from '@/components/styrkløft/kvittering';
+import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 
 const meta = {
     title: 'Styrkløft/Kvittering',
-    component: Kvittering,
+    component: VelgStillingssoek,
     tags: ['autodocs'],
     args: {},
-} satisfies Meta<typeof Kvittering>;
+} satisfies Meta<typeof VelgStillingssoek>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

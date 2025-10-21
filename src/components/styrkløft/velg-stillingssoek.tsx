@@ -1,12 +1,17 @@
 import { Box, Button, Heading } from '@navikt/ds-react';
 import { yrkeskategorier } from '@/components/styrkløft/yrkeskategorier';
 import { fylker } from '@/components/styrkløft/fylker';
-import FilterVelger3 from '@/components/styrkløft/filter-velger3';
 import FilterVelger4 from '@/components/styrkløft/filter-velger4';
+import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
-interface Props {}
+interface Props {
+    onSubmit(data: any): Promise<void>;
+    sprak: Sprak;
+}
 
-function Kvittering(props: Props) {
+function VelgStillingssoek(props: Props) {
+    // const { onSubmit } = props;
+
     return (
         <Box padding="space-16" borderRadius="large" shadow="xsmall">
             <Heading level="3" size="large">
@@ -35,4 +40,4 @@ function Kvittering(props: Props) {
     );
 }
 
-export default Kvittering;
+export default VelgStillingssoek;
