@@ -1,35 +1,39 @@
-import { BodyShort, Box, Button, Checkbox, Heading } from '@navikt/ds-react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import Beta from '@/components/styrkløft/beta';
-
-const TEKSTER = {
-    nb: {
-        heading: 'Har du lyst til å se ledige stillinger som kan passe for deg?',
-        body: 'Hvis du sier ja til å dele informasjon med oss kan vi vise deg ledige stillinger i ditt område som kan være aktuelle ut fra den kompetansen du har',
-        submitButton: 'Vis meg ledige stillinger',
-        cancelButton: 'Nei takk, jeg ønsker ikke å se ledige stillinger',
-    },
-};
+import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { useState } from 'react';
+import { Tjenestestatus } from '@/model/brukerprofil';
+import GodkjennEksperimentStatic from '@/components/styrkløft/godkjenn-eksperiment-static';
 
 interface Props {
     sprak: Sprak;
+    onSubmit(val: Tjenestestatus): Promise<void>;
 }
 
 function GodkjennEksperiment(props: Props) {
-    const { sprak } = props;
-    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const { sprak, onSubmit } = props;
+    const [pending, setPending] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
+
+    const onSubmitWrapper = (status: Tjenestestatus) => async () => {
+        try {
+            setPending(status);
+            setError(null);
+            await onSubmit(status);
+        } catch (err: any) {
+            setError(err.message);
+        } finally {
+            setPending(null);
+        }
+    };
+
     return (
-        <Box padding="space-16" borderRadius="large" shadow="xsmall">
-            <Heading level="3" size="large">
-                {tekst('heading')}
-                <div className={'float-right'}><Beta sprak={sprak}/></div>
-            </Heading>
-            <BodyShort className={'py-4'}>{tekst('body')}</BodyShort>
-            <div className={'flex flex-col gap-4 py-4'}>
-                <Button variant={'primary'}>{tekst('submitButton')}</Button>
-                <Button variant={'tertiary'}>{tekst('cancelButton')}</Button>
-            </div>
-        </Box>
+        <GodkjennEksperimentStatic
+            sprak={sprak}
+            visAvmeldtLoader={pending === 'OPT_OUT'}
+            visGodkjennLoader={pending === 'AKTIV'}
+            visFeilmelding={Boolean(error)}
+            onGodkjennSubmit={onSubmitWrapper('AKTIV')}
+            onAvmeldSubmit={onSubmitWrapper('OPT_OUT')}
+        />
     );
 }
 

@@ -13,6 +13,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Ubesvart: Story = {
     args: {
-        sprak: 'nb'
+        sprak: 'nb',
+        onSubmit(val) {
+            console.log('onSubmit', val);
+            return Promise.resolve();
+        }
     }
 }
