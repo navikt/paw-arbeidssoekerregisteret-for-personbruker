@@ -25,8 +25,13 @@ const LinkTilArbeidsplassen: React.FC<LinkTilArbeidsplassenProps> = (props) => {
     const { brukerprofil, sprak } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const urlTilArbeidsplasen = opprettLinkTilArbeidsplassen(brukerprofil);
-    // TODO: Umami
-    return <Link href={urlTilArbeidsplasen}>{tekst('linkTittel')}</Link>;
+    const UMAMI_EVENT_LINK_TO_ARBEIDSPLASSEN = 'paw-arbeidssoekerregisteret-for-personbruker-link-til-arbeidsplassen';
+
+    return (
+        <Link data-umami-event={UMAMI_EVENT_LINK_TO_ARBEIDSPLASSEN} href={urlTilArbeidsplasen}>
+            {tekst('linkTittel')}
+        </Link>
+    );
 };
 
 export { LinkTilArbeidsplassen };
