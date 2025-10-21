@@ -199,8 +199,8 @@ async function fetchBrukerprofil(): Promise<{
         return Promise.resolve({
             data: {
                 identitetsnummer: '42',
-                kanTilbysTjenestenLedigeStillinger: true,
-                erTjenestenLedigeStillingerAktiv: false
+                tjenestestatus: 'AKTIV',
+                stillingssoek: [],
             },
         });
     }
