@@ -1,5 +1,5 @@
-import { defineConfig } from 'vitest/config'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
@@ -14,4 +14,4 @@ export default defineConfig({
         globals: true,
         setupFiles: './setup-tests.ts',
     },
-})
+});

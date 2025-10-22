@@ -3,7 +3,7 @@ import {
     AggregertePerioder,
     AggregertPeriode,
     Bekreftelse,
-    BekreftelseStatus
+    BekreftelseStatus,
 } from '@navikt/arbeidssokerregisteret-utils';
 
 function isGyldigBekreftelse(bekreftelse: Bekreftelse | undefined) {

@@ -1,3 +1,3 @@
 export const GET = () => {
-    return Response.json("ready")
+    return Response.json('ready');
 };

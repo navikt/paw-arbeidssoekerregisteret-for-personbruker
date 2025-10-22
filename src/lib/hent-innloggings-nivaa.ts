@@ -6,7 +6,7 @@ const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
 type AuthLevel = 'idporten-loa-substantial' | 'idporten-loa-high';
 
-export async function hentInnloggingsNivaa(): Promise<{ data?: AuthLevel, error?: any }> {
+export async function hentInnloggingsNivaa(): Promise<{ data?: AuthLevel; error?: any }> {
     if (brukerMock) {
         return Promise.resolve({ data: 'idporten-loa-substantial' });
     }
@@ -16,7 +16,7 @@ export async function hentInnloggingsNivaa(): Promise<{ data?: AuthLevel, error?
         const token = stripBearer(reqHeaders.get('authorization')!);
         const decodedToken = decodeJwt(token);
         return { data: decodedToken.acr as AuthLevel };
-    } catch(error) {
+    } catch (error) {
         return { error };
     }
 }

@@ -1,3 +1,3 @@
 export const GET = () => {
-    return Response.json("alive")
+    return Response.json('alive');
 };

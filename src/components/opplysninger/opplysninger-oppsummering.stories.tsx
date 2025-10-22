@@ -41,14 +41,14 @@ export const MedEgenvurderingGodeMuligheter: Story = {
             ...opplysningerOmArbeidssoker[0],
             profilering: {
                 egenvurdering: {
-                    egenvurdering: ProfilertTil.ANTATT_GODE_MULIGHETER
-                }
-            }
+                    egenvurdering: ProfilertTil.ANTATT_GODE_MULIGHETER,
+                },
+            },
         } as any,
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
     },
-}
+};
 
 export const MedEgenvurderingBehov: Story = {
     args: {
@@ -57,11 +57,11 @@ export const MedEgenvurderingBehov: Story = {
             ...opplysningerOmArbeidssoker[0],
             profilering: {
                 egenvurdering: {
-                    egenvurdering: ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING
-                }
-            }
+                    egenvurdering: ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING,
+                },
+            },
         } as any,
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
     },
-}
+};

@@ -1,4 +1,4 @@
-import { BekreftelseMedStatusResponse, AggregerteBekreftelser } from "@/model/bekreftelse";
+import { BekreftelseMedStatusResponse, AggregerteBekreftelser } from '@/model/bekreftelse';
 
 export function repackBekreftelserMedStatus(bekreftelserMedStatus: BekreftelseMedStatusResponse[]) {
     return bekreftelserMedStatus.reduce((total, current) => {

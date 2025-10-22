@@ -1,11 +1,12 @@
 import {
     lagHentTekstForSprak,
-    mapNusKodeTilUtdannignsnivaa, OpplysningerMedProfilering,
+    mapNusKodeTilUtdannignsnivaa,
+    OpplysningerMedProfilering,
     OpplysningerOmArbeidssoker,
     SPORSMAL_TEKSTER,
     SporsmalId,
     Sprak,
-    Svar
+    Svar,
 } from '@navikt/arbeidssokerregisteret-utils';
 import { identity } from '@/lib/utils';
 import { BodyShort } from '@navikt/ds-react';

@@ -20,7 +20,7 @@ const TEKSTER = {
     },
     en: {
         tittel: 'Jobseeker history',
-    }
+    },
 };
 
 async function HistorikkServerComponent({ sprak }: { sprak: Sprak }) {
@@ -30,29 +30,34 @@ async function HistorikkServerComponent({ sprak }: { sprak: Sprak }) {
         return <Alert variant={'error'}>Noe gikk dessverre galt ved henting av historikk</Alert>;
     }
 
-    const periodeids = aggregertePerioder?.map(periode => periode.periodeId as string) || []
+    const periodeids = aggregertePerioder?.map((periode) => periode.periodeId as string) || [];
 
-    const { data: bekreftelserMedStatus, error: bekreftelserMedStatusError } = await fetchBekreftelserMedStatus({perioder: periodeids});
+    const { data: bekreftelserMedStatus, error: bekreftelserMedStatusError } = await fetchBekreftelserMedStatus({
+        perioder: periodeids,
+    });
 
     if (bekreftelserMedStatusError) {
         return <Alert variant={'error'}>Noe gikk dessverre galt ved henting av historikk</Alert>;
     }
 
-    const repakkedeBekreftelser = repackBekreftelserMedStatus(bekreftelserMedStatus?.bekreftelser || [])
+    const repakkedeBekreftelser = repackBekreftelserMedStatus(bekreftelserMedStatus?.bekreftelser || []);
 
-    const aggregertePerioderMedGyldigeBekreftelser = aggregertePerioder ? mergeGyldigeBekreftelser(aggregertePerioder, repakkedeBekreftelser) : []
+    const aggregertePerioderMedGyldigeBekreftelser = aggregertePerioder
+        ? mergeGyldigeBekreftelser(aggregertePerioder, repakkedeBekreftelser)
+        : [];
 
     return (
         <div className={'flex flex-col max-w-3xl mx-auto'}>
-            {aggregertePerioder && aggregertePerioderMedGyldigeBekreftelser.map((periode, index) => (
-                <div
-                    className={'p-4'}
-                    key={periode.periodeId}
-                    style={{ background: index % 2 !== 0 ? 'var(--a-surface-subtle)' : undefined }}
-                >
-                    <HistorikkWrapper {...periode} sprak={sprak}/>
-                </div>
-            ))}
+            {aggregertePerioder &&
+                aggregertePerioderMedGyldigeBekreftelser.map((periode, index) => (
+                    <div
+                        className={'p-4'}
+                        key={periode.periodeId}
+                        style={{ background: index % 2 !== 0 ? 'var(--a-surface-subtle)' : undefined }}
+                    >
+                        <HistorikkWrapper {...periode} sprak={sprak} />
+                    </div>
+                ))}
         </div>
     );
 }
@@ -81,7 +86,7 @@ export default async function HistorikkPage({ params }: NextPageProps) {
                     },
                 ]}
             />
-            <Heading size="xlarge" level="1" className='p-4'>
+            <Heading size="xlarge" level="1" className="p-4">
                 {tekst('tittel')}
             </Heading>
             <Suspense fallback={<Loader />}>

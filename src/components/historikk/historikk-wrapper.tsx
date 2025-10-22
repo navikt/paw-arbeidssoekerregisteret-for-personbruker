@@ -1,9 +1,5 @@
 import { prettyPrintDato, prettyPrintDatoOgKlokkeslett } from '@/lib/date-utils';
-import {
-    AggregertPeriode,
-    lagHentTekstForSprak,
-    Sprak
-} from '@navikt/arbeidssokerregisteret-utils';
+import { AggregertPeriode, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Heading, BodyShort } from '@navikt/ds-react';
 
 import { BekreftelseHistorikk } from './bekreftelse-historikk';
@@ -28,9 +24,9 @@ const TEKSTER = {
         '[bekreftelse] ikke levert innen fristen': 'Ikke svart på bekreftelse',
         '[bekreftelse:ytelse/støtte] ikke levert innen fristen': 'Ikke svart på bekreftelse',
         'stopp av periode': 'Stoppet av veileder',
-        'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stoppet av deg',
+        "svarte nei på spørsmål 'vil du fortsatt være registrert som arbeidssøker?'": 'Stoppet av deg',
         '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Svarte "Nei" på bekreftelse',
-        'feilregistrering': 'Slettet på grunn av feilregistrering'
+        feilregistrering: 'Slettet på grunn av feilregistrering',
     },
     nn: {
         startet: 'Starta',
@@ -46,9 +42,9 @@ const TEKSTER = {
         '[bekreftelse] ikke levert innen fristen': 'Ikkje svart på stadfesting',
         '[bekreftelse:ytelse/støtte] ikke levert innen fristen': 'Ikkje svart på stadfesting',
         'stopp av periode': 'Stoppa av rettleiar',
-        'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stoppa av deg',
+        "svarte nei på spørsmål 'vil du fortsatt være registrert som arbeidssøker?'": 'Stoppa av deg',
         '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Svara "Nei" på stadfesting',
-        'feilregistrering': 'Sletta på grunn av feilregistrering'
+        feilregistrering: 'Sletta på grunn av feilregistrering',
     },
     en: {
         startet: 'Started',
@@ -64,9 +60,9 @@ const TEKSTER = {
         '[bekreftelse] ikke levert innen fristen': 'Jobseeker status not confirmed',
         '[bekreftelse:ytelse/støtte] ikke levert innen fristen': 'Jobseeker status not confirmed',
         'stopp av periode': 'Stopped by supervisor',
-        'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stopped by you',
+        "svarte nei på spørsmål 'vil du fortsatt være registrert som arbeidssøker?'": 'Stopped by you',
         '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Did not want to be registered as jobseeker',
-        'feilregistrering': 'Deleted due to misregistration'
+        feilregistrering: 'Deleted due to misregistration',
     },
 };
 
@@ -78,25 +74,38 @@ export function HistorikkWrapper(props: Historikk) {
         <>
             <Heading level="2" size="large">
                 {prettyPrintDato(startTidspunkt, sprak)} -{' '}
-                {avsluttet && avsluttet.tidspunkt ? prettyPrintDato(avsluttet.tidspunkt, sprak) : tekst('fortsatt aktiv')}
+                {avsluttet && avsluttet.tidspunkt
+                    ? prettyPrintDato(avsluttet.tidspunkt, sprak)
+                    : tekst('fortsatt aktiv')}
             </Heading>
-            <Heading level='3' size='small' className='mt-4'>
+            <Heading level="3" size="small" className="mt-4">
                 {tekst('periode')}
             </Heading>
-            <div className='grid grid-cols-3 gap-x-2'>
-                <div className='font-semibold'>{tekst('startet')}</div>
+            <div className="grid grid-cols-3 gap-x-2">
+                <div className="font-semibold">{tekst('startet')}</div>
                 <div>{prettyPrintDatoOgKlokkeslett(startet.tidspunkt, sprak)}</div>
-                <div>{tekst('av')} {tekst(startet.utfoertAv.type)}</div>
-                <div className='font-semibold'>{tekst('avsluttet')}</div>
-                {avsluttet && avsluttet.tidspunkt
-                    ? <><div>{prettyPrintDatoOgKlokkeslett(avsluttet.tidspunkt, sprak)}</div><div>{tekst('av')} {tekst(avsluttet.utfoertAv.type)}</div></>
-                    : <><div className='col-span-2'>{tekst('fortsatt aktiv')}</div></>}
+                <div>
+                    {tekst('av')} {tekst(startet.utfoertAv.type)}
+                </div>
+                <div className="font-semibold">{tekst('avsluttet')}</div>
+                {avsluttet && avsluttet.tidspunkt ? (
+                    <>
+                        <div>{prettyPrintDatoOgKlokkeslett(avsluttet.tidspunkt, sprak)}</div>
+                        <div>
+                            {tekst('av')} {tekst(avsluttet.utfoertAv.type)}
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className="col-span-2">{tekst('fortsatt aktiv')}</div>
+                    </>
+                )}
             </div>
-            <Heading level='3' size='small' className='mt-4'>
+            <Heading level="3" size="small" className="mt-4">
                 {tekst('sluttarsak')}
             </Heading>
             <BodyShort>{tekst(avsluttet?.aarsak.toLocaleLowerCase() ?? 'fortsatt aktiv')}</BodyShort>
-            <BekreftelseHistorikk bekreftelser={bekreftelser} sprak={sprak}/>
+            <BekreftelseHistorikk bekreftelser={bekreftelser} sprak={sprak} />
             <OpplysningerHistorikk
                 opplysningerOmArbeidssoker={opplysningerOmArbeidssoeker}
                 sprak={sprak}

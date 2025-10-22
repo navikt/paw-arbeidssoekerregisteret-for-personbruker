@@ -13,18 +13,16 @@ const TEKSTER = {
         melding: 'Du har ingen stadfestingar å senda inn',
     },
     en: {
-        melding: 'You have no confirmation forms to submit'
-    }
+        melding: 'You have no confirmation forms to submit',
+    },
 };
 
 export default function IngenTilgjengeligeBekreftelser(props: Props) {
     const tekst = lagHentTekstForSprak(TEKSTER, props.sprak);
     return (
-            <>
-                <Alert variant={'info'}>
-                    {tekst('melding')}
-                </Alert>
-                <LenkeTilBekreftelseArtikkel sprak={props.sprak}/>
-            </>
-        );
+        <>
+            <Alert variant={'info'}>{tekst('melding')}</Alert>
+            <LenkeTilBekreftelseArtikkel sprak={props.sprak} />
+        </>
+    );
 }

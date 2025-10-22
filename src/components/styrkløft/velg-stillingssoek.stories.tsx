@@ -14,12 +14,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         onSubmit: () => Promise.resolve(),
-        sprak: 'nb' ,
+        sprak: 'nb',
         fylker: [],
         yrkeskategorier: [],
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
-    }
+    },
 };
 
 export const MedValgteKategorier: Story = {
@@ -30,7 +30,7 @@ export const MedValgteKategorier: Story = {
         yrkeskategorier: ['IT'],
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
-    }
+    },
 };
 
 export const MedValgteFylker: Story = {
@@ -41,8 +41,8 @@ export const MedValgteFylker: Story = {
         yrkeskategorier: [],
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
-    }
-}
+    },
+};
 
 export const MedGyldigeVerdier: Story = {
     args: {
@@ -52,8 +52,8 @@ export const MedGyldigeVerdier: Story = {
         yrkeskategorier: ['IT'],
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
-    }
-}
+    },
+};
 
 export const MedHengendeRequest: Story = {
     args: {
@@ -63,9 +63,9 @@ export const MedHengendeRequest: Story = {
         yrkeskategorier: ['IT'],
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
-        pending: true
-    }
-}
+        pending: true,
+    },
+};
 
 export const MedFeil: Story = {
     args: {
@@ -75,11 +75,6 @@ export const MedFeil: Story = {
         yrkeskategorier: ['IT'],
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
-        error: 'feil'
-    }
-}
-
-
-
-
-
+        error: 'feil',
+    },
+};

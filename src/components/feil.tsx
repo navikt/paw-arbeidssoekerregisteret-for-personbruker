@@ -12,25 +12,25 @@ interface Props {
 
 const TEKSTER = {
     nb: {
-        melding: 'Noe gikk dessverre galt'
+        melding: 'Noe gikk dessverre galt',
     },
     nn: {
         melding: 'Noko gikk dessverre galt',
     },
     en: {
-        melding: 'We\'re sorry, an error occured'
-    }
-}
+        melding: "We're sorry, an error occured",
+    },
+};
 
 function Feil(props: Props) {
     const { sprak, error } = props;
-    const tekst = lagHentTekstForSprak(TEKSTER, sprak)
+    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     useEffect(() => {
         loggVisning({ viser: 'ErrorBoundaryFeil', error });
     }, []);
 
-    return <Alert variant={'error'}>{tekst('melding')}</Alert>
+    return <Alert variant={'error'}>{tekst('melding')}</Alert>;
 }
 
 export default Feil;

@@ -19,18 +19,18 @@ export const aggregertePerioderMockData: AggregertePerioder = [
             },
         },
         avsluttet: {
-            "tidspunkt": "2025-08-13T08:19:25.991Z",
-            "utfoertAv": {
-                "type": "VEILEDER",
-                "id": "Z994498",
-                "sikkerhetsnivaa": "azure:undefined"
+            tidspunkt: '2025-08-13T08:19:25.991Z',
+            utfoertAv: {
+                type: 'VEILEDER',
+                id: 'Z994498',
+                sikkerhetsnivaa: 'azure:undefined',
             },
-            "kilde": "europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssokerregisteret-api-inngang:25.08.11.361-1",
-            "aarsak": "Feilregistrering",
-            "tidspunktFraKilde": {
-                "tidspunkt": "2025-08-13T08:19:25.991Z",
-                "avviksType": "SLETTET"
-            }
+            kilde: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssokerregisteret-api-inngang:25.08.11.361-1',
+            aarsak: 'Feilregistrering',
+            tidspunktFraKilde: {
+                tidspunkt: '2025-08-13T08:19:25.991Z',
+                avviksType: 'SLETTET',
+            },
         },
         opplysningerOmArbeidssoeker: [
             {

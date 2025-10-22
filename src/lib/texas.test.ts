@@ -21,7 +21,10 @@ describe('texas', () => {
 
             try {
                 server.listen();
-                const result = await requestTexasOboToken('token', 'dev-gcp:paw:paw-arbeidssoekerregisteret-api-oppslag');
+                const result = await requestTexasOboToken(
+                    'token',
+                    'dev-gcp:paw:paw-arbeidssoekerregisteret-api-oppslag',
+                );
                 expect(result.ok).toBe(true);
                 expect(result.ok && result.token).toEqual('access_token 123');
                 expect(spy).toHaveBeenCalledWith({
@@ -43,7 +46,10 @@ describe('texas', () => {
 
             try {
                 server.listen();
-                const result = await requestTexasOboToken('token', 'dev-gcp:paw:paw-arbeidssoekerregisteret-api-oppslag');
+                const result = await requestTexasOboToken(
+                    'token',
+                    'dev-gcp:paw:paw-arbeidssoekerregisteret-api-oppslag',
+                );
                 expect(result.ok).toBe(false);
             } finally {
                 server.close();

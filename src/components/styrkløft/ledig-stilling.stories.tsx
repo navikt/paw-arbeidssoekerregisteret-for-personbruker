@@ -21,8 +21,8 @@ export const DefaultLedigStilling: Story = {
             selskap: 'Nittedal Tannlegesenter Og Tannlegevakt',
             kommune: 'Nittedal, Norge, Oslo, Akershus',
             soeknadsfrist: {
-                raw: 'Søk senest torsdag 6. november'
-            }
+                raw: 'Søk senest torsdag 6. november',
+            },
         },
     },
 };

@@ -577,7 +577,7 @@ const dataBekreftelserMedStatus = {
                     aarsak: 'Bekreftelse levert',
                     tidspunktFraKilde: {
                         tidspunkt: '',
-                        avviksType: ''
+                        avviksType: '',
                     },
                 },
                 gjelderFra: '2024-11-15T12:48:25.398Z',
@@ -601,7 +601,7 @@ const dataBekreftelserMedStatus = {
                     aarsak: 'Bekreftelse levert',
                     tidspunktFraKilde: {
                         tidspunkt: '',
-                        avviksType: ''
+                        avviksType: '',
                     },
                 },
                 gjelderFra: '2024-11-16T12:48:25.398Z',
@@ -627,7 +627,7 @@ const dataBekreftelserMedStatus = {
                     aarsak: 'Bekreftelse levert',
                     tidspunktFraKilde: {
                         tidspunkt: '',
-                        avviksType: ''
+                        avviksType: '',
                     },
                 },
                 gjelderFra: '2024-11-16T12:48:25.398Z',
@@ -653,7 +653,7 @@ const dataBekreftelserMedStatus = {
                     aarsak: 'Bekreftelse levert',
                     tidspunktFraKilde: {
                         tidspunkt: '',
-                        avviksType: ''
+                        avviksType: '',
                     },
                 },
                 gjelderFra: '2024-11-13T11:01:24.345Z',
@@ -679,7 +679,7 @@ const dataBekreftelserMedStatus = {
                     aarsak: 'Bekreftelse levert',
                     tidspunktFraKilde: {
                         tidspunkt: '',
-                        avviksType: ''
+                        avviksType: '',
                     },
                 },
                 gjelderFra: '2024-11-13T09:34:28.896Z',
@@ -703,7 +703,7 @@ const dataBekreftelserMedStatus = {
                     aarsak: 'Bekreftelse levert',
                     tidspunktFraKilde: {
                         tidspunkt: '',
-                        avviksType: ''
+                        avviksType: '',
                     },
                 },
                 gjelderFra: '2024-11-13T09:29:28.896Z',
@@ -727,7 +727,7 @@ const dataBekreftelserMedStatus = {
                     aarsak: 'Bekreftelse levert',
                     tidspunktFraKilde: {
                         tidspunkt: '',
-                        avviksType: ''
+                        avviksType: '',
                     },
                 },
                 gjelderFra: '2024-11-13T09:24:28.896Z',
@@ -751,7 +751,7 @@ const dataBekreftelserMedStatus = {
                     aarsak: 'Bekreftelse levert',
                     tidspunktFraKilde: {
                         tidspunkt: '',
-                        avviksType: ''
+                        avviksType: '',
                     },
                 },
                 gjelderFra: '2024-11-13T09:19:28.896Z',

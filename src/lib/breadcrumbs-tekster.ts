@@ -32,4 +32,4 @@ export const BREADCRUMBS_URLS = {
         registeret: '/arbeidssoekerregisteret/en',
         bekreftelse: '/arbeidssoekerregisteret/en/bekreftelse',
     },
-}
+};

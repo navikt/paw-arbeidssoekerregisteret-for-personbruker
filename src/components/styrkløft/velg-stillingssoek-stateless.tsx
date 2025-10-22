@@ -36,7 +36,11 @@ export default function VelgStillingssoekStateless(props: Props) {
             <section className={'my-4'}>
                 <FilterVelger values={fylker} options={FYLKER} heading={'Velg fylke'} onChange={onChangeFylker} />
             </section>
-            {error && <Alert variant={'error'} className={'my-4'}>Noe gikk dessverre galt</Alert>}
+            {error && (
+                <Alert variant={'error'} className={'my-4'}>
+                    Noe gikk dessverre galt
+                </Alert>
+            )}
             <Button variant={'primary'} onClick={onSubmit} disabled={isDisabled || pending} loading={pending}>
                 Lagre
             </Button>

@@ -51,8 +51,16 @@ function EgenvurderingAvklart(props: BehovvurderingAvklartProps) {
             data-umami-event={VisningEventNavn}
             data-umami-event-viser={'Egenvurdering avklart'}
         >
-            <div className={'flex items-center py-4 px-6'} style={{ background: 'var(--a-blue-100)', borderRadius: 'var(--a-border-radius-large) var(--a-border-radius-large) 0 0'}}>
-                <Hide below={'sm'}><InformationSquareIcon title="a11y-title" fontSize="1.5rem" className={'mr-4'}/></Hide>
+            <div
+                className={'flex items-center py-4 px-6'}
+                style={{
+                    background: 'var(--a-blue-100)',
+                    borderRadius: 'var(--a-border-radius-large) var(--a-border-radius-large) 0 0',
+                }}
+            >
+                <Hide below={'sm'}>
+                    <InformationSquareIcon title="a11y-title" fontSize="1.5rem" className={'mr-4'} />
+                </Hide>
                 <Heading level="2" size="medium">
                     {tekst(`heading-${enig}-${tekstnoekkel}`)}
                 </Heading>

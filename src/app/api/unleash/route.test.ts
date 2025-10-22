@@ -35,9 +35,7 @@ describe('GET /api/unleash', () => {
     it('bruker unleash.isEnabled når brukerMock er false', async () => {
         process.env.ENABLE_MOCK = 'disabled';
 
-        vi.spyOn(unleashIsEnabled, 'isEnabled')
-            .mockResolvedValueOnce(true)
-            .mockResolvedValueOnce(false);
+        vi.spyOn(unleashIsEnabled, 'isEnabled').mockResolvedValueOnce(true).mockResolvedValueOnce(false);
 
         const req = createRequest('/api/unleash?toggle=featureA&toggle=featureB');
         const res = await GET(req);

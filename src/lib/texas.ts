@@ -21,7 +21,7 @@ export async function requestTexasOboToken(token: string, audience: string): Pro
         });
 
         if (response.ok) {
-            const data = await response.json() as TexasTokenResponse;
+            const data = (await response.json()) as TexasTokenResponse;
             return {
                 ok: true,
                 token: data.access_token,

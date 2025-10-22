@@ -16,7 +16,7 @@ export const ManglerOpplysningerKomponent: Story = {
     args: {
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
-        visAdvarsel: false
+        visAdvarsel: false,
     },
 };
 
@@ -24,7 +24,6 @@ export const ManglerOpplysningerMedInnlogginsAdvarsel: Story = {
     args: {
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
-        visAdvarsel: true
+        visAdvarsel: true,
     },
 };
-

@@ -17,10 +17,9 @@ export const Ubesvart: Story = {
         onSubmit(val) {
             console.log('onSubmit', val);
             return Promise.resolve();
-        }
-    }
-}
-
+        },
+    },
+};
 
 export const PendingGodkjentRequest: Story = {
     args: {
@@ -51,6 +50,6 @@ export const MedFeilmelding: Story = {
             console.log('onSubmit', val);
             return Promise.resolve();
         },
-        error: 'feil'
+        error: 'feil',
     },
 };

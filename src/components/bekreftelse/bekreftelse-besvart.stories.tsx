@@ -16,16 +16,16 @@ export const BekreftelseBesvartStory: Story = {
         besvarelse: {
             svar: {
                 sendtInnAv: {
-                    tidspunkt: '2024-10-23T13:44:28.485Z'
+                    tidspunkt: '2024-10-23T13:44:28.485Z',
                 },
                 harJobbetIDennePerioden: false,
                 vilFortsetteSomArbeidssoeker: true,
                 gjelderFra: '2024-10-01T13:44:28.485Z',
-                gjelderTil: '2024-10-14T13:44:28.485Z'
+                gjelderTil: '2024-10-14T13:44:28.485Z',
             },
         } as any,
         sprak: 'nb',
-        registrerArbeidssokerUrl: process.env.REGISTRER_ARBEIDSSOKER_URL!
+        registrerArbeidssokerUrl: process.env.REGISTRER_ARBEIDSSOKER_URL!,
     },
 };
 
@@ -34,15 +34,15 @@ export const BekreftelseUtmeldtStory: Story = {
         besvarelse: {
             svar: {
                 sendtInnAv: {
-                    tidspunkt: '2024-10-23T13:44:28.485Z'
+                    tidspunkt: '2024-10-23T13:44:28.485Z',
                 },
                 harJobbetIDennePerioden: true,
                 vilFortsetteSomArbeidssoeker: false,
                 gjelderFra: '2024-10-01T13:44:28.485Z',
-                gjelderTil: '2024-10-14T13:44:28.485Z'
+                gjelderTil: '2024-10-14T13:44:28.485Z',
             },
         } as any,
         sprak: 'nb',
-        registrerArbeidssokerUrl: process.env.REGISTRER_ARBEIDSSOKER_URL!
+        registrerArbeidssokerUrl: process.env.REGISTRER_ARBEIDSSOKER_URL!,
     },
 };

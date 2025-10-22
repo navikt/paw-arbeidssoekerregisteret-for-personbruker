@@ -32,7 +32,7 @@ const TEKSTER = {
         '[bekreftelse] ikke levert innen fristen': 'Ikkje svart på stadfesting',
         '[bekreftelse:ytelse/støtte] ikke levert innen fristen': 'Ikkje svart på stadfesting',
         'stopp av periode': 'Stoppa av rettleiar',
-        'svarte nei på spørsmål \'vil du fortsatt være registrert som arbeidssøker?\'': 'Stoppa av deg',
+        "svarte nei på spørsmål 'vil du fortsatt være registrert som arbeidssøker?'": 'Stoppa av deg',
         '[bekreftelse] ønsket ikke lenger å være arbeidssøker': 'Svara "Nei" på stadfesting',
     },
     en: {

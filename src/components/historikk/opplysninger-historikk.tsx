@@ -17,8 +17,8 @@ const TEKSTER = {
     },
     en: {
         heading: 'Information',
-        sendtInn: 'Registered '
-    }
+        sendtInn: 'Registered ',
+    },
 };
 interface Props extends React.HTMLProps<any> {
     opplysningerOmArbeidssoker: OpplysningerMedProfilering[];

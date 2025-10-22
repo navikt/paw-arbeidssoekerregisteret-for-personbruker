@@ -20,9 +20,8 @@ const TEKSTER = {
     },
     en: {
         bekreftet: 'Confirmations',
-        visAlle: 'Show all confirmations'
-
-    }
+        visAlle: 'Show all confirmations',
+    },
 };
 
 function AlleBekreftelser(props: { bekreftelser: Bekreftelse[]; sprak: Sprak }) {
@@ -69,7 +68,9 @@ export function BekreftelseHistorikk(props: { bekreftelser: Bekreftelse[]; sprak
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     return (
         <Box>
-            <Heading level="2" size="medium">{tekst('bekreftet')}</Heading>
+            <Heading level="2" size="medium">
+                {tekst('bekreftet')}
+            </Heading>
             <Accordion>
                 <Accordion.Item>
                     <Accordion.Header>{tekst('visAlle')}</Accordion.Header>

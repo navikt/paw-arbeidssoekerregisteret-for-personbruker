@@ -1,7 +1,7 @@
 import LedigeStillingerStatic from '@/components/styrkløft/ledige-stillinger-static';
 
 interface Props {
-    fetchData(): Promise<{data?: any, error?: Error}>
+    fetchData(): Promise<{ data?: any; error?: Error }>;
 }
 
 async function LedigeStillinger(props: Props) {
@@ -12,7 +12,7 @@ async function LedigeStillinger(props: Props) {
         return null;
     }
 
-    return <LedigeStillingerStatic resultat={data} />
+    return <LedigeStillingerStatic resultat={data} />;
 }
 
 export default LedigeStillinger;
