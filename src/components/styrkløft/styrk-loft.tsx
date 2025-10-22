@@ -2,6 +2,7 @@ import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import StartStyrkloft from '@/components/styrkløft/start-styrkloft';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { useState } from 'react';
 
 interface Props {
     brukerprofil: Brukerprofil;
@@ -11,20 +12,53 @@ interface Props {
     sprak: Sprak;
 }
 
-function StyrkLoftStatic(props: Props) {
-    const { brukerprofil } = props;
+interface StatelessProps extends Props {
+    visStartKomponent: boolean;
+    visStillinger: boolean;
+    erAvmeldt: boolean;
+}
+function StyrkLoftStateless(props: StatelessProps) {
+    const { visStartKomponent, visStillinger, erAvmeldt } = props;
 
-    if (brukerprofil.tjenestestatus === 'OPT_OUT') {
+    if (erAvmeldt) {
         return null;
-    }
-
-    if (brukerprofil.tjenestestatus === 'INAKTIV' || (brukerprofil.stillingssoek ?? []).length === 0) {
-        return <StartStyrkloft {...props} />;
-    }
-
-    if (brukerprofil.tjenestestatus === 'AKTIV' && (brukerprofil.stillingssoek ?? []).length > 0) {
+    } else if (visStillinger) {
         return <LedigeStillinger fetchData={props.onFetchStillinger} />;
+    } else if (visStartKomponent) {
+        return <StartStyrkloft {...props} />;
     }
 }
 
-export default StyrkLoftStatic;
+function StyrkLoft(props: Props) {
+    const { brukerprofil, sprak, onSubmitTjenestestatus, onFetchStillinger } = props;
+    const [harLagretSoek, settHarLagretSoek] = useState(false);
+
+    const erAvmeldt = brukerprofil.tjenestestatus === 'OPT_OUT';
+    const visStartKomponent =
+        brukerprofil.tjenestestatus === 'INAKTIV' || (brukerprofil.stillingssoek ?? []).length === 0;
+    const visStillinger = brukerprofil.tjenestestatus === 'AKTIV' && (brukerprofil.stillingssoek ?? []).length > 0;
+
+    const onSubmitStillingsSoek = async (data: any) => {
+        try {
+            await props.onSubmitStillingsSoek(data);
+            settHarLagretSoek(true);
+        } catch (err: any) {
+            console.error(err);
+        }
+    };
+
+    return (
+        <StyrkLoftStateless
+            erAvmeldt={erAvmeldt}
+            visStartKomponent={visStartKomponent}
+            visStillinger={visStillinger || harLagretSoek}
+            brukerprofil={brukerprofil}
+            onSubmitTjenestestatus={onSubmitTjenestestatus}
+            onSubmitStillingsSoek={onSubmitStillingsSoek}
+            onFetchStillinger={onFetchStillinger}
+            sprak={sprak}
+        />
+    );
+}
+
+export default StyrkLoft;
