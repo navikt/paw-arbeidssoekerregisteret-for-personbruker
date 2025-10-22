@@ -1,7 +1,7 @@
 import { Box, Button, Heading } from '@navikt/ds-react';
 import { yrkeskategorier } from '@/components/styrkløft/yrkeskategorier';
 import { fylker } from '@/components/styrkløft/fylker';
-import FilterVelger4 from '@/components/styrkløft/filter-velger4';
+import FilterVelger from '@/components/styrkløft/filter-velger';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 interface Props {
@@ -18,7 +18,7 @@ function VelgStillingssoek(props: Props) {
                 Velg yrkeskategorier og fylker du vil se stillinger fra
             </Heading>
             <section className={'my-4'}>
-                <FilterVelger4
+                <FilterVelger
                     values={['IT', 'Bygg og anlegg']}
                     options={yrkeskategorier}
                     heading={'Velg yrkeskategori'}
@@ -26,7 +26,7 @@ function VelgStillingssoek(props: Props) {
                 />
             </section>
             <section className={'my-4'}>
-                <FilterVelger4
+                <FilterVelger
                     values={['Østfold', 'Oslo']}
                     options={fylker}
                     heading={'Velg fylke'}
