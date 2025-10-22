@@ -20,3 +20,37 @@ export const Ubesvart: Story = {
         }
     }
 }
+
+
+export const PendingGodkjentRequest: Story = {
+    args: {
+        sprak: 'nb',
+        onSubmit(val) {
+            console.log('onSubmit', val);
+            return Promise.resolve();
+        },
+        pending: 'AKTIV',
+    },
+};
+
+export const PendingAvmeldtRequest: Story = {
+    args: {
+        sprak: 'nb',
+        onSubmit(val) {
+            console.log('onSubmit', val);
+            return Promise.resolve();
+        },
+        pending: 'OPT_OUT',
+    },
+};
+
+export const MedFeilmelding: Story = {
+    args: {
+        sprak: 'nb',
+        onSubmit(val) {
+            console.log('onSubmit', val);
+            return Promise.resolve();
+        },
+        error: 'feil'
+    },
+};
