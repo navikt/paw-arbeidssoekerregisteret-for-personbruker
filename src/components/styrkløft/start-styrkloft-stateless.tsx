@@ -15,7 +15,7 @@ interface Props {
     sprak: Sprak;
 }
 
-export function StartStyrkloftStatic(props: Props) {
+export function StartStyrkloftStateless(props: Props) {
     const {
         visGodkjennEksperiment,
         visVelgFiltere,

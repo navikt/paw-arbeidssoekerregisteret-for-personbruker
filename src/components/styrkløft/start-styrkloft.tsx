@@ -1,7 +1,7 @@
 import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
-import { StartStyrkloftStatic } from '@/components/styrkløft/start-styrkloft-static';
+import { StartStyrkloftStateless } from '@/components/styrkløft/start-styrkloft-stateless';
 
 interface Props {
     brukerprofil: Brukerprofil;
@@ -30,7 +30,7 @@ function StartStyrkloft(props: Props) {
     };
 
     return (
-        <StartStyrkloftStatic
+        <StartStyrkloftStateless
             onSubmitTjenestestatus={onSubmitTjenestestatus}
             onSubmitStillingsSoek={props.onSubmitStillingsSoek}
             visGodkjennEksperiment={submittedTjenestestatus === null}
