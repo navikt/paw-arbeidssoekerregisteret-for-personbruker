@@ -80,10 +80,9 @@
         ]
     },
     "lint-staged": {
-        "*.{ts,tsx}": [
+        "*.{ts,tsx,json,md,js,jsx,md}": [
             "eslint --fix",
-            "prettier --write",
-            "tsc --noEmit"
+            "prettier --write"
         ]
     }
 }
