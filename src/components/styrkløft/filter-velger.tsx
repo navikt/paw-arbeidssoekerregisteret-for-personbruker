@@ -2,10 +2,10 @@ import { Button, Chips, Dropdown } from '@navikt/ds-react';
 import { PencilIcon } from '@navikt/aksel-icons';
 
 interface Props {
-    values: any[];
-    options: any[];
+    values: string[];
+    options: string[];
     heading: string;
-    onChange: (values: any[]) => void;
+    onChange: (values: string[]) => void;
     defaultOpen?: boolean;
 }
 

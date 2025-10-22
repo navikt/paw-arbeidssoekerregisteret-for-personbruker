@@ -1,6 +1,6 @@
 export const filterKey = 'county';
 
-export const fylker = [
+export const FYLKER = [
     'Agder',
     'Akershus',
     'Buskerud',
