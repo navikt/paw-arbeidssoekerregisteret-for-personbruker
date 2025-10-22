@@ -1,5 +1,5 @@
-import { BrukerprofilTemp } from '@/lib/brukerprofil/mock-data';
-import { opprettLinkTilArbeidsplassen } from '@/lib/brukerprofil/opprett-link-til-arbeidsplassen';
+import { opprettLinkTilArbeidsplassen } from '@/lib/opprett-link-til-arbeidsplassen';
+import { Brukerprofil } from '@/model/brukerprofil';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Link } from '@navikt/ds-react';
 import React from 'react';
@@ -17,7 +17,7 @@ const TEKSTER = {
 };
 
 type LinkTilArbeidsplassenProps = {
-    brukerprofil: BrukerprofilTemp;
+    brukerprofil: Brukerprofil;
     sprak: Sprak;
 };
 
