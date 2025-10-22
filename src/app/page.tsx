@@ -18,6 +18,8 @@ import Feil from '@/components/feil';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import Egenvurdering from '@/components/egenvurdering/egenvurdering';
+import { UnleashWrapper } from '@/components/styrkløft/unleash-wrapper';
+import { UnleashWrapperSSR } from '@/components/styrkløft/unleash-wrapper-ssr';
 
 interface Props {
     sprak: Sprak;
@@ -45,6 +47,12 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
 
     return (
         <>
+            <UnleashWrapper>
+                <div className="bg-surface-info-subtle mb-10 p-10 rounded shadow-2xl">Unleash check client side</div>
+            </UnleashWrapper>
+            <UnleashWrapperSSR>
+                <div className="bg-surface-info-subtle mb-10 p-10 rounded shadow-2xl">Unleash check server side</div>
+            </UnleashWrapperSSR>
             <RegistrertTittel aggregertePerioder={aggregerteData ?? []} sprak={sprak} />
             <PeriodeInfo aggregertePerioder={aggregerteData ?? []} sprak={sprak} />
             <Suspense fallback={<Loader />}>

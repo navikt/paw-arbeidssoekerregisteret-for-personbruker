@@ -5,6 +5,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from 'react
 
 interface FeatureTogglesContextState {
     [unleashKeys.BRUK_UXSIGNALS]: boolean;
+    [unleashKeys.EKSPERIMENT_STYRKELOFT]: boolean;
 }
 
 const FeatureTogglesContext = createContext<FeatureTogglesContextState>({} as any);
