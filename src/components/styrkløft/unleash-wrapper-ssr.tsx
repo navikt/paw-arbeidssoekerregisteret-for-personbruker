@@ -6,10 +6,11 @@ type UnleashWrapperSSRProps = {
     children: React.ReactNode;
 };
 
-const UnleashWrapperSSR: React.FC<UnleashWrapperSSRProps> = (props) => {
+const UnleashWrapperSSR: React.FC<UnleashWrapperSSRProps> = async (props) => {
     const { children } = props;
+    const styrkeloftIsEnabled = await isEnabled(unleashKeys.EKSPERIMENT_STYRKELOFT);
 
-    if (!isEnabled(unleashKeys.EKSPERIMENT_STYRKELOFT)) return null;
+    if (!styrkeloftIsEnabled) return null;
     return <div>{children}</div>;
 };
 
