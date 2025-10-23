@@ -1,5 +1,5 @@
 import { opprettLinkTilArbeidsplassen } from '@/lib/opprett-link-til-arbeidsplassen';
-import { Brukerprofil } from '@/model/brukerprofil';
+import { StedSoek } from '@/model/brukerprofil';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Link } from '@navikt/ds-react';
 import React from 'react';
@@ -17,14 +17,14 @@ const TEKSTER = {
 };
 
 type LinkTilArbeidsplassenProps = {
-    brukerprofil: Brukerprofil;
+    stedSoek: StedSoek;
     sprak: Sprak;
 };
 
 const LinkTilArbeidsplassen: React.FC<LinkTilArbeidsplassenProps> = (props) => {
-    const { brukerprofil, sprak } = props;
+    const { stedSoek, sprak } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const urlTilArbeidsplasen = opprettLinkTilArbeidsplassen(brukerprofil);
+    const urlTilArbeidsplasen = opprettLinkTilArbeidsplassen(stedSoek);
     const UMAMI_EVENT_LINK_TO_ARBEIDSPLASSEN = 'paw-arbeidssoekerregisteret-for-personbruker-link-til-arbeidsplassen';
 
     return (

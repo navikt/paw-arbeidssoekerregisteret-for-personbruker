@@ -1,29 +1,45 @@
 import { hentYrkeskategorier } from '@/lib/hent-yrkeskategorier';
-import { Brukerprofil } from '@/model/brukerprofil';
+import { StedSoek } from '@/model/brukerprofil';
 
 /**
  * Opprett en URL basert på informasjon fra brukerprofil (api)
  * - yrkeskategorier basert på styrk08 (feltnavn)
  * - geografi basert på fylke og kommune
+ *
+ * @param stedSoek - Stedsøk informasjon fra brukerprofil
+ * @returns Formatert URL til arbeidsplassen.nav.no
+ * @throws Error hvis henting av yrkeskategorier feiler
  */
-export function opprettLinkTilArbeidsplassen(brukerprofil: Brukerprofil): string {
-    const BASE_URL = 'https://arbeidsplassen.nav.no/stillinger?';
-
-    const stedSoek = brukerprofil.stillingssoek?.find((el) => el.soekType === 'STED_SOEK_V1');
-    const styrkKoder = stedSoek?.styrk08;
-
-    // formater yrkeskategorier
-    let urlFormaterteKategorier = '';
-    if (styrkKoder) {
-        const alleYrkeskategorierFraBrukerprofil = hentYrkeskategorier(styrkKoder);
-        urlFormaterteKategorier = alleYrkeskategorierFraBrukerprofil
-            .map((kategori) => `occupationLevel1=${encodeURIComponent(kategori)}`)
-            .join('&');
+export function opprettLinkTilArbeidsplassen(stedSoek: StedSoek): string {
+    if (!stedSoek) {
+        throw new Error('StedSoek er påkrevd');
     }
 
-    // formater geografi
-    const alleFylker = stedSoek?.fylker?.map((el) => el.navn);
-    const formaterteFylker = alleFylker?.map((fylke) => `county=${encodeURIComponent(fylke.toUpperCase())}`).join('&');
+    const BASE_URL = 'https://arbeidsplassen.nav.no/stillinger';
+    const urlParams = new URLSearchParams();
 
-    return `${BASE_URL}${urlFormaterteKategorier}&v=5&${formaterteFylker}`;
+    // Versjonering (arbeidsplassen)
+    urlParams.set('v', '5');
+
+    const styrkKoder = stedSoek.styrk08;
+    if (styrkKoder && styrkKoder.length > 0) {
+        try {
+            const alleYrkeskategorierFraBrukerprofil = hentYrkeskategorier(styrkKoder);
+            alleYrkeskategorierFraBrukerprofil.forEach((kategori) => {
+                urlParams.append('occupationLevel1', kategori);
+            });
+        } catch (error) {
+            console.warn('Feil ved henting av yrkeskategorier:', error);
+        }
+    }
+
+    if (stedSoek.fylker && stedSoek.fylker.length > 0) {
+        stedSoek.fylker.forEach((fylke) => {
+            if (fylke.navn && fylke.navn.trim()) {
+                urlParams.append('county', fylke.navn.toUpperCase());
+            }
+        });
+    }
+    console.log(`${BASE_URL}?${urlParams.toString()}`);
+    return `${BASE_URL}?${urlParams.toString()}`;
 }

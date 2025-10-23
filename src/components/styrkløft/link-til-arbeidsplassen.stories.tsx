@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/nextjs';
 import { LinkTilArbeidsplassen } from './link-til-arbeidsplassen';
-import { mockBrukerprofil } from '@/lib/brukerprofil/mock-data';
+import { Brukerprofil, StedSoek } from '@/model/brukerprofil';
 
 const meta = {
     title: 'Styrkløft/Komponenter/Link til arbeidsplassen',
@@ -12,9 +12,32 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const stedSoek: StedSoek = {
+    soekType: 'STED_SOEK_V1',
+    fylker: [
+        {
+            navn: 'Buskerud',
+            kommuner: [
+                {
+                    navn: 'Bergen',
+                    kommunenummer: '4601',
+                },
+            ],
+            fylkesnummer: '33',
+        },
+        {
+            navn: 'Oslo',
+            kommuner: [],
+            fylkesnummer: '03',
+        },
+    ],
+    soekeord: ['Utvikler'],
+    styrk08: ['2514', '2166', '2320', '3121'],
+};
+
 export const DefaultLinkTilArbeidsplassen: Story = {
     args: {
-        brukerprofil: mockBrukerprofil,
+        stedSoek: stedSoek,
         sprak: 'nb',
     },
 };
