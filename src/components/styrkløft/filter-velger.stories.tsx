@@ -3,7 +3,7 @@ import { useState } from 'react';
 import FilterVelger from '@/components/styrkløft/filter-velger';
 
 const meta = {
-    title: 'Styrkløft/FilterVelger',
+    title: 'Styrkløft/Komponenter/FilterVelger',
     component: FilterVelger,
     tags: ['autodocs'],
     args: {},

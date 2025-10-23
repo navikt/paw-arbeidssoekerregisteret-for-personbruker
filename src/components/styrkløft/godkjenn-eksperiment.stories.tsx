@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import GodkjennEksperiment from '@/components/styrkløft/godkjenn-eksperiment';
 
 const meta = {
-    title: 'Styrkløft/Godkjenn eksperiment',
+    title: 'Styrkløft/Komponenter/Godkjenn eksperiment',
     component: GodkjennEksperiment,
     tags: ['autodocs'],
     args: {},

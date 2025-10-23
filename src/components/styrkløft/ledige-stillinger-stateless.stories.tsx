@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import LedigeStillingerStateless from '@/components/styrkløft/ledige-stillinger-stateless';
 
 const meta = {
-    title: 'Styrkløft/Ledige stillinger',
+    title: 'Styrkløft/Komponenter/Ledige stillinger',
     component: LedigeStillingerStateless,
     tags: ['autodocs'],
     args: {},

@@ -3,7 +3,7 @@ import { LinkTilArbeidsplassen } from './link-til-arbeidsplassen';
 import { mockBrukerprofil } from '@/lib/brukerprofil/mock-data';
 
 const meta = {
-    title: 'Styrkløft/Link til arbeidsplassen',
+    title: 'Styrkløft/Komponenter/Link til arbeidsplassen',
     component: LinkTilArbeidsplassen,
     tags: ['autodocs'],
     args: {},

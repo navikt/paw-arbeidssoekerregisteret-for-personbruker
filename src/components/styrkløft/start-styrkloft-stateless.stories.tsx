@@ -3,7 +3,7 @@ import { StartStyrkloftStateless } from '@/components/styrkløft/start-styrkloft
 import { Tjenestestatus } from '@/model/brukerprofil';
 
 const meta = {
-    title: 'Styrkløft/StartStyrkløftStateless',
+    title: 'Styrkløft/Komponenter/StartStyrkløftStateless',
     component: StartStyrkloftStateless,
     tags: ['autodocs'],
     args: {},

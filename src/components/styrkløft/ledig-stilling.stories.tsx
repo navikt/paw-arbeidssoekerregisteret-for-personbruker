@@ -3,7 +3,7 @@ import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 import LedigStilling from '@/components/styrkløft/ledig-stilling';
 
 const meta = {
-    title: 'Styrkløft/Ledig stilling',
+    title: 'Styrkløft/Komponenter/Ledig stilling',
     component: LedigStilling,
     tags: ['autodocs'],
     args: {},

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import VelgStillingssoekStateless from '@/components/styrkløft/velg-stillingssoek-stateless';
 
 const meta = {
-    title: 'Styrkløft/Velg stillingsøk/stateless',
+    title: 'Styrkløft/Komponenter/Velg stillingsøk/stateless',
     component: VelgStillingssoekStateless,
     tags: ['autodocs'],
     args: {},

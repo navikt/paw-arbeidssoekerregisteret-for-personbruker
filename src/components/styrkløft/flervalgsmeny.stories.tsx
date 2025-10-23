@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/nextjs';
 import { FlerValgsMeny } from './flervalgsmeny';
 
 const meta = {
-    title: 'Styrkløft/Flervalgsmeny',
+    title: 'Styrkløft/Komponenter/Flervalgsmeny',
     component: FlerValgsMeny,
     tags: ['autodocs'],
     args: {},

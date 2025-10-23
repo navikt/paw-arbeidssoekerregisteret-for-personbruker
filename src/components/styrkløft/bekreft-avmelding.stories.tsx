@@ -4,7 +4,7 @@ import { Button, VStack } from '@navikt/ds-react';
 import { BekreftAvmelding } from './bekreft-avmelding';
 
 const meta: Meta<typeof BekreftAvmelding> = {
-    title: 'Styrkløft/Bekreft avmelding',
+    title: 'Styrkløft/Komponenter/Bekreft avmelding',
     component: BekreftAvmelding,
     tags: ['autodocs'],
     args: {
