@@ -5,7 +5,7 @@ interface Props {
     resultat: any[];
 }
 
-function LedigeStillingerStatic(props: Props) {
+function LedigeStillingerStateless(props: Props) {
     const { resultat } = props;
 
     if (!resultat || resultat.length === 0) {
@@ -21,4 +21,4 @@ function LedigeStillingerStatic(props: Props) {
     );
 }
 
-export default LedigeStillingerStatic;
+export default LedigeStillingerStateless;

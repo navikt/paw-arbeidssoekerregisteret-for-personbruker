@@ -10,6 +10,7 @@ interface Props {
     onSubmitStillingsSoek(data: any): Promise<void>;
     onFetchStillinger(): Promise<{ data?: any; error?: Error }>;
     sprak: Sprak;
+    isStorybook?: boolean;
 }
 
 interface StatelessProps extends Props {
@@ -17,20 +18,21 @@ interface StatelessProps extends Props {
     visStillinger: boolean;
     erAvmeldt: boolean;
 }
+
 function StyrkLoftStateless(props: StatelessProps) {
     const { visStartKomponent, visStillinger, erAvmeldt } = props;
 
     if (erAvmeldt) {
         return null;
     } else if (visStillinger) {
-        return <LedigeStillinger fetchData={props.onFetchStillinger} />;
+        return <LedigeStillinger fetchData={props.onFetchStillinger} isStorybook={props.isStorybook} />;
     } else if (visStartKomponent) {
         return <StartStyrkloft {...props} />;
     }
 }
 
 function StyrkLoft(props: Props) {
-    const { brukerprofil, sprak, onSubmitTjenestestatus, onFetchStillinger } = props;
+    const { brukerprofil, sprak, onSubmitTjenestestatus, onFetchStillinger, isStorybook } = props;
     const [harLagretSoek, settHarLagretSoek] = useState(false);
 
     const erAvmeldt = brukerprofil.tjenestestatus === 'OPT_OUT';
@@ -57,6 +59,7 @@ function StyrkLoft(props: Props) {
             onSubmitStillingsSoek={onSubmitStillingsSoek}
             onFetchStillinger={onFetchStillinger}
             sprak={sprak}
+            isStorybook={isStorybook}
         />
     );
 }

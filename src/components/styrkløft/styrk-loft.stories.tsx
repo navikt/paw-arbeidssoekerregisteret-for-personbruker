@@ -18,6 +18,7 @@ export const Default: Story = {
             identitetsnummer: '42',
             tjenestestatus: 'INAKTIV',
         },
+        isStorybook: true,
         onSubmitTjenestestatus(status: Tjenestestatus) {
             console.log('onSubmitTjenestestatus', status);
             return Promise.resolve();
@@ -28,30 +29,28 @@ export const Default: Story = {
         },
         onFetchStillinger() {
             return Promise.resolve({
-                data: {
-                    resultat: [
-                        {
-                            uuid: 'uuid',
-                            tittel: 'Nittedal Tannlegesenter har ledig stilling som tannhelsesekretær/tannlegeassistent, er du den rette?',
-                            stillingbeskrivelse: 'Tannlegeassistent, Tannhelsesekretær, Klinikkassistent',
-                            selskap: 'Nittedal Tannlegesenter Og Tannlegevakt',
-                            kommune: 'Nittedal, Norge, Oslo, Akershus',
-                            soeknadsfrist: {
-                                raw: 'Søk senest torsdag 6. november',
-                            },
+                data: [
+                    {
+                        uuid: 'uuid',
+                        tittel: 'Nittedal Tannlegesenter har ledig stilling som tannhelsesekretær/tannlegeassistent, er du den rette?',
+                        stillingbeskrivelse: 'Tannlegeassistent, Tannhelsesekretær, Klinikkassistent',
+                        selskap: 'Nittedal Tannlegesenter Og Tannlegevakt',
+                        kommune: 'Nittedal, Norge, Oslo, Akershus',
+                        soeknadsfrist: {
+                            raw: 'Søk senest torsdag 6. november',
                         },
-                        {
-                            uuid: 'uuid',
-                            tittel: 'Do you want to be part of developing WorldHotels and taking the brand to new heights in Scandinavia?',
-                            stillingbeskrivelse: 'Head of Performance WorldHotels',
-                            selskap: 'BWH Hotels Scandinavia',
-                            kommune: 'Oslo',
-                            soeknadsfrist: {
-                                raw: 'Søk snarest mulig',
-                            },
+                    },
+                    {
+                        uuid: 'uuid',
+                        tittel: 'Do you want to be part of developing WorldHotels and taking the brand to new heights in Scandinavia?',
+                        stillingbeskrivelse: 'Head of Performance WorldHotels',
+                        selskap: 'BWH Hotels Scandinavia',
+                        kommune: 'Oslo',
+                        soeknadsfrist: {
+                            raw: 'Søk snarest mulig',
                         },
-                    ],
-                },
+                    },
+                ],
             });
         },
         sprak: 'nb',

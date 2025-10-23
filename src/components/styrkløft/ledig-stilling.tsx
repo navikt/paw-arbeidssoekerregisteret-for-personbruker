@@ -28,7 +28,7 @@ function LedigStilling(props: Props) {
                 </HStack>
             </VStack>
             <BodyShort weight="semibold" textColor="subtle" className={'mt-4'}>
-                {ledigStilling.soknadsfrist?.raw}
+                {ledigStilling.soeknadsfrist?.raw}
             </BodyShort>
         </Box>
     );

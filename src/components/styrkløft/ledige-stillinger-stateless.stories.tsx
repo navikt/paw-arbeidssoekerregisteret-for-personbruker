@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import LedigeStillingerStatic from '@/components/styrkløft/ledige-stillinger-static';
+import LedigeStillingerStateless from '@/components/styrkløft/ledige-stillinger-stateless';
 
 const meta = {
     title: 'Styrkløft/Ledige stillinger',
-    component: LedigeStillingerStatic,
+    component: LedigeStillingerStateless,
     tags: ['autodocs'],
     args: {},
-} satisfies Meta<typeof LedigeStillingerStatic>;
+} satisfies Meta<typeof LedigeStillingerStateless>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
