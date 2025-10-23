@@ -23,7 +23,7 @@ function LedigeStillingerStateless(props: Props) {
                     <LedigStilling ledigStilling={stilling} key={stilling.tittel} />
                 ))}
             </HGrid>
-            <LinkTilArbeidsplassen brukerprofil={soek} sprak={sprak} />
+            <LinkTilArbeidsplassen stedSoek={soek} sprak={sprak} />
         </Box>
     );
 }

@@ -3,6 +3,7 @@ import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import StartStyrkloft from '@/components/styrkløft/start-styrkloft';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
+import AktivBruker from '@/components/styrkløft/aktiv-bruker';
 
 interface Props {
     brukerprofil: Brukerprofil;
@@ -25,7 +26,7 @@ function StyrkLoftStateless(props: StatelessProps) {
     if (erAvmeldt) {
         return null;
     } else if (visStillinger) {
-        return <LedigeStillinger fetchData={props.onFetchStillinger} isStorybook={props.isStorybook} />;
+        return <AktivBruker {...props} />;
     } else if (visStartKomponent) {
         return <StartStyrkloft {...props} />;
     }
