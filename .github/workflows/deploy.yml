@@ -12,10 +12,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
 
             - name: Set up node
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v5
               with:
                   node-version: '22.21.0'
                   cache: 'npm'
@@ -41,10 +41,10 @@ jobs:
             image: ${{ steps.docker-build-push.outputs.image }}
         steps:
             - name: Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
 
             - name: Set up node
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v5
               with:
                   node-version: '22.21.0'
                   cache: 'npm'
@@ -57,7 +57,7 @@ jobs:
                   HUSKY: 0
 
             - name: Set up node
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v5
               with:
                   node-version: '22.21.0'
                   cache: 'npm'
@@ -108,7 +108,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
             - name: Deploy
               uses: nais/deploy/actions/deploy@v2
               env:
@@ -127,7 +127,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
             - name: Deploy
               uses: nais/deploy/actions/deploy@v2
               env:
@@ -145,7 +145,7 @@ jobs:
         needs: [test, build]
         steps:
             - name: Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
             - name: deploy to dev
               uses: nais/deploy/actions/deploy@v2
               env:
