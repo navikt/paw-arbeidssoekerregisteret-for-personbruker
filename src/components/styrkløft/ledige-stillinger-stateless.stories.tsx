@@ -13,6 +13,8 @@ type Story = StoryObj<typeof meta>;
 
 export const DefaultLedigStilling: Story = {
     args: {
+        sprak: 'nb',
+        soek: {},
         resultat: [
             {
                 uuid: 'uuid',
