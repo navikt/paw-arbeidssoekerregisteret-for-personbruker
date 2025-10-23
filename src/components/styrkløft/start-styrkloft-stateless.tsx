@@ -27,7 +27,11 @@ export function StartStyrkloftStateless(props: Props) {
         errorTjenestestatus,
     } = props;
 
-    if (visGodkjennEksperiment) {
+    if (visVelgFiltere) {
+        return <VelgStillingssoek sprak={sprak} onSubmit={onSubmitStillingsSoek} />;
+    } else if (visAvmeldtKvittering) {
+        return <KvitteringAvmeldt />;
+    } else if (visGodkjennEksperiment) {
         return (
             <GodkjennEksperiment
                 sprak={sprak}
@@ -36,10 +40,6 @@ export function StartStyrkloftStateless(props: Props) {
                 error={errorTjenestestatus}
             />
         );
-    } else if (visVelgFiltere) {
-        return <VelgStillingssoek sprak={sprak} onSubmit={onSubmitStillingsSoek} />;
-    } else if (visAvmeldtKvittering) {
-        return <KvitteringAvmeldt />;
     }
 
     return null;

@@ -35,7 +35,7 @@ function LedigeStillinger(props: Props) {
         return null;
     }
 
-    return <LedigeStillingerStateless resultat={result?.data} />;
+    return <LedigeStillingerStateless {...result?.data} />;
 }
 
 export default LedigeStillinger;
