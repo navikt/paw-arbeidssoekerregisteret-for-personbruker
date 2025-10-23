@@ -40,6 +40,5 @@ export function opprettLinkTilArbeidsplassen(stedSoek: StedSoek): string {
             }
         });
     }
-    console.log(`${BASE_URL}?${urlParams.toString()}`);
     return `${BASE_URL}?${urlParams.toString()}`;
 }
