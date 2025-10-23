@@ -28,7 +28,7 @@ const ledigStillingerRespons = {
                     fylkesnummer: '46',
                 },
             ],
-            styrk08: ['124'],
+            styrk08: ['2114'],
         },
         resultat: [
             {
