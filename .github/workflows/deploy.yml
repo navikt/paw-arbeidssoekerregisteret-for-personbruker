@@ -17,7 +17,7 @@ jobs:
             - name: Set up node
               uses: actions/setup-node@v4
               with:
-                  node-version: '22.20.0'
+                  node-version: '22.21.0'
                   cache: 'npm'
                   registry-url: 'https://npm.pkg.github.com'
 
@@ -46,7 +46,7 @@ jobs:
             - name: Set up node
               uses: actions/setup-node@v4
               with:
-                  node-version: '22.20.0'
+                  node-version: '22.21.0'
                   cache: 'npm'
                   registry-url: 'https://npm.pkg.github.com'
 
@@ -59,7 +59,7 @@ jobs:
             - name: Set up node
               uses: actions/setup-node@v4
               with:
-                  node-version: '22.20.0'
+                  node-version: '22.21.0'
                   cache: 'npm'
                   registry-url: 'https://npm.pkg.github.com'
 

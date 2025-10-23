@@ -72,7 +72,7 @@
         "tabWidth": 4
     },
     "engines": {
-        "node": ">=22.20.0"
+        "node": ">=22.21.0"
     },
     "msw": {
         "workerDirectory": [
