@@ -6,13 +6,13 @@ import React from 'react';
 
 const TEKSTER = {
     nb: {
-        linkTittel: 'Se flere treff hos Arbeidsplassen',
+        linkTittel: 'Se flere treff hos arbeidsplassen.no',
     },
     nn: {
-        linkTittel: 'Sjå fleire treff hjå Arbeidsplassen',
+        linkTittel: 'Sjå fleire treff hjå arbeidsplassen.no',
     },
     en: {
-        linkTittel: 'See more results at Arbeidsplassen',
+        linkTittel: 'See more results at arbeidsplassen.no',
     },
 };
 
