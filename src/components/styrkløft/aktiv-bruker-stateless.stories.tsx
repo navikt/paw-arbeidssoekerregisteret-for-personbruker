@@ -1,15 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import StyrkLoft from '@/components/styrkløft/styrk-loft';
-import AktivBruker from '@/components/styrkløft/aktiv-bruker';
-import { Tjenestestatus } from '@/model/brukerprofil';
+import AktivBrukerStateless from '@/components/styrkløft/aktiv-bruker-stateless';
 import { ledigStillingerRespons } from '@/components/styrkløft/styrk-loft.stories';
+import { Tjenestestatus } from '@/model/brukerprofil';
 
 const meta = {
-    title: 'Styrkløft/Komponenter/Aktiv bruker',
-    component: AktivBruker,
+    title: 'Styrkløft/Komponenter/Aktiv bruker/Stateless',
+    component: AktivBrukerStateless,
     tags: ['autodocs'],
     args: {},
-} satisfies Meta<typeof StyrkLoft>;
+} satisfies Meta<typeof AktivBrukerStateless>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -23,5 +22,7 @@ export const Default: Story = {
         onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
         onSubmitStillingsSoek: (data: any) => Promise.resolve(),
         sprak: 'nb',
+        isEditMode: false,
+        visAvmeldModal: false,
     },
 };

@@ -3,8 +3,9 @@ import { FlerValgsMeny } from '@/components/styrkløft/flervalgsmeny';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import { Tjenestestatus } from '@/model/brukerprofil';
+import AktivBrukerStateless from '@/components/styrkløft/aktiv-bruker-stateless';
 
-interface Props {
+export interface AktivBrukerProps {
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
     onSubmitStillingsSoek(data: any): Promise<void>;
     onFetchStillinger(): Promise<{ data?: any; error?: Error }>;
@@ -12,20 +13,8 @@ interface Props {
     isStorybook?: boolean;
 }
 
-function AktivBruker(props: Props) {
-    const { sprak } = props;
-    return (
-        <Box padding="space-16" borderRadius="large" shadow="xsmall">
-            <div className={'flex justify-end mb-2'}>
-                <FlerValgsMeny
-                    onEditSearch={() => console.log('onEditSearch')}
-                    onEnd={() => console.log('onEnd')}
-                    sprak={sprak}
-                />
-            </div>
-            <LedigeStillinger fetchData={props.onFetchStillinger} isStorybook={props.isStorybook} />
-        </Box>
-    );
+function AktivBruker(props: AktivBrukerProps) {
+    return <AktivBrukerStateless {...props} isEditMode={false} visAvmeldModal={false} />;
 }
 
 export default AktivBruker;

@@ -12,7 +12,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const ledigStillingerRespons = {
+export const ledigStillingerRespons = {
     data: {
         soek: {
             fylker: [
