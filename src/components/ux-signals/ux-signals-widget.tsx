@@ -10,6 +10,8 @@ interface UxSignalsWidgetProps {
     erDemo?: boolean;
 }
 
+const uxSignalsUndersoekelseId = 'panel-sg6fwvepqu';
+
 export default function UxSignalsWidget(props: UxSignalsWidgetProps): ReactElement | null {
     const { erDemo } = props;
     const erUndersoekelseAktiv = isEnabled(unleashKeys.BRUK_UXSIGNALS);
@@ -19,7 +21,7 @@ export default function UxSignalsWidget(props: UxSignalsWidgetProps): ReactEleme
     return (
         <>
             <div
-                data-uxsignals-embed="panel-gtnepi3ujl"
+                data-uxsignals-embed={uxSignalsUndersoekelseId}
                 data-uxsignals-mode={erDemo ? 'demo' : ''}
                 className={styles.uxSignalsContainer}
             ></div>
