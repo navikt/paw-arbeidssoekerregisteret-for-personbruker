@@ -9,6 +9,15 @@ const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const BRUKERPROFIL_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-mine-stillinger`;
 const TJENESTESTATUS_API_URL = `${process.env.BRUKERPROFIL_API_URL}/api/v1/brukerprofil/tjenestestatus`;
 
+function gyldigTjenestestatus(body: any): body is TjenestestatusRequest {
+    return (
+        typeof body === 'object' &&
+        body !== null &&
+        typeof body.tjenestestatus === 'string' &&
+        body.tjenestestatus.trim().length > 0
+    );
+}
+
 export const PUT = async (request: Request) => {
     if (brukerMock) {
         return new Response(null, { status: 204 });
@@ -25,15 +34,31 @@ export const PUT = async (request: Request) => {
             return new Response(null, { status: 401 });
         }
 
-        const body: TjenestestatusRequest = await request.json();
-        const { tjenestestatus } = body;
-
-        if (!tjenestestatus) {
-            return new Response(JSON.stringify({ error: 'tjenestestatus is required' }), {
+        let body: any;
+        try {
+            body = await request.json();
+        } catch {
+            logger.error({ x_trace_id: traceId }, 'Ugyldig JSON i request body');
+            return new Response(JSON.stringify({ error: 'Ugyldig JSON i request body' }), {
                 status: 400,
                 headers: { 'Content-Type': 'application/json' },
             });
         }
+
+        if (!gyldigTjenestestatus(body)) {
+            logger.error({ x_trace_id: traceId }, 'Ugyldig request format');
+            return new Response(
+                JSON.stringify({
+                    error: 'Ugyldig request format',
+                }),
+                {
+                    status: 400,
+                    headers: { 'Content-Type': 'application/json' },
+                },
+            );
+        }
+
+        const { tjenestestatus } = body;
 
         const urlWithPath = `${TJENESTESTATUS_API_URL}/${tjenestestatus}`;
         logger.info({ x_trace_id: traceId }, `Starter PUT ${urlWithPath}`);
