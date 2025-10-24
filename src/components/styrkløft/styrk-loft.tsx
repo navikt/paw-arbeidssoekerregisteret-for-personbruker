@@ -34,7 +34,7 @@ function StyrkLoft(props: Props) {
     const { brukerprofil, sprak, onSubmitTjenestestatus, onFetchStillinger } = props;
     const [harLagretSoek, settHarLagretSoek] = useState(false);
 
-    const erAvmeldt = brukerprofil.tjenestestatus === 'OPT_OUT';
+    const erAvmeldt = brukerprofil.tjenestestatus === 'OPT_OUT' || brukerprofil.tjenestestatus === 'KAN_IKKE_LEVERES';
     const visStartKomponent =
         brukerprofil.tjenestestatus === 'INAKTIV' || (brukerprofil.stillingssoek ?? []).length === 0;
     const visStillinger = brukerprofil.tjenestestatus === 'AKTIV' && (brukerprofil.stillingssoek ?? []).length > 0;

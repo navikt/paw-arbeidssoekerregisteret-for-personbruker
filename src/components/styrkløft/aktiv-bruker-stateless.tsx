@@ -2,7 +2,6 @@ import { Box } from '@navikt/ds-react';
 import { FlerValgsMeny } from '@/components/styrkløft/flervalgsmeny';
 import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import { AktivBrukerProps } from '@/components/styrkløft/aktiv-bruker';
-import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 
 interface Props extends AktivBrukerProps {
     isEditMode: boolean;
