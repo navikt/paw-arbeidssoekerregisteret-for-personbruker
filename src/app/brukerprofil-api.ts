@@ -59,7 +59,7 @@ async function fetchBrukerprofil(): Promise<{
         });
     }
 
-    return getBrukerprofilApi<Brukerprofil>('/api/v1/brukerprofil/');
+    return getBrukerprofilApi<Brukerprofil>('/api/v1/brukerprofil');
 }
 
 async function fetchLedigStillinger(): Promise<{
