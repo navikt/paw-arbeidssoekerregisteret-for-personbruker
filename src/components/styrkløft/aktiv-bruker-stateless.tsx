@@ -20,7 +20,7 @@ function AktivBrukerStateless(props: Props) {
                     sprak={sprak}
                 />
             </div>
-            {!isEditMode && <LedigeStillinger fetchData={props.onFetchStillinger} isStorybook={props.isStorybook} />}
+            {!isEditMode && <LedigeStillinger fetchData={props.onFetchStillinger} />}
             {/*{isEditMode && <VelgStillingssoek /> }*/}
         </Box>
     );

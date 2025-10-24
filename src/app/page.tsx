@@ -18,6 +18,8 @@ import Feil from '@/components/feil';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import Egenvurdering from '@/components/egenvurdering/egenvurdering';
+import { fetchBrukerprofil } from '@/app/brukerprofil-api';
+import StyrkEksperiment from '@/components/styrkløft/styrk-eksperiment';
 
 interface Props {
     sprak: Sprak;
@@ -72,6 +74,11 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                     />
                 </div>
             )}
+            {harAktivPeriode && (
+                <Suspense>
+                    <StyrkEksperimentServerKomponent sprak={sprak} />
+                </Suspense>
+            )}
             {!harAktivPeriode && (
                 <RegistrerArbeidssoker
                     className={'my-6'}
@@ -106,6 +113,16 @@ const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
             <Egenvurdering sprak={sprak} profilering={data.grunnlag} />
         </div>
     );
+};
+
+const StyrkEksperimentServerKomponent = async ({ sprak }: Props) => {
+    const { data, error } = await fetchBrukerprofil();
+
+    if (error || !data) {
+        return null;
+    }
+
+    return <StyrkEksperiment sprak={sprak} brukerprofil={data} />;
 };
 
 export default async function Home({ params }: NextPageProps) {

@@ -1,5 +1,4 @@
 import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
-import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import StartStyrkloft from '@/components/styrkløft/start-styrkloft';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
@@ -11,7 +10,6 @@ interface Props {
     onSubmitStillingsSoek(data: any): Promise<void>;
     onFetchStillinger(): Promise<{ data?: any; error?: Error }>;
     sprak: Sprak;
-    isStorybook?: boolean;
 }
 
 interface StatelessProps extends Props {
@@ -33,7 +31,7 @@ function StyrkLoftStateless(props: StatelessProps) {
 }
 
 function StyrkLoft(props: Props) {
-    const { brukerprofil, sprak, onSubmitTjenestestatus, onFetchStillinger, isStorybook } = props;
+    const { brukerprofil, sprak, onSubmitTjenestestatus, onFetchStillinger } = props;
     const [harLagretSoek, settHarLagretSoek] = useState(false);
 
     const erAvmeldt = brukerprofil.tjenestestatus === 'OPT_OUT';
@@ -60,7 +58,6 @@ function StyrkLoft(props: Props) {
             onSubmitStillingsSoek={onSubmitStillingsSoek}
             onFetchStillinger={onFetchStillinger}
             sprak={sprak}
-            isStorybook={isStorybook}
         />
     );
 }

@@ -18,7 +18,6 @@ export const Default: Story = {
         onFetchStillinger() {
             return Promise.resolve(ledigStillingerRespons);
         },
-        isStorybook: true,
         onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
         onSubmitStillingsSoek: (data: any) => Promise.resolve(),
         sprak: 'nb',

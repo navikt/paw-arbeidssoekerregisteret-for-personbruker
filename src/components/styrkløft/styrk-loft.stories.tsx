@@ -60,7 +60,6 @@ export const Demo: Story = {
             identitetsnummer: '42',
             tjenestestatus: 'INAKTIV',
         },
-        isStorybook: true,
         onSubmitTjenestestatus(status: Tjenestestatus) {
             console.log('onSubmitTjenestestatus', status);
             return Promise.resolve();
@@ -82,7 +81,6 @@ export const Avmeldt: Story = {
             identitetsnummer: '42',
             tjenestestatus: 'OPT_OUT',
         },
-        isStorybook: true,
         onSubmitTjenestestatus(status: Tjenestestatus) {
             return Promise.resolve();
         },
@@ -103,7 +101,6 @@ export const AktivUtenLagretSøk: Story = {
             tjenestestatus: 'AKTIV',
             stillingssoek: [],
         },
-        isStorybook: true,
         onSubmitTjenestestatus(status: Tjenestestatus) {
             return Promise.resolve();
         },
@@ -141,7 +138,6 @@ export const MedLagretSøk: Story = {
                 },
             ],
         },
-        isStorybook: true,
         onSubmitTjenestestatus(status: Tjenestestatus) {
             return Promise.resolve();
         },

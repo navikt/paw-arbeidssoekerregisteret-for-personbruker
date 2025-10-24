@@ -31,6 +31,7 @@ async function getBrukerprofilApi<T>(path: string): Promise<{
         if (!response.ok) {
             const error: any = new Error(`${response.status} ${response.statusText}`);
             try {
+                error.status = response.status;
                 error.data = await response.json();
             } catch (e) {}
             logger.error(error, `Feil fra GET ${BRUKERPROFIL_URL}`);
@@ -52,7 +53,7 @@ async function fetchBrukerprofil(): Promise<{
         return Promise.resolve({
             data: {
                 identitetsnummer: '42',
-                tjenestestatus: 'AKTIV',
+                tjenestestatus: 'INAKTIV',
                 stillingssoek: [],
             },
         });
@@ -61,13 +62,47 @@ async function fetchBrukerprofil(): Promise<{
     return getBrukerprofilApi<Brukerprofil>('/api/v1/brukerprofil/');
 }
 
-async function fetchLedigStillinger() {
+async function fetchLedigStillinger(): Promise<{
+    data?: LedigeStillinger;
+    error?: Error & { traceId?: string; data?: any };
+}> {
     if (brukerMock) {
         return Promise.resolve({
             data: {
-                identitetsnummer: '42',
-                tjenestestatus: 'AKTIV',
-                stillingssoek: [],
+                sistKjoert: '2025-10-20T12:00:00Z',
+                soek: {
+                    soekType: 'STED_SOEK_V1',
+                    fylker: [
+                        {
+                            navn: 'Buskerud',
+                            kommuner: [
+                                {
+                                    navn: 'Bergen',
+                                    kommunenummer: '4601',
+                                },
+                            ],
+                            fylkesnummer: '46',
+                        },
+                    ],
+                    soekeord: [],
+                    styrk08: ['1330'],
+                },
+                resultat: [
+                    {
+                        tittel: 'Vi du jobbe som utvikler hos oss?',
+                        stillingbeskrivelse: 'Backendutikler/Java',
+                        publisert: '2025-10-17T10:30:00Z',
+                        soeknadsfrist: {
+                            raw: 'Her kan det stå hva som helst dersom fristType er Ukjent',
+                            fristType: 'Ukjent',
+                            dato: '2025-11-25',
+                        },
+                        land: 'Norge',
+                        kommune: 'Oslo',
+                        sektor: 'Offentlig',
+                        selskap: 'Snedige Løsninger AS',
+                    },
+                ],
             },
         });
     }
