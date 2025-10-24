@@ -43,7 +43,7 @@ function StyrkEksperiment(props: Props) {
     const onFetchStillinger = () => {
         return fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/ledigestillinger`).then((response) => {
             if (!response.ok) {
-                throw Error(response.statusText);
+                throw new Error(response.statusText);
             }
             return response.json();
         });

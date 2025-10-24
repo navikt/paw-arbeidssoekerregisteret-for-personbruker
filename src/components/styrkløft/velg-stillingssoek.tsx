@@ -24,7 +24,7 @@ function VelgStillingssoek(props: Props) {
                 yrkeskategorier: valgteYrkeskategorier,
             });
         } catch (err: any) {
-            setError(err.message);
+            setError(err);
         } finally {
             setIsPending(false);
         }
