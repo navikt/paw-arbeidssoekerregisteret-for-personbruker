@@ -65,8 +65,8 @@ export const Demo: Story = {
             return Promise.resolve();
         },
         onSubmitStillingsSoek(data: any) {
-            console.log('onSubmitStillingsSoek', data);
-            return Promise.resolve();
+            // console.log('onSubmitStillingsSoek', data);
+            return Promise.reject(new Error('feil'));
         },
         onFetchStillinger() {
             return Promise.resolve(ledigStillingerRespons);
@@ -143,6 +143,57 @@ export const MedLagretSøk: Story = {
         },
         onSubmitStillingsSoek(data: any) {
             return Promise.resolve();
+        },
+        onFetchStillinger() {
+            return Promise.resolve(ledigStillingerRespons);
+        },
+        sprak: 'nb',
+    },
+};
+
+export const MedFeilNårManLagrerTjenestestatus: Story = {
+    args: {
+        brukerprofil: {
+            identitetsnummer: '42',
+            tjenestestatus: 'INAKTIV',
+        },
+        onSubmitTjenestestatus(status: Tjenestestatus) {
+            return new Promise((_, reject) => {
+                setTimeout(() => {
+                    reject(new Error('feil'));
+                }, 1000);
+            });
+        },
+        onSubmitStillingsSoek(data: any) {
+            return new Promise((_, reject) => {
+                setTimeout(() => {
+                    reject(new Error('feil'));
+                }, 1000);
+            });
+        },
+        onFetchStillinger() {
+            return Promise.resolve(ledigStillingerRespons);
+        },
+        sprak: 'nb',
+    },
+};
+
+export const MedFeilNårManLagrerSøk: Story = {
+    args: {
+        brukerprofil: {
+            identitetsnummer: '42',
+            tjenestestatus: 'INAKTIV',
+        },
+        onSubmitTjenestestatus(status: Tjenestestatus) {
+            console.log('onSubmitTjenestestatus', status);
+            return Promise.resolve();
+        },
+        onSubmitStillingsSoek(data: any) {
+            return new Promise((_, reject) => {
+                setTimeout(() => {
+                    reject(new Error('feil'));
+                }, 1000);
+            });
         },
         onFetchStillinger() {
             return Promise.resolve(ledigStillingerRespons);

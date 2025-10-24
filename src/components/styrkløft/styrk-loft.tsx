@@ -40,12 +40,8 @@ function StyrkLoft(props: Props) {
     const visStillinger = brukerprofil.tjenestestatus === 'AKTIV' && (brukerprofil.stillingssoek ?? []).length > 0;
 
     const onSubmitStillingsSoek = async (data: any) => {
-        try {
-            await props.onSubmitStillingsSoek(data);
-            settHarLagretSoek(true);
-        } catch (err: any) {
-            console.error(err);
-        }
+        await props.onSubmitStillingsSoek(data);
+        settHarLagretSoek(true);
     };
 
     return (

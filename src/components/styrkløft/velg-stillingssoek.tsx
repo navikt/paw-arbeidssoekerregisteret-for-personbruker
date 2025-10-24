@@ -1,9 +1,5 @@
-import { Box, Button, Heading, Alert } from '@navikt/ds-react';
-import FilterVelger from '@/components/styrkløft/filter-velger';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
-import { hentAlleYrkeskategorier } from '@/lib/hent-yrkeskategorier';
-import { FYLKER } from '@/components/styrkløft/fylker';
 import VelgStillingssoekStateless from '@/components/styrkløft/velg-stillingssoek-stateless';
 
 interface Props {
@@ -28,8 +24,7 @@ function VelgStillingssoek(props: Props) {
                 yrkeskategorier: valgteYrkeskategorier,
             });
         } catch (err: any) {
-            setError(err);
-            throw err;
+            setError(err.message);
         } finally {
             setIsPending(false);
         }
