@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const BRUKERPROFIL_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-mine-stillinger`;
-const BRUKERPROFIL_APÌ_URL = `${process.env.BRUKERPROFIL_API_URL}/api/v1/brukerprofil/stillingssoek`;
+const STILLINGSSOEK_API_URL = `${process.env.BRUKERPROFIL_API_URL}/api/v1/brukerprofil/stillingssoek`;
 
 export const PUT = async (request: Request) => {
     if (brukerMock) {
@@ -24,10 +24,10 @@ export const PUT = async (request: Request) => {
             return new Response(null, { status: 401 });
         }
 
-        logger.info({ x_trace_id: traceId }, `Starter PUT ${BRUKERPROFIL_APÌ_URL}`);
+        logger.info({ x_trace_id: traceId }, `Starter PUT ${STILLINGSSOEK_API_URL}`);
 
         const body = await request.json();
-        const response = await fetch(BRUKERPROFIL_APÌ_URL, {
+        const response = await fetch(STILLINGSSOEK_API_URL, {
             method: 'PUT',
             body: JSON.stringify(body),
             headers: {
@@ -40,7 +40,7 @@ export const PUT = async (request: Request) => {
 
         logger.info(
             { x_trace_id: traceId },
-            `Ferdig PUT ${BRUKERPROFIL_APÌ_URL} ${response.status} ${response.statusText}`,
+            `Ferdig PUT ${STILLINGSSOEK_API_URL} ${response.status} ${response.statusText}`,
         );
 
         let data = null;
@@ -56,7 +56,7 @@ export const PUT = async (request: Request) => {
         });
     } catch (error: any) {
         error.x_trace_id = traceId;
-        logger.error(error, `Feil fra PUT ${BRUKERPROFIL_APÌ_URL}`);
+        logger.error(error, `Feil fra PUT ${STILLINGSSOEK_API_URL}`);
         return new Response(null, { status: 500 });
     }
 };
