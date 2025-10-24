@@ -18,6 +18,7 @@ import Feil from '@/components/feil';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import Egenvurdering from '@/components/egenvurdering/egenvurdering';
+import UxSignalsWidget from '@/components/ux-signals/ux-signals-widget';
 
 interface Props {
     sprak: Sprak;
