@@ -63,5 +63,10 @@ export const Default: Story = {
         sprak: 'nb',
         isEditMode: false,
         visAvmeldModal: false,
+        brukerprofil: {
+            identitetsnummer: '42',
+            tjenestestatus: 'AKTIV',
+        },
+        onEditSearch: () => console.log('onEditSearch'),
     },
 };
