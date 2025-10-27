@@ -68,5 +68,9 @@ export const Default: Story = {
             tjenestestatus: 'AKTIV',
         },
         onEditSearch: () => console.log('onEditSearch'),
+        lagretSok: {
+            fylker: [],
+            yrkeskategorier: [],
+        },
     },
 };
