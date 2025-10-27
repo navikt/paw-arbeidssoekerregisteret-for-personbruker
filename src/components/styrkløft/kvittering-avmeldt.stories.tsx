@@ -5,7 +5,9 @@ const meta = {
     title: 'Styrkløft/Komponenter/Kvittering avmeldt',
     component: KvitteringAvmeldt,
     tags: ['autodocs'],
-    args: {},
+    args: {
+        sprak: 'nb',
+    },
 } satisfies Meta<typeof KvitteringAvmeldt>;
 
 export default meta;

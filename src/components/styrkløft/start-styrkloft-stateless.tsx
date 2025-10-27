@@ -30,7 +30,7 @@ export function StartStyrkloftStateless(props: Props) {
     if (visVelgFiltere) {
         return <VelgStillingssoek sprak={sprak} onSubmit={onSubmitStillingsSoek} />;
     } else if (visAvmeldtKvittering) {
-        return <KvitteringAvmeldt />;
+        return <KvitteringAvmeldt sprak={sprak} />;
     } else if (visGodkjennEksperiment) {
         return (
             <GodkjennEksperiment
