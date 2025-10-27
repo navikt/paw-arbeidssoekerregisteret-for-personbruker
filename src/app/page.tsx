@@ -1,6 +1,6 @@
 import { Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, ProfilertTil, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 import { fetchAggregertePerioder, fetchTilgjengeligEgenvurdering } from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
@@ -18,6 +18,7 @@ import Feil from '@/components/feil';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import Egenvurdering from '@/components/egenvurdering/egenvurdering';
+import VisWidgetForProfilerteTil from '@/components/ux-signals/vis-widget-for-profilerte-til';
 
 interface Props {
     sprak: Sprak;
@@ -80,6 +81,10 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                 />
             )}
             {harHistorikk && <SeHistorikkLenke sprak={sprak} />}
+            <VisWidgetForProfilerteTil
+                profilertTil={[ProfilertTil.ANTATT_GODE_MULIGHETER]}
+                opplysninger={opplysninger}
+            />
         </>
     );
 }
