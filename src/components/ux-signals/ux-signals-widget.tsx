@@ -11,9 +11,9 @@ interface UxSignalsWidgetProps {
 
 const uxSignalsUndersoekelseId = 'panel-sg6fwvepqu';
 
-export default function UxSignalsWidget(props: UxSignalsWidgetProps): ReactElement | null {
+export default async function UxSignalsWidget(props: UxSignalsWidgetProps) {
     const { erDemo } = props;
-    const erUndersoekelseAktiv = isEnabled(unleashKeys.BRUK_UXSIGNALS);
+    const erUndersoekelseAktiv = await isEnabled(unleashKeys.BRUK_UXSIGNALS);
 
     if (!erUndersoekelseAktiv) return null;
 
