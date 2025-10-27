@@ -24,7 +24,7 @@ function AktivBruker(props: AktivBrukerProps) {
     return (
         <AktivBrukerStateless
             {...props}
-            isEditMode={false}
+            isEditMode={isEditMode}
             visAvmeldModal={false}
             onEditSearch={onEditSearch}
             onSubmitStillingsSoek={onSubmitStillingssoek}
