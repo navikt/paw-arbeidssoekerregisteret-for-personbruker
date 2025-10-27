@@ -1,10 +1,9 @@
 import Script from 'next/script';
 import { ReactElement } from 'react';
+import { Box } from '@navikt/ds-react';
 
 import { isEnabled } from '@/lib/unleash-is-enabled';
 import unleashKeys from '@/unleash-keys';
-
-import styles from './ux-signals.module.css';
 
 interface UxSignalsWidgetProps {
     erDemo?: boolean;
@@ -19,13 +18,9 @@ export default function UxSignalsWidget(props: UxSignalsWidgetProps): ReactEleme
     if (!erUndersoekelseAktiv) return null;
 
     return (
-        <>
-            <div
-                data-uxsignals-embed={uxSignalsUndersoekelseId}
-                data-uxsignals-mode={erDemo ? 'demo' : ''}
-                className={styles.uxSignalsContainer}
-            ></div>
+        <Box background="surface-default" borderRadius="large" borderColor={'border-subtle'} className="mb-8">
+            <div data-uxsignals-embed={uxSignalsUndersoekelseId} data-uxsignals-mode={erDemo ? 'demo' : ''}></div>
             <Script type="module" strategy="lazyOnload" src="https://widget.uxsignals.com/embed.js" />
-        </>
+        </Box>
     );
 }
