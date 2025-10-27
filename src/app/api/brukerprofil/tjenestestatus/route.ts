@@ -1,5 +1,6 @@
 import { gyldigTjenestestatus } from '@/lib/gyldig-tjenestestatus';
 import { requestTexasOboToken } from '@/lib/texas';
+import { TjenestestatusRequest } from '@/model/brukerprofil';
 import { logger } from '@navikt/next-logger';
 import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { headers } from 'next/headers';
@@ -12,6 +13,7 @@ const TJENESTESTATUS_API_URL = `${process.env.BRUKERPROFIL_API_URL}/api/v1/bruke
 /**
  * PUT endepunktet for `tjenestestatus` i brukerprofil API.
  * Må sende med en status (`tjenstestatus`) for at den skal fungere.
+ * @param {TjenestestatusRequest} - { tjenestestatus: Tjenestestatus }
  * 
  * @eksempel
  * Request body:
@@ -20,7 +22,7 @@ const TJENESTESTATUS_API_URL = `${process.env.BRUKERPROFIL_API_URL}/api/v1/bruke
     method: 'PUT',
     headers: {
         'Content-Type': 'application/json',
-        Authorization: 'application/json',
+        Authorization: 'Bearer <token>',
     },
     body: JSON.stringify({ tjenestestatus: 'AKTIV' }),
 })
@@ -84,15 +86,25 @@ export const PUT = async (request: Request) => {
 
         logger.info({ x_trace_id: traceId }, `Ferdig PUT ${urlWithPath} ${response.status} ${response.statusText}`);
 
-        let data = null;
-        if (response.headers.get('content-type')?.includes('application/json')) {
-            data = await response.json();
+        if (response.status === 204) {
+            return new Response(null, { status: 204 });
         }
 
-        return new Response(JSON.stringify(data), {
+        if (response.headers.get('content-type')?.includes('application/json')) {
+            const data = await response.json();
+            return new Response(JSON.stringify(data), {
+                status: response.status,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+        }
+
+        const textData = await response.text();
+        return new Response(textData, {
             status: response.status,
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': response.headers.get('content-type') || 'text/plain',
             },
         });
     } catch (error: any) {
