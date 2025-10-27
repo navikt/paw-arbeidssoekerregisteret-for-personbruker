@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { gyldigTjenestestatus } from './route';
+import { gyldigTjenestestatus } from './gyldig-tjenestestatus';
 
 describe('validere typesjekken til gyldigTjenestestatus', () => {
     it('Skal returnere true for gyldig TjenestestatusRequest', () => {

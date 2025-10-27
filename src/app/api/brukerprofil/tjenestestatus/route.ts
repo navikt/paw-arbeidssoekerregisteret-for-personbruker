@@ -1,29 +1,13 @@
+import { gyldigTjenestestatus } from '@/lib/gyldig-tjenestestatus';
 import { requestTexasOboToken } from '@/lib/texas';
 import { logger } from '@navikt/next-logger';
 import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
-import { TjenestestatusRequest } from '@/model/brukerprofil';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const BRUKERPROFIL_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-mine-stillinger`;
 const TJENESTESTATUS_API_URL = `${process.env.BRUKERPROFIL_API_URL}/api/v1/brukerprofil/tjenestestatus`;
-
-/**
- * Manuell sjekk av type for TjenestestatusRequest.
- * Siden vi ikke kan stole på at request body er av riktig type.
- *
- * @param body - Request body å validere
- * @returns True dersom body inneholder gyldig tjenestestatus
- */
-export function gyldigTjenestestatus(body: any): body is TjenestestatusRequest {
-    return (
-        typeof body === 'object' &&
-        body !== null &&
-        typeof body.tjenestestatus === 'string' &&
-        body.tjenestestatus.trim().length > 0
-    );
-}
 
 /**
  * PUT endepunktet for `tjenestestatus` i brukerprofil API.
