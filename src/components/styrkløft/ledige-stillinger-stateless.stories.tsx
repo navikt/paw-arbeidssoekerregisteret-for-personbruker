@@ -49,3 +49,11 @@ export const DefaultLedigStilling: Story = {
         ],
     },
 };
+
+export const IngenTreff: Story = {
+    args: {
+        sprak: 'nb',
+        soek: {},
+        resultat: [],
+    },
+};

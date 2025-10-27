@@ -1,4 +1,4 @@
-import { Box } from '@navikt/ds-react';
+import { Box, Heading } from '@navikt/ds-react';
 import { FlerValgsMeny } from '@/components/styrkløft/flervalgsmeny';
 import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import { AktivBrukerProps } from '@/components/styrkløft/aktiv-bruker';
@@ -17,8 +17,11 @@ function AktivBrukerStateless(props: Props) {
     const fylker = (lagretSoek?.fylker ?? []).map((f) => f.navn);
     const yrkeskategories = hentYrkeskategorier(lagretSoek?.styrk08 ?? []);
     return (
-        <Box padding="space-16" borderRadius="large" shadow="xsmall">
-            <div className={'flex justify-end mb-2'}>
+        <Box padding="space-16" borderRadius="large" shadow="xsmall" className={'mb-4'}>
+            <div className={'flex justify-between mb-2'}>
+                <Heading size={'medium'} level={'3'} className={'mb-4'}>
+                    Ledige stillinger
+                </Heading>
                 <FlerValgsMeny onEditSearch={onEditSearch} onEnd={() => console.log('onEnd')} sprak={sprak} />
             </div>
             {!isEditMode && <LedigeStillinger fetchData={props.onFetchStillinger} />}

@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import LedigeStillingerStateless from '@/components/styrkløft/ledige-stillinger-stateless';
 
