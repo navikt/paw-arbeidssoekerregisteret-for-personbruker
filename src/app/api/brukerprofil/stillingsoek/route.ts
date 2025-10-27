@@ -43,15 +43,25 @@ export const PUT = async (request: Request) => {
             `Ferdig PUT ${STILLINGSSOEK_API_URL} ${response.status} ${response.statusText}`,
         );
 
-        let data = null;
-        if (response.headers.get('content-type')?.includes('application/json')) {
-            data = await response.json();
+        if (response.status === 204) {
+            return new Response(null, { status: 204 });
         }
 
-        return new Response(JSON.stringify(data), {
+        if (response.headers.get('content-type')?.includes('application/json')) {
+            const data = await response.json();
+            return new Response(JSON.stringify(data), {
+                status: response.status,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+        }
+
+        const textData = await response.text();
+        return new Response(textData, {
             status: response.status,
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': response.headers.get('content-type') || 'text/plain',
             },
         });
     } catch (error: any) {
