@@ -9,7 +9,14 @@ const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const BRUKERPROFIL_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-mine-stillinger`;
 const TJENESTESTATUS_API_URL = `${process.env.BRUKERPROFIL_API_URL}/api/v1/brukerprofil/tjenestestatus`;
 
-function gyldigTjenestestatus(body: any): body is TjenestestatusRequest {
+/**
+ * Manuell sjekk av type for TjenestestatusRequest.
+ * Siden vi ikke kan stole på at request body er av riktig type.
+ *
+ * @param body - Request body å validere
+ * @returns True dersom body inneholder gyldig tjenestestatus
+ */
+export function gyldigTjenestestatus(body: any): body is TjenestestatusRequest {
     return (
         typeof body === 'object' &&
         body !== null &&
@@ -17,6 +24,24 @@ function gyldigTjenestestatus(body: any): body is TjenestestatusRequest {
         body.tjenestestatus.trim().length > 0
     );
 }
+
+/**
+ * PUT endepunktet for `tjenestestatus` i brukerprofil API.
+ * Må sende med en status (`tjenstestatus`) for at den skal fungere.
+ * 
+ * @eksempel
+ * Request body:
+ * ```tsx
+ * fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/tjenestestatus`, {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'application/json',
+    },
+    body: JSON.stringify({ tjenestestatus: 'AKTIV' }),
+})
+ * ```
+ */
 
 export const PUT = async (request: Request) => {
     if (brukerMock) {
