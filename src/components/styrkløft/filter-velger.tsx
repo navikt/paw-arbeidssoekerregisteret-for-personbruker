@@ -12,7 +12,7 @@ interface Props {
 function FilterVelger(props: Props) {
     const { values, heading, options, onChange, defaultOpen } = props;
     return (
-        <div className={'flex'}>
+        <div className={'flex flex-wrap md:flexno-wrap'}>
             <Dropdown defaultOpen={defaultOpen}>
                 <Button
                     variant={'secondary'}
@@ -20,6 +20,7 @@ function FilterVelger(props: Props) {
                     as={Dropdown.Toggle}
                     iconPosition="right"
                     icon={<PencilIcon title={'Endre'} />}
+                    className={'shrink-0 h-fit mb-2'}
                 >
                     {heading}
                 </Button>
