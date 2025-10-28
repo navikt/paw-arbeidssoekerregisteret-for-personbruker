@@ -4,13 +4,14 @@ import VelgStillingssoekStateless from '@/components/styrkløft/velg-stillingsso
 
 interface Props {
     onSubmit(data: any): Promise<void>;
+    onCancel?: () => void;
     fylker?: string[];
     yrkeskategorier?: string[];
     sprak: Sprak;
 }
 
 function VelgStillingssoek(props: Props) {
-    const { sprak } = props;
+    const { sprak, onCancel } = props;
     const [valgteFylker, settValgteFylker] = useState<string[]>(props.fylker ?? []);
     const [valgteYrkeskategorier, settValgteYrkeskategorier] = useState<string[]>(props.yrkeskategorier ?? []);
     const [isPending, setIsPending] = useState<boolean>(false);
@@ -33,6 +34,7 @@ function VelgStillingssoek(props: Props) {
     return (
         <VelgStillingssoekStateless
             onSubmit={onSubmit}
+            onCancel={onCancel}
             fylker={valgteFylker}
             yrkeskategorier={valgteYrkeskategorier}
             sprak={sprak}

@@ -78,3 +78,15 @@ export const MedFeil: Story = {
         error: 'feil',
     },
 };
+
+export const MedAvbrytKnapp: Story = {
+    args: {
+        onSubmit: () => Promise.resolve(),
+        onCancel: () => alert('Cancel!'),
+        sprak: 'nb',
+        fylker: ['Oslo', 'Østfold'],
+        yrkeskategorier: ['IT'],
+        onChangeYrkeskategorier: (val: string[]) => {},
+        onChangeFylker: (val: string[]) => {},
+    },
+};

@@ -72,5 +72,6 @@ export const Default: Story = {
             fylker: [],
             yrkeskategorier: [],
         },
+        onCancelEditSearch: () => console.log('onCancelEditSearch'),
     },
 };

@@ -9,6 +9,7 @@ interface Props extends AktivBrukerProps {
     isEditMode: boolean;
     visAvmeldModal: boolean;
     onEditSearch: () => void;
+    onCancelEditSearch: () => void;
     lagretSok: {
         fylker: string[];
         yrkeskategorier: string[];
@@ -16,7 +17,7 @@ interface Props extends AktivBrukerProps {
 }
 
 function AktivBrukerStateless(props: Props) {
-    const { sprak, isEditMode, lagretSok, onSubmitStillingsSoek, onEditSearch } = props;
+    const { sprak, isEditMode, lagretSok, onSubmitStillingsSoek, onEditSearch, onCancelEditSearch } = props;
     return (
         <Box padding="space-16" borderRadius="large" shadow="xsmall" className={'mb-4'}>
             <div className={'flex justify-between mb-2'}>
@@ -32,6 +33,7 @@ function AktivBrukerStateless(props: Props) {
                     fylker={lagretSok.fylker}
                     yrkeskategorier={lagretSok.yrkeskategorier}
                     onSubmit={onSubmitStillingsSoek}
+                    onCancel={onCancelEditSearch}
                 />
             )}
         </Box>

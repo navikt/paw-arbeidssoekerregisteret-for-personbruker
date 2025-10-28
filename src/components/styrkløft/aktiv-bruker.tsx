@@ -32,6 +32,7 @@ function AktivBruker(props: AktivBrukerProps) {
     };
 
     const onEditSearch = () => setIsEditMode(true);
+    const onCancelEditSearch = () => setIsEditMode(false);
 
     return (
         <AktivBrukerStateless
@@ -41,6 +42,7 @@ function AktivBruker(props: AktivBrukerProps) {
             onEditSearch={onEditSearch}
             onSubmitStillingsSoek={onSubmitStillingssoek}
             lagretSok={lagretSok}
+            onCancelEditSearch={onCancelEditSearch}
         />
     );
 }
