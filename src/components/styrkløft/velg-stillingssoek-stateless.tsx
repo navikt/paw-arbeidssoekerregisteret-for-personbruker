@@ -32,7 +32,7 @@ export default function VelgStillingssoekStateless(props: Props) {
     const isDisabled = fylker.length === 0 || yrkeskategorier.length === 0;
 
     return (
-        <Box padding="space-16" borderRadius="large" shadow="xsmall">
+        <Box>
             <Heading level="3" size="large">
                 Velg yrkeskategorier og fylker du vil se stillinger fra
             </Heading>

@@ -33,7 +33,7 @@ function GodkjennEksperiment(props: Props) {
     const onAvmeldSubmit = () => onSubmit('OPT_OUT');
 
     return (
-        <Box padding="space-16" borderRadius="large" shadow="xsmall">
+        <Box>
             <Heading level="3" size="large">
                 {tekst('heading')}
                 <div className={'float-right'}>

@@ -15,11 +15,13 @@ function LedigeStillingerStateless(props: Props) {
     return (
         <Box>
             {!harTreff && <BodyShort>Ingen treff</BodyShort>}
-            <HGrid gap="space-24" columns={{ sm: 1, md: 2 }} className={'mb-4'}>
-                {resultat.map((stilling) => (
-                    <LedigStilling ledigStilling={stilling} key={stilling.tittel} />
-                ))}
-            </HGrid>
+            {harTreff && (
+                <HGrid gap="space-24" columns={{ sm: 1, md: 2 }} className={'mb-4'}>
+                    {resultat.map((stilling) => (
+                        <LedigStilling ledigStilling={stilling} key={stilling.tittel} />
+                    ))}
+                </HGrid>
+            )}
             <LinkTilArbeidsplassen stedSoek={soek} sprak={sprak} />
         </Box>
     );

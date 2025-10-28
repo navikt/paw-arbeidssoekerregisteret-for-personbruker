@@ -22,8 +22,7 @@ function useFetchData(props: Props) {
 function LedigeStillinger(props: Props) {
     const result = useFetchData(props);
 
-    if (result?.error) {
-        // TODO
+    if (result?.error || !result?.data) {
         return null;
     }
 

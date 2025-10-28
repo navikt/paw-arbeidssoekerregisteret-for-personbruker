@@ -3,7 +3,6 @@ import { FlerValgsMeny } from '@/components/styrkløft/flervalgsmeny';
 import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import { AktivBrukerProps } from '@/components/styrkløft/aktiv-bruker';
 import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
-import { hentYrkeskategorier } from '@/lib/hent-yrkeskategorier';
 
 interface Props extends AktivBrukerProps {
     isEditMode: boolean;
@@ -19,7 +18,14 @@ interface Props extends AktivBrukerProps {
 function AktivBrukerStateless(props: Props) {
     const { sprak, isEditMode, lagretSok, onSubmitStillingsSoek, onEditSearch, onCancelEditSearch } = props;
     return (
-        <Box padding="space-16" borderRadius="large" shadow="xsmall" className={'mb-4'}>
+        <Box
+            padding="space-16"
+            borderRadius="large"
+            shadow="xsmall"
+            className={'mb-4'}
+            borderColor={'border-subtle'}
+            borderWidth={'1'}
+        >
             <div className={'flex justify-between mb-2'}>
                 <Heading size={'medium'} level={'3'} className={'mb-4'}>
                     Ledige stillinger
