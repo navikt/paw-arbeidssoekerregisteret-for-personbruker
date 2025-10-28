@@ -6,6 +6,14 @@ const TEKSTER = {
         heading: 'Valget ditt er registrert',
         body: 'Vi vil ikke vise deg forslag på ledige stillinger',
     },
+    nn: {
+        heading: 'Valet ditt er registrert',
+        body: 'Me vil ikkje visa deg forslag på ledige stillingar',
+    },
+    en: {
+        heading: 'Your choice has been registered',
+        body: 'We will not show you job suggestions',
+    },
 };
 
 interface KvitteringAvmeldtProps {
