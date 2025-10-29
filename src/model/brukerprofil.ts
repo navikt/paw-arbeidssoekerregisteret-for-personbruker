@@ -71,6 +71,7 @@ export type LedigeStillinger = {
 };
 
 export type JobbAnnonse = {
+    arbeidsplassenNoId: string;
     tittel: string;
     stillingbeskrivelse?: string;
     publisert: string;
