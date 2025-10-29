@@ -67,44 +67,48 @@ async function fetchLedigStillinger(): Promise<{
     error?: Error & { traceId?: string; data?: any };
 }> {
     if (brukerMock) {
-        return Promise.resolve({
-            data: {
-                sistKjoert: '2025-10-20T12:00:00Z',
-                soek: {
-                    soekType: 'STED_SOEK_V1',
-                    fylker: [
-                        {
-                            navn: 'Buskerud',
-                            kommuner: [
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    data: {
+                        sistKjoert: '2025-10-20T12:00:00Z',
+                        soek: {
+                            soekType: 'STED_SOEK_V1',
+                            fylker: [
                                 {
-                                    navn: 'Bergen',
-                                    kommunenummer: '4601',
+                                    navn: 'Buskerud',
+                                    kommuner: [
+                                        {
+                                            navn: 'Bergen',
+                                            kommunenummer: '4601',
+                                        },
+                                    ],
+                                    fylkesnummer: '46',
                                 },
                             ],
-                            fylkesnummer: '46',
+                            soekeord: [],
+                            styrk08: ['1330'],
                         },
-                    ],
-                    soekeord: [],
-                    styrk08: ['1330'],
-                },
-                resultat: [
-                    {
-                        arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-                        tittel: 'Vi du jobbe som utvikler hos oss?',
-                        stillingbeskrivelse: 'Backendutikler/Java',
-                        publisert: '2025-10-17T10:30:00Z',
-                        soeknadsfrist: {
-                            raw: 'Her kan det stå hva som helst dersom fristType er Ukjent',
-                            fristType: 'Ukjent',
-                            dato: '2025-11-25',
-                        },
-                        land: 'Norge',
-                        kommune: 'Oslo',
-                        sektor: 'Offentlig',
-                        selskap: 'Snedige Løsninger AS',
+                        resultat: [
+                            {
+                                arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+                                tittel: 'Vi du jobbe som utvikler hos oss?',
+                                stillingbeskrivelse: 'Backendutikler/Java',
+                                publisert: '2025-10-17T10:30:00Z',
+                                soeknadsfrist: {
+                                    raw: 'Her kan det stå hva som helst dersom fristType er Ukjent',
+                                    fristType: 'Ukjent',
+                                    dato: '2025-11-25',
+                                },
+                                land: 'Norge',
+                                kommune: 'Oslo',
+                                sektor: 'Offentlig',
+                                selskap: 'Snedige Løsninger AS',
+                            },
+                        ],
                     },
-                ],
-            },
+                });
+            }, 1000);
         });
     }
 

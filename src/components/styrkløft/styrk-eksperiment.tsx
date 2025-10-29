@@ -51,7 +51,9 @@ function StyrkEksperiment(props: Props) {
     };
 
     const useOnFetchStillinger = () => {
-        return useSWRImmutable(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/ledigestillinger`, swrFetcher);
+        return useSWRImmutable(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/ledigestillinger`, swrFetcher, {
+            suspense: true,
+        });
     };
 
     return (

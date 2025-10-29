@@ -1,4 +1,4 @@
-import { Box, Heading } from '@navikt/ds-react';
+import { Box, Heading, Loader } from '@navikt/ds-react';
 import { FlerValgsMeny } from '@/components/styrkløft/flervalgsmeny';
 import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import { AktivBrukerProps } from '@/components/styrkløft/aktiv-bruker';
@@ -34,7 +34,7 @@ function AktivBrukerStateless(props: Props) {
                 <FlerValgsMeny onEditSearch={onEditSearch} onEnd={() => console.log('onEnd')} sprak={sprak} />
             </div>
             {!isEditMode && (
-                <Suspense>
+                <Suspense fallback={<Loader />}>
                     <LedigeStillinger fetchData={props.useOnFetchStillinger} />
                 </Suspense>
             )}
