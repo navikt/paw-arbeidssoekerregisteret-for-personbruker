@@ -57,8 +57,8 @@ const ledigStillingerRespons = {
 
 export const Default: Story = {
     args: {
-        onFetchStillinger() {
-            return Promise.resolve(ledigStillingerRespons);
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
         },
         onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
         onSubmitStillingsSoek: (data: any) => Promise.resolve(),

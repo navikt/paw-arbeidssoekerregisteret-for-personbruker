@@ -1,7 +1,12 @@
 import { fetchLedigStillinger } from '@/app/brukerprofil-api';
 
 export async function GET() {
-    return new Response(JSON.stringify(await fetchLedigStillinger()), {
+    const { data, error } = await fetchLedigStillinger();
+    if (error) {
+        return new Response(null, { status: (error as any).status ?? 500 });
+    }
+
+    return new Response(JSON.stringify(data), {
         status: 200,
         headers: {
             'Content-Type': 'application/json',

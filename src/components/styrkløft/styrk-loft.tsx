@@ -8,7 +8,7 @@ interface Props {
     brukerprofil: Brukerprofil;
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
     onSubmitStillingsSoek(data: any): Promise<void>;
-    onFetchStillinger(): Promise<{ data?: any; error?: Error }>;
+    useOnFetchStillinger(): { data?: any; error?: Error };
     sprak: Sprak;
 }
 
@@ -31,7 +31,7 @@ function StyrkLoftStateless(props: StatelessProps) {
 }
 
 function StyrkLoft(props: Props) {
-    const { brukerprofil, sprak, onSubmitTjenestestatus, onFetchStillinger } = props;
+    const { brukerprofil, sprak, onSubmitTjenestestatus, useOnFetchStillinger } = props;
     const [harLagretSoek, settHarLagretSoek] = useState(false);
 
     const erAvmeldt = brukerprofil.tjenestestatus === 'OPT_OUT' || brukerprofil.tjenestestatus === 'KAN_IKKE_LEVERES';
@@ -52,7 +52,7 @@ function StyrkLoft(props: Props) {
             brukerprofil={brukerprofil}
             onSubmitTjenestestatus={onSubmitTjenestestatus}
             onSubmitStillingsSoek={onSubmitStillingsSoek}
-            onFetchStillinger={onFetchStillinger}
+            useOnFetchStillinger={useOnFetchStillinger}
             sprak={sprak}
         />
     );

@@ -3,6 +3,7 @@ import { FlerValgsMeny } from '@/components/styrkløft/flervalgsmeny';
 import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import { AktivBrukerProps } from '@/components/styrkløft/aktiv-bruker';
 import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
+import { Suspense } from 'react';
 
 interface Props extends AktivBrukerProps {
     isEditMode: boolean;
@@ -32,7 +33,11 @@ function AktivBrukerStateless(props: Props) {
                 </Heading>
                 <FlerValgsMeny onEditSearch={onEditSearch} onEnd={() => console.log('onEnd')} sprak={sprak} />
             </div>
-            {!isEditMode && <LedigeStillinger fetchData={props.onFetchStillinger} />}
+            {!isEditMode && (
+                <Suspense>
+                    <LedigeStillinger fetchData={props.useOnFetchStillinger} />
+                </Suspense>
+            )}
             {isEditMode && (
                 <VelgStillingssoek
                     sprak={sprak}

@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import LedigeStillingerStateless from '@/components/styrkløft/ledige-stillinger-stateless';
+import useSWR from 'swr';
 
 interface Props {
-    fetchData(): Promise<{ data?: any; error?: Error }>;
+    fetchData(): { data?: any; error?: Error };
 }
 
 function useFetchData(props: Props) {
@@ -20,13 +21,13 @@ function useFetchData(props: Props) {
 }
 
 function LedigeStillinger(props: Props) {
-    const result = useFetchData(props);
+    const { data, error } = props.fetchData();
 
-    if (result?.error || !result?.data) {
+    if (error || !data) {
         return null;
     }
 
-    return <LedigeStillingerStateless {...result?.data} />;
+    return <LedigeStillingerStateless {...data} />;
 }
 
 export default LedigeStillinger;

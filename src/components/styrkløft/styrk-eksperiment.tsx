@@ -4,6 +4,7 @@ import { Brukerprofil, LedigeStillinger, Tjenestestatus } from '@/model/brukerpr
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import StyrkLoft from '@/components/styrkløft/styrk-loft';
 import byggStillingssoekPayload from '@/lib/bygg-stillingssoek-payload';
+import useSWRImmutable from 'swr/immutable';
 
 interface Props {
     sprak: Sprak;
@@ -26,6 +27,15 @@ function fetcher(path: string, body: any) {
     });
 }
 
+const swrFetcher = (url: string) => {
+    return fetch(url).then((response) => {
+        if (!response.ok) {
+            throw new Error(response.statusText);
+        }
+        return response.json();
+    });
+};
+
 function StyrkEksperiment(props: Props) {
     const onSubmitTjenesteStatus = (status: Tjenestestatus) => {
         return fetcher(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/tjenestestatus`, {
@@ -40,20 +50,15 @@ function StyrkEksperiment(props: Props) {
         );
     };
 
-    const onFetchStillinger = () => {
-        return fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/ledigestillinger`).then((response) => {
-            if (!response.ok) {
-                throw new Error(response.statusText);
-            }
-            return response.json();
-        });
+    const useOnFetchStillinger = () => {
+        return useSWRImmutable(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/ledigestillinger`, swrFetcher);
     };
 
     return (
         <StyrkLoft
             sprak={props.sprak}
             brukerprofil={props.brukerprofil}
-            onFetchStillinger={onFetchStillinger}
+            useOnFetchStillinger={useOnFetchStillinger}
             onSubmitStillingsSoek={onSubmitStillingsSoek}
             onSubmitTjenestestatus={onSubmitTjenesteStatus}
         />

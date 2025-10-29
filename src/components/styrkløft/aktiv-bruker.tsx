@@ -7,7 +7,7 @@ import { hentYrkeskategorier } from '@/lib/hent-yrkeskategorier';
 export interface AktivBrukerProps {
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
     onSubmitStillingsSoek(data: any): Promise<void>;
-    onFetchStillinger(): Promise<{ data?: any; error?: Error }>;
+    useOnFetchStillinger(): { data?: any; error?: Error };
     brukerprofil: Brukerprofil;
     sprak: Sprak;
 }

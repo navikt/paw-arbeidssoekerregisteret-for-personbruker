@@ -68,8 +68,8 @@ export const Demo: Story = {
             // console.log('onSubmitStillingsSoek', data);
             return Promise.reject(new Error('feil'));
         },
-        onFetchStillinger() {
-            return Promise.resolve(ledigStillingerRespons);
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
         },
         sprak: 'nb',
     },
@@ -87,8 +87,8 @@ export const Avmeldt: Story = {
         onSubmitStillingsSoek(data: any) {
             return Promise.resolve();
         },
-        onFetchStillinger() {
-            return Promise.resolve(ledigStillingerRespons);
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
         },
         sprak: 'nb',
     },
@@ -107,8 +107,8 @@ export const AktivUtenLagretSøk: Story = {
         onSubmitStillingsSoek(data: any) {
             return Promise.resolve();
         },
-        onFetchStillinger() {
-            return Promise.resolve(ledigStillingerRespons);
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
         },
         sprak: 'nb',
     },
@@ -144,8 +144,8 @@ export const MedLagretSøk: Story = {
         onSubmitStillingsSoek(data: any) {
             return Promise.resolve();
         },
-        onFetchStillinger() {
-            return Promise.resolve(ledigStillingerRespons);
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
         },
         sprak: 'nb',
     },
@@ -171,8 +171,8 @@ export const MedFeilNårManLagrerTjenestestatus: Story = {
                 }, 1000);
             });
         },
-        onFetchStillinger() {
-            return Promise.resolve(ledigStillingerRespons);
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
         },
         sprak: 'nb',
     },
@@ -195,8 +195,8 @@ export const MedFeilNårManLagrerSøk: Story = {
                 }, 1000);
             });
         },
-        onFetchStillinger() {
-            return Promise.resolve(ledigStillingerRespons);
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
         },
         sprak: 'nb',
     },
