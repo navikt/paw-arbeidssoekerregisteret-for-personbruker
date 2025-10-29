@@ -89,6 +89,7 @@ async function fetchLedigStillinger(): Promise<{
                 },
                 resultat: [
                     {
+                        arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
                         tittel: 'Vi du jobbe som utvikler hos oss?',
                         stillingbeskrivelse: 'Backendutikler/Java',
                         publisert: '2025-10-17T10:30:00Z',

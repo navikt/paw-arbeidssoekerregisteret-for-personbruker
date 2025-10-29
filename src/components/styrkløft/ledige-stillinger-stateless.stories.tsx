@@ -17,7 +17,7 @@ export const DefaultLedigStilling: Story = {
         soek: {},
         resultat: [
             {
-                uuid: 'uuid',
+                arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
                 tittel: 'Nittedal Tannlegesenter har ledig stilling som tannhelsesekretær/tannlegeassistent, er du den rette?',
                 stillingbeskrivelse: 'Tannlegeassistent, Tannhelsesekretær, Klinikkassistent',
                 selskap: 'Nittedal Tannlegesenter Og Tannlegevakt',
@@ -27,7 +27,7 @@ export const DefaultLedigStilling: Story = {
                 },
             },
             {
-                uuid: 'uuid',
+                arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
                 tittel: 'Do you want to be part of developing WorldHotels and taking the brand to new heights in Scandinavia?',
                 stillingbeskrivelse: 'Head of Performance WorldHotels',
                 selskap: 'BWH Hotels Scandinavia',
@@ -37,7 +37,7 @@ export const DefaultLedigStilling: Story = {
                 },
             },
             {
-                uuid: 'uuid',
+                arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
                 tittel: 'Jurist A-krim Oslo',
                 stillingbeskrivelse: 'seniorrådgiver',
                 selskap: 'Arbeidstilsynet',

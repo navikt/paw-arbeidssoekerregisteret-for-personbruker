@@ -7,7 +7,7 @@ interface Props {
 
 function LedigStilling(props: Props) {
     const { ledigStilling } = props;
-    const ledigStillingUrl = `https://arbeidsplassen.nav.no/stillinger/stilling/${ledigStilling.uuid}`;
+    const ledigStillingUrl = `https://arbeidsplassen.nav.no/stillinger/stilling/${ledigStilling.arbeidsplassenNoId}`;
 
     return (
         <Box padding="space-16" borderRadius="large" shadow="xsmall">

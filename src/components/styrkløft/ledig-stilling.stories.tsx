@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 export const DefaultLedigStilling: Story = {
     args: {
         ledigStilling: {
-            uuid: 'uuid',
+            arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
             tittel: 'Nittedal Tannlegesenter har ledig stilling som tannhelsesekretær/tannlegeassistent, er du den rette?',
             stillingbeskrivelse: 'Tannlegeassistent, Tannhelsesekretær, Klinikkassistent',
             selskap: 'Nittedal Tannlegesenter Og Tannlegevakt',
