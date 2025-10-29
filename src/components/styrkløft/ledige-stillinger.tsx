@@ -1,18 +1,11 @@
-'use client';
-
 import LedigeStillingerStateless from '@/components/styrkløft/ledige-stillinger-stateless';
 
 interface Props {
-    fetchData(): { data?: any; error?: Error };
+    useOnFetchData(): { data?: any; error?: Error };
 }
 
 function LedigeStillinger(props: Props) {
-    const { data, error } = props.fetchData();
-
-    if (error || !data) {
-        return null;
-    }
-
+    const { data } = props.useOnFetchData();
     return <LedigeStillingerStateless {...data} />;
 }
 

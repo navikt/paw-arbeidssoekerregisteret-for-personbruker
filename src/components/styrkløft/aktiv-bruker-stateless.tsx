@@ -4,6 +4,7 @@ import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import { AktivBrukerProps } from '@/components/styrkløft/aktiv-bruker';
 import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 import { Suspense } from 'react';
+import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
 
 interface Props extends AktivBrukerProps {
     isEditMode: boolean;
@@ -34,9 +35,11 @@ function AktivBrukerStateless(props: Props) {
                 <FlerValgsMeny onEditSearch={onEditSearch} onEnd={() => console.log('onEnd')} sprak={sprak} />
             </div>
             {!isEditMode && (
-                <Suspense fallback={<Loader />}>
-                    <LedigeStillinger fetchData={props.useOnFetchStillinger} />
-                </Suspense>
+                <ErrorBoundary errorComponent={() => null}>
+                    <Suspense fallback={<Loader />}>
+                        <LedigeStillinger useOnFetchData={props.useOnFetchStillinger} />
+                    </Suspense>
+                </ErrorBoundary>
             )}
             {isEditMode && (
                 <VelgStillingssoek
