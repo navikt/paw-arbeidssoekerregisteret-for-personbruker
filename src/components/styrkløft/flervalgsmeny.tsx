@@ -6,18 +6,18 @@ import React from 'react';
 const TEKSTER = {
     nb: {
         heading: 'Valg for arbeidsøket',
-        endresok: 'Endre søke mitt',
-        slutt: 'Jeg ønsker ikke lengre å se søk',
+        endresok: 'Endre søket mitt',
+        slutt: 'Jeg ønsker ikke lengre å se ledige stillinger',
     },
     nn: {
         heading: 'Val for arbeidsøket',
-        endresok: 'Endre søke mitt',
-        slutt: 'Eg ønskjer ikkje lengre å sjå søk',
+        endresok: 'Endre søket mitt',
+        slutt: 'Eg ønskjer ikkje lengre å sjå ledige stillingar',
     },
     en: {
         heading: 'Options for job search',
-        endresok: 'Change my search',
-        slutt: 'I no longer want to see search',
+        endresok: 'Edit my search',
+        slutt: 'I no longer want to see vacant jobs',
     },
 };
 
