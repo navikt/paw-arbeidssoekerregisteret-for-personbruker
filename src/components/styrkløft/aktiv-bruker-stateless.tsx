@@ -6,6 +6,8 @@ import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
 import { BekreftAvmelding } from '@/components/styrkløft/bekreft-avmelding';
+import { Tjenestestatus } from '@/model/brukerprofil';
+import { KvitteringAvmeldt } from '@/components/styrkløft/kvittering-avmeldt';
 
 interface Props extends AktivBrukerProps {
     isEditMode: boolean;
@@ -16,7 +18,10 @@ interface Props extends AktivBrukerProps {
         fylker: string[];
         yrkeskategorier: string[];
     };
-    onVisAvmeldModal: () => void;
+    onVisAvmeldModal: (val: boolean) => void;
+    submittedTjenestestatus?: Tjenestestatus | null;
+    pendingTjenestestatus?: Tjenestestatus | null;
+    errorTjenestestatus?: string | null;
 }
 
 function AktivBrukerStateless(props: Props) {
@@ -29,7 +34,16 @@ function AktivBrukerStateless(props: Props) {
         onEditSearch,
         onCancelEditSearch,
         onVisAvmeldModal,
+        onSubmitTjenestestatus,
+        submittedTjenestestatus,
+        pendingTjenestestatus,
+        errorTjenestestatus,
     } = props;
+
+    if (submittedTjenestestatus === 'OPT_OUT') {
+        return <KvitteringAvmeldt sprak={sprak} />;
+    }
+
     return (
         <Box
             className={'py-4 px-6'}
@@ -42,7 +56,7 @@ function AktivBrukerStateless(props: Props) {
                 <Heading size={'medium'} level={'3'} className={'mb-4'}>
                     Ledige stillinger
                 </Heading>
-                <FlerValgsMeny onEditSearch={onEditSearch} onEnd={onVisAvmeldModal} sprak={sprak} />
+                <FlerValgsMeny onEditSearch={onEditSearch} onEnd={() => onVisAvmeldModal(true)} sprak={sprak} />
             </div>
             {!isEditMode && (
                 <ErrorBoundary errorComponent={() => null}>
@@ -63,9 +77,11 @@ function AktivBrukerStateless(props: Props) {
             {visAvmeldModal && (
                 <BekreftAvmelding
                     open={visAvmeldModal}
-                    onConfirm={() => console.log('onConfirm')}
-                    onClose={() => console.log('onClose')}
+                    onConfirm={() => onSubmitTjenestestatus('OPT_OUT')}
+                    onClose={() => onVisAvmeldModal(false)}
                     sprak={sprak}
+                    pending={Boolean(pendingTjenestestatus)}
+                    error={Boolean(errorTjenestestatus)}
                 />
             )}
         </Box>

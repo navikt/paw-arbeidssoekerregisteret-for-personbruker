@@ -31,7 +31,7 @@ function StyrkLoftStateless(props: StatelessProps) {
 }
 
 function StyrkLoft(props: Props) {
-    const { brukerprofil, sprak, onSubmitTjenestestatus, useOnFetchStillinger } = props;
+    const { brukerprofil, sprak, useOnFetchStillinger, onSubmitTjenestestatus } = props;
     const [harLagretSoek, settHarLagretSoek] = useState(false);
 
     const erAvmeldt = brukerprofil.tjenestestatus === 'OPT_OUT' || brukerprofil.tjenestestatus === 'KAN_IKKE_LEVERES';

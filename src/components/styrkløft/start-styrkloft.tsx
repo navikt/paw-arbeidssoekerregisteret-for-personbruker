@@ -1,7 +1,7 @@
 import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { useState } from 'react';
 import { StartStyrkloftStateless } from '@/components/styrkløft/start-styrkloft-stateless';
+import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
 
 interface Props {
     brukerprofil: Brukerprofil;
@@ -12,22 +12,8 @@ interface Props {
 
 function StartStyrkloft(props: Props) {
     const { brukerprofil } = props;
-    const [pendingTjenestestatus, setPendingTjenestestatus] = useState<Tjenestestatus | null>(null);
-    const [errorTjenestestatus, setErrorTjenestestatus] = useState<string | null>(null);
-    const [submittedTjenestestatus, setSubmittedTjenestestatus] = useState<Tjenestestatus | null>(null);
-
-    const onSubmitTjenestestatus = async (status: Tjenestestatus) => {
-        try {
-            setPendingTjenestestatus(status);
-            setErrorTjenestestatus(null);
-            await props.onSubmitTjenestestatus(status);
-            setSubmittedTjenestestatus(status);
-        } catch (err: any) {
-            setErrorTjenestestatus(err.message);
-        } finally {
-            setPendingTjenestestatus(null);
-        }
-    };
+    const { onSubmitTjenestestatus, submittedTjenestestatus, pendingTjenestestatus, errorTjenestestatus } =
+        useOnSubmitTjenestestatus(props.onSubmitTjenestestatus);
 
     return (
         <StartStyrkloftStateless

@@ -3,6 +3,7 @@ import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 import AktivBrukerStateless from '@/components/styrkløft/aktiv-bruker-stateless';
 import { useState } from 'react';
 import { hentYrkeskategorier } from '@/lib/hent-yrkeskategorier';
+import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
 
 export interface AktivBrukerProps {
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
@@ -34,6 +35,8 @@ function AktivBruker(props: AktivBrukerProps) {
 
     const onEditSearch = () => setIsEditMode(true);
     const onCancelEditSearch = () => setIsEditMode(false);
+    const { onSubmitTjenestestatus, submittedTjenestestatus, pendingTjenestestatus, errorTjenestestatus } =
+        useOnSubmitTjenestestatus(props.onSubmitTjenestestatus);
 
     return (
         <AktivBrukerStateless
@@ -44,7 +47,11 @@ function AktivBruker(props: AktivBrukerProps) {
             onSubmitStillingsSoek={onSubmitStillingssoek}
             lagretSok={lagretSok}
             onCancelEditSearch={onCancelEditSearch}
-            onVisAvmeldModal={() => settVisAvmeldModal(true)}
+            onVisAvmeldModal={(val: boolean) => settVisAvmeldModal(val)}
+            onSubmitTjenestestatus={onSubmitTjenestestatus}
+            submittedTjenestestatus={submittedTjenestestatus}
+            pendingTjenestestatus={pendingTjenestestatus}
+            errorTjenestestatus={errorTjenestestatus}
         />
     );
 }

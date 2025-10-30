@@ -46,3 +46,23 @@ export const DefaultBekreftAvmelding: Story = {
         onConfirm: () => console.log('opt-out'),
     },
 };
+
+export const MedPending: Story = {
+    render: (args) => <InteractiveWrapper {...args} />,
+    args: {
+        sprak: 'nb',
+        onClose: () => console.log('lukk'),
+        onConfirm: () => console.log('opt-out'),
+        pending: true,
+    },
+};
+
+export const MedFeilmelding: Story = {
+    render: (args) => <InteractiveWrapper {...args} />,
+    args: {
+        sprak: 'nb',
+        onClose: () => console.log('lukk'),
+        onConfirm: () => console.log('opt-out'),
+        error: true,
+    },
+};
