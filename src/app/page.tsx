@@ -57,8 +57,13 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
             <Suspense fallback={<Loader />}>
                 <EgenvurderingServerKomponent sprak={sprak} />
             </Suspense>
+            {harAktivPeriode && (
+                <Suspense>
+                    <StyrkEksperimentServerKomponent sprak={sprak} />
+                </Suspense>
+            )}
             {harAktivPeriode && opplysninger && (
-                <div className={'my-6'}>
+                <div className={'my-4'}>
                     <OpplysningerOppsummering
                         opplysninger={opplysninger}
                         sprak={sprak}
@@ -68,7 +73,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                 </div>
             )}
             {harAktivPeriode && !opplysninger && (
-                <div className={'my-6'}>
+                <div className={'my-4'}>
                     <ManglerOpplysninger
                         sprak={sprak}
                         oppdaterOpplysningerUrl={process.env.OPPDATER_OPPLYSNINGER_URL!}
@@ -76,14 +81,9 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                     />
                 </div>
             )}
-            {harAktivPeriode && (
-                <Suspense>
-                    <StyrkEksperimentServerKomponent sprak={sprak} />
-                </Suspense>
-            )}
             {!harAktivPeriode && (
                 <RegistrerArbeidssoker
-                    className={'my-6'}
+                    className={'my-4'}
                     registrerArbeidssokerUrl={process.env.REGISTRER_ARBEIDSSOKER_URL!}
                     sprak={sprak}
                 />
@@ -128,7 +128,11 @@ const StyrkEksperimentServerKomponent = async ({ sprak }: Props) => {
         return null;
     }
 
-    return <StyrkEksperiment sprak={sprak} brukerprofil={data} />;
+    return (
+        <div className={'mt-4'}>
+            <StyrkEksperiment sprak={sprak} brukerprofil={data} />
+        </div>
+    );
 };
 
 export default async function Home({ params }: NextPageProps) {

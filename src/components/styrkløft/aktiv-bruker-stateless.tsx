@@ -32,10 +32,9 @@ function AktivBrukerStateless(props: Props) {
     } = props;
     return (
         <Box
-            padding="space-16"
+            className={'py-4 px-6'}
             borderRadius="large"
             shadow="xsmall"
-            className={'mb-4'}
             borderColor={'border-subtle'}
             borderWidth={'1'}
         >

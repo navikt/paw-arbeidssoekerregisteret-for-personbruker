@@ -30,18 +30,16 @@ function StartStyrkloft(props: Props) {
     };
 
     return (
-        <div className={'mb-4'}>
-            <StartStyrkloftStateless
-                onSubmitTjenestestatus={onSubmitTjenestestatus}
-                onSubmitStillingsSoek={props.onSubmitStillingsSoek}
-                visGodkjennEksperiment={submittedTjenestestatus === null}
-                visVelgFiltere={submittedTjenestestatus === 'AKTIV' || brukerprofil.tjenestestatus === 'AKTIV'}
-                visAvmeldtKvittering={submittedTjenestestatus === 'OPT_OUT'}
-                sprak={props.sprak}
-                pendingTjenestestatus={pendingTjenestestatus}
-                errorTjenestestatus={errorTjenestestatus}
-            />
-        </div>
+        <StartStyrkloftStateless
+            onSubmitTjenestestatus={onSubmitTjenestestatus}
+            onSubmitStillingsSoek={props.onSubmitStillingsSoek}
+            visGodkjennEksperiment={submittedTjenestestatus === null}
+            visVelgFiltere={submittedTjenestestatus === 'AKTIV' || brukerprofil.tjenestestatus === 'AKTIV'}
+            visAvmeldtKvittering={submittedTjenestestatus === 'OPT_OUT'}
+            sprak={props.sprak}
+            pendingTjenestestatus={pendingTjenestestatus}
+            errorTjenestestatus={errorTjenestestatus}
+        />
     );
 }
 

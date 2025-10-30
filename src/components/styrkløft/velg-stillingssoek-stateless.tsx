@@ -30,10 +30,10 @@ export default function VelgStillingssoekStateless(props: Props) {
         onCancel,
     } = props;
     const isDisabled = fylker.length === 0 || yrkeskategorier.length === 0;
-
+    const kanAvbryte = Boolean(onCancel);
     return (
         <Box>
-            <Heading level="3" size="large">
+            <Heading level={kanAvbryte ? '4' : '3'} size={kanAvbryte ? 'small' : 'large'}>
                 Velg yrkeskategorier og fylker du vil se stillinger fra
             </Heading>
             <section className={'my-4'}>
@@ -56,7 +56,7 @@ export default function VelgStillingssoekStateless(props: Props) {
                 <Button variant={'primary'} onClick={onSubmit} disabled={isDisabled || pending} loading={pending}>
                     Lagre
                 </Button>
-                {Boolean(onCancel) && (
+                {kanAvbryte && (
                     <Button variant={'tertiary-neutral'} onClick={onCancel} className={'ml-4'}>
                         Avbryt
                     </Button>
