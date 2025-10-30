@@ -33,7 +33,7 @@ export function StartStyrkloftStateless(props: Props) {
     } else if (visGodkjennEksperiment || visVelgFiltere) {
         return (
             <Box
-                padding="space-16"
+                className={'py-4 px-6'}
                 borderRadius="large"
                 shadow="xsmall"
                 borderColor={'border-subtle'}

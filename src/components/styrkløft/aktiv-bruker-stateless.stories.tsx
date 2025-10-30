@@ -73,5 +73,6 @@ export const Default: Story = {
             yrkeskategorier: [],
         },
         onCancelEditSearch: () => console.log('onCancelEditSearch'),
+        onVisAvmeldModal: () => console.log('onVisAvmeldModal'),
     },
 };
