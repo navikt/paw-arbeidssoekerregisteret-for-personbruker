@@ -24,6 +24,7 @@ function AktivBruker(props: AktivBrukerProps) {
     const [lagretSok, settLagretSok] = useState<{ fylker: string[]; yrkeskategorier: string[] }>(
         initLagretSok(props.brukerprofil),
     );
+    const [visAvmeldModal, settVisAvmeldModal] = useState<boolean>(false);
 
     const onSubmitStillingssoek = async (data: any) => {
         await props.onSubmitStillingsSoek(data);
@@ -38,11 +39,12 @@ function AktivBruker(props: AktivBrukerProps) {
         <AktivBrukerStateless
             {...props}
             isEditMode={isEditMode}
-            visAvmeldModal={false}
+            visAvmeldModal={visAvmeldModal}
             onEditSearch={onEditSearch}
             onSubmitStillingsSoek={onSubmitStillingssoek}
             lagretSok={lagretSok}
             onCancelEditSearch={onCancelEditSearch}
+            onVisAvmeldModal={() => settVisAvmeldModal(true)}
         />
     );
 }

@@ -5,6 +5,7 @@ import { AktivBrukerProps } from '@/components/styrkløft/aktiv-bruker';
 import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
+import { BekreftAvmelding } from '@/components/styrkløft/bekreft-avmelding';
 
 interface Props extends AktivBrukerProps {
     isEditMode: boolean;
@@ -15,10 +16,20 @@ interface Props extends AktivBrukerProps {
         fylker: string[];
         yrkeskategorier: string[];
     };
+    onVisAvmeldModal: () => void;
 }
 
 function AktivBrukerStateless(props: Props) {
-    const { sprak, isEditMode, lagretSok, onSubmitStillingsSoek, onEditSearch, onCancelEditSearch } = props;
+    const {
+        sprak,
+        isEditMode,
+        visAvmeldModal,
+        lagretSok,
+        onSubmitStillingsSoek,
+        onEditSearch,
+        onCancelEditSearch,
+        onVisAvmeldModal,
+    } = props;
     return (
         <Box
             padding="space-16"
@@ -32,7 +43,7 @@ function AktivBrukerStateless(props: Props) {
                 <Heading size={'medium'} level={'3'} className={'mb-4'}>
                     Ledige stillinger
                 </Heading>
-                <FlerValgsMeny onEditSearch={onEditSearch} onEnd={() => console.log('onEnd')} sprak={sprak} />
+                <FlerValgsMeny onEditSearch={onEditSearch} onEnd={onVisAvmeldModal} sprak={sprak} />
             </div>
             {!isEditMode && (
                 <ErrorBoundary errorComponent={() => null}>
@@ -48,6 +59,14 @@ function AktivBrukerStateless(props: Props) {
                     yrkeskategorier={lagretSok.yrkeskategorier}
                     onSubmit={onSubmitStillingsSoek}
                     onCancel={onCancelEditSearch}
+                />
+            )}
+            {visAvmeldModal && (
+                <BekreftAvmelding
+                    open={visAvmeldModal}
+                    onConfirm={() => console.log('onConfirm')}
+                    onClose={() => console.log('onClose')}
+                    sprak={sprak}
                 />
             )}
         </Box>
