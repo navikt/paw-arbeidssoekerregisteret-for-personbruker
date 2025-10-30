@@ -2,6 +2,7 @@ import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-util
 import { Tjenestestatus } from '@/model/brukerprofil';
 import { Alert, BodyShort, Box, Button, Heading } from '@navikt/ds-react';
 import Beta from '@/components/styrkløft/beta';
+import ReadMoreEksperiment from './godkjenn-eksperiment-readmore';
 
 interface Props {
     sprak: Sprak;
@@ -50,6 +51,7 @@ function GodkjennEksperiment(props: Props) {
                     {tekst('cancelButton')}
                 </Button>
             </div>
+            <ReadMoreEksperiment sprak={sprak} />
         </Box>
     );
 }
