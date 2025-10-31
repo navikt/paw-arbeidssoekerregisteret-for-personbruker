@@ -20,8 +20,6 @@ import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster'
 import Egenvurdering from '@/components/egenvurdering/egenvurdering';
 import { fetchBrukerprofil } from '@/app/brukerprofil-api';
 import StyrkEksperiment from '@/components/styrkløft/styrk-eksperiment';
-import VisWidgetForProfilerteTil from '@/components/ux-signals/vis-widget-for-profilerte-til';
-import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
 
 interface Props {
     sprak: Sprak;
@@ -89,10 +87,6 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                 />
             )}
             {harHistorikk && <SeHistorikkLenke sprak={sprak} />}
-            <VisWidgetForProfilerteTil
-                profilertTil={[ProfilertTil.ANTATT_GODE_MULIGHETER]}
-                opplysninger={opplysninger}
-            />
         </>
     );
 }
