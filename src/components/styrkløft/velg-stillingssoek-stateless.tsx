@@ -26,6 +26,22 @@ const TEKSTER = {
         lagre: 'Lagre og vis stillinger',
         avbryt: 'Avbryt',
     },
+    nn: {
+        heading: 'Vel yrkeskategoriar og fylke du vil sjå stillingar frå',
+        velgYrkeskategori: 'Vel yrkeskategori',
+        velgFylke: 'Vel fylke',
+        feilMelding: 'Noko gjekk dessverre gale',
+        lagre: 'Lagre og vis stillingar',
+        avbryt: 'Avbryt',
+    },
+    en: {
+        heading: 'Select job categories and counties you want to see job offers from',
+        velgYrkeskategori: 'Select job category',
+        velgFylke: 'Select county',
+        feilMelding: 'Something went wrong',
+        lagre: 'Save and view job offers',
+        avbryt: 'Cancel',
+    },
 };
 export default function VelgStillingssoekStateless(props: Props) {
     const {
