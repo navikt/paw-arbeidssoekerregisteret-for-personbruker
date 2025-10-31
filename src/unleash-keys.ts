@@ -1,6 +1,6 @@
 const unleashKeys = {
     BRUK_UXSIGNALS: 'arbeidssoekerregisteret.bruk-uxsignals',
-    VIS_STYRKELOEFT: 'experiment.styrkeloft',
+    VIS_STYRKELOEFT: 'eksperiment.styrkeloft',
 };
 
 export default unleashKeys;
