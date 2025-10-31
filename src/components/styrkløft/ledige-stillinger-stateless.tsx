@@ -16,7 +16,7 @@ function LedigeStillingerStateless(props: Props) {
         <Box>
             {!harTreff && <BodyShort>Ingen treff</BodyShort>}
             {harTreff && (
-                <HGrid gap="space-24" columns={{ sm: 1, md: 2 }} className={'mb-4'}>
+                <HGrid gap="space-24" columns={{ sm: 1 }} className={'mb-4'}>
                     {resultat.map((stilling) => (
                         <LedigStilling ledigStilling={stilling} key={stilling.tittel} />
                     ))}
