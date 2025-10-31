@@ -112,7 +112,7 @@ async function fetchLedigStillinger(): Promise<{
         });
     }
 
-    return getBrukerprofilApi<LedigeStillinger>('/api/v1/ledigestillinger');
+    return getBrukerprofilApi<LedigeStillinger>('/api/v1/ledigestillinger?pageSize=5');
 }
 
 export { fetchBrukerprofil, fetchLedigStillinger };
