@@ -1,5 +1,5 @@
 import { BodyShort, Box, CopyButton, Heading, HStack, VStack } from '@navikt/ds-react';
-import { Buildings3Icon, LocationPinIcon, FilesIcon, CheckmarkIcon } from '@navikt/aksel-icons';
+import { Buildings3Icon, CheckmarkIcon, FilesIcon, LocationPinIcon } from '@navikt/aksel-icons';
 
 import { StyrkeloftEventNavn } from '@/lib/tracking/common';
 
@@ -37,7 +37,7 @@ function LedigStilling(props: Props) {
             </VStack>
             <Box className="flex justify-between">
                 <BodyShort weight="semibold" textColor="subtle" className={'mt-4'}>
-                    {ledigStilling.soeknadsfrist?.raw}
+                    <label>Søknadsfrist:</label> {ledigStilling.soeknadsfrist?.raw}
                 </BodyShort>
                 <CopyButton
                     copyText={ledigStillingUrl}
