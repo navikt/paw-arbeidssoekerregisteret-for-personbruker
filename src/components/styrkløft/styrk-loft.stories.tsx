@@ -31,7 +31,7 @@ const ledigStillingerRespons = {
         },
         resultat: [
             {
-                uuid: 'uuid',
+                arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
                 tittel: 'Nittedal Tannlegesenter har ledig stilling som tannhelsesekretær/tannlegeassistent, er du den rette?',
                 stillingbeskrivelse: 'Tannlegeassistent, Tannhelsesekretær, Klinikkassistent',
                 selskap: 'Nittedal Tannlegesenter Og Tannlegevakt',
@@ -41,7 +41,7 @@ const ledigStillingerRespons = {
                 },
             },
             {
-                uuid: 'uuid',
+                arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
                 tittel: 'Do you want to be part of developing WorldHotels and taking the brand to new heights in Scandinavia?',
                 stillingbeskrivelse: 'Head of Performance WorldHotels',
                 selskap: 'BWH Hotels Scandinavia',
@@ -60,17 +60,16 @@ export const Demo: Story = {
             identitetsnummer: '42',
             tjenestestatus: 'INAKTIV',
         },
-        isStorybook: true,
         onSubmitTjenestestatus(status: Tjenestestatus) {
             console.log('onSubmitTjenestestatus', status);
             return Promise.resolve();
         },
         onSubmitStillingsSoek(data: any) {
-            console.log('onSubmitStillingsSoek', data);
-            return Promise.resolve();
+            // console.log('onSubmitStillingsSoek', data);
+            return Promise.reject(new Error('feil'));
         },
-        onFetchStillinger() {
-            return Promise.resolve(ledigStillingerRespons);
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
         },
         sprak: 'nb',
     },
@@ -82,15 +81,14 @@ export const Avmeldt: Story = {
             identitetsnummer: '42',
             tjenestestatus: 'OPT_OUT',
         },
-        isStorybook: true,
         onSubmitTjenestestatus(status: Tjenestestatus) {
             return Promise.resolve();
         },
         onSubmitStillingsSoek(data: any) {
             return Promise.resolve();
         },
-        onFetchStillinger() {
-            return Promise.resolve(ledigStillingerRespons);
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
         },
         sprak: 'nb',
     },
@@ -103,15 +101,14 @@ export const AktivUtenLagretSøk: Story = {
             tjenestestatus: 'AKTIV',
             stillingssoek: [],
         },
-        isStorybook: true,
         onSubmitTjenestestatus(status: Tjenestestatus) {
             return Promise.resolve();
         },
         onSubmitStillingsSoek(data: any) {
             return Promise.resolve();
         },
-        onFetchStillinger() {
-            return Promise.resolve(ledigStillingerRespons);
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
         },
         sprak: 'nb',
     },
@@ -141,15 +138,65 @@ export const MedLagretSøk: Story = {
                 },
             ],
         },
-        isStorybook: true,
         onSubmitTjenestestatus(status: Tjenestestatus) {
             return Promise.resolve();
         },
         onSubmitStillingsSoek(data: any) {
             return Promise.resolve();
         },
-        onFetchStillinger() {
-            return Promise.resolve(ledigStillingerRespons);
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
+        },
+        sprak: 'nb',
+    },
+};
+
+export const MedFeilNårManLagrerTjenestestatus: Story = {
+    args: {
+        brukerprofil: {
+            identitetsnummer: '42',
+            tjenestestatus: 'INAKTIV',
+        },
+        onSubmitTjenestestatus(status: Tjenestestatus) {
+            return new Promise((_, reject) => {
+                setTimeout(() => {
+                    reject(new Error('feil'));
+                }, 1000);
+            });
+        },
+        onSubmitStillingsSoek(data: any) {
+            return new Promise((_, reject) => {
+                setTimeout(() => {
+                    reject(new Error('feil'));
+                }, 1000);
+            });
+        },
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
+        },
+        sprak: 'nb',
+    },
+};
+
+export const MedFeilNårManLagrerSøk: Story = {
+    args: {
+        brukerprofil: {
+            identitetsnummer: '42',
+            tjenestestatus: 'INAKTIV',
+        },
+        onSubmitTjenestestatus(status: Tjenestestatus) {
+            console.log('onSubmitTjenestestatus', status);
+            return Promise.resolve();
+        },
+        onSubmitStillingsSoek(data: any) {
+            return new Promise((_, reject) => {
+                setTimeout(() => {
+                    reject(new Error('feil'));
+                }, 1000);
+            });
+        },
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
         },
         sprak: 'nb',
     },

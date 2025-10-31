@@ -71,6 +71,7 @@ export type LedigeStillinger = {
 };
 
 export type JobbAnnonse = {
+    arbeidsplassenNoId: string;
     tittel: string;
     stillingbeskrivelse?: string;
     publisert: string;
@@ -97,3 +98,8 @@ export type Soeknadsfrist = {
 };
 
 export type Sektor = 'Offentlig' | 'Privat' | 'Ukjent';
+
+// Brukt for api-route (PUT) av tjenestestatus
+export type TjenestestatusRequest = {
+    tjenestestatus: Tjenestestatus;
+};

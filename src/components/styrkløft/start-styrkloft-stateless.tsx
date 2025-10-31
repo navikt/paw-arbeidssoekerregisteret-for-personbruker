@@ -3,6 +3,7 @@ import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 import { KvitteringAvmeldt } from '@/components/styrkløft/kvittering-avmeldt';
 import { Tjenestestatus } from '@/model/brukerprofil';
+import { Box } from '@navikt/ds-react';
 
 interface Props {
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
@@ -27,18 +28,27 @@ export function StartStyrkloftStateless(props: Props) {
         errorTjenestestatus,
     } = props;
 
-    if (visVelgFiltere) {
-        return <VelgStillingssoek sprak={sprak} onSubmit={onSubmitStillingsSoek} />;
-    } else if (visAvmeldtKvittering) {
-        return <KvitteringAvmeldt />;
-    } else if (visGodkjennEksperiment) {
+    if (visAvmeldtKvittering) {
+        return <KvitteringAvmeldt sprak={sprak} />;
+    } else if (visGodkjennEksperiment || visVelgFiltere) {
         return (
-            <GodkjennEksperiment
-                sprak={sprak}
-                onSubmit={onSubmitTjenestestatus}
-                pending={pendingTjenestestatus}
-                error={errorTjenestestatus}
-            />
+            <Box
+                className={'py-4 px-6'}
+                borderRadius="large"
+                shadow="xsmall"
+                borderColor={'border-subtle'}
+                borderWidth={'1'}
+            >
+                {visVelgFiltere && <VelgStillingssoek sprak={sprak} onSubmit={onSubmitStillingsSoek} />}
+                {visGodkjennEksperiment && (
+                    <GodkjennEksperiment
+                        sprak={sprak}
+                        onSubmit={onSubmitTjenestestatus}
+                        pending={pendingTjenestestatus}
+                        error={errorTjenestestatus}
+                    />
+                )}
+            </Box>
         );
     }
 

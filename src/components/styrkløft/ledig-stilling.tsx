@@ -1,5 +1,7 @@
-import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
-import { Buildings3Icon, LocationPinIcon } from '@navikt/aksel-icons';
+import { BodyShort, Box, CopyButton, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Buildings3Icon, LocationPinIcon, FilesIcon, CheckmarkIcon } from '@navikt/aksel-icons';
+
+import { StyrkeloftEventNavn } from '@/lib/tracking/common';
 
 interface Props {
     ledigStilling: any;
@@ -7,10 +9,16 @@ interface Props {
 
 function LedigStilling(props: Props) {
     const { ledigStilling } = props;
+    const ledigStillingUrl = `https://arbeidsplassen.nav.no/stillinger/stilling/${ledigStilling.arbeidsplassenNoId}`;
+
     return (
         <Box padding="space-16" borderRadius="large" shadow="xsmall">
             <Heading level={'2'} size={'small'}>
-                <a href={`https://arbeidsplassen.nav.no/stillinger/stilling/${ledigStilling.uuid}`}>
+                <a
+                    data-umami-event={StyrkeloftEventNavn}
+                    data-umami-event-aktivitet="Går til annonse på arbeidsplassen"
+                    href={ledigStillingUrl}
+                >
                     {ledigStilling.tittel}
                 </a>
             </Heading>
@@ -27,9 +35,18 @@ function LedigStilling(props: Props) {
                     <BodyShort>{ledigStilling.kommune}</BodyShort>
                 </HStack>
             </VStack>
-            <BodyShort weight="semibold" textColor="subtle" className={'mt-4'}>
-                {ledigStilling.soeknadsfrist?.raw}
-            </BodyShort>
+            <Box className="flex justify-between">
+                <BodyShort weight="semibold" textColor="subtle" className={'mt-4'}>
+                    {ledigStilling.soeknadsfrist?.raw}
+                </BodyShort>
+                <CopyButton
+                    copyText={ledigStillingUrl}
+                    icon={<FilesIcon title="Kopier lenke til den ledige stillingen" />}
+                    activeIcon={<CheckmarkIcon title="Kopierte lenke til stillingen" />}
+                    data-umami-event={StyrkeloftEventNavn}
+                    data-umami-event-aktivitet="Går til søk på arbeidsplassen"
+                />
+            </Box>
         </Box>
     );
 }

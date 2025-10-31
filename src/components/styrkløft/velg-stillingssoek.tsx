@@ -1,20 +1,17 @@
-import { Box, Button, Heading, Alert } from '@navikt/ds-react';
-import FilterVelger from '@/components/styrkløft/filter-velger';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
-import { hentAlleYrkeskategorier } from '@/lib/hent-yrkeskategorier';
-import { FYLKER } from '@/components/styrkløft/fylker';
 import VelgStillingssoekStateless from '@/components/styrkløft/velg-stillingssoek-stateless';
 
 interface Props {
     onSubmit(data: any): Promise<void>;
+    onCancel?: () => void;
     fylker?: string[];
     yrkeskategorier?: string[];
     sprak: Sprak;
 }
 
 function VelgStillingssoek(props: Props) {
-    const { sprak } = props;
+    const { sprak, onCancel } = props;
     const [valgteFylker, settValgteFylker] = useState<string[]>(props.fylker ?? []);
     const [valgteYrkeskategorier, settValgteYrkeskategorier] = useState<string[]>(props.yrkeskategorier ?? []);
     const [isPending, setIsPending] = useState<boolean>(false);
@@ -29,7 +26,6 @@ function VelgStillingssoek(props: Props) {
             });
         } catch (err: any) {
             setError(err);
-            throw err;
         } finally {
             setIsPending(false);
         }
@@ -38,6 +34,7 @@ function VelgStillingssoek(props: Props) {
     return (
         <VelgStillingssoekStateless
             onSubmit={onSubmit}
+            onCancel={onCancel}
             fylker={valgteFylker}
             yrkeskategorier={valgteYrkeskategorier}
             sprak={sprak}

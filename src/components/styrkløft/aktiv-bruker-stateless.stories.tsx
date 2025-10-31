@@ -1,18 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import StyrkLoft from '@/components/styrkløft/styrk-loft';
-import AktivBruker from '@/components/styrkløft/aktiv-bruker';
+import AktivBrukerStateless from '@/components/styrkløft/aktiv-bruker-stateless';
 import { Tjenestestatus } from '@/model/brukerprofil';
 
 const meta = {
-    title: 'Styrkløft/Komponenter/Aktiv bruker',
-    component: AktivBruker,
+    title: 'Styrkløft/Komponenter/Aktiv bruker/Stateless',
+    component: AktivBrukerStateless,
     tags: ['autodocs'],
     args: {},
-} satisfies Meta<typeof StyrkLoft>;
+} satisfies Meta<typeof AktivBrukerStateless>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-
 const ledigStillingerRespons = {
     data: {
         soek: {
@@ -62,10 +60,68 @@ export const Default: Story = {
         },
         onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
         onSubmitStillingsSoek: (data: any) => Promise.resolve(),
+        sprak: 'nb',
+        isEditMode: false,
+        visAvmeldModal: false,
         brukerprofil: {
             identitetsnummer: '42',
             tjenestestatus: 'AKTIV',
         },
+        onEditSearch: () => console.log('onEditSearch'),
+        lagretSok: {
+            fylker: [],
+            yrkeskategorier: [],
+        },
+        onCancelEditSearch: () => console.log('onCancelEditSearch'),
+        onVisAvmeldModal: () => console.log('onVisAvmeldModal'),
+    },
+};
+
+export const MedAktivAvmelding: Story = {
+    args: {
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
+        },
+        onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
+        onSubmitStillingsSoek: (data: any) => Promise.resolve(),
         sprak: 'nb',
+        isEditMode: false,
+        visAvmeldModal: true,
+        brukerprofil: {
+            identitetsnummer: '42',
+            tjenestestatus: 'AKTIV',
+        },
+        onEditSearch: () => console.log('onEditSearch'),
+        lagretSok: {
+            fylker: [],
+            yrkeskategorier: [],
+        },
+        onCancelEditSearch: () => console.log('onCancelEditSearch'),
+        onVisAvmeldModal: () => console.log('onVisAvmeldModal'),
+    },
+};
+
+export const Avmeldt: Story = {
+    args: {
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
+        },
+        onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
+        onSubmitStillingsSoek: (data: any) => Promise.resolve(),
+        sprak: 'nb',
+        isEditMode: false,
+        visAvmeldModal: false,
+        brukerprofil: {
+            identitetsnummer: '42',
+            tjenestestatus: 'AKTIV',
+        },
+        onEditSearch: () => console.log('onEditSearch'),
+        lagretSok: {
+            fylker: [],
+            yrkeskategorier: [],
+        },
+        onCancelEditSearch: () => console.log('onCancelEditSearch'),
+        onVisAvmeldModal: () => console.log('onVisAvmeldModal'),
+        submittedTjenestestatus: 'OPT_OUT',
     },
 };

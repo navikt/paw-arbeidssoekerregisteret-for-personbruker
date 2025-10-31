@@ -1,6 +1,6 @@
 import { Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
-import { lagHentTekstForSprak, ProfilertTil, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 import { fetchAggregertePerioder, fetchTilgjengeligEgenvurdering } from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
@@ -18,7 +18,10 @@ import Feil from '@/components/feil';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import Egenvurdering from '@/components/egenvurdering/egenvurdering';
+import { fetchBrukerprofil } from '@/app/brukerprofil-api';
+import StyrkEksperiment from '@/components/styrkløft/styrk-eksperiment';
 import VisWidgetForProfilerteTil from '@/components/ux-signals/vis-widget-for-profilerte-til';
+import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
 
 interface Props {
     sprak: Sprak;
@@ -54,8 +57,13 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
             <Suspense fallback={<Loader />}>
                 <EgenvurderingServerKomponent sprak={sprak} />
             </Suspense>
+            {harAktivPeriode && (
+                <Suspense>
+                    <StyrkEksperimentServerKomponent sprak={sprak} />
+                </Suspense>
+            )}
             {harAktivPeriode && opplysninger && (
-                <div className={'my-6'}>
+                <div className={'my-4'}>
                     <OpplysningerOppsummering
                         opplysninger={opplysninger}
                         sprak={sprak}
@@ -65,7 +73,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                 </div>
             )}
             {harAktivPeriode && !opplysninger && (
-                <div className={'my-6'}>
+                <div className={'my-4'}>
                     <ManglerOpplysninger
                         sprak={sprak}
                         oppdaterOpplysningerUrl={process.env.OPPDATER_OPPLYSNINGER_URL!}
@@ -75,7 +83,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
             )}
             {!harAktivPeriode && (
                 <RegistrerArbeidssoker
-                    className={'my-6'}
+                    className={'my-4'}
                     registrerArbeidssokerUrl={process.env.REGISTRER_ARBEIDSSOKER_URL!}
                     sprak={sprak}
                 />
@@ -109,6 +117,20 @@ const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
     return (
         <div className={'mt-4'}>
             <Egenvurdering sprak={sprak} profilering={data.grunnlag} />
+        </div>
+    );
+};
+
+const StyrkEksperimentServerKomponent = async ({ sprak }: Props) => {
+    const { data, error } = await fetchBrukerprofil();
+
+    if (error || !data) {
+        return null;
+    }
+
+    return (
+        <div className={'mt-4'}>
+            <StyrkEksperiment sprak={sprak} brukerprofil={data} />
         </div>
     );
 };

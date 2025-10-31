@@ -4,6 +4,8 @@ import {
     isConsentingToAnalytics,
     VisningEventNavn,
     VisningsData,
+    StyrkeloftData,
+    StyrkeloftEventNavn,
 } from '@/lib/tracking/common';
 import { logUmamiEvent } from '@/lib/tracking/umami';
 
@@ -14,6 +16,15 @@ export async function loggAktivitet(data: AktivitetData) {
 
     const eventData = data || ({} as AktivitetData);
     await logUmamiEvent(AktivitetEventNavn, eventData);
+}
+
+export async function loggStyrkeloft(data: StyrkeloftData) {
+    if (!isConsentingToAnalytics()) {
+        return;
+    }
+
+    const eventData = data || ({} as StyrkeloftData);
+    await logUmamiEvent(StyrkeloftEventNavn, eventData);
 }
 
 export async function loggVisning(data: VisningsData) {

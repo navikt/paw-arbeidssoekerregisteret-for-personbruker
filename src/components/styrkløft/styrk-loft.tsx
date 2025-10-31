@@ -1,5 +1,4 @@
 import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
-import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import StartStyrkloft from '@/components/styrkløft/start-styrkloft';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
@@ -9,9 +8,8 @@ interface Props {
     brukerprofil: Brukerprofil;
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
     onSubmitStillingsSoek(data: any): Promise<void>;
-    onFetchStillinger(): Promise<{ data?: any; error?: Error }>;
+    useOnFetchStillinger(): { data?: any; error?: Error };
     sprak: Sprak;
-    isStorybook?: boolean;
 }
 
 interface StatelessProps extends Props {
@@ -33,21 +31,17 @@ function StyrkLoftStateless(props: StatelessProps) {
 }
 
 function StyrkLoft(props: Props) {
-    const { brukerprofil, sprak, onSubmitTjenestestatus, onFetchStillinger, isStorybook } = props;
+    const { brukerprofil, sprak, useOnFetchStillinger, onSubmitTjenestestatus } = props;
     const [harLagretSoek, settHarLagretSoek] = useState(false);
 
-    const erAvmeldt = brukerprofil.tjenestestatus === 'OPT_OUT';
+    const erAvmeldt = brukerprofil.tjenestestatus === 'OPT_OUT' || brukerprofil.tjenestestatus === 'KAN_IKKE_LEVERES';
     const visStartKomponent =
         brukerprofil.tjenestestatus === 'INAKTIV' || (brukerprofil.stillingssoek ?? []).length === 0;
     const visStillinger = brukerprofil.tjenestestatus === 'AKTIV' && (brukerprofil.stillingssoek ?? []).length > 0;
 
     const onSubmitStillingsSoek = async (data: any) => {
-        try {
-            await props.onSubmitStillingsSoek(data);
-            settHarLagretSoek(true);
-        } catch (err: any) {
-            console.error(err);
-        }
+        await props.onSubmitStillingsSoek(data);
+        settHarLagretSoek(true);
     };
 
     return (
@@ -58,9 +52,8 @@ function StyrkLoft(props: Props) {
             brukerprofil={brukerprofil}
             onSubmitTjenestestatus={onSubmitTjenestestatus}
             onSubmitStillingsSoek={onSubmitStillingsSoek}
-            onFetchStillinger={onFetchStillinger}
+            useOnFetchStillinger={useOnFetchStillinger}
             sprak={sprak}
-            isStorybook={isStorybook}
         />
     );
 }
