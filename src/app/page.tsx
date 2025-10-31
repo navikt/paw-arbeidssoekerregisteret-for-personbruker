@@ -20,6 +20,8 @@ import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster'
 import Egenvurdering from '@/components/egenvurdering/egenvurdering';
 import { fetchBrukerprofil } from '@/app/brukerprofil-api';
 import StyrkEksperiment from '@/components/styrkløft/styrk-eksperiment';
+import unleashKeys from '@/unleash-keys';
+import { isEnabled } from '@/lib/unleash-is-enabled';
 
 interface Props {
     sprak: Sprak;
@@ -116,9 +118,10 @@ const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
 };
 
 const StyrkEksperimentServerKomponent = async ({ sprak }: Props) => {
+    const skalViseStyrkeloeft = await isEnabled(unleashKeys.VIS_STYRKELOEFT);
     const { data, error } = await fetchBrukerprofil();
 
-    if (error || !data) {
+    if (error || !data || !skalViseStyrkeloeft) {
         return null;
     }
 
