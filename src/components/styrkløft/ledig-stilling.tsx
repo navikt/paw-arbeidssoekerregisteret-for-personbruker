@@ -12,7 +12,7 @@ function LedigStilling(props: Props) {
     const ledigStillingUrl = `https://arbeidsplassen.nav.no/stillinger/stilling/${ledigStilling.arbeidsplassenNoId}`;
 
     return (
-        <Box padding="space-16" borderRadius="large" shadow="xsmall">
+        <Box className={'py-4 pl-4 pr-2'} borderRadius="large" shadow="xsmall">
             <Heading level={'2'} size={'small'}>
                 <a
                     data-umami-event={StyrkeloftEventNavn}
