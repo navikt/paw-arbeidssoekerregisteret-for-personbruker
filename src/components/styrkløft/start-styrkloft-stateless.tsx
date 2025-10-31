@@ -40,7 +40,7 @@ export function StartStyrkloftStateless(props: Props) {
                 borderWidth={'1'}
             >
                 {visVelgFiltere && <VelgStillingssoek sprak={sprak} onSubmit={onSubmitStillingsSoek} />}
-                {visGodkjennEksperiment && (
+                {visGodkjennEksperiment && !visVelgFiltere && (
                     <GodkjennEksperiment
                         sprak={sprak}
                         onSubmit={onSubmitTjenestestatus}
