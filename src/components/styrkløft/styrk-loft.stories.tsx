@@ -65,8 +65,9 @@ export const Demo: Story = {
             return Promise.resolve();
         },
         onSubmitStillingsSoek(data: any) {
-            // console.log('onSubmitStillingsSoek', data);
-            return Promise.reject(new Error('feil'));
+            console.log('onSubmitStillingsSoek', data);
+            return Promise.resolve();
+            // return Promise.reject(new Error('feil'));
         },
         useOnFetchStillinger() {
             return ledigStillingerRespons;

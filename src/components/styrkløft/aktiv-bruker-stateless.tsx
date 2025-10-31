@@ -8,6 +8,7 @@ import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
 import { BekreftAvmelding } from '@/components/styrkløft/bekreft-avmelding';
 import { Tjenestestatus } from '@/model/brukerprofil';
 import { KvitteringAvmeldt } from '@/components/styrkløft/kvittering-avmeldt';
+import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
 
 interface Props extends AktivBrukerProps {
     isEditMode: boolean;
@@ -23,6 +24,18 @@ interface Props extends AktivBrukerProps {
     pendingTjenestestatus?: Tjenestestatus | null;
     errorTjenestestatus?: string | null;
 }
+
+const TEKSTER = {
+    nb: {
+        heading: 'Ledige stillinger',
+    },
+    nn: {
+        heading: 'Ledige stillingar',
+    },
+    en: {
+        heading: 'Vacant jobs',
+    },
+};
 
 function AktivBrukerStateless(props: Props) {
     const {
@@ -43,7 +56,7 @@ function AktivBrukerStateless(props: Props) {
     if (submittedTjenestestatus === 'OPT_OUT') {
         return <KvitteringAvmeldt sprak={sprak} />;
     }
-
+    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     return (
         <Box
             className={'py-4 px-6'}
@@ -54,7 +67,7 @@ function AktivBrukerStateless(props: Props) {
         >
             <div className={'flex justify-between mb-2'}>
                 <Heading size={'medium'} level={'3'} className={'mb-4'}>
-                    Ledige stillinger
+                    {tekst('heading')}
                 </Heading>
                 <FlerValgsMeny onEditSearch={onEditSearch} onEnd={() => onVisAvmeldModal(true)} sprak={sprak} />
             </div>

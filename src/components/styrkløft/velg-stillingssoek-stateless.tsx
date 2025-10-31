@@ -1,7 +1,7 @@
 import { Alert, Box, Button, Heading } from '@navikt/ds-react';
 import FilterVelger from '@/components/styrkløft/filter-velger';
 import { FYLKER } from '@/components/styrkløft/fylker';
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { hentAlleYrkeskategorier } from '@/lib/hent-yrkeskategorier';
 
 interface Props {
@@ -17,6 +17,16 @@ interface Props {
 }
 
 const YRKESKATEGORIER = hentAlleYrkeskategorier();
+const TEKSTER = {
+    nb: {
+        heading: 'Velg yrkeskategorier og fylker du vil se stillinger fra',
+        velgYrkeskategori: 'Velg yrkeskategori',
+        velgFylke: 'Velg fylke',
+        feilMelding: 'Noe gikk dessverre galt',
+        lagre: 'Lagre og vis stillinger',
+        avbryt: 'Avbryt',
+    },
+};
 export default function VelgStillingssoekStateless(props: Props) {
     const {
         onSubmit,
@@ -31,34 +41,35 @@ export default function VelgStillingssoekStateless(props: Props) {
     } = props;
     const isDisabled = fylker.length === 0 || yrkeskategorier.length === 0;
     const kanAvbryte = Boolean(onCancel);
+    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     return (
         <Box>
             <Heading level={kanAvbryte ? '4' : '3'} size={kanAvbryte ? 'small' : 'large'}>
-                Velg yrkeskategorier og fylker du vil se stillinger fra
+                {tekst('heading')}
             </Heading>
             <section className={'my-4'}>
                 <FilterVelger
                     values={yrkeskategorier}
                     options={YRKESKATEGORIER}
-                    heading={'Velg yrkeskategori'}
+                    heading={tekst('velgYrkeskategori')}
                     onChange={onChangeYrkeskategorier}
                 />
             </section>
             <section className={'my-4'}>
-                <FilterVelger values={fylker} options={FYLKER} heading={'Velg fylke'} onChange={onChangeFylker} />
+                <FilterVelger values={fylker} options={FYLKER} heading={tekst('velgFylke')} onChange={onChangeFylker} />
             </section>
             {error && (
                 <Alert variant={'error'} className={'my-4'}>
-                    Noe gikk dessverre galt
+                    {tekst('feilMelding')}
                 </Alert>
             )}
             <div className={'flex'}>
                 <Button variant={'primary'} onClick={onSubmit} disabled={isDisabled || pending} loading={pending}>
-                    Lagre
+                    {tekst('lagre')}
                 </Button>
                 {kanAvbryte && (
                     <Button variant={'tertiary-neutral'} onClick={onCancel} className={'ml-4'}>
-                        Avbryt
+                        {tekst('avbryt')}
                     </Button>
                 )}
             </div>
