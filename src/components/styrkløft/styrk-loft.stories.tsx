@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import StyrkLoft from '@/components/styrkløft/styrk-loft';
 import { Tjenestestatus } from '@/model/brukerprofil';
+import { expect, userEvent } from 'storybook/test';
 
 const meta = {
     title: 'Styrkløft/Styrkløft',
@@ -200,5 +201,60 @@ export const MedFeilNårManLagrerSøk: Story = {
             return ledigStillingerRespons;
         },
         sprak: 'nb',
+    },
+};
+
+export const PlaywrightTestVisStillinger: Story = {
+    args: {
+        brukerprofil: {
+            identitetsnummer: '42',
+            tjenestestatus: 'INAKTIV',
+        },
+        onSubmitTjenestestatus(status: Tjenestestatus) {
+            return Promise.resolve();
+        },
+        onSubmitStillingsSoek(data: any) {
+            return Promise.resolve();
+        },
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
+        },
+        sprak: 'nb',
+    },
+    async play(context) {
+        const canvas = context.canvas;
+        await userEvent.click(await canvas.findByText('Vis meg ledige stillinger'));
+        await userEvent.click(await canvas.getByRole('button', { name: 'Velg yrkeskategori Endre' }));
+        await userEvent.click(await canvas.findByText('IT'));
+        await userEvent.click(await canvas.getByRole('button', { name: 'Velg fylke Endre' }));
+        await userEvent.click(await canvas.findByText('Oslo'));
+        await userEvent.click(await canvas.findByText('Lagre og vis stillinger'));
+
+        await expect(await canvas.findByText('Tannlegeassistent, Tannhelsesekretær, Klinikkassistent')).toBeDefined();
+    },
+};
+
+export const PlaywrightTestAvmelding: Story = {
+    args: {
+        brukerprofil: {
+            identitetsnummer: '42',
+            tjenestestatus: 'INAKTIV',
+        },
+        onSubmitTjenestestatus(status: Tjenestestatus) {
+            return Promise.resolve();
+        },
+        onSubmitStillingsSoek(data: any) {
+            return Promise.resolve();
+        },
+        useOnFetchStillinger() {
+            return ledigStillingerRespons;
+        },
+        sprak: 'nb',
+    },
+    async play(context) {
+        const canvas = context.canvas;
+        await userEvent.click(await canvas.findByText('Nei takk, jeg ønsker ikke å se ledige stillinger'));
+
+        await expect(await canvas.findByText('Valget ditt er registrert')).toBeDefined();
     },
 };
