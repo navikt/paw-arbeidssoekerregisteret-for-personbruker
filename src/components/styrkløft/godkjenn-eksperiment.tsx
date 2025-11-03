@@ -19,6 +19,20 @@ const TEKSTER = {
         cancelButton: 'Nei takk, jeg ønsker ikke å se ledige stillinger',
         feilmelding: 'Noe gikk dessverre galt. Prøv igjen senere',
     },
+    nn: {
+        heading: 'Har du lyst til å sjå ledige stillingar som kan passa for deg?',
+        body: 'Om du seier ja til å dela informasjon med oss kan me visa deg ledige stillingar i ditt område som kan vera aktuelle ut frå den kompetansen du har',
+        submitButton: 'Vis meg ledige stillingar',
+        cancelButton: 'Nei takk, eg ønskjer ikkje å sjå ledige stillingar',
+        feilmelding: 'Noko gjekk dessverre gale. Prøv igjen seinare',
+    },
+    en: {
+        heading: 'Do you want to see job openings that may suit you?',
+        body: 'If you say yes to sharing information with us, we can show you job openings in your area that may be relevant based on your competencies',
+        submitButton: 'Show me job openings',
+        cancelButton: "No thanks, I don't want to see job openings",
+        feilmelding: 'Something went wrong. Try again later',
+    },
 };
 
 function GodkjennEksperiment(props: Props) {
