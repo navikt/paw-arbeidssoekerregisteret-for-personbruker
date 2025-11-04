@@ -1,11 +1,14 @@
 import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggAktivitet } from '@/lib/tracking';
+import StyrkEksperiment from '@/components/styrkløft/styrk-eksperiment';
+import { Brukerprofil } from '@/model/brukerprofil';
 
 interface Props {
     sprak: Sprak;
     erUtmeldt: boolean;
     harFlereBekreftelser: boolean;
+    brukerprofil?: Brukerprofil;
     onClick(): void;
 }
 
@@ -43,12 +46,14 @@ const TEKSTER = {
 };
 
 const Kvittering = (props: Props) => {
-    const { sprak, erUtmeldt, harFlereBekreftelser, onClick } = props;
+    const { sprak, erUtmeldt, harFlereBekreftelser, onClick, brukerprofil } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     const loggKlikk = () => {
         loggAktivitet({ aktivitet: 'Trykker på "Gå tilbake til min side" fra bekreftelse-kvittering' });
     };
+
+    const visStyrkKomponent = !harFlereBekreftelser && brukerprofil;
 
     return (
         <>
@@ -71,6 +76,11 @@ const Kvittering = (props: Props) => {
                         <Heading size={'xsmall'}>{tekst('alertHeading')}</Heading>
                         <BodyLong>{tekst('alertBody')}</BodyLong>
                     </Alert>
+                    {visStyrkKomponent && (
+                        <div className={'mb-4'}>
+                            <StyrkEksperiment sprak={sprak} brukerprofil={brukerprofil} />
+                        </div>
+                    )}
                 </>
             )}
             {harFlereBekreftelser ? (
