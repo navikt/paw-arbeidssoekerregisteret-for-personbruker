@@ -16,12 +16,14 @@ const TEKSTER = {
         tekst: 'Dersom du ikkje lenger ønskjer å sjå forslag til jobbstillingar, kan du melde deg av her',
         avbryt: 'Avbryt',
         bekreft: 'Meld meg av',
+        feilmelding: 'Noko gjekk desverre gale. Prøv igjen',
     },
     en: {
         heading: 'Confirm Unsubscribe',
         tekst: 'If you no longer want to see job suggestions, you can unsubscribe here',
         avbryt: 'Cancel',
         bekreft: 'Unsubscribe',
+        feilmelding: 'Sorry, something went wrong. Please try again.',
     },
 };
 
