@@ -16,6 +16,7 @@ import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import IngenTilgjengeligeBekreftelser from '@/components/bekreftelse/ingen-tilgjengelige-bekreftelser';
 import { BekreftelseSkjemaType } from '@/model/bekreftelse';
 import { loggAktivitet, loggVisning } from '@/lib/tracking';
+import { Brukerprofil } from '@/model/brukerprofil';
 
 export interface BekreftelseProps {
     sprak: Sprak;
@@ -24,10 +25,11 @@ export interface BekreftelseProps {
     erAktivArbeidssoker: boolean;
     onSubmit(data: BekreftelseSkjemaType): Promise<void>;
     registrerArbeidssokerUrl: string;
+    brukerprofil?: Brukerprofil;
 }
 
 function Bekreftelse(props: BekreftelseProps) {
-    const { sprak, onSubmit, erAktivArbeidssoker, registrerArbeidssokerUrl } = props;
+    const { sprak, onSubmit, erAktivArbeidssoker, registrerArbeidssokerUrl, brukerprofil } = props;
     const [visKvittering, settVisKvittering] = useState<boolean>(false);
     const [sisteBekreftlse, settSisteBekreftlse] = useState<BekreftelseSkjemaType>();
     const [tilgjengeligeBekreftelser, settTilgjengeligeBekreftelser] = useState<TilgjengeligeBekreftelser>(
@@ -80,6 +82,7 @@ function Bekreftelse(props: BekreftelseProps) {
                         settVisKvittering(false);
                         loggAktivitet({ aktivitet: 'Trykker på "Bekreft neste periode"' });
                     }}
+                    brukerprofil={brukerprofil}
                 />
             </div>
         );

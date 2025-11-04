@@ -9,6 +9,9 @@ import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 import Feil from '@/components/feil';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
+import { fetchBrukerprofil } from '@/app/brukerprofil-api';
+import { isEnabled } from '@/lib/unleash-is-enabled';
+import unleashKeys from '@/unleash-keys';
 
 async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
     const { data: tilgjengeligeBekreftelser, error } = await fetchTilgjengeligeBekreftelser();
@@ -23,6 +26,13 @@ async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
     const erAktivArbeidssoker = Boolean(sisteInformasjon?.periodeId) && !Boolean(sisteInformasjon?.avsluttet);
     const sistInnsendteBekreftelse = sisteInformasjon?.bekreftelser[0];
 
+    const skalViseStyrkeloeft = await isEnabled(unleashKeys.VIS_STYRKELOEFT);
+    let brukerprofil;
+
+    if (erAktivArbeidssoker && skalViseStyrkeloeft) {
+        brukerprofil = (await fetchBrukerprofil()).data;
+    }
+
     return (
         <BekreftelseWrapper
             sprak={sprak}
@@ -30,6 +40,7 @@ async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
             tilgjengeligeBekreftelser={tilgjengeligeBekreftelser}
             sistInnsendteBekreftelse={sistInnsendteBekreftelse}
             registrerArbeidssokerUrl={process.env.REGISTRER_ARBEIDSSOKER_URL!}
+            brukerprofil={brukerprofil}
         />
     );
 }
