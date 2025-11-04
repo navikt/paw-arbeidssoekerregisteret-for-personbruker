@@ -63,7 +63,9 @@ const Kvittering = (props: Props) => {
                         {tekst('headingUtmeldt')}
                     </Heading>
                     <Alert variant={'info'} className={'mb-4'}>
-                        <Heading size={'xsmall'}>{tekst('alertHeadingUtmeldt')}</Heading>
+                        <Heading level={'2'} size={'xsmall'}>
+                            {tekst('alertHeadingUtmeldt')}
+                        </Heading>
                         <BodyLong>{tekst('alertBodyUtmeldt')}</BodyLong>
                     </Alert>
                 </>
@@ -73,7 +75,9 @@ const Kvittering = (props: Props) => {
                         {tekst('heading')}
                     </Heading>
                     <Alert variant={'success'} className={'mb-4'}>
-                        <Heading size={'xsmall'}>{tekst('alertHeading')}</Heading>
+                        <Heading level={'2'} size={'xsmall'}>
+                            {tekst('alertHeading')}
+                        </Heading>
                         <BodyLong>{tekst('alertBody')}</BodyLong>
                     </Alert>
                     {visStyrkKomponent && (
