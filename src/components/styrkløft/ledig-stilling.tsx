@@ -1,7 +1,7 @@
-import { BodyShort, Box, CopyButton, Heading, HStack, VStack } from '@navikt/ds-react';
+import { BodyShort, Box, CopyButton, Heading, HStack, VStack, Link } from '@navikt/ds-react';
 import { Buildings3Icon, CheckmarkIcon, FilesIcon, LocationPinIcon } from '@navikt/aksel-icons';
 
-import { StyrkeloftEventNavn } from '@/lib/tracking/common';
+import { loggStyrkeloft } from '@/lib/tracking';
 
 interface Props {
     ledigStilling: any;
@@ -14,13 +14,12 @@ function LedigStilling(props: Props) {
     return (
         <Box className={'py-4 pl-4 pr-2'} borderRadius="large" shadow="xsmall">
             <Heading level={'2'} size={'small'}>
-                <a
-                    data-umami-event={StyrkeloftEventNavn}
-                    data-umami-event-aktivitet="Går til annonse på arbeidsplassen"
+                <Link
                     href={ledigStillingUrl}
+                    onClick={() => loggStyrkeloft({ aktivitet: 'Går til annonse på arbeidsplassen' })}
                 >
                     {ledigStilling.tittel}
-                </a>
+                </Link>
             </Heading>
             <BodyShort weight="semibold" className={'mt-2 mb-4'}>
                 {ledigStilling.stillingbeskrivelse}
@@ -43,8 +42,7 @@ function LedigStilling(props: Props) {
                     copyText={ledigStillingUrl}
                     icon={<FilesIcon title="Kopier lenke til den ledige stillingen" />}
                     activeIcon={<CheckmarkIcon title="Kopierte lenke til stillingen" />}
-                    data-umami-event={StyrkeloftEventNavn}
-                    data-umami-event-aktivitet="Går til søk på arbeidsplassen"
+                    onClick={() => loggStyrkeloft({ aktivitet: 'Kopierer lenke til stilling' })}
                 />
             </Box>
         </Box>
