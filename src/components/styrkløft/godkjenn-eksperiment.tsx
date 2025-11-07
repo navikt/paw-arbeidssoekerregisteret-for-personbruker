@@ -4,6 +4,8 @@ import { Alert, BodyShort, Box, Button, Heading } from '@navikt/ds-react';
 import Beta from '@/components/styrkløft/beta';
 import ReadMoreEksperiment from './godkjenn-eksperiment-readmore';
 
+import { loggStyrkeloft } from '@/lib/tracking';
+
 interface Props {
     sprak: Sprak;
     onSubmit(val: Tjenestestatus): Promise<void>;
@@ -44,8 +46,14 @@ function GodkjennEksperiment(props: Props) {
     const visAvmeldtLoader = pending === 'OPT_OUT';
     const isPending = visAvmeldtLoader || visGodkjennLoader;
     const visFeilmelding = Boolean(error);
-    const onGodkjennSubmit = () => onSubmit('AKTIV');
-    const onAvmeldSubmit = () => onSubmit('OPT_OUT');
+    const onGodkjennSubmit = () => {
+        loggStyrkeloft({ aktivitet: 'Takker ja til å delta' });
+        return onSubmit('AKTIV');
+    };
+    const onAvmeldSubmit = () => {
+        loggStyrkeloft({ aktivitet: 'Takker nei til å delta' });
+        return onSubmit('OPT_OUT');
+    };
 
     return (
         <Box>

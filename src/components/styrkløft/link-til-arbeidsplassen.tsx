@@ -3,7 +3,8 @@ import { StedSoek } from '@/model/brukerprofil';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Link } from '@navikt/ds-react';
 import React from 'react';
-import { StyrkeloftEventNavn } from '@/lib/tracking/common';
+
+import { loggStyrkeloft } from '@/lib/tracking';
 
 const TEKSTER = {
     nb: {
@@ -28,11 +29,7 @@ const LinkTilArbeidsplassen: React.FC<LinkTilArbeidsplassenProps> = (props) => {
     const urlTilArbeidsplasen = opprettLinkTilArbeidsplassen(stedSoek);
 
     return (
-        <Link
-            data-umami-event={StyrkeloftEventNavn}
-            data-umami-event-aktivitet="Går til søk på arbeidsplassen"
-            href={urlTilArbeidsplasen}
-        >
+        <Link href={urlTilArbeidsplasen} onClick={() => loggStyrkeloft({ aktivitet: 'Går til søk på arbeidsplassen' })}>
             {tekst('linkTittel')}
         </Link>
     );
