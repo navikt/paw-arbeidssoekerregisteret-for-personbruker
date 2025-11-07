@@ -1,8 +1,9 @@
-import { StyrkeloftEventNavn } from '@/lib/tracking/common';
 import { MenuElipsisVerticalIcon } from '@navikt/aksel-icons';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { ActionMenu, Button } from '@navikt/ds-react';
 import React from 'react';
+
+import { loggStyrkeloft } from '@/lib/tracking';
 
 const TEKSTER = {
     nb: {
@@ -40,8 +41,7 @@ const FlerValgsMeny: React.FC<FlerValgsMenyProps> = (props) => {
                         variant="tertiary-neutral"
                         icon={<MenuElipsisVerticalIcon title="Saksmeny" />}
                         size="small"
-                        data-umami-event={StyrkeloftEventNavn}
-                        data-umami-event-aktivitet="Åpner flervalgsmeny"
+                        onClick={() => loggStyrkeloft({ aktivitet: 'Åpner flervalgsmeny' })}
                     />
                 </ActionMenu.Trigger>
                 <ActionMenu.Content>

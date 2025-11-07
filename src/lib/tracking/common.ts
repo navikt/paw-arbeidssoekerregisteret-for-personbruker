@@ -37,6 +37,7 @@ export type StyrkeloftData =
     | { aktivitet: 'Avbryter avslutning av eksperiment' }
     | { aktivitet: 'Takker ja til å delta' }
     | { aktivitet: 'Takker nei til å delta' }
+    | { aktivitet: 'Åpner flervalgsmeny' }
     | { aktivitet: 'Kopierer lenke til stilling' };
 
 export type EventData = VisningsData | AktivitetData | StyrkeloftData;
