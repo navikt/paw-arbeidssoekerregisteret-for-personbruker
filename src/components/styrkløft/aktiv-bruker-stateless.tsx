@@ -9,6 +9,7 @@ import { BekreftAvmelding } from '@/components/styrkløft/bekreft-avmelding';
 import { Tjenestestatus } from '@/model/brukerprofil';
 import { KvitteringAvmeldt } from '@/components/styrkløft/kvittering-avmeldt';
 import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
+import { loggStyrkeloft } from '@/lib/tracking';
 
 interface Props extends AktivBrukerProps {
     isEditMode: boolean;
@@ -91,7 +92,10 @@ function AktivBrukerStateless(props: Props) {
                 <BekreftAvmelding
                     open={visAvmeldModal}
                     onConfirm={() => onSubmitTjenestestatus('OPT_OUT')}
-                    onClose={() => onVisAvmeldModal(false)}
+                    onClose={() => {
+                        loggStyrkeloft({ aktivitet: 'Avbryter avslutning av eksperiment' });
+                        return onVisAvmeldModal(false);
+                    }}
                     sprak={sprak}
                     pending={Boolean(pendingTjenestestatus)}
                     error={Boolean(errorTjenestestatus)}

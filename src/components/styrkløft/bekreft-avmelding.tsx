@@ -1,4 +1,3 @@
-import { StyrkeloftEventNavn } from '@/lib/tracking/common';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BodyLong, Button, Modal, Alert } from '@navikt/ds-react';
 import React from 'react';
@@ -51,25 +50,10 @@ const BekreftAvmelding: React.FC<BekreftAvmeldingProps> = (props) => {
                 )}
             </Modal.Body>
             <Modal.Footer>
-                <Button
-                    type="button"
-                    variant="primary"
-                    onClick={onConfirm}
-                    disabled={pending}
-                    loading={pending}
-                    data-umami-event={StyrkeloftEventNavn}
-                    data-umami-event-aktivitet="Avmelding bekreftet"
-                >
+                <Button type="button" variant="primary" onClick={onConfirm} disabled={pending} loading={pending}>
                     {tekst('bekreft')}
                 </Button>
-                <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={onClose}
-                    disabled={pending}
-                    data-umami-event={StyrkeloftEventNavn}
-                    data-umami-event-aktivitet="Avmelding avbrutt"
-                >
+                <Button type="button" variant="secondary" onClick={onClose} disabled={pending}>
                     {tekst('avbryt')}
                 </Button>
             </Modal.Footer>
