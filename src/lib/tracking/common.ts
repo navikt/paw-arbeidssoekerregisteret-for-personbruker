@@ -2,7 +2,7 @@ import { getCurrentConsent } from '@navikt/nav-dekoratoren-moduler';
 
 export const AktivitetEventNavn = 'arbeidssoekerregisteret-for-personbruker.aktivitet';
 export const VisningEventNavn = 'arbeidssoekerregisteret-for-personbruker.visning';
-export const StyrkeloftEventNavn = 'arbeidssoekerregisteret-for-personbruker.styrkeloft';
+export const StyrkeloftEventNavn = 'arbeidssoekerregisteret-for-personbruker.styrkloft';
 
 export type VisningsData =
     | { viser: 'IkkeAktivArbeidssøker fra Bekreftelse' }
@@ -32,6 +32,9 @@ export type AktivitetData =
 export type StyrkeloftData =
     | { aktivitet: 'Går til annonse på arbeidsplassen' }
     | { aktivitet: 'Går til søk på arbeidsplassen' }
+    | { aktivitet: 'Setter filter for sted' }
+    | { aktivitet: 'Setter filter for yrkeskategori' }
+    | { aktivitet: 'Avbryter avslutning av eksperiment' }
     | { aktivitet: 'Kopierer lenke til stilling' };
 
 export type EventData = VisningsData | AktivitetData | StyrkeloftData;
