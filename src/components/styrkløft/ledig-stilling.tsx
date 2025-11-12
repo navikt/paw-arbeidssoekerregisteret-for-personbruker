@@ -43,6 +43,7 @@ function LedigStilling(props: Props) {
                     icon={<FilesIcon title="Kopier lenke til den ledige stillingen" />}
                     activeIcon={<CheckmarkIcon title="Kopierte lenke til stillingen" />}
                     onClick={() => loggStyrkeloft({ aktivitet: 'Kopierer lenke til stilling' })}
+                    className={'hidden md:block'}
                 />
             </Box>
         </Box>
