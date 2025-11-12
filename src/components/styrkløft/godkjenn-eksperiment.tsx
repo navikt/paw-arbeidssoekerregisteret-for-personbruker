@@ -59,7 +59,7 @@ function GodkjennEksperiment(props: Props) {
         <Box>
             <Heading level="3" size="large">
                 {tekst('heading')}
-                <div className={'float-right'}>
+                <div>
                     <Beta sprak={sprak} />
                 </div>
             </Heading>

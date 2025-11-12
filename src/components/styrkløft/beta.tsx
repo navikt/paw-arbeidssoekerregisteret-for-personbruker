@@ -26,7 +26,7 @@ interface Props {
 function Beta(props: Props) {
     const tekst = lagHentTekstForSprak(TEKSTER, props.sprak);
     return (
-        <Tag variant={'alt1'}>
+        <Tag variant={'alt1'} size={'small'}>
             {tekst('beta')}
             <HelpText title={tekst('betaTitle')} className={'ml-2'}>
                 {tekst('betaDescription')}
