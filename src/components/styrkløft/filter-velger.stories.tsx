@@ -7,7 +7,7 @@ const meta = {
     component: FilterVelger,
     tags: ['autodocs'],
     args: {},
-    render(args) {
+    render: function Render(args) {
         const [values, setValues] = useState(args.values);
         return <FilterVelger values={values} options={args.options} heading={args.heading} onChange={setValues} />;
     },
