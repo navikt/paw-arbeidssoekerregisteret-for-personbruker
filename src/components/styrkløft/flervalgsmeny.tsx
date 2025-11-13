@@ -1,7 +1,7 @@
+import React from 'react';
 import { MenuElipsisVerticalIcon } from '@navikt/aksel-icons';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { ActionMenu, Button } from '@navikt/ds-react';
-import React from 'react';
 
 import { loggStyrkeloft } from '@/lib/tracking';
 
@@ -46,7 +46,12 @@ const FlerValgsMeny: React.FC<FlerValgsMenyProps> = (props) => {
                 </ActionMenu.Trigger>
                 <ActionMenu.Content>
                     <ActionMenu.Group label="Tilvalg for arbeidsøket">
-                        <ActionMenu.Item onSelect={onEditSearch}>{tekst('endresok')}</ActionMenu.Item>
+                        <ActionMenu.Item
+                            onSelect={onEditSearch}
+                            onClick={() => loggStyrkeloft({ aktivitet: 'Går til endre stillingssøk' })}
+                        >
+                            {tekst('endresok')}
+                        </ActionMenu.Item>
                         <ActionMenu.Item onSelect={onEnd}>{tekst('slutt')}</ActionMenu.Item>
                     </ActionMenu.Group>
                 </ActionMenu.Content>
