@@ -1,10 +1,7 @@
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
-import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
-import { parseIdportenToken } from '@navikt/oasis';
-import { IdportenPayload } from '@navikt/oasis/dist/validate';
-import { requestTexasOboToken } from '@/lib/texas';
+import { getToken, parseIdportenToken, requestOboToken } from '@navikt/oasis';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const BEKREFTELSE_URL = `${process.env.BEKREFTELSE_API_URL}/api/v1/bekreftelse`;
@@ -20,8 +17,8 @@ export const POST = async (request: Request) => {
 
     try {
         const reqHeaders = await headers();
-        const idPortenToken = stripBearer(reqHeaders.get('authorization')!);
-        const tokenXToken = await requestTexasOboToken(idPortenToken, BEKREFTELSE_API_CLIENT_ID);
+        const idPortenToken = getToken(await headers())!;
+        const tokenXToken = await requestOboToken(idPortenToken, BEKREFTELSE_API_CLIENT_ID);
 
         if (!tokenXToken.ok) {
             return new Response(null, { status: 401 });
@@ -29,7 +26,9 @@ export const POST = async (request: Request) => {
 
         logger.info({ x_trace_id: traceId }, `Starter POST ${BEKREFTELSE_URL}`);
 
-        const identitetsnummer = (parseIdportenToken(idPortenToken) as IdportenPayload).pid;
+        const parsedIdportenToken = parseIdportenToken(idPortenToken);
+        const identitetsnummer = parsedIdportenToken.ok ? parsedIdportenToken.pid : '';
+
         const body = await request.json();
 
         const response = await fetch(BEKREFTELSE_URL, {

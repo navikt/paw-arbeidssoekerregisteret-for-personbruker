@@ -1,9 +1,7 @@
-import { requestTexasOboToken } from '@/lib/texas';
-import { Stillingssoek } from '@/model/brukerprofil';
 import { logger } from '@navikt/next-logger';
-import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
+import { getToken, requestOboToken } from '@navikt/oasis';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const BRUKERPROFIL_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-mine-stillinger`;
@@ -14,7 +12,7 @@ const STILLINGSSOEK_API_URL = `${process.env.BRUKERPROFIL_API_URL}/api/v1/bruker
  * Oppdaterer brukerens stillingsøk informasjon.
  *
  * @param {Stillingssoek} - stillingsoek
- * 
+ *
  * @eksempel
  * Request body:
  * ```tsx
@@ -38,9 +36,7 @@ export const PUT = async (request: Request) => {
     const traceId = uuidv4();
 
     try {
-        const reqHeaders = await headers();
-        const idPortenToken = stripBearer(reqHeaders.get('authorization')!);
-        const tokenXToken = await requestTexasOboToken(idPortenToken, BRUKERPROFIL_CLIENT_ID);
+        const tokenXToken = await requestOboToken(getToken(await headers())!, BRUKERPROFIL_CLIENT_ID);
 
         if (!tokenXToken.ok) {
             return new Response(null, { status: 401 });

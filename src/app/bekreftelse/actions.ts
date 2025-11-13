@@ -1,19 +1,17 @@
 'use server';
 
-import { parseIdportenToken } from '@navikt/oasis';
-import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
+import { getToken, parseIdportenToken, requestOboToken } from '@navikt/oasis';
 import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
 import { ApiResponse } from '../../../types/api-response';
-import { requestTexasOboToken } from '@/lib/texas';
 import { TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const TILGJENGELIGE_BEKREFTELSER_URL = `${process.env.BEKREFTELSE_API_URL}/api/v1/tilgjengelige-bekreftelser`;
 
 async function getTokenXToken(idPortenToken: string) {
-    const oboToken = await requestTexasOboToken(
+    const oboToken = await requestOboToken(
         idPortenToken,
         `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-bekreftelse`,
     );
@@ -41,8 +39,7 @@ async function fetchTilgjengeligeBekreftelser(): Promise<ApiResponse<Tilgjengeli
     }
 
     try {
-        const reqHeaders = await headers();
-        const idPortenToken = stripBearer(reqHeaders.get('authorization')!);
+        const idPortenToken = getToken(await headers())!;
         const tokenXToken = await getTokenXToken(idPortenToken);
         const traceId = uuidv4();
         logger.info({ x_trace_id: traceId }, `Starter POST ${TILGJENGELIGE_BEKREFTELSER_URL}`);
