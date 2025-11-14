@@ -1,6 +1,6 @@
 import { headers } from 'next/headers';
-import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { decodeJwt } from 'jose';
+import { getToken } from '@navikt/oasis';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -12,8 +12,7 @@ export async function hentInnloggingsNivaa(): Promise<{ data?: AuthLevel; error?
     }
 
     try {
-        const reqHeaders = await headers();
-        const token = stripBearer(reqHeaders.get('authorization')!);
+        const token = getToken(await headers())!;
         const decodedToken = decodeJwt(token);
         return { data: decodedToken.acr as AuthLevel };
     } catch (error) {

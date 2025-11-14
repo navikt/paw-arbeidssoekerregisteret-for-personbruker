@@ -1,8 +1,8 @@
 import { Brukerprofil, LedigeStillinger } from '@/model/brukerprofil';
 import { headers } from 'next/headers';
-import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
 import { getTokenXToken } from '@/app/actions';
+import { getToken } from '@navikt/oasis';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -13,8 +13,7 @@ async function getBrukerprofilApi<T>(path: string): Promise<{
     const BRUKERPROFIL_URL = `${process.env.BRUKERPROFIL_API_URL}${path}`;
     const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-mine-stillinger`;
     try {
-        const reqHeaders = await headers();
-        const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!), audience);
+        const tokenXToken = await getTokenXToken(getToken(await headers()), audience);
         logger.info(`Starter GET ${BRUKERPROFIL_URL}`);
 
         const response = await fetch(BRUKERPROFIL_URL, {

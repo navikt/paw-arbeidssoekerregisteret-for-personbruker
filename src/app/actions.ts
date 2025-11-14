@@ -1,22 +1,25 @@
 'use server';
 
-import { stripBearer } from '@navikt/oasis/dist/strip-bearer';
 import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
 
 import { aggregertePerioderMockData, bekreftelserMedStatusMockdata } from './mockdata';
 import { BekreftelserMedStatusResponse } from '@/model/bekreftelse';
-import { requestTexasOboToken } from '@/lib/texas';
 import { AggregertePerioder } from '@navikt/arbeidssokerregisteret-utils';
+import { getToken, requestOboToken } from '@navikt/oasis';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
 async function getTokenXToken(
-    idPortenToken: string,
+    idPortenToken: string | null,
     audience: string = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag`,
 ) {
-    const oboToken = await requestTexasOboToken(idPortenToken, audience);
+    if (!idPortenToken) {
+        throw new Error('Missing bearer token');
+    }
+
+    const oboToken = await requestOboToken(idPortenToken, audience);
 
     if (!oboToken.ok) {
         logger.warn(oboToken.error);
@@ -46,8 +49,7 @@ async function fetchAggregertePerioder(props: AggregertePerioderProps): Promise<
     const AGGREGERTE_PERIODER_URL = `${process.env.OPPSLAG_API_V2_URL}/api/v1/arbeidssoekerperioder-aggregert${visKunSisteInformasjon ? '?siste=true' : ''}`;
     const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag-v2`;
     try {
-        const reqHeaders = await headers();
-        const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!), audience);
+        const tokenXToken = await getTokenXToken(getToken(await headers()), audience);
         const traceId = uuidv4();
         logger.info({ x_trace_id: traceId }, `Starter GET ${AGGREGERTE_PERIODER_URL}`);
 
@@ -103,9 +105,8 @@ async function fetchTilgjengeligEgenvurdering(): Promise<{ data?: any; error?: a
     const EGENVURDERING_API_URL = `${process.env.EGENVURDERING_API_URL}/api/v1/arbeidssoeker/profilering/egenvurdering/grunnlag`;
 
     try {
-        const reqHeaders = await headers();
         const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-egenvurdering`;
-        const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!), audience);
+        const tokenXToken = await getTokenXToken(getToken(await headers()), audience);
         const traceId = uuidv4();
         logger.info({ x_trace_id: traceId }, `Starter GET ${EGENVURDERING_API_URL}`);
 
@@ -158,8 +159,7 @@ async function fetchBekreftelserMedStatus(props: BekreftelserMedStatusProps): Pr
     const BEKREFTELSER_MED_STATUS_URL = `${process.env.OPPSLAG_API_V2_URL}/api/v2/bekreftelser`;
     const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag-v2`;
     try {
-        const reqHeaders = await headers();
-        const tokenXToken = await getTokenXToken(stripBearer(reqHeaders.get('authorization')!), audience);
+        const tokenXToken = await getTokenXToken(getToken(await headers()), audience);
         logger.info(`Starter POST ${BEKREFTELSER_MED_STATUS_URL}`);
 
         const response = await fetch(BEKREFTELSER_MED_STATUS_URL, {
