@@ -6,5 +6,9 @@ interface Props {
 }
 
 export default function StyrkloftSkyra(props: Props) {
-    return <InlineSkyraSurvey {...props} />;
+    if (props.brukerprofil.tjenestestatus !== 'AKTIV') {
+        return null;
+    }
+
+    return <InlineSkyraSurvey />;
 }
