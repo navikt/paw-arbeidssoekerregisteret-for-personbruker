@@ -22,6 +22,7 @@ import { fetchBrukerprofil } from '@/app/brukerprofil-api';
 import StyrkEksperiment from '@/components/styrkløft/styrk-eksperiment';
 import unleashKeys from '@/unleash-keys';
 import { isEnabled } from '@/lib/unleash-is-enabled';
+import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
 
 interface Props {
     sprak: Sprak;
@@ -120,15 +121,19 @@ const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
 const StyrkEksperimentServerKomponent = async ({ sprak }: Props) => {
     const skalViseStyrkeloeft = await isEnabled(unleashKeys.VIS_STYRKELOEFT);
     const { data, error } = await fetchBrukerprofil();
+    const erSkyraAktiv = await isEnabled(unleashKeys.BRUK_SKYRA);
 
     if (error || !data || !skalViseStyrkeloeft) {
         return null;
     }
 
     return (
-        <div className={'mt-4'}>
-            <StyrkEksperiment sprak={sprak} brukerprofil={data} />
-        </div>
+        <>
+            {erSkyraAktiv && <StyrkloftSkyra brukerprofil={data} />}
+            <div className={'mt-4'}>
+                <StyrkEksperiment sprak={sprak} brukerprofil={data} />
+            </div>
+        </>
     );
 };
 

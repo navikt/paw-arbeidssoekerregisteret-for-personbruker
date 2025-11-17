@@ -43,18 +43,25 @@ export type StyrkeloftData =
 
 export type EventData = VisningsData | AktivitetData | StyrkeloftData;
 
+const defaultConsent = {
+    consent: {
+        analytics: false,
+        surveys: false,
+    },
+    meta: {
+        createdAt: '',
+        updatedAt: '',
+        version: -1,
+    },
+    userActionTaken: false,
+};
+
 export const isConsentingToAnalytics = () => {
-    const currentConsent = getCurrentConsent() ?? {
-        consent: {
-            analytics: false,
-            surveys: false,
-        },
-        meta: {
-            createdAt: '',
-            updatedAt: '',
-            version: -1,
-        },
-        userActionTaken: false,
-    };
+    const currentConsent = getCurrentConsent() ?? defaultConsent;
     return currentConsent.consent.analytics;
+};
+
+export const isConsentingToSurveys = () => {
+    const currentConsent = getCurrentConsent() ?? defaultConsent;
+    return currentConsent.consent.surveys;
 };
