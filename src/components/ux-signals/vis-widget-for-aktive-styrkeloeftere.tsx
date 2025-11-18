@@ -16,5 +16,5 @@ export default function VisWidgetForAktiveStyrkeloeftere(props: WidgetProps) {
 
     if (!skalHaWidget) return null;
 
-    return <UxSignalsWidget erDemo={true} />;
+    return <UxSignalsWidget />;
 }
