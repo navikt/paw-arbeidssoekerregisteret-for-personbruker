@@ -10,8 +10,7 @@ export default function InlineSkyraSurvey(props: Props) {
     return (
         <>
             <style jsx>{`
-                skyra-survey[slug='arbeids-og-velferdsetaten-nav/styrkeloft-i-bruk'] {
-                    padding: 0 1rem;
+                skyra-survey {
                     box-shadow:
                         0px 1px 3px 0px rgba(0, 0, 0, 0.15),
                         0px 0px 1px 0px rgba(0, 0, 0, 0.2);
@@ -20,6 +19,10 @@ export default function InlineSkyraSurvey(props: Props) {
                     --skyra-text-color: #000;
                     --skyra-action-text-color: #fff;
                     --skyra-action-color: rgba(0, 103, 197, 1);
+                    --skyra-link-color: rgba(0, 103, 197, 1);
+                }
+                skyra-survey::part(wrapper) {
+                    padding: 1rem;
                 }
             `}</style>
             {/* @ts-expect-error */}
