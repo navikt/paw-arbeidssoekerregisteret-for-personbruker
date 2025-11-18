@@ -1,5 +1,4 @@
 import Script from 'next/script';
-import { ReactElement } from 'react';
 import { Box } from '@navikt/ds-react';
 
 import { isEnabled } from '@/lib/unleash-is-enabled';
