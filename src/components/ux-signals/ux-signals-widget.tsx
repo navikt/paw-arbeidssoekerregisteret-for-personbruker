@@ -1,5 +1,4 @@
 import Script from 'next/script';
-import { ReactElement } from 'react';
 import { Box } from '@navikt/ds-react';
 
 import { isEnabled } from '@/lib/unleash-is-enabled';
@@ -18,7 +17,7 @@ export default async function UxSignalsWidget(props: UxSignalsWidgetProps) {
     if (!erUndersoekelseAktiv) return null;
 
     return (
-        <Box background="surface-default" borderRadius="large" borderColor={'border-subtle'} className="mb-8">
+        <Box background="surface-default" borderRadius="large" borderColor={'border-subtle'} className="mb-8 mt-8">
             <div data-uxsignals-embed={uxSignalsUndersoekelseId} data-uxsignals-mode={erDemo ? 'demo' : ''}></div>
             <Script type="module" strategy="lazyOnload" src="https://widget.uxsignals.com/embed.js" />
         </Box>
