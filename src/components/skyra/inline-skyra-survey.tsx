@@ -10,7 +10,7 @@ export default function InlineSkyraSurvey(props: Props) {
     return (
         <>
             <style jsx>{`
-                skyra-survey[slug='arbeids-og-velferdsetaten-nav/test-undersokelse'] {
+                skyra-survey[slug='arbeids-og-velferdsetaten-nav/styrkeloft-i-bruk'] {
                     padding: 0 1rem;
                     box-shadow:
                         0px 1px 3px 0px rgba(0, 0, 0, 0.15),
@@ -24,7 +24,7 @@ export default function InlineSkyraSurvey(props: Props) {
             `}</style>
             {/* @ts-expect-error */}
             <skyra-survey
-                slug="arbeids-og-velferdsetaten-nav/test-undersokelse"
+                slug="arbeids-og-velferdsetaten-nav/styrkeloft-i-bruk"
                 // @ts-expect-error
             ></skyra-survey>
         </>
