@@ -11,6 +11,7 @@ interface Props {
     harFlereBekreftelser: boolean;
     brukerprofil?: Brukerprofil;
     onClick(): void;
+    isStorybook?: boolean;
 }
 
 const TEKSTER = {
@@ -86,6 +87,7 @@ const Kvittering = (props: Props) => {
                             <StyrkloftSkyra
                                 brukerprofil={brukerprofil}
                                 slug={'arbeids-og-velferdsetaten-nav/test-undersokelse'}
+                                isStorybook={props.isStorybook}
                             />
                             <div className={'mb-4'}>
                                 <StyrkEksperiment sprak={sprak} brukerprofil={brukerprofil} />

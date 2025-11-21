@@ -4,10 +4,11 @@ import { isConsentingToSurveys } from '@/lib/tracking/common';
 
 interface Props {
     slug: string;
+    isStorybook?: boolean;
 }
 
 export default function InlineSkyraSurvey(props: Props) {
-    if (!isConsentingToSurveys()) return null;
+    if (!isConsentingToSurveys() && !props.isStorybook) return null;
 
     const { slug } = props;
 
