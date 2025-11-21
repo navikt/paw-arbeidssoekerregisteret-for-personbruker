@@ -2,10 +2,14 @@
 
 import { isConsentingToSurveys } from '@/lib/tracking/common';
 
-interface Props {}
+interface Props {
+    slug: string;
+}
 
 export default function InlineSkyraSurvey(props: Props) {
     if (!isConsentingToSurveys()) return null;
+
+    const { slug } = props;
 
     return (
         <>
@@ -27,7 +31,7 @@ export default function InlineSkyraSurvey(props: Props) {
             `}</style>
             {/* @ts-expect-error */}
             <skyra-survey
-                slug="arbeids-og-velferdsetaten-nav/styrkeloft-i-bruk"
+                slug={slug}
                 // @ts-expect-error
             ></skyra-survey>
         </>

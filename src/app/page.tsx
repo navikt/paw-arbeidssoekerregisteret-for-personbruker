@@ -130,7 +130,9 @@ const StyrkEksperimentServerKomponent = async ({ sprak }: Props) => {
 
     return (
         <>
-            {erSkyraAktiv && <StyrkloftSkyra brukerprofil={data} />}
+            {erSkyraAktiv && (
+                <StyrkloftSkyra brukerprofil={data} slug={'arbeids-og-velferdsetaten-nav/styrkeloft-i-bruk'} />
+            )}
             <div className={'mt-4'}>
                 <StyrkEksperiment sprak={sprak} brukerprofil={data} />
             </div>

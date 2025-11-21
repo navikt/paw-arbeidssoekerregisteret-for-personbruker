@@ -3,6 +3,7 @@ import InlineSkyraSurvey from '@/components/skyra/inline-skyra-survey';
 
 interface Props {
     brukerprofil: Brukerprofil;
+    slug: string;
 }
 
 export default function StyrkloftSkyra(props: Props) {
@@ -10,5 +11,5 @@ export default function StyrkloftSkyra(props: Props) {
         return null;
     }
 
-    return <InlineSkyraSurvey />;
+    return <InlineSkyraSurvey slug={props.slug} />;
 }
