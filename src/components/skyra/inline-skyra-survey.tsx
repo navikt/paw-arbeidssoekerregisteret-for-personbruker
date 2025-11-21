@@ -16,10 +16,6 @@ export default function InlineSkyraSurvey(props: Props) {
         <>
             <style jsx>{`
                 skyra-survey {
-                    box-shadow:
-                        0px 1px 3px 0px rgba(0, 0, 0, 0.15),
-                        0px 0px 1px 0px rgba(0, 0, 0, 0.2);
-                    border-radius: 8px;
                     --skyra-bg-color: #fff;
                     --skyra-text-color: #000;
                     --skyra-action-text-color: #fff;
@@ -27,6 +23,11 @@ export default function InlineSkyraSurvey(props: Props) {
                     --skyra-link-color: rgba(0, 103, 197, 1);
                 }
                 skyra-survey::part(wrapper) {
+                    box-shadow:
+                        0px 1px 3px 0px rgba(0, 0, 0, 0.15),
+                        0px 0px 1px 0px rgba(0, 0, 0, 0.2);
+                    border-radius: 8px;
+                    border: 1px solid rgba(7, 26, 54, 0.21);
                     padding: 1rem;
                 }
             `}</style>
