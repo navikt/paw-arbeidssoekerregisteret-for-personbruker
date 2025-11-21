@@ -49,7 +49,6 @@ export const KvitteringFlereBekreftelserStory: Story = {
 
 export const KvitteringMedStartStyrkKomponentStory: Story = {
     args: {
-        isStorybook: true,
         sprak: 'nb',
         erUtmeldt: false,
         harFlereBekreftelser: false,
@@ -110,7 +109,6 @@ export const KvitterinMedStillingerKomponent: Story = {
         },
     },
     args: {
-        isStorybook: true,
         sprak: 'nb',
         erUtmeldt: false,
         harFlereBekreftelser: false,

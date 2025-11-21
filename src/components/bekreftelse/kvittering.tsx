@@ -87,7 +87,6 @@ const Kvittering = (props: Props) => {
                             <StyrkloftSkyra
                                 brukerprofil={brukerprofil}
                                 slug={'arbeids-og-velferdsetaten-nav/styrkeloft-i-bruk'}
-                                isStorybook={props.isStorybook}
                             />
                             <div className={'my-4'}>
                                 <StyrkEksperiment sprak={sprak} brukerprofil={brukerprofil} />

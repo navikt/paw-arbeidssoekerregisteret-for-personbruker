@@ -4,7 +4,6 @@ import InlineSkyraSurvey from '@/components/skyra/inline-skyra-survey';
 interface Props {
     brukerprofil: Brukerprofil;
     slug: string;
-    isStorybook?: boolean;
 }
 
 export default function StyrkloftSkyra(props: Props) {
@@ -12,5 +11,5 @@ export default function StyrkloftSkyra(props: Props) {
         return null;
     }
 
-    return <InlineSkyraSurvey slug={props.slug} isStorybook={props.isStorybook} />;
+    return <InlineSkyraSurvey slug={props.slug} />;
 }
