@@ -19,7 +19,7 @@ function LedigeStillinger(props: Props) {
         loggStyrkeloft({ aktivitet: 'Trykker på pagineringsknapp' });
 
         if (skalScrolle && ref.current) {
-            ref.current.scrollIntoView({ behavior: 'smooth' });
+            ref.current.scrollIntoView(true);
         }
     };
 
