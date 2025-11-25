@@ -1,5 +1,5 @@
 import LedigeStillingerStateless from '@/components/styrkløft/ledige-stillinger-stateless';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggStyrkeloft } from '@/lib/tracking';
 
@@ -11,9 +11,14 @@ interface Props {
 function LedigeStillinger(props: Props) {
     const { data } = props.useOnFetchData();
     const [aktivSide, settAktivSide] = useState<number>(1);
+    const ref = useRef<HTMLDivElement>(null);
+
     const onClick = (side: number) => {
         settAktivSide(side);
         loggStyrkeloft({ aktivitet: 'Trykker på pagineringsknapp' });
+        if (ref.current) {
+            ref.current.scrollIntoView();
+        }
     };
 
     const resultat = data?.resultat ?? [];
@@ -22,6 +27,7 @@ function LedigeStillinger(props: Props) {
 
     return (
         <LedigeStillingerStateless
+            ref={ref}
             resultat={aktivtResultat}
             onClick={onClick}
             soek={data?.soek}
