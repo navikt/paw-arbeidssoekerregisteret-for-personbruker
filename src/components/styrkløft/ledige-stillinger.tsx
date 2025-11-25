@@ -15,9 +15,10 @@ function LedigeStillinger(props: Props) {
         settAktivSide(side);
         loggStyrkeloft({ aktivitet: 'Trykker på pagineringsknapp' });
     };
+
     const resultat = data?.resultat ?? [];
     const brukPaginering = resultat.length > 7;
-    const aktivtResultat = aktivSide === 1 ? resultat.splice(0, 7) : resultat.splice(7);
+    const aktivtResultat = aktivSide === 1 ? Array.from(resultat).splice(0, 7) : Array.from(resultat).splice(7);
 
     return (
         <LedigeStillingerStateless

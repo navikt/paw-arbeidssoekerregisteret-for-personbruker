@@ -71,7 +71,7 @@ export const Demo: Story = {
             // return Promise.reject(new Error('feil'));
         },
         useOnFetchStillinger() {
-            return ledigStillingerRespons;
+            return { ...ledigStillingerRespons };
         },
         sprak: 'nb',
     },
@@ -90,7 +90,7 @@ export const Avmeldt: Story = {
             return Promise.resolve();
         },
         useOnFetchStillinger() {
-            return ledigStillingerRespons;
+            return { ...ledigStillingerRespons };
         },
         sprak: 'nb',
     },
@@ -147,7 +147,7 @@ export const MedLagretSøk: Story = {
             return Promise.resolve();
         },
         useOnFetchStillinger() {
-            return ledigStillingerRespons;
+            return { ...ledigStillingerRespons };
         },
         sprak: 'nb',
     },
@@ -174,7 +174,7 @@ export const MedFeilNårManLagrerTjenestestatus: Story = {
             });
         },
         useOnFetchStillinger() {
-            return ledigStillingerRespons;
+            return { ...ledigStillingerRespons };
         },
         sprak: 'nb',
     },
@@ -198,7 +198,7 @@ export const MedFeilNårManLagrerSøk: Story = {
             });
         },
         useOnFetchStillinger() {
-            return ledigStillingerRespons;
+            return { ...ledigStillingerRespons };
         },
         sprak: 'nb',
     },
@@ -217,7 +217,7 @@ export const PlaywrightTestVisStillinger: Story = {
             return Promise.resolve();
         },
         useOnFetchStillinger() {
-            return ledigStillingerRespons;
+            return { ...ledigStillingerRespons };
         },
         sprak: 'nb',
     },
@@ -247,7 +247,7 @@ export const PlaywrightTestAvmelding: Story = {
             return Promise.resolve();
         },
         useOnFetchStillinger() {
-            return ledigStillingerRespons;
+            return { ...ledigStillingerRespons };
         },
         sprak: 'nb',
     },
