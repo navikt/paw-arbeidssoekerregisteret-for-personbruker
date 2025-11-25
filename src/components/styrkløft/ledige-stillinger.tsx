@@ -14,10 +14,12 @@ function LedigeStillinger(props: Props) {
     const ref = useRef<HTMLDivElement>(null);
 
     const onClick = (side: number) => {
+        const skalScrolle = side !== aktivSide;
         settAktivSide(side);
         loggStyrkeloft({ aktivitet: 'Trykker på pagineringsknapp' });
-        if (ref.current) {
-            ref.current.scrollIntoView();
+
+        if (skalScrolle && ref.current) {
+            ref.current.scrollIntoView(true);
         }
     };
 
