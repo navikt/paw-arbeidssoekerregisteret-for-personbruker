@@ -9,6 +9,7 @@ const meta = {
     args: {},
     render: function Render(args) {
         const [values, setValues] = useState(args.values);
+        console.log('values', values);
         return (
             <MultiCheckboxFacet
                 values={values}
@@ -26,8 +27,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         options: [
-            { navn: 'IT', subKategorier: [{ navn: 'Drift' }, { navn: 'Utvikling' }] },
-            { navn: 'Helse', subKategorier: [{ navn: 'Vernepleier' }, { navn: 'Sykepleier' }] },
+            { navn: 'IT', underKategorier: [{ navn: 'Drift' }, { navn: 'Utvikling' }] },
+            { navn: 'Helse', underKategorier: [{ navn: 'Vernepleier' }, { navn: 'Sykepleier' }] },
         ],
         values: [],
         triggerText: 'Velg kategori',
