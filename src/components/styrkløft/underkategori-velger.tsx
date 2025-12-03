@@ -94,7 +94,7 @@ function toggleOffChip(savedState: SavedState, kategori: string): SavedState {
     }
 }
 
-function MultiCheckboxFacet(props: Props) {
+function UnderkategoriVelger(props: Props) {
     const { triggerText, options, values, onChange } = props;
     const [aktivNode, settAktivNode] = useState<string | null>(null);
     const aktiveKategorier = hentAktiveKategorier(options, aktivNode);
@@ -192,4 +192,4 @@ function MultiCheckboxFacet(props: Props) {
     );
 }
 
-export default MultiCheckboxFacet;
+export default UnderkategoriVelger;
