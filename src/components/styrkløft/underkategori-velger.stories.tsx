@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import MultiCheckboxFacet from '@/components/styrkløft/multi-checkbox-facet';
+import UnderkategoriVelger from '@/components/styrkløft/underkategori-velger';
 import { useState } from 'react';
 
 const meta = {
-    title: 'Styrkløft/Komponenter/MultiCheckboxFacet',
-    component: MultiCheckboxFacet,
+    title: 'Styrkløft/Komponenter/UnderkategoriVelger',
+    component: UnderkategoriVelger,
     tags: ['autodocs'],
     args: {},
     render: function Render(args) {
         const [values, setValues] = useState(args.values);
         console.log('values', values);
         return (
-            <MultiCheckboxFacet
+            <UnderkategoriVelger
                 values={values}
                 options={args.options}
                 triggerText={args.triggerText}
@@ -19,7 +19,7 @@ const meta = {
             />
         );
     },
-} satisfies Meta<typeof MultiCheckboxFacet>;
+} satisfies Meta<typeof UnderkategoriVelger>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

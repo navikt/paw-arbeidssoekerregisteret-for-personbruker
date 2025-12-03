@@ -1,6 +1,6 @@
 import arbeidsplassenMapping from './arbeidsplassen-mapping.json';
 
-const alfabetiskSortering = (a: string, b: string) => {
+export const alfabetiskSortering = (a: string, b: string) => {
     const nameA = a.toLowerCase();
     const nameB = b.toLowerCase();
     if (nameA < nameB) {
