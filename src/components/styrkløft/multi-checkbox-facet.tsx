@@ -37,7 +37,7 @@ function hentVelgAlleChecked(savedState: SavedState, aktivNode: string) {
     }
 }
 
-function initUIstate(options: Options, savedValues: string[]): SavedState {
+function getUiState(options: Options, savedValues: string[]): SavedState {
     return options.reduce((acc, opt) => {
         acc[opt.navn] = opt.underKategorier!.reduce(
             (res, kat) => {
@@ -50,7 +50,7 @@ function initUIstate(options: Options, savedValues: string[]): SavedState {
     }, {} as SavedState);
 }
 
-function UIstateToValues(savedState: SavedState): string[] {
+function uiStateToValues(savedState: SavedState): string[] {
     return Object.values(savedState).flatMap((underKategorier) => {
         return Object.keys(underKategorier).filter((key) => underKategorier[key]);
     });
@@ -60,11 +60,8 @@ function MultiCheckboxFacet(props: Props) {
     const { triggerText, options, values, onChange } = props;
     const [aktivNode, settAktivNode] = useState<string | null>(null);
     const aktiveKategorier = hentAktiveKategorier(options, aktivNode);
-    const [UIstate, setUIstate] = useState<SavedState>(initUIstate(options, values));
 
-    useEffect(() => {
-        setUIstate(initUIstate(options, values));
-    }, [options, values]);
+    const uiState = getUiState(options, values);
 
     return (
         <div className={'flex flex-wrap md:flexno-wrap'}>
@@ -94,17 +91,17 @@ function MultiCheckboxFacet(props: Props) {
                             </ActionMenu.Item>
                             <ActionMenu.Divider />
                             <ActionMenu.CheckboxItem
-                                checked={hentVelgAlleChecked(UIstate, aktivNode)}
+                                checked={hentVelgAlleChecked(uiState, aktivNode)}
                                 onCheckedChange={(checked) => {
-                                    const newState = Object.keys(UIstate[aktivNode]).reduce(
+                                    const newState = Object.keys(uiState[aktivNode]).reduce(
                                         (acc, key) => {
                                             acc[key] = checked;
                                             return acc;
                                         },
                                         {} as { [key: string]: boolean },
                                     );
-                                    const newUIState = { ...UIstate, [aktivNode]: newState };
-                                    onChange(UIstateToValues(newUIState));
+                                    const newUIState = { ...uiState, [aktivNode]: newState };
+                                    onChange(uiStateToValues(newUIState));
                                 }}
                             >
                                 Velg alle
@@ -115,8 +112,8 @@ function MultiCheckboxFacet(props: Props) {
                     {aktiveKategorier.map((kat: any) => {
                         const harUnderkategorier = Array.isArray(kat.underKategorier) && kat.underKategorier.length > 0;
                         const checked = harUnderkategorier
-                            ? hentVelgAlleChecked(UIstate, kat.navn)
-                            : UIstate[aktivNode!][kat.navn];
+                            ? hentVelgAlleChecked(uiState, kat.navn)
+                            : uiState[aktivNode!][kat.navn];
                         return (
                             <ActionMenu.CheckboxItem
                                 key={kat.navn}
@@ -126,10 +123,10 @@ function MultiCheckboxFacet(props: Props) {
                                         settAktivNode(kat.navn);
                                     } else {
                                         const newState = {
-                                            ...UIstate,
-                                            [aktivNode!]: { ...UIstate[aktivNode!], [kat.navn]: checked },
+                                            ...uiState,
+                                            [aktivNode!]: { ...uiState[aktivNode!], [kat.navn]: checked },
                                         };
-                                        onChange(UIstateToValues(newState));
+                                        onChange(uiStateToValues(newState));
                                     }
                                 }}
                             >
