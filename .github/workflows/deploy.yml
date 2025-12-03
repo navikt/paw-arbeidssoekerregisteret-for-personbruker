@@ -80,7 +80,7 @@ jobs:
                   project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
             - name: Install Playwright
-              run: npx playwright install --with-deps
+              run: npx playwright install --with-deps --ignore-scripts
 
             - name: Build storybook-static
               run: npm run build-storybook
