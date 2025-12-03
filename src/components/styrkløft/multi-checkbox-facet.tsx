@@ -1,6 +1,7 @@
-import { ActionMenu, Button } from '@navikt/ds-react';
+import { ActionMenu, Button, Chips } from '@navikt/ds-react';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { alfabetiskSortering } from '@/lib/hent-yrkeskategorier';
 
 type SavedState = {
     [key: string]: {
@@ -54,6 +55,43 @@ function uiStateToValues(savedState: SavedState): string[] {
     return Object.values(savedState).flatMap((underKategorier) => {
         return Object.keys(underKategorier).filter((key) => underKategorier[key]);
     });
+}
+
+function uiStateToChips(savedState: SavedState): string[] {
+    return Object.keys(savedState)
+        .reduce((res, key) => {
+            if (Object.values(savedState[key]).every((underKategori) => underKategori)) {
+                return res.concat(key);
+            } else {
+                const aktiveUnderKategorier = Object.keys(savedState[key])
+                    .map((underKategori) => {
+                        if (savedState[key][underKategori]) {
+                            return underKategori;
+                        }
+                    })
+                    .filter((i) => i) as string[];
+
+                return res.concat(aktiveUnderKategorier);
+            }
+        }, [] as string[])
+        .sort(alfabetiskSortering);
+}
+
+function toggleOffChip(savedState: SavedState, kategori: string): SavedState {
+    if (savedState[kategori]) {
+        const newState = Object.keys(savedState[kategori]).reduce((acc, key) => {
+            return { ...acc, [key]: false };
+        }, {});
+        return { ...savedState, [kategori]: newState };
+    } else {
+        return Object.keys(savedState).reduce((acc, key) => {
+            const newState = Object.keys(savedState[key]).reduce((acc, underKategori) => {
+                const value = underKategori === kategori ? false : savedState[key][underKategori];
+                return { ...acc, [underKategori]: value };
+            }, {});
+            return { ...acc, [key]: newState };
+        }, {});
+    }
 }
 
 function MultiCheckboxFacet(props: Props) {
@@ -139,6 +177,17 @@ function MultiCheckboxFacet(props: Props) {
                     })}
                 </ActionMenu.Content>
             </ActionMenu>
+            <Chips className={'ml-2 items-end'}>
+                {uiStateToChips(uiState).map((c) => (
+                    <Chips.Removable
+                        key={c}
+                        variant="neutral"
+                        onClick={() => onChange(uiStateToValues(toggleOffChip(uiState, c)))}
+                    >
+                        {c}
+                    </Chips.Removable>
+                ))}
+            </Chips>
         </div>
     );
 }
