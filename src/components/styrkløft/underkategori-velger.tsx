@@ -183,7 +183,7 @@ function UnderkategoriVelger(props: Props) {
                     })}
                 </ActionMenu.Content>
             </ActionMenu>
-            <Chips className={'ml-2 items-end'}>
+            <Chips className={'ml-2'}>
                 {uiStateToChips(uiState).map((c) => (
                     <Chips.Removable
                         key={c}
