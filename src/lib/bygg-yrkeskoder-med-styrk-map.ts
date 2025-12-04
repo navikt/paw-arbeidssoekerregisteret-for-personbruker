@@ -1,4 +1,5 @@
 import arbeidsplassenMapping from './arbeidsplassen-mapping.json';
+import { alfabetiskSortering } from '@/lib/hent-yrkeskategorier';
 
 interface underKategori {
     navn: string;
@@ -25,9 +26,10 @@ export function byggYrkeskoderTilStyrkMap() {
             });
         } else {
             kategori.underKategorier.push({ navn: current.categoryLevel2, styrk: current.styrkCode });
+            kategori.underKategorier.sort((a, b) => alfabetiskSortering(a.navn, b.navn));
         }
         return byggYrkeskodeTilStyrkMap;
     }, [] as YrkesKategorier);
 
-    return kategorimap;
+    return kategorimap.sort((a, b) => alfabetiskSortering(a.navn, b.navn));
 }

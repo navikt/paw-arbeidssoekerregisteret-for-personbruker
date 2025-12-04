@@ -9,7 +9,7 @@ type SavedState = {
     };
 };
 
-type Options = { navn: string; underKategorier?: { navn: string }[] }[];
+type Options = { navn: string; underKategorier: { navn: string }[] }[];
 interface Props {
     triggerText: string;
     options: Options;
@@ -111,7 +111,12 @@ function UnderkategoriVelger(props: Props) {
                 }}
             >
                 <ActionMenu.Trigger>
-                    <Button variant="secondary-neutral" icon={<ChevronDownIcon aria-hidden />} iconPosition="right">
+                    <Button
+                        variant="secondary"
+                        size={'small'}
+                        icon={<ChevronDownIcon aria-hidden />}
+                        iconPosition="right"
+                    >
                         {triggerText}
                     </Button>
                 </ActionMenu.Trigger>

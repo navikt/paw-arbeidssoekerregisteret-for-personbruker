@@ -29,3 +29,12 @@ export function hentYrkeskategorier(styrkkoder: string[]) {
         .filter((i) => i)
         .sort(alfabetiskSortering);
 }
+
+export function hentYrkeUnderkategorier(styrkkoder: string[]) {
+    return styrkkoder
+        .map((styrk) => {
+            return arbeidsplassenMapping[styrk as keyof typeof arbeidsplassenMapping]?.categoryLevel2;
+        })
+        .filter((i) => i)
+        .sort(alfabetiskSortering);
+}
