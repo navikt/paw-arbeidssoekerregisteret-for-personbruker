@@ -116,6 +116,7 @@ function UnderkategoriVelger(props: Props) {
                         size={'small'}
                         icon={<ChevronDownIcon aria-hidden />}
                         iconPosition="right"
+                        className={'shrink-0 h-fit mb-2'}
                     >
                         {triggerText}
                     </Button>
