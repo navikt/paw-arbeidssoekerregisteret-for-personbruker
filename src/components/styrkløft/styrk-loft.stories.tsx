@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import StyrkLoft from '@/components/styrkløft/styrk-loft';
 import { Tjenestestatus } from '@/model/brukerprofil';
-import { expect, userEvent } from 'storybook/test';
+import { expect, userEvent, screen } from 'storybook/test';
 
 const meta = {
     title: 'Styrkløft/Styrkløft',
@@ -224,8 +224,10 @@ export const PlaywrightTestVisStillinger: Story = {
     async play(context) {
         const canvas = context.canvas;
         await userEvent.click(await canvas.findByText('Vis meg ledige stillinger'));
-        await userEvent.click(await canvas.getByRole('button', { name: 'Velg yrkeskategori Endre' }));
-        await userEvent.click(await canvas.findByText('IT'));
+        await userEvent.click(await canvas.getByRole('button', { name: 'Velg yrkeskategori' }));
+        await userEvent.click(await screen.findByText('IT'));
+        await userEvent.click(await screen.findByText('Velg alle'));
+        await userEvent.click(await canvas.getByRole('button', { name: 'Velg yrkeskategori' })); // lukk yrkeskategorier
         await userEvent.click(await canvas.getByRole('button', { name: 'Velg fylke Endre' }));
         await userEvent.click(await canvas.findByText('Oslo'));
         await userEvent.click(await canvas.findByText('Lagre og vis stillinger'));
