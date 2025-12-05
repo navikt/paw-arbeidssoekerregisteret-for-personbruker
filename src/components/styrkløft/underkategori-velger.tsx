@@ -2,6 +2,7 @@ import { ActionMenu, Button, Chips } from '@navikt/ds-react';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
 import { useState } from 'react';
 import { alfabetiskSortering } from '@/lib/hent-yrkeskategorier';
+import { loggUnderkategoriFilter } from '@/lib/tracking';
 
 type SavedState = {
     [key: string]: {
@@ -146,6 +147,9 @@ function UnderkategoriVelger(props: Props) {
                                     );
                                     const newUIState = { ...uiState, [aktivNode]: newState };
                                     onChange(uiStateToValues(newUIState));
+                                    loggUnderkategoriFilter({
+                                        aktivitet: checked ? 'Trykker på velg alle' : 'Trykker på fjern alle',
+                                    });
                                 }}
                             >
                                 Velg alle
@@ -165,12 +169,14 @@ function UnderkategoriVelger(props: Props) {
                                 onCheckedChange={(checked) => {
                                     if (harUnderkategorier) {
                                         settAktivNode(kat.navn);
+                                        loggUnderkategoriFilter({ aktivitet: 'Trykker på hovedkategori' });
                                     } else {
                                         const newState = {
                                             ...uiState,
                                             [aktivNode!]: { ...uiState[aktivNode!], [kat.navn]: checked },
                                         };
                                         onChange(uiStateToValues(newState));
+                                        loggUnderkategoriFilter({ aktivitet: 'Trykker på underkategori' });
                                     }
                                 }}
                             >
@@ -188,7 +194,10 @@ function UnderkategoriVelger(props: Props) {
                     <Chips.Removable
                         key={c}
                         variant="neutral"
-                        onClick={() => onChange(uiStateToValues(toggleOffChip(uiState, c)))}
+                        onClick={() => {
+                            onChange(uiStateToValues(toggleOffChip(uiState, c)));
+                            loggUnderkategoriFilter({ aktivitet: 'Trykker på Chips' });
+                        }}
                     >
                         {c}
                     </Chips.Removable>
