@@ -2,7 +2,7 @@ import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 import AktivBrukerStateless from '@/components/styrkløft/aktiv-bruker-stateless';
 import { useState } from 'react';
-import { hentYrkeskategorier, hentYrkeUnderkategorier } from '@/lib/hent-yrkeskategorier';
+import { hentYrkeUnderkategorier } from '@/lib/hent-yrkeskategorier';
 import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
 
 export interface AktivBrukerProps {
