@@ -7,5 +7,5 @@ updates:
     # Check the npm registry for updates once a week
     schedule:
       interval: "weekly"
-      cooldown:
-        default-days: 7
+    cooldown:
+      default-days: 7
