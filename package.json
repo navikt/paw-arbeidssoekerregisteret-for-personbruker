@@ -63,7 +63,7 @@
         "storybook": "10.0.8",
         "tailwindcss": "4.1.17",
         "typescript": "5.9.3",
-        "vitest": "4.0.10"
+        "vitest": "4.0.14"
     },
     "prettier": {
         "printWidth": 120,
