@@ -2,7 +2,8 @@ import { Alert, Box, Button, Heading } from '@navikt/ds-react';
 import FilterVelger from '@/components/styrkløft/filter-velger';
 import { FYLKER } from '@/components/styrkløft/fylker';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { hentAlleYrkeskategorier } from '@/lib/hent-yrkeskategorier';
+import UnderkategoriVelger from '@/components/styrkløft/underkategori-velger';
+import { byggYrkeskoderTilStyrkMap } from '@/lib/bygg-yrkeskoder-med-styrk-map';
 
 interface Props {
     onSubmit(data: any): Promise<void>;
@@ -16,7 +17,7 @@ interface Props {
     onChangeFylker: (val: string[]) => void;
 }
 
-const YRKESKATEGORIER = hentAlleYrkeskategorier();
+const YRKESKATEGORIER = byggYrkeskoderTilStyrkMap();
 const TEKSTER = {
     nb: {
         heading: 'Velg yrkeskategorier og fylker du vil se stillinger fra',
@@ -64,10 +65,10 @@ export default function VelgStillingssoekStateless(props: Props) {
                 {tekst('heading')}
             </Heading>
             <section className={'my-4'}>
-                <FilterVelger
-                    values={yrkeskategorier}
+                <UnderkategoriVelger
+                    triggerText={tekst('velgYrkeskategori')}
                     options={YRKESKATEGORIER}
-                    heading={tekst('velgYrkeskategori')}
+                    values={yrkeskategorier}
                     onChange={onChangeYrkeskategorier}
                 />
             </section>

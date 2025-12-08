@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import UnderkategoriVelger from '@/components/styrkløft/underkategori-velger';
 import { useState } from 'react';
+import { byggYrkeskoderTilStyrkMap } from '@/lib/bygg-yrkeskoder-med-styrk-map';
 
 const meta = {
     title: 'Styrkløft/Komponenter/UnderkategoriVelger',
@@ -26,10 +27,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        options: [
-            { navn: 'IT', underKategorier: [{ navn: 'Drift' }, { navn: 'Utvikling' }] },
-            { navn: 'Helse', underKategorier: [{ navn: 'Vernepleier' }, { navn: 'Sykepleier' }] },
-        ],
+        options: byggYrkeskoderTilStyrkMap(),
         values: [],
         triggerText: 'Velg kategori',
         onChange(values: string[]) {

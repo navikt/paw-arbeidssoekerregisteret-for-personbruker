@@ -3,6 +3,7 @@ import { getCurrentConsent } from '@navikt/nav-dekoratoren-moduler';
 export const AktivitetEventNavn = 'arbeidssoekerregisteret-for-personbruker.aktivitet';
 export const VisningEventNavn = 'arbeidssoekerregisteret-for-personbruker.visning';
 export const StyrkeloftEventNavn = 'arbeidssoekerregisteret-for-personbruker.styrkloft';
+export const UnderkategoriFilterEventNavn = 'arbeidssoekerregisteret-for-personbruker.uk-filter';
 
 export type VisningsData =
     | { viser: 'IkkeAktivArbeidssøker fra Bekreftelse' }
@@ -42,7 +43,14 @@ export type StyrkeloftData =
     | { aktivitet: 'Kopierer lenke til stilling' }
     | { aktivitet: 'Trykker på pagineringsknapp' };
 
-export type EventData = VisningsData | AktivitetData | StyrkeloftData;
+export type UnderkategoriFilterData =
+    | { aktivitet: 'Trykker på velg alle' }
+    | { aktivitet: 'Trykker på fjern alle' }
+    | { aktivitet: 'Trykker på underkategori' }
+    | { aktivitet: 'Trykker på hovedkategori' }
+    | { aktivitet: 'Trykker på Chips' };
+
+export type EventData = VisningsData | AktivitetData | StyrkeloftData | UnderkategoriFilterData;
 
 const defaultConsent = {
     consent: {

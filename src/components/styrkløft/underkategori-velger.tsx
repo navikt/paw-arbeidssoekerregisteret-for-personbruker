@@ -2,6 +2,7 @@ import { ActionMenu, Button, Chips } from '@navikt/ds-react';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
 import { useState } from 'react';
 import { alfabetiskSortering } from '@/lib/hent-yrkeskategorier';
+import { loggUnderkategoriFilter } from '@/lib/tracking';
 
 type SavedState = {
     [key: string]: {
@@ -9,7 +10,7 @@ type SavedState = {
     };
 };
 
-type Options = { navn: string; underKategorier?: { navn: string }[] }[];
+type Options = { navn: string; underKategorier: { navn: string }[] }[];
 interface Props {
     triggerText: string;
     options: Options;
@@ -111,7 +112,13 @@ function UnderkategoriVelger(props: Props) {
                 }}
             >
                 <ActionMenu.Trigger>
-                    <Button variant="secondary-neutral" icon={<ChevronDownIcon aria-hidden />} iconPosition="right">
+                    <Button
+                        variant="secondary"
+                        size={'small'}
+                        icon={<ChevronDownIcon aria-hidden />}
+                        iconPosition="right"
+                        className={'shrink-0 h-fit mb-2'}
+                    >
                         {triggerText}
                     </Button>
                 </ActionMenu.Trigger>
@@ -140,6 +147,9 @@ function UnderkategoriVelger(props: Props) {
                                     );
                                     const newUIState = { ...uiState, [aktivNode]: newState };
                                     onChange(uiStateToValues(newUIState));
+                                    loggUnderkategoriFilter({
+                                        aktivitet: checked ? 'Trykker på velg alle' : 'Trykker på fjern alle',
+                                    });
                                 }}
                             >
                                 Velg alle
@@ -159,12 +169,14 @@ function UnderkategoriVelger(props: Props) {
                                 onCheckedChange={(checked) => {
                                     if (harUnderkategorier) {
                                         settAktivNode(kat.navn);
+                                        loggUnderkategoriFilter({ aktivitet: 'Trykker på hovedkategori' });
                                     } else {
                                         const newState = {
                                             ...uiState,
                                             [aktivNode!]: { ...uiState[aktivNode!], [kat.navn]: checked },
                                         };
                                         onChange(uiStateToValues(newState));
+                                        loggUnderkategoriFilter({ aktivitet: 'Trykker på underkategori' });
                                     }
                                 }}
                             >
@@ -177,12 +189,15 @@ function UnderkategoriVelger(props: Props) {
                     })}
                 </ActionMenu.Content>
             </ActionMenu>
-            <Chips className={'ml-2 items-end'}>
+            <Chips className={'ml-2'}>
                 {uiStateToChips(uiState).map((c) => (
                     <Chips.Removable
                         key={c}
                         variant="neutral"
-                        onClick={() => onChange(uiStateToValues(toggleOffChip(uiState, c)))}
+                        onClick={() => {
+                            onChange(uiStateToValues(toggleOffChip(uiState, c)));
+                            loggUnderkategoriFilter({ aktivitet: 'Trykker på Chips' });
+                        }}
                     >
                         {c}
                     </Chips.Removable>

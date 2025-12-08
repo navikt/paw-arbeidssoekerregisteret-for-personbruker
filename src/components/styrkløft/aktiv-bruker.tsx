@@ -2,7 +2,7 @@ import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 import AktivBrukerStateless from '@/components/styrkløft/aktiv-bruker-stateless';
 import { useState } from 'react';
-import { hentYrkeskategorier } from '@/lib/hent-yrkeskategorier';
+import { hentYrkeUnderkategorier } from '@/lib/hent-yrkeskategorier';
 import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
 
 export interface AktivBrukerProps {
@@ -16,7 +16,7 @@ export interface AktivBrukerProps {
 function initLagretSok(brukerprofil: Brukerprofil) {
     const lagretSoek = (brukerprofil?.stillingssoek ?? []).find((s) => s.soekType === 'STED_SOEK_V1');
     const fylker = (lagretSoek?.fylker ?? []).map((f) => f.navn);
-    const yrkeskategorier = hentYrkeskategorier(lagretSoek?.styrk08 ?? []);
+    const yrkeskategorier = hentYrkeUnderkategorier(lagretSoek?.styrk08 ?? []);
     return { fylker, yrkeskategorier };
 }
 

@@ -1,5 +1,6 @@
 import { hentYrkeskategorier } from '@/lib/hent-yrkeskategorier';
 import { StedSoek } from '@/model/brukerprofil';
+import { byggStyrkTilUnderkategorinavnMap, byggYrkeskodeTilStyrkMap } from '@/lib/bygg-yrkeskode-til-styrk-map';
 
 /**
  * Opprett en URL basert på informasjon fra brukerprofil (api)
@@ -25,8 +26,21 @@ export function opprettLinkTilArbeidsplassen(stedSoek: StedSoek): string {
     if (styrkKoder && styrkKoder.length > 0) {
         try {
             const alleYrkeskategorierFraBrukerprofil = hentYrkeskategorier(styrkKoder);
+            const yrkeskodeTilStyrkMap = byggYrkeskodeTilStyrkMap();
             alleYrkeskategorierFraBrukerprofil.forEach((kategori) => {
+                const alleStyrkKoderForKategori = yrkeskodeTilStyrkMap.get(kategori)!;
                 urlParams.append('occupationLevel1', kategori);
+                const harValgtUnderkategori = alleStyrkKoderForKategori.some((styrk) => !styrkKoder.includes(styrk));
+                if (harValgtUnderkategori) {
+                    const underkategorier = alleStyrkKoderForKategori.filter((styrk) => styrkKoder.includes(styrk));
+                    const underkategoriNavnMap = byggStyrkTilUnderkategorinavnMap();
+                    underkategorier.forEach((styrk) => {
+                        const underkategoriNavn = underkategoriNavnMap.get(styrk);
+                        if (underkategoriNavn) {
+                            urlParams.append('occupationLevel2', `${kategori}.${underkategoriNavn}`);
+                        }
+                    });
+                }
             });
         } catch (error) {
             console.warn('Feil ved henting av yrkeskategorier:', error);

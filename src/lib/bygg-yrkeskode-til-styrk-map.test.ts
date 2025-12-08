@@ -5,4 +5,8 @@ describe('bygg-yrkeskode-til-styrk-map', () => {
         const it = byggYrkeskodeTilStyrkMap().get('IT');
         expect(it).toEqual(['1330', '2166', '2514', '3514']);
     });
+    it('mapper under-kategorinavn til styrk-kode', () => {
+        const map = byggYrkeskodeTilStyrkMap();
+        expect(map.get('Elektriker/elektro')).toEqual(['3522']);
+    });
 });
