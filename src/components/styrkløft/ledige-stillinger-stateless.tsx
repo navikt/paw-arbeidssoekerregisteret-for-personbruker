@@ -20,6 +20,9 @@ const TEKSTER = {
     nb: {
         ingenTreff: 'Ingen treff',
     },
+    nn: {
+        ingenTreff: 'Ingen treff',
+    },
     en: {
         ingenTreff: 'No matches',
     },
