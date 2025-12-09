@@ -19,12 +19,15 @@ interface Props {
 const TEKSTER = {
     nb: {
         ingenTreff: 'Ingen treff',
+        endreYrkeskategorier: 'Du kan forsøke å endre valgene dine for yrkeskategori i det lagrede søket',
     },
     nn: {
         ingenTreff: 'Ingen treff',
+        endreYrkeskategorier: 'Du kan prøva å endra vala dine for yrkeskategori i det lagra søket',
     },
     en: {
         ingenTreff: 'No matches',
+        endreYrkeskategorier: 'You can try changing your job category selections in the saved search',
     },
 };
 
@@ -35,7 +38,12 @@ function LedigeStillingerStateless(props: Props) {
 
     return (
         <Box ref={ref}>
-            {!harTreff && <BodyShort>{tekst('ingenTreff')}</BodyShort>}
+            {!harTreff && (
+                <Box className="mb-2">
+                    <BodyShort>{tekst('ingenTreff')}</BodyShort>
+                    <BodyShort>{tekst('endreYrkeskategorier')}.</BodyShort>
+                </Box>
+            )}
             {harTreff && (
                 <>
                     <HGrid gap="space-24" columns={{ sm: 1 }} className={'mb-4'}>
