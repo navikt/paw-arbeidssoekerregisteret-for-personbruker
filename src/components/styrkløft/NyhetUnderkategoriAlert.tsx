@@ -16,7 +16,7 @@ const TEKSTER = {
     },
     en: {
         title: 'New feature: choose from more job categories',
-        content: 'Edit your search by clicking the icon above in the right corner.',
+        content: 'Edit your search by clicking the icon in the above right corner.',
     },
 };
 
