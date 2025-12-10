@@ -3,6 +3,8 @@ import { getPerioder } from './actions';
 import { Heading, Loader } from '@navikt/ds-react';
 import { Perioder } from '../../components/perioder/perioder';
 
+export const dynamic = 'force-dynamic';
+
 async function HistorikkServerComponent() {
     const perioder = await getPerioder();
 
