@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/nextjs';
 import { aggregertePerioderMockData } from '@/app/mockdata';
 import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
-import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
+import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 
 const opplysningerOmArbeidssoker = aggregertePerioderMockData[0].opplysningerOmArbeidssoeker;
 

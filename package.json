@@ -18,7 +18,7 @@
     "dependencies": {
         "@grafana/faro-web-sdk": "1.19.0",
         "@navikt/aksel-icons": "7.33.3",
-        "@navikt/arbeidssokerregisteret-utils": "1.8.3",
+        "@navikt/arbeidssokerregisteret-utils": "1.9.2",
         "@navikt/ds-css": "7.33.3",
         "@navikt/ds-react": "7.33.3",
         "@navikt/ds-tailwind": "7.33.3",

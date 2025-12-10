@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import EgenvurderingAvklart from '@/components/egenvurdering/egenvurdering-avklart';
-import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
+import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 
 const meta = {
     title: 'Komponenter/Egenvurdering/Avklart',

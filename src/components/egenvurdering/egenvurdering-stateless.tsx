@@ -2,7 +2,7 @@ import { Alert, BodyLong, Box, Button, Heading, Hide } from '@navikt/ds-react';
 import ReadMoreVeileder from '@/components/egenvurdering/readmore-veileder';
 import ReadMoreVurdering from '@/components/egenvurdering/readmore-vurdering';
 import { lagHentTekstForSprak, Profilering, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
+import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 import { InformationSquareIcon } from '@navikt/aksel-icons';
 import { loggAktivitet } from '@/lib/tracking';
 import { VisningEventNavn } from '@/lib/tracking/common';
