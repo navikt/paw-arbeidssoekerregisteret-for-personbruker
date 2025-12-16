@@ -11,7 +11,7 @@ type HendelseProps = {
 
 const Hendelse: React.FC<HendelseProps> = ({ timestamp, title, kilde, children }) => {
     return (
-        <article className="border-b border-gray-300 pb-4 mb-4">
+        <article className="p-4 mb-4 rounded bg-surface-subtle">
             <div className="flex flex-wrap justify-between items-center">
                 <div className="flex gap-4">
                     {timestamp && (
@@ -25,7 +25,7 @@ const Hendelse: React.FC<HendelseProps> = ({ timestamp, title, kilde, children }
                     <Source source={kilde || 'UVENTET_KILDE'} />
                 </div>
             </div>
-            {children && <div className=" bg-surface-subtle p-2 rounded mt-2">{children}</div>}
+            {children && <div className="pl-4 mt-2">{children}</div>}
         </article>
     );
 };
