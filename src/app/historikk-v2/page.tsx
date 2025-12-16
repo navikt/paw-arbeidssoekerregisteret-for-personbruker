@@ -8,11 +8,7 @@ export const dynamic = 'force-dynamic';
 async function HistorikkServerComponent() {
     const perioder = await getPerioder();
 
-    return (
-        <div>
-            <Perioder perioder={perioder} />
-        </div>
-    );
+    return <Perioder perioder={perioder} />;
 }
 
 export default async function HistorikkPage() {

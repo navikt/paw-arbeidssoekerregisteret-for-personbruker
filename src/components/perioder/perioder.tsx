@@ -12,31 +12,27 @@ type PerioderProps = {
 
 const Perioder: React.FC<PerioderProps> = ({ perioder }) => {
     return (
-        <div>
-            <Accordion>
-                {perioder?.map((periode) => (
-                    <Accordion.Item key={periode.periodeId}>
-                        <Accordion.Header>
-                            <BodyShort>
-                                {prettyPrintDato(periode.startet, 'nb')} -{' '}
-                                {periode.avsluttet ? prettyPrintDato(periode.avsluttet, 'nb') : 'fortsatt pågående'}
-                            </BodyShort>
-                        </Accordion.Header>
-                        <Accordion.Content>
-                            <div>
-                                {periode.hendelser.map((hendelse, i) => (
-                                    <HendelseRenderer
-                                        key={i}
-                                        hendelse={hendelse}
-                                        periodeAvsluttetTidspunkt={periode.avsluttet}
-                                    />
-                                ))}
-                            </div>
-                        </Accordion.Content>
-                    </Accordion.Item>
-                ))}
-            </Accordion>
-        </div>
+        <Accordion>
+            {perioder?.map((periode) => (
+                <Accordion.Item key={periode.periodeId}>
+                    <Accordion.Header>
+                        <BodyShort>
+                            {prettyPrintDato(periode.startet, 'nb')} -{' '}
+                            {periode.avsluttet ? prettyPrintDato(periode.avsluttet, 'nb') : 'fortsatt pågående'}
+                        </BodyShort>
+                    </Accordion.Header>
+                    <Accordion.Content>
+                        {periode.hendelser.map((hendelse, i) => (
+                            <HendelseRenderer
+                                key={i}
+                                hendelse={hendelse}
+                                periodeAvsluttetTidspunkt={periode.avsluttet}
+                            />
+                        ))}
+                    </Accordion.Content>
+                </Accordion.Item>
+            ))}
+        </Accordion>
     );
 };
 
