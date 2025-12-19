@@ -2,7 +2,7 @@
 
 import { Profilering, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
-import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
+import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 import EgenvurderingStateless from '@/components/egenvurdering/egenvurdering-stateless';
 import EgenvurderingAvklart from '@/components/egenvurdering/egenvurdering-avklart';
 

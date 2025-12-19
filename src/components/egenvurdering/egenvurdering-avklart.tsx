@@ -1,7 +1,7 @@
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BodyLong, Box, Heading, Hide } from '@navikt/ds-react';
 import ReadMoreVeileder from '@/components/egenvurdering/readmore-veileder';
-import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils/dist/models/profilering';
+import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 import { InformationSquareIcon } from '@navikt/aksel-icons';
 import { VisningEventNavn } from '@/lib/tracking/common';
 
