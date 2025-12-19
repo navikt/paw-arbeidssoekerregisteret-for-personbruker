@@ -14,6 +14,7 @@ interface Props {
     aktivSide: number;
     onClick: (side: any) => void;
     brukPaginering: boolean;
+    viserUnderkategoriTips: boolean;
 }
 
 const TEKSTER = {
@@ -32,7 +33,7 @@ const TEKSTER = {
 };
 
 function LedigeStillingerStateless(props: Props) {
-    const { resultat, soek, sprak, brukPaginering, ref } = props;
+    const { resultat, soek, sprak, brukPaginering, ref, viserUnderkategoriTips } = props;
     const harTreff = resultat && resultat.length > 0;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
@@ -41,7 +42,7 @@ function LedigeStillingerStateless(props: Props) {
             {!harTreff && (
                 <Box className="mb-2">
                     <BodyShort>{tekst('ingenTreff')}</BodyShort>
-                    <BodyShort>{tekst('endreYrkeskategorier')}.</BodyShort>
+                    {!viserUnderkategoriTips && <BodyShort>{tekst('endreYrkeskategorier')}.</BodyShort>}
                 </Box>
             )}
             {harTreff && (

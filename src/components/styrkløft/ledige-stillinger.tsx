@@ -5,6 +5,7 @@ import { loggStyrkeloft } from '@/lib/tracking';
 
 interface Props {
     useOnFetchData(): { data?: any; error?: Error };
+    viserUnderkategoriTips: boolean;
     sprak: Sprak;
 }
 
@@ -37,6 +38,7 @@ function LedigeStillinger(props: Props) {
             antallSider={2}
             aktivSide={aktivSide}
             brukPaginering={brukPaginering}
+            viserUnderkategoriTips={props.viserUnderkategoriTips}
         />
     );
 }
