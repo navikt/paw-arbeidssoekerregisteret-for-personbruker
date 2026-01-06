@@ -1,5 +1,5 @@
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { BodyLong, Button, Modal, Alert } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, Dialog } from '@navikt/ds-react';
 import React from 'react';
 
 const TEKSTER = {
@@ -40,24 +40,38 @@ const BekreftAvmelding: React.FC<BekreftAvmeldingProps> = (props) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <Modal open={open} onClose={onClose} header={{ heading: tekst('heading') }}>
-            <Modal.Body>
-                <BodyLong>{tekst('tekst')}</BodyLong>
-                {error && (
-                    <Alert variant={'error'} className={'my-2'}>
-                        {tekst('feilmelding')}
-                    </Alert>
-                )}
-            </Modal.Body>
-            <Modal.Footer>
-                <Button type="button" variant="primary" onClick={onConfirm} disabled={pending} loading={pending}>
-                    {tekst('bekreft')}
-                </Button>
-                <Button type="button" variant="secondary" onClick={onClose} disabled={pending}>
-                    {tekst('avbryt')}
-                </Button>
-            </Modal.Footer>
-        </Modal>
+        <Dialog
+            open={open}
+            onOpenChange={(nextOpen) => {
+                if (!nextOpen) {
+                    onClose();
+                }
+            }}
+        >
+            <Dialog.Popup>
+                <Dialog.Header>
+                    <Dialog.Title>{tekst('heading')}</Dialog.Title>
+                </Dialog.Header>
+                <Dialog.Body>
+                    <BodyLong>{tekst('tekst')}</BodyLong>
+                    {error && (
+                        <Alert variant={'error'} className={'my-2'}>
+                            {tekst('feilmelding')}
+                        </Alert>
+                    )}
+                </Dialog.Body>
+                <Dialog.Footer>
+                    <Button type="button" variant="primary" onClick={onConfirm} disabled={pending} loading={pending}>
+                        {tekst('bekreft')}
+                    </Button>
+                    <Dialog.CloseTrigger>
+                        <Button type="button" variant="secondary" disabled={pending}>
+                            {tekst('avbryt')}
+                        </Button>
+                    </Dialog.CloseTrigger>
+                </Dialog.Footer>
+            </Dialog.Popup>
+        </Dialog>
     );
 };
 
