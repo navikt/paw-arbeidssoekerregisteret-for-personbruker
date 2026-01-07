@@ -11,9 +11,6 @@ import { KvitteringAvmeldt } from '@/components/styrkløft/kvittering-avmeldt';
 import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggStyrkeloft } from '@/lib/tracking';
 import Beta from './beta';
-import { erUnderkategoriValgt } from '@/components/styrkløft/underkategori-velger';
-import { byggYrkeskoderTilStyrkMap } from '@/lib/bygg-yrkeskoder-med-styrk-map';
-import NyhetUnderkategoriAlert from '@/components/styrkløft/NyhetUnderkategoriAlert';
 
 interface Props extends AktivBrukerProps {
     isEditMode: boolean;
@@ -62,8 +59,6 @@ function AktivBrukerStateless(props: Props) {
         return <KvitteringAvmeldt sprak={sprak} />;
     }
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const visUnderkategoriTips =
-        !isEditMode && !erUnderkategoriValgt(byggYrkeskoderTilStyrkMap(), lagretSok.yrkeskategorier);
 
     return (
         <Box
@@ -83,14 +78,14 @@ function AktivBrukerStateless(props: Props) {
             <div className={'mb-4 -mt-2'}>
                 <Beta sprak={sprak} />
             </div>
-            {visUnderkategoriTips && <NyhetUnderkategoriAlert sprak={sprak} />}
+
             {!isEditMode && (
                 <ErrorBoundary errorComponent={() => null}>
                     <Suspense fallback={<Loader />}>
                         <LedigeStillinger
                             useOnFetchData={props.useOnFetchStillinger}
                             sprak={sprak}
-                            viserUnderkategoriTips={visUnderkategoriTips}
+                            viserUnderkategoriTips={false}
                         />
                     </Suspense>
                 </ErrorBoundary>

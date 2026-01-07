@@ -113,7 +113,7 @@ const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
     }
 
     return (
-        <div className={'mt-4'}>
+        <div className={'my-4'}>
             <Egenvurdering sprak={sprak} profilering={data.grunnlag} />
         </div>
     );
