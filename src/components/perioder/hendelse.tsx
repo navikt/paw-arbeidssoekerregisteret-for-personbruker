@@ -1,4 +1,8 @@
+'use client';
+
+import { Process } from '@navikt/ds-react';
 import { ReactNode } from 'react';
+import { useShowDetails } from '../../contexts/show-details-context';
 import { prettyPrintDatoOgKlokkeslettKortform } from './helpers';
 import { Source } from './source';
 
@@ -10,23 +14,16 @@ type HendelseProps = {
 };
 
 const Hendelse: React.FC<HendelseProps> = ({ timestamp, title, kilde, children }) => {
+    const { showDetails } = useShowDetails();
     return (
-        <article className="p-4 mb-4 rounded bg-surface-subtle">
-            <div className="flex flex-wrap justify-between items-center">
-                <div className="flex gap-4">
-                    {timestamp && (
-                        <div className="border-r-2 border-gray-300 pr-4">
-                            {prettyPrintDatoOgKlokkeslettKortform(timestamp, 'nb', true)}
-                        </div>
-                    )}
-                    <h3>{title}</h3>
-                </div>
-                <div>
-                    <Source source={kilde || 'UVENTET_KILDE'} />
-                </div>
-            </div>
-            {children && <div className="pl-4 mt-2">{children}</div>}
-        </article>
+        <Process.Event
+            timestamp={prettyPrintDatoOgKlokkeslettKortform(timestamp || '', 'nb', true)}
+            status="completed"
+            title={title}
+        >
+            <Source source={kilde || 'UVENTET_KILDE'} />
+            {children && showDetails && <div className="pb-2">{children}</div>}
+        </Process.Event>
     );
 };
 

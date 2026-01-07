@@ -3,7 +3,7 @@
 import React from 'react';
 import { prettyPrintDato } from '@/lib/date-utils';
 import { Periode } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
-import { Accordion, BodyShort } from '@navikt/ds-react';
+import { Accordion, BodyShort, Process } from '@navikt/ds-react';
 import { HendelseRenderer } from './hendelse-renderer';
 
 type PerioderProps = {
@@ -22,13 +22,15 @@ const Perioder: React.FC<PerioderProps> = ({ perioder }) => {
                         </BodyShort>
                     </Accordion.Header>
                     <Accordion.Content>
-                        {periode.hendelser.map((hendelse, i) => (
-                            <HendelseRenderer
-                                key={i}
-                                hendelse={hendelse}
-                                periodeAvsluttetTidspunkt={periode.avsluttet}
-                            />
-                        ))}
+                        <Process>
+                            {periode.hendelser.map((hendelse, i) => (
+                                <HendelseRenderer
+                                    key={i}
+                                    hendelse={hendelse}
+                                    periodeAvsluttetTidspunkt={periode.avsluttet}
+                                />
+                            ))}
+                        </Process>
                     </Accordion.Content>
                 </Accordion.Item>
             ))}
