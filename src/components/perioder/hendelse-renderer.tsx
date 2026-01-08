@@ -1,16 +1,14 @@
 'use client';
 
-import React, { ReactNode } from 'react';
-import { Box, ReadMore, Tag } from '@navikt/ds-react';
-import { Hendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
-import { prettyPrintDatoOgKlokkeslettKortform } from './helpers';
 import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
-import { oversettSluttaarsak } from './sluttaarsak';
-import { Source } from './source';
-import { Opplysninger } from './opplysninger';
-import { PROFILERT_TIL_TEKSTER } from './models';
+import { Hendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { Box } from '@navikt/ds-react';
+import React from 'react';
 import { Bekreftelse } from './bekreftelse';
 import { Hendelse as HendelseKomponent } from './hendelse';
+import { PROFILERT_TIL_TEKSTER } from './models';
+import { Opplysninger } from './opplysninger';
+import { oversettSluttaarsak } from './sluttaarsak';
 
 type HendelseRendererProps = {
     hendelse: Hendelse;

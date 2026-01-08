@@ -28,6 +28,7 @@ export default function InlineSkyraSurvey(props: Props) {
                     border-radius: 8px;
                     border: 1px solid rgba(7, 26, 54, 0.21);
                     padding: 1rem;
+                    background: #ccf1d6;
                 }
             `}</style>
             {/* @ts-expect-error */}
