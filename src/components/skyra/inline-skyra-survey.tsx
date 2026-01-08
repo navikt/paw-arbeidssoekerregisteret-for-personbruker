@@ -19,7 +19,7 @@ export default function InlineSkyraSurvey(props: Props) {
                     --skyra-text-color: #000;
                     --skyra-action-text-color: #fff;
                     --skyra-action-color: rgba(0, 103, 197, 1);
-                    --skyra-link-color: rgba(0, 103, 197, 1);
+                    --skyra-link-color: #00347d;
                 }
                 skyra-survey::part(wrapper) {
                     box-shadow:
