@@ -5,15 +5,17 @@ import { ReactNode } from 'react';
 import { useShowDetails } from '../../contexts/show-details-context';
 import { prettyPrintDatoOgKlokkeslettKortform } from './helpers';
 import { Source } from './source';
+import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 type HendelseProps = {
     timestamp?: string;
     title: string;
     kilde: string;
+    sprak: Sprak;
     children?: ReactNode;
 };
 
-const Hendelse: React.FC<HendelseProps> = ({ timestamp, title, kilde, children }) => {
+const Hendelse: React.FC<HendelseProps> = ({ timestamp, title, kilde, sprak, children }) => {
     const { showDetails } = useShowDetails();
     return (
         <Process.Event
@@ -21,7 +23,7 @@ const Hendelse: React.FC<HendelseProps> = ({ timestamp, title, kilde, children }
             status="completed"
             title={title}
         >
-            <Source source={kilde || 'UVENTET_KILDE'} />
+            <Source source={kilde || 'UVENTET_KILDE'} sprak={sprak} />
             {children && showDetails && <div className="pb-2">{children}</div>}
         </Process.Event>
     );
