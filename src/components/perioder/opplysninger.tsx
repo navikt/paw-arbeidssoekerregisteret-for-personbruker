@@ -4,6 +4,7 @@ import {
     mapNusKodeTilUtdannignsnivaa,
     SPORSMAL_TEKSTER,
     SporsmalId,
+    Sprak,
 } from '@navikt/arbeidssokerregisteret-utils';
 import React from 'react';
 import { BodyShort } from '@navikt/ds-react';
@@ -36,11 +37,12 @@ function mapOpplysninger(opplysninger: OpplysningerHendelse): { sporsmal: string
 
 type OpplysningerProps = {
     opplysninger: OpplysningerHendelse;
+    sprak: Sprak;
 };
 
 const Opplysninger: React.FC<OpplysningerProps> = (props) => {
-    const { opplysninger } = props;
-    const tekst = lagHentTekstForSprak(SPORSMAL_TEKSTER, 'nb');
+    const { opplysninger, sprak } = props;
+    const tekst = lagHentTekstForSprak(SPORSMAL_TEKSTER, sprak);
     const besvarelser = mapOpplysninger(opplysninger);
 
     return (
