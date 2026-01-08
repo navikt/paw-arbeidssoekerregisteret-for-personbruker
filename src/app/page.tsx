@@ -113,7 +113,7 @@ const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
     }
 
     return (
-        <div className={'mt-4'}>
+        <div className={'my-4'}>
             <Egenvurdering sprak={sprak} profilering={data.grunnlag} />
         </div>
     );
@@ -131,7 +131,10 @@ const StyrkEksperimentServerKomponent = async ({ sprak }: Props) => {
     return (
         <>
             {erSkyraAktiv && (
-                <StyrkloftSkyra brukerprofil={data} slug={'arbeids-og-velferdsetaten-nav/styrkeloft-i-bruk'} />
+                <StyrkloftSkyra
+                    brukerprofil={data}
+                    slug={'arbeids-og-velferdsetaten-nav/styrkeloft-eksperimentavslutning'}
+                />
             )}
             <div className={'mt-4'}>
                 <StyrkEksperiment sprak={sprak} brukerprofil={data} />
