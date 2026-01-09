@@ -53,10 +53,9 @@ const TEKSTER = {
 type HendelseRendererProps = {
     hendelse: Hendelse;
     sprak: Sprak;
-    periodeAvsluttetTidspunkt?: string;
 };
 
-const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak, periodeAvsluttetTidspunkt }) => {
+const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) => {
     const sluttaarsak = oversettSluttaarsak(sprak);
     const profileringsTekster = lagHentTekstForSprak(PROFILERT_TIL_TEKSTER, sprak);
     const overskriftTekster = lagHentTekstForSprak(TEKSTER, sprak);
@@ -94,7 +93,8 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak, pe
         case 'EGENVURDERING_V1':
             return (
                 <HendelseKomponent
-                    timestamp={hendelse.sendtInnAv.tidspunkt}
+                    // @ts-ignore: Ny type er kun i dev pr nå
+                    timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('utfoert_egenvurdering')}
                     kilde={hendelse.sendtInnAv.utfoertAv.type}
                     sprak={sprak}
@@ -110,7 +110,8 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak, pe
         case 'OPPLYSNINGER_V4':
             return (
                 <HendelseKomponent
-                    timestamp={hendelse.sendtInnAv.tidspunkt}
+                    // @ts-ignore: Ny type er kun i dev pr nå
+                    timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('innsending_av_oppslysninger')}
                     kilde={hendelse.sendtInnAv.utfoertAv.type}
                     sprak={sprak}
@@ -122,7 +123,8 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak, pe
         case 'BEKREFTELSE_V1':
             return (
                 <HendelseKomponent
-                    timestamp={hendelse.svar.gjelderFra}
+                    // @ts-ignore: Ny type er kun i dev pr nå
+                    timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('bekreftelse_levert')}
                     kilde={hendelse.svar.sendtInnAv.utfoertAv.type}
                     sprak={sprak}
@@ -134,7 +136,8 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak, pe
         case 'PROFILERING_V1':
             return (
                 <HendelseKomponent
-                    timestamp={hendelse.sendtInnAv.tidspunkt}
+                    // @ts-ignore: Ny type er kun i dev pr nå
+                    timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('profilering')}
                     kilde={hendelse.sendtInnAv.utfoertAv.type}
                     sprak={sprak}
