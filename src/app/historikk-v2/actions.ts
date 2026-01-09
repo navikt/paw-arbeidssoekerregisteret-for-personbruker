@@ -30,7 +30,7 @@ export async function getPerioder(): Promise<Periode[] | null> {
         throw new Error('OPPSLAG_V2_URL is not defined');
     }
 
-    const PERIODER_URL = `${OPPSLAG_V2_URL}/api/v3/perioder`;
+    const PERIODER_URL = `${OPPSLAG_V2_URL}/api/v3/perioder?ordering=DESC`;
 
     const incomingToken = getToken(await headers());
     if (!incomingToken) {
