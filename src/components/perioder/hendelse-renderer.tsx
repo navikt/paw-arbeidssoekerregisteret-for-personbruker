@@ -67,7 +67,8 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak, pe
                 <HendelseKomponent
                     timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('periode_started')}
-                    kilde={hendelse.utfoertAv.type}
+                    // @ts-ignore: Ny type er kun i dev pr nå
+                    kilde={hendelse.sendtInnAv.utfoertAv.type}
                     sprak={sprak}
                 />
             );
@@ -77,13 +78,15 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak, pe
                 <HendelseKomponent
                     timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('periode_avsluttet')}
-                    kilde={hendelse.utfoertAv.type}
+                    // @ts-ignore: Ny type er kun i dev pr nå
+                    kilde={hendelse.sendtInnAv.utfoertAv.type}
                     sprak={sprak}
                 >
                     <Box as={'p'}>
                         <b>{overskriftTekster('sluttarsak')}</b>
                         {': '}
-                        {sluttaarsak(hendelse.aarsak)}
+                        {/* @ts-ignore: Ny type er kun i dev pr nå */}
+                        {sluttaarsak(hendelse.sendtInnAv.aarsak)}
                     </Box>
                 </HendelseKomponent>
             );
