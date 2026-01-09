@@ -1,6 +1,6 @@
 'use client';
 
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { BekreftelseStatus, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Hendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { Box } from '@navikt/ds-react';
 import React from 'react';
@@ -121,6 +121,7 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
             );
 
         case 'BEKREFTELSE_V1':
+            if (hendelse.status !== BekreftelseStatus.GYLDIG) return null;
             return (
                 <HendelseKomponent
                     // @ts-ignore: Ny type er kun i dev pr nå
