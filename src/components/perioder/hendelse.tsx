@@ -19,7 +19,7 @@ const Hendelse: React.FC<HendelseProps> = ({ timestamp, title, kilde, sprak, chi
     const { showDetails } = useShowDetails();
     return (
         <Process.Event
-            timestamp={prettyPrintDatoOgKlokkeslettKortform(timestamp || '', 'nb', true)}
+            timestamp={timestamp ? prettyPrintDatoOgKlokkeslettKortform(timestamp, 'nb', true) : undefined}
             status="completed"
             title={title}
         >
