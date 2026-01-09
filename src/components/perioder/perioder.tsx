@@ -42,12 +42,7 @@ const Perioder: React.FC<PerioderProps> = ({ perioder, sprak }) => {
                     <Accordion.Content>
                         <Process>
                             {periode.hendelser.map((hendelse, i) => (
-                                <HendelseRenderer
-                                    key={i}
-                                    hendelse={hendelse}
-                                    periodeAvsluttetTidspunkt={periode.avsluttet}
-                                    sprak={sprak}
-                                />
+                                <HendelseRenderer key={i} hendelse={hendelse} sprak={sprak} />
                             ))}
                         </Process>
                     </Accordion.Content>
