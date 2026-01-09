@@ -23,7 +23,7 @@ const Hendelse: React.FC<HendelseProps> = ({ timestamp, title, kilde, sprak, chi
             status="completed"
             title={title}
         >
-            <Source source={kilde || 'UVENTET_KILDE'} sprak={sprak} />
+            {showDetails && <Source source={kilde || 'UVENTET_KILDE'} sprak={sprak} />}
             {children && showDetails && <div className="pb-2">{children}</div>}
         </Process.Event>
     );
