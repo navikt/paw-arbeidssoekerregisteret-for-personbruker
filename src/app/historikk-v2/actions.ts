@@ -14,7 +14,6 @@ interface ApiError extends Error {
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const OPPSLAG_V2_URL = process.env.OPPSLAG_API_V2_URL;
-// const OPPSLAG_V2_SCOPE = `api://${process.env.NAIS_CLUSTER_NAME}.paw.paw-arbeidssoekerregisteret-api-oppslag-v2/.default`;
 const OPPSLAG_V2_SCOPE = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag-v2`;
 
 export async function getPerioder(): Promise<Periode[] | null> {
