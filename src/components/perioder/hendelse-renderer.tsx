@@ -16,24 +16,24 @@ const TEKSTER = {
         periode_started: 'Periode startet',
         utfoert_egenvurdering: 'Utført egenvurdering',
         innsending_av_oppslysninger: 'Insendte Opplysninger',
-        periode_stoppet: 'Periode stoppet',
         bekreftelse_levert: 'Bekreftelse levert',
         sluttarsak: 'Sluttårsak',
         vurdert_til: 'Vurdert til',
         frist_brutt: 'Frist brutt',
         kilde: 'Kilde',
+        profilering: 'Profilering',
     },
     nn: {
         periode_avsluttet: 'Periode avslutta',
         periode_started: 'Periode starta',
         utfoert_egenvurdering: 'Utført eigenvurdering',
         innsending_av_oppslysninger: 'Innsendte opplysningar',
-        periode_stoppet: 'Periode stoppa',
         bekreftelse_levert: 'Bekreftelse levert',
         sluttarsak: 'Sluttårsak',
         vurdert_til: 'Vurdert til',
         frist_brutt: 'Frist broten',
         kilde: 'Kjelde',
+        profilering: 'Profilering',
     },
 
     en: {
@@ -41,12 +41,12 @@ const TEKSTER = {
         periode_started: 'Period started',
         utfoert_egenvurdering: 'Performed self-assessment',
         innsending_av_oppslysninger: 'Submitted information',
-        periode_stoppet: 'Period stopped',
         bekreftelse_levert: 'Confirmation delivered',
         sluttarsak: 'Reason',
         vurdert_til: 'Assessed to',
         frist_brutt: 'Deadline missed',
         kilde: 'Source',
+        profilering: 'Profiling',
     },
 };
 
@@ -119,33 +119,6 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak, pe
                 </HendelseKomponent>
             );
 
-        case 'PAA_VEGNE_AV_STOPP_V1':
-            return (
-                <HendelseKomponent
-                    timestamp={periodeAvsluttetTidspunkt}
-                    title={overskriftTekster('periode_stoppet')}
-                    kilde={hendelse.bekreftelsesloesning}
-                    sprak={sprak}
-                >
-                    <Box as={'p'}>
-                        <b>{overskriftTekster('sluttarsak')}</b>
-                        {': '}
-                        {overskriftTekster('frist_brutt')}
-                        {/* {sluttaarsak(hendelse.fristBrutt)} */}
-                    </Box>
-                </HendelseKomponent>
-            );
-
-        case 'PAA_VEGNE_AV_START_V1':
-            // TODO: Setter vi startdato til starten på perioden, eller "ingen dato"?
-            return (
-                <HendelseKomponent
-                    title={overskriftTekster('periode_startet')}
-                    kilde={hendelse.bekreftelsesloesning}
-                    sprak={sprak}
-                />
-            );
-
         case 'BEKREFTELSE_V1':
             return (
                 <HendelseKomponent
@@ -159,6 +132,20 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak, pe
             );
 
         case 'PROFILERING_V1':
+            return (
+                <HendelseKomponent
+                    timestamp={hendelse.sendtInnAv.tidspunkt}
+                    title={overskriftTekster('profilering')}
+                    kilde={hendelse.sendtInnAv.utfoertAv.type}
+                    sprak={sprak}
+                />
+            );
+
+        // Aktivt valg å ikke vise "på vegne av" hendelser - ikke av interesse, kun for intern bruk
+        case 'PAA_VEGNE_AV_STOPP_V1':
+            return null;
+
+        case 'PAA_VEGNE_AV_START_V1':
             return null;
 
         default: {
