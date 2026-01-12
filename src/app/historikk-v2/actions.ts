@@ -16,32 +16,37 @@ const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const OPPSLAG_V2_URL = process.env.OPPSLAG_API_V2_URL;
 const OPPSLAG_V2_SCOPE = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag-v2`;
 
-export async function getPerioder(): Promise<Periode[] | null> {
+export async function getPerioder(): Promise<{ perioder: Periode[] | null; error?: ApiError }> {
     if (brukerMock) {
         const { default: perioder } = await import('@/mocks/perioder.json', {
             with: { type: 'json' },
         });
         await new Promise((resolve) => setTimeout(resolve, 1200));
-        // @ts-expect-error - Its 100% correct, but TS is being difficult
-        return perioder;
+        return {
+            // @ts-expect-error - Its 100% correct, but TS is being difficult
+            perioder,
+        };
     }
 
     if (!OPPSLAG_V2_URL) {
-        throw new Error('OPPSLAG_V2_URL is not defined');
+        logger.error('OPPSLAG_V2_URL er ikke definert');
+        return { perioder: null, error: new Error('En feil oppsto') };
     }
 
     const PERIODER_URL = `${OPPSLAG_V2_URL}/api/v3/perioder?ordering=DESC`;
 
     const incomingToken = getToken(await headers());
     if (!incomingToken) {
-        throw new Error('Missing incoming token');
+        logger.error('Mangler innkommende token');
+        return { perioder: null, error: new Error('En feil oppsto') };
     }
     const tokenXToken = await getTokenXToken(incomingToken, OPPSLAG_V2_SCOPE);
     const parsedToken = parseIdportenToken(incomingToken);
 
     const identitetsnummer = parsedToken.ok ? parsedToken.pid : null;
     if (!identitetsnummer) {
-        throw new Error('Could not parse identitetsnummer from token');
+        logger.error('Kunne ikke hente identitetsnummer fra token');
+        return { perioder: null, error: new Error('En feil oppsto') };
     }
 
     const traceId = uuidv4();
@@ -69,12 +74,11 @@ export async function getPerioder(): Promise<Periode[] | null> {
                 // Ignorer feil ved parsing av JSON
             }
             logger.error(error, `Feil fra POST ${PERIODER_URL}`);
-            throw error;
+            return { perioder: null, error };
         }
-
-        return await response.json();
+        return { perioder: await response.json() };
     } catch (e) {
         logger.error(e, `Feil fra POST ${PERIODER_URL}`);
-        throw e;
+        return { perioder: null, error: e as ApiError };
     }
 }
