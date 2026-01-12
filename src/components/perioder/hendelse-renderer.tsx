@@ -66,7 +66,6 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
                 <HendelseKomponent
                     timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('periode_started')}
-                    // @ts-ignore: Ny type er kun i dev pr nå
                     kilde={hendelse.sendtInnAv.utfoertAv.type}
                     sprak={sprak}
                 />
@@ -77,14 +76,12 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
                 <HendelseKomponent
                     timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('periode_avsluttet')}
-                    // @ts-ignore: Ny type er kun i dev pr nå
                     kilde={hendelse.sendtInnAv.utfoertAv.type}
                     sprak={sprak}
                 >
                     <Box as={'p'}>
                         <b>{overskriftTekster('sluttarsak')}</b>
                         {': '}
-                        {/* @ts-ignore: Ny type er kun i dev pr nå */}
                         {sluttaarsak(hendelse.sendtInnAv.aarsak)}
                     </Box>
                 </HendelseKomponent>
@@ -93,7 +90,6 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
         case 'EGENVURDERING_V1':
             return (
                 <HendelseKomponent
-                    // @ts-ignore: Ny type er kun i dev pr nå
                     timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('utfoert_egenvurdering')}
                     kilde={hendelse.sendtInnAv.utfoertAv.type}
@@ -110,7 +106,6 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
         case 'OPPLYSNINGER_V4':
             return (
                 <HendelseKomponent
-                    // @ts-ignore: Ny type er kun i dev pr nå
                     timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('innsending_av_oppslysninger')}
                     kilde={hendelse.sendtInnAv.utfoertAv.type}
@@ -124,7 +119,6 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
             if (hendelse.status !== BekreftelseStatus.GYLDIG) return null;
             return (
                 <HendelseKomponent
-                    // @ts-ignore: Ny type er kun i dev pr nå
                     timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('bekreftelse_levert')}
                     kilde={hendelse.svar.sendtInnAv.utfoertAv.type}
@@ -137,7 +131,6 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
         case 'PROFILERING_V1':
             return (
                 <HendelseKomponent
-                    // @ts-ignore: Ny type er kun i dev pr nå
                     timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('profilering')}
                     kilde={hendelse.sendtInnAv.utfoertAv.type}

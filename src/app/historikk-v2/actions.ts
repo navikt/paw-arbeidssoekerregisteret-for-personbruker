@@ -18,12 +18,11 @@ const OPPSLAG_V2_SCOPE = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoeker
 
 export async function getPerioder(): Promise<{ perioder: Periode[] | null; error?: ApiError }> {
     if (brukerMock) {
-        const { default: perioder } = await import('@/mocks/perioder.json', {
+        const { default: perioder } = (await import('@/mocks/perioder.json', {
             with: { type: 'json' },
-        });
+        })) as { default: Periode[] };
         await new Promise((resolve) => setTimeout(resolve, 1200));
         return {
-            // @ts-expect-error - Its 100% correct, but TS is being difficult
             perioder,
         };
     }
