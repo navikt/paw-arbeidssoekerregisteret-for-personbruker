@@ -8,6 +8,8 @@ import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 import { NextPageProps } from '../../../types/next';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
+import { PerioderFeilmelding } from '@/components/perioder/perioder-feilmelding';
+import { PerioderTom } from '@/components/perioder/perioder-tom';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,7 +26,15 @@ const TEKSTER = {
 };
 
 async function HistorikkServerComponent({ sprak }: { sprak: Sprak }) {
-    const perioder = await getPerioder();
+    const { perioder, error } = await getPerioder();
+
+    if (error) {
+        return <PerioderFeilmelding sprak={sprak} />;
+    }
+
+    if (!perioder || perioder.length === 0) {
+        return <PerioderTom sprak={sprak} />;
+    }
 
     return (
         <>
