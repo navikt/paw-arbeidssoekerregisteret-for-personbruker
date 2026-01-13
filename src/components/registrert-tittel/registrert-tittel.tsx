@@ -2,6 +2,7 @@ import { AggregertePerioder, lagHentTekstForSprak, Sprak } from '@navikt/arbeids
 import { Heading } from '@navikt/ds-react';
 
 import { harPermittertSituasjon } from '@/lib/har-permittert-situasjon';
+import { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
 const TEKSTER = {
     nb: {
@@ -46,17 +47,16 @@ function hentTekstNokkel(
 
 interface Props {
     sprak: Sprak;
-    aggregertePerioder: AggregertePerioder;
+    snapshot: Snapshot | undefined;
 }
 
 const RegistrertTittel = (props: Props) => {
-    const { aggregertePerioder, sprak } = props;
+    const { snapshot, sprak } = props;
 
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const harIkkeHattArbeidssoekerperiode = aggregertePerioder.length === 0;
-    const harAktivArbeidssokerperiode = aggregertePerioder.length > 0 && !Boolean(aggregertePerioder[0]?.avsluttet);
-    const erPermittert =
-        aggregertePerioder.length > 0 && harPermittertSituasjon(aggregertePerioder[0]?.opplysningerOmArbeidssoeker);
+    const harIkkeHattArbeidssoekerperiode = !Boolean(snapshot);
+    const harAktivArbeidssokerperiode = Boolean(snapshot) && !Boolean(snapshot!.avsluttet);
+    const erPermittert = Boolean(snapshot?.opplysning) && harPermittertSituasjon(snapshot!.opplysning!);
 
     return (
         <Heading level={'1'} size={'xlarge'}>

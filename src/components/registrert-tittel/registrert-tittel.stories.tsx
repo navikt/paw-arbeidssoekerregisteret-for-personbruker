@@ -1,34 +1,33 @@
 import { Meta, StoryObj } from '@storybook/nextjs';
 import RegistrertTittel from './registrert-tittel';
-import { aggregertePerioderMockData } from '@/app/mockdata';
-import { AggregertePerioder } from '@navikt/arbeidssokerregisteret-utils';
+import { snapshotMock } from '@/app/mockdata';
 
-const aggregertePerioder = aggregertePerioderMockData.slice(0, 1) as AggregertePerioder;
-const avsluttetPeriode = JSON.parse(JSON.stringify(aggregertePerioder));
+const snapshot = snapshotMock;
+const avsluttetPeriode = JSON.parse(JSON.stringify(snapshot));
 
-const { opplysningerOmArbeidssoeker } = aggregertePerioder[0];
-const permittertOpplysninger = JSON.parse(JSON.stringify(opplysningerOmArbeidssoeker));
+const { opplysning } = snapshot;
+const permittertOpplysninger = JSON.parse(JSON.stringify(opplysning));
 
 // Legger til permittert situasjon
-permittertOpplysninger[0].jobbsituasjon = [{ beskrivelse: 'ER_PERMITTERT' }];
-const permmitertPeriode = [
-    {
-        ...aggregertePerioder[0],
-        opplysningerOmArbeidssoeker: permittertOpplysninger,
-    },
-];
+permittertOpplysninger.jobbsituasjon.beskrivelser = [{ beskrivelse: 'ER_PERMITTERT' }];
+const permmitertPeriode = {
+    ...snapshot,
+    opplysning: permittertOpplysninger,
+};
 // Avslutter arbeidssøkerperioden
-avsluttetPeriode[0].avsluttet = {
+avsluttetPeriode.avsluttet = {
     tidspunkt: '2021-10-31T11:22:33.444Z',
-    utfoertAv: {
-        type: 'UKJENT_VERDI',
-        id: '12345678910',
-    },
-    kilde: 'string',
-    aarsak: 'string',
-    tidspunktFraKilde: {
-        tidspunkt: '2021-10-31T11:20:33.444Z',
-        avviksType: 'UKJENT_VERDI',
+    sendtInnAv: {
+        utfoertAv: {
+            type: 'UKJENT_VERDI',
+            id: '12345678910',
+        },
+        kilde: 'string',
+        aarsak: 'string',
+        tidspunktFraKilde: {
+            tidspunkt: '2021-10-31T11:20:33.444Z',
+            avviksType: 'UKJENT_VERDI',
+        },
     },
 };
 
@@ -46,27 +45,27 @@ type Story = StoryObj<typeof meta>;
 export const Registrert: Story = {
     args: {
         sprak: 'nb',
-        aggregertePerioder,
+        snapshot,
     },
 };
 
 export const RegistrertPermittert: Story = {
     args: {
         sprak: 'nb',
-        aggregertePerioder: permmitertPeriode,
+        snapshot: permmitertPeriode,
     },
 };
 
 export const IkkeLengerRegistrert: Story = {
     args: {
         sprak: 'nb',
-        aggregertePerioder: avsluttetPeriode,
+        snapshot: avsluttetPeriode,
     },
 };
 
 export const IkkeRegistrert: Story = {
     args: {
         sprak: 'nb',
-        aggregertePerioder: [],
+        snapshot: undefined,
     },
 };

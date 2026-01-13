@@ -1,16 +1,15 @@
 import { JobbsituasjonBeskrivelse, OpplysningerOmArbeidssokerResponse } from '@navikt/arbeidssokerregisteret-utils';
 import { hentSisteOpplysningerOmArbeidssoker } from '@navikt/arbeidssokerregisteret-utils';
+import { OpplysningerHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
 const PERMITTERT_BESKRIVELSER: JobbsituasjonBeskrivelse[] = ['ER_PERMITTERT', 'MIDLERTIDIG_JOBB', 'NY_JOBB', 'KONKURS'];
 
-export function harPermittertSituasjon(opplysninger: OpplysningerOmArbeidssokerResponse): boolean {
-    if (opplysninger.length === 0) {
+export function harPermittertSituasjon(opplysninger: OpplysningerHendelse | undefined): boolean {
+    if (!opplysninger || !opplysninger.jobbsituasjon || opplysninger.jobbsituasjon.beskrivelser.length === 0) {
         return false;
     }
 
-    const opplysning = hentSisteOpplysningerOmArbeidssoker(opplysninger);
-
-    return opplysning.jobbsituasjon.some((situasjon) => {
+    return opplysninger.jobbsituasjon?.beskrivelser.some((situasjon) => {
         if (PERMITTERT_BESKRIVELSER.includes(situasjon.beskrivelse)) {
             return true;
         }

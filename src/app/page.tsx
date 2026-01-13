@@ -2,7 +2,11 @@ import { Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
-import { fetchAggregertePerioder, fetchTilgjengeligEgenvurdering } from '@/app/actions';
+import {
+    fetchAggregertePerioder,
+    fetchArbeidssoekerregisteretSnapshot,
+    fetchTilgjengeligEgenvurdering,
+} from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
 import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengelig-bekreftelse-link';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
@@ -30,29 +34,25 @@ interface Props {
 }
 
 async function SamletInformasjonServerComponent({ sprak }: Props) {
-    const { data: aggregerteData, error: errorAggregerteData } = await fetchAggregertePerioder({
-        visKunSisteInformasjon: true,
-    });
+    const { data: snapshotData, error: snapshotError } = await fetchArbeidssoekerregisteretSnapshot();
 
     const { data: innloggingsNivaa } = await hentInnloggingsNivaa();
 
-    if (errorAggregerteData) {
+    if (snapshotError) {
         return (
             <div className={'mb-6'}>
-                <Feil sprak={sprak} error={errorAggregerteData?.message} />
+                <Feil sprak={sprak} error={snapshotError?.message} />
             </div>
         );
     }
 
-    const sisteInformasjon = aggregerteData && aggregerteData[0];
-    const opplysninger = sisteInformasjon?.opplysningerOmArbeidssoeker[0];
-    const harAktivPeriode = Boolean(sisteInformasjon?.periodeId) && !Boolean(sisteInformasjon?.avsluttet);
-    const harHistorikk = (aggregerteData?.length as any) > 0;
+    const harAktivPeriode = Boolean(snapshotData?.id) && !Boolean(snapshotData?.avsluttet);
+    const harHistorikk = Boolean(snapshotData);
 
     return (
         <>
-            <RegistrertTittel aggregertePerioder={aggregerteData ?? []} sprak={sprak} />
-            <PeriodeInfo aggregertePerioder={aggregerteData ?? []} sprak={sprak} />
+            <RegistrertTittel snapshot={snapshotData} sprak={sprak} />
+            <PeriodeInfo snapshot={snapshotData} sprak={sprak} />
             <Suspense fallback={<Loader />}>
                 <TilgjengeligBekreftelseKomponent sprak={sprak} />
             </Suspense>
@@ -64,17 +64,18 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
                     <StyrkEksperimentServerKomponent sprak={sprak} />
                 </Suspense>
             )}
-            {harAktivPeriode && opplysninger && (
+            {harAktivPeriode && snapshotData?.opplysning && (
                 <div className={'my-4'}>
                     <OpplysningerOppsummering
-                        opplysninger={opplysninger}
+                        opplysninger={snapshotData.opplysning}
+                        egenvurdering={snapshotData.egenvurdering}
                         sprak={sprak}
                         oppdaterOpplysningerUrl={process.env.OPPDATER_OPPLYSNINGER_URL!}
                         visEndreLink={innloggingsNivaa === 'idporten-loa-high'}
                     />
                 </div>
             )}
-            {harAktivPeriode && !opplysninger && (
+            {harAktivPeriode && !snapshotData?.opplysning && (
                 <div className={'my-4'}>
                     <ManglerOpplysninger
                         sprak={sprak}

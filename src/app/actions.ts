@@ -4,10 +4,11 @@ import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
 
-import { aggregertePerioderMockData, bekreftelserMedStatusMockdata } from './mockdata';
+import { aggregertePerioderMockData, bekreftelserMedStatusMockdata, snapshotMock } from './mockdata';
 import { BekreftelserMedStatusResponse } from '@/model/bekreftelse';
 import { AggregertePerioder } from '@navikt/arbeidssokerregisteret-utils';
-import { getToken, requestOboToken } from '@navikt/oasis';
+import { getToken, parseIdportenToken, requestOboToken } from '@navikt/oasis';
+import { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -81,6 +82,54 @@ async function fetchAggregertePerioder(props: AggregertePerioderProps): Promise<
         return { data: (await response.json()) as AggregertePerioder };
     } catch (error: any) {
         logger.error(error, `Feil fra GET ${AGGREGERTE_PERIODER_URL}`);
+        return { error };
+    }
+}
+
+async function fetchArbeidssoekerregisteretSnapshot(): Promise<{ data?: Snapshot; error?: any }> {
+    if (brukerMock) {
+        return Promise.resolve({
+            data: snapshotMock,
+        });
+    }
+
+    const PERIODER_SNAPSHOT_URL = `${process.env.OPPSLAG_API_V2_URL}/api/v3/snapshot`;
+    const audience = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-oppslag-v2`;
+
+    try {
+        const idportenToken = getToken(await headers());
+        const tokenXToken = await getTokenXToken(idportenToken, audience);
+        const parsedToken = parseIdportenToken(idportenToken!);
+        const identitetsnummer = parsedToken.ok ? parsedToken.pid : '';
+
+        logger.info(`Starter POST ${PERIODER_SNAPSHOT_URL}`);
+        const response = await fetch(PERIODER_SNAPSHOT_URL, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                accept: 'application/json',
+                Authorization: `Bearer ${tokenXToken}`,
+            },
+            body: JSON.stringify({ type: 'IDENTITETSNUMMER', identitetsnummer }),
+        });
+        logger.info(`Ferdig POST ${PERIODER_SNAPSHOT_URL} ${response.status} ${response.statusText}`);
+
+        if (!response.ok) {
+            if (response.status === 404) {
+                return { data: undefined };
+            }
+
+            const error: any = new Error(`${response.status} ${response.statusText}`);
+            try {
+                error.data = await response.json();
+            } catch (e) {}
+            logger.error(error, `Feil fra POST ${PERIODER_SNAPSHOT_URL}`);
+            return { error };
+        }
+
+        return { data: (await response.json()) as Snapshot };
+    } catch (error: any) {
+        logger.error(error, `Feil fra POST ${PERIODER_SNAPSHOT_URL}`);
         return { error };
     }
 }
@@ -190,4 +239,10 @@ async function fetchBekreftelserMedStatus(props: BekreftelserMedStatusProps): Pr
     }
 }
 
-export { fetchAggregertePerioder, fetchTilgjengeligEgenvurdering, fetchBekreftelserMedStatus, getTokenXToken };
+export {
+    fetchAggregertePerioder,
+    fetchTilgjengeligEgenvurdering,
+    fetchBekreftelserMedStatus,
+    getTokenXToken,
+    fetchArbeidssoekerregisteretSnapshot,
+};
