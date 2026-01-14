@@ -1,10 +1,11 @@
-import { AggregertePerioder, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 import { prettyPrintDato } from '@/lib/date-utils';
+import { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
 interface PeriodeInfoProps {
     sprak: Sprak;
-    aggregertePerioder: AggregertePerioder;
+    snapshot: Snapshot | undefined;
 }
 
 const TEKSTER = {
@@ -45,10 +46,10 @@ const TEKSTER = {
 };
 
 const PeriodeInfo = (props: PeriodeInfoProps) => {
-    const { aggregertePerioder, sprak } = props;
-    const periode = aggregertePerioder[0];
+    const { snapshot, sprak } = props;
+    const periode = snapshot;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const bekreftet = periode?.bekreftelser[0];
+    const bekreftet = periode?.bekreftelse;
 
     if (!periode?.startet) {
         return <div className={'flex items-center flex-wrap mb-4'}>{tekst('ikkeTidligereRegistrert')}</div>;
@@ -58,7 +59,7 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
     const opprettetDato = periode && periode.startet?.tidspunkt;
     const harBekreftet = Boolean(bekreftet);
     const bekreftetDato = bekreftet && bekreftet?.svar?.sendtInnAv?.tidspunkt;
-    const harSluttarsak = Boolean(tekst(periode.avsluttet?.aarsak.toLowerCase() ?? ''));
+    const harSluttarsak = Boolean(tekst(periode.avsluttet?.sendtInnAv.aarsak.toLowerCase() ?? ''));
 
     return (
         <div className={'mb-4'}>
@@ -69,7 +70,7 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
                     {harBekreftet && (
                         <>
                             <br />
-                            {tekst('sistBekreftetDato')} {prettyPrintDato(bekreftetDato, sprak)}
+                            {tekst('sistBekreftetDato')} {prettyPrintDato(bekreftetDato!, sprak)}
                         </>
                     )}
                 </>
@@ -80,7 +81,7 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
                     {periode.avsluttet && prettyPrintDato(periode.avsluttet.tidspunkt, sprak)}
                     {harSluttarsak && (
                         <div>
-                            {tekst('sluttarsak')} {tekst(periode.avsluttet?.aarsak.toLowerCase() ?? '')}
+                            {tekst('sluttarsak')} {tekst(periode.avsluttet?.sendtInnAv.aarsak.toLowerCase() ?? '')}
                         </div>
                     )}
                 </>

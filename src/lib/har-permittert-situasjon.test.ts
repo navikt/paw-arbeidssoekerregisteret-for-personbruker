@@ -3,43 +3,20 @@ import { DinSituasjon, mapSituasjonTilBeskrivelse, PermittertSvar } from '@navik
 
 describe('har-permittert-situasjon', () => {
     test('returnerer false for tom input', () => {
-        expect(harPermittertSituasjon([])).toBe(false);
+        expect(harPermittertSituasjon(undefined)).toBe(false);
     });
 
     test('returnerer true for registrert permittert', () => {
         expect(
-            harPermittertSituasjon([
-                {
-                    jobbsituasjon: [
+            harPermittertSituasjon({
+                jobbsituasjon: {
+                    beskrivelser: [
                         {
                             beskrivelse: 'ER_PERMITTERT',
                         },
                     ],
-                } as any,
-            ]),
-        ).toBe(true);
-    });
-
-    test('returnerer true for permittert besvarelse i nyeste opplysninger', () => {
-        expect(
-            harPermittertSituasjon([
-                {
-                    sendtInnAv: {
-                        tidspunkt: '2024-02-14T13:15:48.969Z',
-                    },
-                    jobbsituasjon: [
-                        {
-                            beskrivelse: 'HAR_SAGT_OPP',
-                        },
-                    ],
-                } as any,
-                {
-                    sendtInnAv: {
-                        tidspunkt: '2024-03-14T13:15:48.969Z',
-                    },
-                    jobbsituasjon: [{ beskrivelse: 'ER_PERMITTERT' }],
                 },
-            ]),
+            } as any),
         ).toBe(true);
     });
 
@@ -52,24 +29,24 @@ describe('har-permittert-situasjon', () => {
             PermittertSvar.KONKURS,
         ].forEach((svar) => {
             expect(
-                harPermittertSituasjon([
-                    {
-                        jobbsituasjon: [
+                harPermittertSituasjon({
+                    jobbsituasjon: {
+                        beskrivelser: [
                             {
                                 beskrivelse: mapSituasjonTilBeskrivelse(svar),
                             },
                         ],
                     },
-                ] as any),
+                } as any),
             ).toBe(true);
         });
     });
 
     test('returnerer true for PermittertSvar.ANNET (=> "ANNET" med detaljer)', () => {
         expect(
-            harPermittertSituasjon([
-                {
-                    jobbsituasjon: [
+            harPermittertSituasjon({
+                jobbsituasjon: {
+                    beskrivelser: [
                         {
                             beskrivelse: mapSituasjonTilBeskrivelse(PermittertSvar.ANNET),
                             detaljer: {
@@ -78,15 +55,15 @@ describe('har-permittert-situasjon', () => {
                         },
                     ],
                 },
-            ] as any),
+            } as any),
         ).toBe(true);
     });
 
     test('returnerer true for PermittertSvar.SAGT_OPP (=> "HAR_SAGT_OPP" med detaljer)', () => {
         expect(
-            harPermittertSituasjon([
-                {
-                    jobbsituasjon: [
+            harPermittertSituasjon({
+                jobbsituasjon: {
+                    beskrivelser: [
                         {
                             beskrivelse: mapSituasjonTilBeskrivelse(PermittertSvar.OPPSIGELSE),
                             detaljer: {
@@ -95,15 +72,15 @@ describe('har-permittert-situasjon', () => {
                         },
                     ],
                 },
-            ] as any),
+            } as any),
         ).toBe(true);
     });
 
     test('returnerer true for PermittertSvar.OPPSIGELSE (=> "HAR_BLITT_SAGT_OPP" med detaljer)', () => {
         expect(
-            harPermittertSituasjon([
-                {
-                    jobbsituasjon: [
+            harPermittertSituasjon({
+                jobbsituasjon: {
+                    beskrivelser: [
                         {
                             beskrivelse: mapSituasjonTilBeskrivelse(PermittertSvar.OPPSIGELSE),
                             detaljer: {
@@ -112,58 +89,35 @@ describe('har-permittert-situasjon', () => {
                         },
                     ],
                 },
-            ] as any),
+            } as any),
         ).toBe(true);
     });
 
     test('returnerer false for "HAR_BLITT_SAGT_OPP" uten detaljer', () => {
         expect(
-            harPermittertSituasjon([
-                {
-                    jobbsituasjon: [
+            harPermittertSituasjon({
+                jobbsituasjon: {
+                    beskrivelser: [
                         {
                             beskrivelse: mapSituasjonTilBeskrivelse(PermittertSvar.OPPSIGELSE),
                         },
                     ],
                 },
-            ] as any),
-        ).toBe(false);
-    });
-
-    test('returnerer false hvis siste opplysninger er ikke permittert', () => {
-        expect(
-            harPermittertSituasjon([
-                {
-                    sendtInnAv: {
-                        tidspunkt: '2024-03-14T13:15:48.969Z',
-                    },
-                    jobbsituasjon: [
-                        {
-                            beskrivelse: DinSituasjon.AKKURAT_FULLFORT_UTDANNING,
-                        },
-                    ],
-                } as any,
-                {
-                    sendtInnAv: {
-                        tidspunkt: '2024-02-14T13:15:48.969Z',
-                    },
-                    jobbsituasjon: [{ beskrivelse: 'ER_PERMITTERT' }],
-                },
-            ]),
+            } as any),
         ).toBe(false);
     });
 
     test('returnerer false for ikke-permittert besvarelse', () => {
         expect(
-            harPermittertSituasjon([
-                {
-                    jobbsituasjon: [
+            harPermittertSituasjon({
+                jobbsituasjon: {
+                    beskrivelser: [
                         {
                             beskrivelse: DinSituasjon.AKKURAT_FULLFORT_UTDANNING,
                         },
                     ],
-                } as any,
-            ]),
+                },
+            } as any),
         ).toBe(false);
     });
 });

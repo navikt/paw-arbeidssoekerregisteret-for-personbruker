@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/nextjs';
-import { aggregertePerioderMockData } from '@/app/mockdata';
+import { aggregertePerioderMockData, snapshotMock } from '@/app/mockdata';
 import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 
-const opplysningerOmArbeidssoker = aggregertePerioderMockData[0].opplysningerOmArbeidssoeker;
+const opplysningerOmArbeidssoker = snapshotMock.opplysning;
 
 const meta = {
     title: 'Komponenter/OpplysningerOppsummering',
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const OpplysningerOmArbeidssoker: Story = {
     args: {
         visEndreLink: true,
-        opplysninger: opplysningerOmArbeidssoker[0] as any,
+        opplysninger: opplysningerOmArbeidssoker!,
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
     },
@@ -28,7 +28,7 @@ export const OpplysningerOmArbeidssoker: Story = {
 export const UtenEndreLenke: Story = {
     args: {
         visEndreLink: false,
-        opplysninger: opplysningerOmArbeidssoker[0] as any,
+        opplysninger: opplysningerOmArbeidssoker!,
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
     },
@@ -37,13 +37,9 @@ export const UtenEndreLenke: Story = {
 export const MedEgenvurderingGodeMuligheter: Story = {
     args: {
         visEndreLink: true,
-        opplysninger: {
-            ...opplysningerOmArbeidssoker[0],
-            profilering: {
-                egenvurdering: {
-                    egenvurdering: ProfilertTil.ANTATT_GODE_MULIGHETER,
-                },
-            },
+        opplysninger: opplysningerOmArbeidssoker!,
+        egenvurdering: {
+            egenvurdering: ProfilertTil.ANTATT_GODE_MULIGHETER,
         } as any,
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
@@ -53,13 +49,9 @@ export const MedEgenvurderingGodeMuligheter: Story = {
 export const MedEgenvurderingBehov: Story = {
     args: {
         visEndreLink: true,
-        opplysninger: {
-            ...opplysningerOmArbeidssoker[0],
-            profilering: {
-                egenvurdering: {
-                    egenvurdering: ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING,
-                },
-            },
+        opplysninger: opplysningerOmArbeidssoker!,
+        egenvurdering: {
+            egenvurdering: ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING,
         } as any,
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
