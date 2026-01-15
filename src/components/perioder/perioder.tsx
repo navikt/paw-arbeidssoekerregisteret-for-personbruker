@@ -41,9 +41,11 @@ const Perioder: React.FC<PerioderProps> = ({ perioder, sprak }) => {
                     </Accordion.Header>
                     <Accordion.Content>
                         <Process>
-                            {periode.hendelser.map((hendelse, i) => (
-                                <HendelseRenderer key={i} hendelse={hendelse} sprak={sprak} />
-                            ))}
+                            {periode.hendelser
+                                .sort((a, b) => a.tidspunkt.localeCompare(b.tidspunkt))
+                                .map((hendelse, i) => (
+                                    <HendelseRenderer key={i} hendelse={hendelse} sprak={sprak} />
+                                ))}
                         </Process>
                     </Accordion.Content>
                 </Accordion.Item>
