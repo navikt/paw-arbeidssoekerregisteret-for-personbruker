@@ -17,7 +17,7 @@ import { oversettSluttaarsak } from './sluttaarsak';
 const TEKSTER = {
     nb: {
         periode_avsluttet: 'Ikke lengre registrert som arbeidssøker',
-        periode_started: 'Har registrert seg som arbeidssøker',
+        periode_started: 'Registrert som arbeidssøker',
         periode_started_sys: 'Registrert som arbeidssøker av',
         utfoert_egenvurdering: 'Utført egenvurdering',
         innsending_av_oppslysninger: 'Du sendte inn opplysninger',
@@ -33,7 +33,7 @@ const TEKSTER = {
     },
     nn: {
         periode_avsluttet: 'Ikkje lengre registrert som arbeidssøkjar',
-        periode_started: 'Har registrert seg som arbeidssøkjar',
+        periode_started: 'Registrert seg som arbeidssøkjar',
         periode_started_sys: 'Registrert som arbeidssøkjar av',
         utfoert_egenvurdering: 'Utført eigenvurdering',
         innsending_av_oppslysninger: 'Du sende inn opplysningar',
@@ -119,6 +119,8 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
             );
 
         case 'EGENVURDERING_V1':
+            return null;
+            // Egenvurdering holdes skjult inntil videre
             return (
                 <HendelseKomponent
                     timestamp={hendelse.tidspunkt}
@@ -128,7 +130,7 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
                     <Box as={'p'}>
                         <b>{overskriftTekster('vurdert_til')}</b>
                         {': '}
-                        {profileringsTekster(hendelse.egenvurdering)}
+                        {/*{profileringsTekster(hendelse.egenvurdering)}*/}
                     </Box>
                 </HendelseKomponent>
             );
