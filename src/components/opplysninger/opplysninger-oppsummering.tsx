@@ -10,12 +10,11 @@ import {
 } from '@navikt/arbeidssokerregisteret-utils';
 import { FormSummary } from '@navikt/ds-react';
 import { loggAktivitet } from '@/lib/tracking';
-import { EgenvurderingHendelse, OpplysningerHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { EgenvurderingHendelse, OpplysningerHendelse, Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { identity } from '@/lib/utils';
 
 type Props = {
-    opplysninger: OpplysningerHendelse;
-    egenvurdering?: EgenvurderingHendelse;
+    snapshot: Snapshot;
     sprak: Sprak;
     oppdaterOpplysningerUrl: string;
     visEndreLink: boolean;
@@ -87,12 +86,25 @@ export function mapOpplysninger(
     ].filter(identity) as OpplysningProps[];
 }
 
+function hentEgenvurdering(snapshot: Snapshot): EgenvurderingHendelse | undefined {
+    const opplysningerId = snapshot.opplysning?.id;
+    if (!opplysningerId) {
+        return undefined;
+    } else if (opplysningerId !== snapshot.profilering?.opplysningerOmArbeidssokerId) {
+        return undefined;
+    } else if (snapshot.profilering.id !== snapshot.egenvurdering?.profileringId) {
+        return undefined;
+    }
+
+    return snapshot.egenvurdering;
+}
+
 const OpplysningerOppsummering = (props: Props) => {
-    const { opplysninger, egenvurdering, sprak, oppdaterOpplysningerUrl, visEndreLink } = props;
-    const besvarelser = mapOpplysninger(opplysninger, egenvurdering);
+    const { snapshot, sprak, oppdaterOpplysningerUrl, visEndreLink } = props;
+    const opplysninger = snapshot.opplysning!;
+    const besvarelser = mapOpplysninger(opplysninger, hentEgenvurdering(snapshot));
     const besvarelseTekst = lagHentTekstForSprak(SPORSMAL_TEKSTER, sprak);
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-
     return (
         <FormSummary>
             <FormSummary.Header>

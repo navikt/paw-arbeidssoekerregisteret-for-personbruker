@@ -2,11 +2,7 @@ import { Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
-import {
-    fetchAggregertePerioder,
-    fetchArbeidssoekerregisteretSnapshot,
-    fetchTilgjengeligEgenvurdering,
-} from '@/app/actions';
+import { fetchArbeidssoekerregisteretSnapshot, fetchTilgjengeligEgenvurdering } from '@/app/actions';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
 import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengelig-bekreftelse-link';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
@@ -67,8 +63,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
             {harAktivPeriode && snapshotData?.opplysning && (
                 <div className={'my-4'}>
                     <OpplysningerOppsummering
-                        opplysninger={snapshotData.opplysning}
-                        egenvurdering={snapshotData.egenvurdering}
+                        snapshot={snapshotData}
                         sprak={sprak}
                         oppdaterOpplysningerUrl={process.env.OPPDATER_OPPLYSNINGER_URL!}
                         visEndreLink={innloggingsNivaa === 'idporten-loa-high'}

@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const OpplysningerOmArbeidssoker: Story = {
     args: {
         visEndreLink: true,
-        opplysninger: opplysningerOmArbeidssoker!,
+        snapshot: { ...snapshotMock, egenvurdering: undefined },
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
     },
@@ -28,7 +28,7 @@ export const OpplysningerOmArbeidssoker: Story = {
 export const UtenEndreLenke: Story = {
     args: {
         visEndreLink: false,
-        opplysninger: opplysningerOmArbeidssoker!,
+        snapshot: snapshotMock,
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
     },
@@ -37,10 +37,13 @@ export const UtenEndreLenke: Story = {
 export const MedEgenvurderingGodeMuligheter: Story = {
     args: {
         visEndreLink: true,
-        opplysninger: opplysningerOmArbeidssoker!,
-        egenvurdering: {
-            egenvurdering: ProfilertTil.ANTATT_GODE_MULIGHETER,
-        } as any,
+        snapshot: {
+            ...snapshotMock,
+            egenvurdering: {
+                ...snapshotMock.egenvurdering,
+                egenvurdering: ProfilertTil.ANTATT_GODE_MULIGHETER,
+            } as any,
+        },
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
     },
@@ -49,10 +52,13 @@ export const MedEgenvurderingGodeMuligheter: Story = {
 export const MedEgenvurderingBehov: Story = {
     args: {
         visEndreLink: true,
-        opplysninger: opplysningerOmArbeidssoker!,
-        egenvurdering: {
-            egenvurdering: ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING,
-        } as any,
+        snapshot: {
+            ...snapshotMock,
+            egenvurdering: {
+                ...snapshotMock.egenvurdering,
+                egenvurdering: ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING,
+            } as any,
+        },
         sprak: 'nb',
         oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
     },
