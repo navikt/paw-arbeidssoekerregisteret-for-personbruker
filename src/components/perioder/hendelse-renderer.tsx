@@ -1,7 +1,11 @@
 'use client';
 
 import { BekreftelseStatus, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Hendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import {
+    Hendelse,
+    OpplysningerHendelse,
+    PeriodeStartetHendelse,
+} from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { Box } from '@navikt/ds-react';
 import React from 'react';
 import { Bekreftelse } from './bekreftelse';
@@ -12,41 +16,53 @@ import { oversettSluttaarsak } from './sluttaarsak';
 
 const TEKSTER = {
     nb: {
-        periode_avsluttet: 'Periode avsluttet',
-        periode_started: 'Periode startet',
+        periode_avsluttet: 'Ikke lengre registrert som arbeidssøker',
+        periode_started: 'Har registrert seg som arbeidssøker',
+        periode_started_sys: 'Registrert som arbeidssøker av',
         utfoert_egenvurdering: 'Utført egenvurdering',
-        innsending_av_oppslysninger: 'Insendte Opplysninger',
+        innsending_av_oppslysninger: 'Du sendte inn opplysninger',
+        innsending_av_oppslysninger_veil: 'Veileder sendte inn opplysninger',
         bekreftelse_levert: 'Bekreftelse levert',
         sluttarsak: 'Sluttårsak',
         vurdert_til: 'Vurdert til',
         frist_brutt: 'Frist brutt',
         kilde: 'Kilde',
         profilering: 'Profilering',
+        SYSTEM: 'Nav',
+        VEILEDER: 'veileder',
     },
     nn: {
-        periode_avsluttet: 'Periode avslutta',
-        periode_started: 'Periode starta',
+        periode_avsluttet: 'Ikkje lengre registrert som arbeidssøkjar',
+        periode_started: 'Har registrert seg som arbeidssøkjar',
+        periode_started_sys: 'Registrert som arbeidssøkjar av',
         utfoert_egenvurdering: 'Utført eigenvurdering',
-        innsending_av_oppslysninger: 'Innsendte opplysningar',
+        innsending_av_oppslysninger: 'Du sende inn opplysningar',
+        innsending_av_oppslysninger_veil: 'Rettleiar sende inn opplysningar',
         bekreftelse_levert: 'Bekreftelse levert',
         sluttarsak: 'Sluttårsak',
         vurdert_til: 'Vurdert til',
         frist_brutt: 'Frist broten',
         kilde: 'Kjelde',
         profilering: 'Profilering',
+        SYSTEM: 'Nav',
+        VEILEDER: 'rettleiar',
     },
 
     en: {
-        periode_avsluttet: 'Period ended',
-        periode_started: 'Period started',
+        periode_avsluttet: 'No longer registered as job seeker',
+        periode_started: 'Registered as job seeker',
+        periode_started_sys: 'Registered as job seeker by',
         utfoert_egenvurdering: 'Performed self-assessment',
-        innsending_av_oppslysninger: 'Submitted information',
+        innsending_av_oppslysninger: 'You submitted information',
+        innsending_av_oppslysninger_veil: 'Supervisor submitted information',
         bekreftelse_levert: 'Confirmation delivered',
         sluttarsak: 'Reason',
         vurdert_til: 'Assessed to',
         frist_brutt: 'Deadline missed',
         kilde: 'Source',
         profilering: 'Profiling',
+        SYSTEM: 'Nav',
+        VEILEDER: 'supervisor',
     },
 };
 
@@ -60,13 +76,29 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
     const profileringsTekster = lagHentTekstForSprak(PROFILERT_TIL_TEKSTER, sprak);
     const overskriftTekster = lagHentTekstForSprak(TEKSTER, sprak);
 
+    const opprettHeadingTilPeriodeStartet = (_hendelse: PeriodeStartetHendelse) => {
+        const opprettetAvBruker = _hendelse.sendtInnAv.utfoertAv.type === 'SLUTTBRUKER';
+        if (!opprettetAvBruker) {
+            const doneBy = _hendelse.sendtInnAv.utfoertAv.type;
+            return `${overskriftTekster('periode_started_sys')} ${overskriftTekster(doneBy)}`;
+        }
+        return overskriftTekster('periode_started');
+    };
+
+    const opprettHeadingTilOpplysninger = (_hendelse: OpplysningerHendelse) => {
+        const opprettetAvBruker = _hendelse.sendtInnAv.utfoertAv.type === 'SLUTTBRUKER';
+        if (!opprettetAvBruker) {
+            return `${overskriftTekster('innsending_av_oppslysninger_veil')}`;
+        }
+        return `${overskriftTekster('innsending_av_oppslysninger')}`;
+    };
+
     switch (hendelse.type) {
         case 'PERIODE_STARTET_V1':
             return (
                 <HendelseKomponent
                     timestamp={hendelse.tidspunkt}
-                    title={overskriftTekster('periode_started')}
-                    kilde={hendelse.sendtInnAv.utfoertAv.type}
+                    title={opprettHeadingTilPeriodeStartet(hendelse)}
                     sprak={sprak}
                 />
             );
@@ -76,7 +108,6 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
                 <HendelseKomponent
                     timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('periode_avsluttet')}
-                    kilde={hendelse.sendtInnAv.utfoertAv.type}
                     sprak={sprak}
                 >
                     <Box as={'p'}>
@@ -92,7 +123,6 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
                 <HendelseKomponent
                     timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('utfoert_egenvurdering')}
-                    kilde={hendelse.sendtInnAv.utfoertAv.type}
                     sprak={sprak}
                 >
                     <Box as={'p'}>
@@ -107,8 +137,7 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
             return (
                 <HendelseKomponent
                     timestamp={hendelse.tidspunkt}
-                    title={overskriftTekster('innsending_av_oppslysninger')}
-                    kilde={hendelse.sendtInnAv.utfoertAv.type}
+                    title={opprettHeadingTilOpplysninger(hendelse)}
                     sprak={sprak}
                 >
                     <Opplysninger opplysninger={hendelse} sprak={sprak} />
@@ -121,7 +150,6 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
                 <HendelseKomponent
                     timestamp={hendelse.tidspunkt}
                     title={overskriftTekster('bekreftelse_levert')}
-                    kilde={hendelse.svar.sendtInnAv.utfoertAv.type}
                     sprak={sprak}
                 >
                     <Bekreftelse bekreftelse={hendelse} sprak={sprak} />
@@ -129,14 +157,7 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
             );
 
         case 'PROFILERING_V1':
-            return (
-                <HendelseKomponent
-                    timestamp={hendelse.tidspunkt}
-                    title={overskriftTekster('profilering')}
-                    kilde={hendelse.sendtInnAv.utfoertAv.type}
-                    sprak={sprak}
-                />
-            );
+            return null;
 
         // Aktivt valg å ikke vise "på vegne av" hendelser - ikke av interesse, kun for intern bruk
         case 'PAA_VEGNE_AV_STOPP_V1':
