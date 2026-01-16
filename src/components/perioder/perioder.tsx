@@ -1,14 +1,14 @@
 'use client';
 
-import React from 'react';
 import { prettyPrintDato } from '@/lib/date-utils';
-import { Periode } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
-import { Accordion, BodyShort, Process } from '@navikt/ds-react';
-import { HendelseRenderer } from './hendelse-renderer';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { Periode as PeriodeType } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { Accordion, BodyShort } from '@navikt/ds-react';
+import React from 'react';
+import { Periode } from './periode';
 
 type PerioderProps = {
-    perioder: Periode[] | null;
+    perioder: PeriodeType[] | null;
     sprak: Sprak;
 };
 
@@ -39,15 +39,7 @@ const Perioder: React.FC<PerioderProps> = ({ perioder, sprak }) => {
                                 : tekst('fortsatt_paagaaende')}
                         </BodyShort>
                     </Accordion.Header>
-                    <Accordion.Content>
-                        <Process>
-                            {periode.hendelser
-                                .sort((a, b) => a.tidspunkt.localeCompare(b.tidspunkt))
-                                .map((hendelse, i) => (
-                                    <HendelseRenderer key={i} hendelse={hendelse} sprak={sprak} />
-                                ))}
-                        </Process>
-                    </Accordion.Content>
+                    <Periode key={periode.periodeId} hendelser={periode.hendelser} sprak={sprak} />
                 </Accordion.Item>
             ))}
         </Accordion>
