@@ -1,3 +1,3 @@
-import HistorikkPage from '../../historikk-v2/page';
+import HistorikkPage from '@/app/historikk/page';
 
 export default HistorikkPage;
