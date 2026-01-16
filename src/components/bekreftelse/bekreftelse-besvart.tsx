@@ -4,9 +4,10 @@ import { Bekreftelse, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerre
 import { BodyShort, Button, Heading, List } from '@navikt/ds-react';
 import { formaterDato } from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/tracking';
+import { BekreftelseHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
 interface Props {
-    besvarelse: Bekreftelse;
+    besvarelse: BekreftelseHendelse;
     sprak: Sprak;
     registrerArbeidssokerUrl: string;
 }
@@ -68,7 +69,7 @@ const BesvarelseInfo = (props: { sprak: Sprak; besvarelse: Props['besvarelse']; 
     );
 };
 
-const getInnsendtDato = (besvarelse: Bekreftelse) => {
+const getInnsendtDato = (besvarelse: BekreftelseHendelse) => {
     return formaterDato(besvarelse.svar.sendtInnAv.tidspunkt);
 };
 
