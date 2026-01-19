@@ -183,7 +183,7 @@ describe('Periode-komponent', () => {
             expect(screen.getByTestId('opplysninger')).toHaveAttribute('data-id', 'opplysninger-1');
             expect(screen.getByTestId('merged-hendelse-wrapper')).toHaveAttribute(
                 'data-title',
-                'Registret som arbeidsøker',
+                'Registrert som arbeidssøker',
             );
 
             const renderedHendelser = screen.getAllByTestId('individual-hendelse');
