@@ -3,8 +3,20 @@ import { Accordion, Process } from '@navikt/ds-react';
 import React from 'react';
 import { Hendelse } from './hendelse';
 import { Opplysninger } from './opplysninger';
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { HendelseRenderer } from './hendelse-renderer';
+
+const TEKSTER = {
+    nb: {
+        periode_started: 'Registrert som arbeidssøker',
+    },
+    nn: {
+        periode_started: 'Registrert seg som arbeidssøkjar',
+    },
+    en: {
+        periode_started: 'Registered as job seeker',
+    },
+};
 
 const sortHendelserByTidspunkt = (hendelser: HendelseType[]) => {
     return [...hendelser].sort((a, b) => a.tidspunkt.localeCompare(b.tidspunkt));
@@ -22,6 +34,7 @@ type PeriodeProps = {
 
 const Periode: React.FC<PeriodeProps> = (props) => {
     const { hendelser, sprak } = props;
+    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const sortedHendelser = sortHendelserByTidspunkt(hendelser);
     const shouldMerge = shouldMergeFirstTwoHendelser(sortedHendelser);
 
@@ -34,7 +47,7 @@ const Periode: React.FC<PeriodeProps> = (props) => {
         <Accordion.Content>
             {shouldMerge && periodeStartet && opplysninger ? (
                 <Process>
-                    <Hendelse title="Registret som arbeidsøker" sprak={sprak} timestamp={periodeStartet.tidspunkt}>
+                    <Hendelse title={tekst('periode_started')} sprak={sprak} timestamp={periodeStartet.tidspunkt}>
                         <Opplysninger opplysninger={opplysninger} sprak={sprak} />
                     </Hendelse>
                     <>
