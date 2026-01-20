@@ -1,384 +1,322 @@
-import { describe, test, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { Periode } from './periode';
-import { Hendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { ShowDetailsProvider } from '@/contexts/show-details-context';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { Hendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { Accordion } from '@navikt/ds-react';
+import { render, screen, within } from '@testing-library/react';
+import { test, vi } from 'vitest';
+import {
+    createBekreftelseHendelse,
+    createEgenvurderingHendelse,
+    createOpplysningerHendelse,
+    createPaaVegneAvStartet,
+    createPaaVegneAvStoppet,
+    createPeriodeStartetHendelse,
+    createProfileringHendelse,
+} from './__tests__/utils/hendelser';
+import { HendelseRenderer } from './hendelse-renderer';
+import { Periode } from './periode';
+
+vi.mock('./opplysninger', () => ({
+    Opplysninger: ({ opplysninger, sprak }: any) => (
+        <div data-testid={opplysninger.id} data-title="opplysninger-hendelse" data-timestamp={opplysninger.tidspunkt}>
+            ID: {opplysninger.id}
+        </div>
+    ),
+}));
 
 vi.mock('./hendelse', () => ({
-    Hendelse: ({ children, title, timestamp }: any) => (
-        <div data-testid="merged-hendelse-wrapper" data-title={title} data-timestamp={timestamp}>
+    Hendelse: ({ children, title, timestamp }: { children: React.ReactNode; title: string; timestamp: string }) => (
+        <div
+            data-testid={`merged-hendelse-${title.toString().toLowerCase().split(' ').join('-')}`}
+            data-title={title}
+            data-timestamp={timestamp}
+        >
             {children}
         </div>
     ),
 }));
 
-vi.mock('./opplysninger', () => ({
-    Opplysninger: ({ opplysninger }: any) => (
-        <div data-testid="opplysninger" data-id={opplysninger.id}>
-            Opplysninger
-        </div>
-    ),
-}));
-
-vi.mock('./hendelse-renderer', () => ({
-    HendelseRenderer: ({ hendelse }: any) => (
-        <div data-testid="individual-hendelse" data-type={hendelse.type} data-timestamp={hendelse.tidspunkt}>
-            {hendelse.type}
-        </div>
-    ),
-}));
-
-vi.mock('@navikt/ds-react', () => ({
-    Accordion: {
-        Content: ({ children }: any) => <div data-testid="accordion-content">{children}</div>,
-    },
-    Process: ({ children }: any) => <div data-testid="process">{children}</div>,
-}));
-
-const createPeriodeStartetHendelse = (tidspunkt: string): Hendelse => ({
-    sendtInnAv: {
-        tidspunkt,
-        utfoertAv: {
-            type: 'VEILEDER',
-            id: 'Z123456',
-        },
-        kilde: 'test',
-        aarsak: 'Test årsak',
-    },
-    tidspunkt,
-    type: 'PERIODE_STARTET_V1',
-});
-
-const createOpplysningerHendelse = (tidspunkt: string, id = 'test-id'): Hendelse => ({
-    id,
-    sendtInnAv: {
-        tidspunkt,
-        utfoertAv: {
-            type: 'VEILEDER',
-            id: 'Z123456',
-        },
-        kilde: 'test',
-        aarsak: 'Test årsak',
-    },
-    utdanning: {
-        nus: '3',
-        bestaatt: 'JA',
-        godkjent: 'JA',
-    },
-    helse: {
-        helsetilstandHindrerArbeid: 'NEI',
-    },
-    jobbsituasjon: {
-        beskrivelser: [],
-    },
-    annet: {
-        andreForholdHindrerArbeid: 'NEI',
-    },
-    tidspunkt,
-    type: 'OPPLYSNINGER_V4',
-});
-
-const createProfileringHendelse = (tidspunkt: string): Hendelse => ({
-    id: 'profilering-id',
-    opplysningerOmArbeidssokerId: 'opplysninger-id',
-    sendtInnAv: {
-        tidspunkt,
-        utfoertAv: {
-            type: 'SYSTEM',
-            id: 'system',
-        },
-        kilde: 'test',
-        aarsak: 'Test',
-    },
-    profilertTil: 'ANTATT_GODE_MULIGHETER',
-    jobbetSammenhengendeSeksAvTolvSisteMnd: true,
-    alder: 35,
-    tidspunkt,
-    type: 'PROFILERING_V1',
-});
-
-const createBekreftelseHendelse = (tidspunkt: string): Hendelse => ({
-    id: 'bekreftelse-id',
-    bekreftelsesloesning: 'ARBEIDSSOEKERREGISTERET',
-    status: 'GYLDIG',
-    svar: {
-        sendtInnAv: {
-            tidspunkt,
-            utfoertAv: {
-                type: 'SLUTTBRUKER',
-                id: 'test-user',
-            },
-            kilde: 'test',
-            aarsak: 'Test bekreftelse',
-        },
-        gjelderFra: '2025-01-13T00:00:00Z',
-        gjelderTil: '2025-01-20T00:00:00Z',
-        harJobbetIDennePerioden: false,
-        vilFortsetteSomArbeidssoeker: true,
-    },
-    tidspunkt,
-    type: 'BEKREFTELSE_V1',
-});
-
 describe('Periode-komponent', () => {
     const sprak: Sprak = 'nb';
+    // Hjelper for å rendere Periode inni en Accordion og context
+    const renderPeriode = (hendelser: Hendelse[]) => {
+        return render(
+            <ShowDetailsProvider>
+                <Accordion>
+                    <Accordion.Item>
+                        <Periode hendelser={hendelser} sprak={sprak} />
+                    </Accordion.Item>
+                </Accordion>
+            </ShowDetailsProvider>,
+        );
+    };
 
-    describe('Sorteringslogikk', () => {
-        test('skal sortere hendelser etter tidspunkt i stigende rekkefølge', () => {
-            const hendelser: Hendelse[] = [
-                createBekreftelseHendelse('2025-01-13T12:00:00.000Z'),
-                createBekreftelseHendelse('2025-01-13T11:00:00.000Z'),
-                createPeriodeStartetHendelse('2025-01-13T10:00:00.000Z'),
-            ];
+    describe('Egenvurdering - merging av Opplysninger og Egenvurdering hendelser', () => {
+        // Vi tester for "ikke de to første" siden det skjer logikk angående merging der allerede (se opplysninger med periode-startet)
+        test('Skal merge egenvurdering med tilhørende opplysning når opplysning ikke er en del av de to første', () => {
+            // Lag følgende: periode startet + opplysninger, ny opplysning med profilering og med egenvurdering
+            const periodeStartet = createPeriodeStartetHendelse('2025-01-10T10:00:00Z');
+            const opplysninger1UtenEgenvurdering = createOpplysningerHendelse(
+                '2025-01-10T10:01:00Z',
+                'opplysninger-id-1',
+            );
+            const profileringForOpplysninger1 = createProfileringHendelse(
+                '2025-01-10T10:02:00Z',
+                'profilering-id-1',
+                'opplysninger-id-1',
+            );
+            const opplysninger2UtenEgenvurdering = createOpplysningerHendelse(
+                '2025-01-20T10:00:00Z',
+                'opplysninger-id-2',
+            );
+            const opplysninger3 = createOpplysningerHendelse('2025-01-20T10:00:00Z', 'opplysninger-id-3');
+            const profileringForOpplysninger3 = createProfileringHendelse(
+                '2025-01-20T10:01:00Z',
+                'profilering-id-2',
+                'opplysninger-id-3',
+            );
+            const egenvurdering1 = createEgenvurderingHendelse(
+                '2025-01-20T11:00:00Z',
+                'profilering-id-2',
+                'ANTATT_GODE_MULIGHETER',
+                'egenvurdering-id-1',
+            );
+            const bekreftelse = createBekreftelseHendelse('2025-01-21T10:00:00Z');
 
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
+            renderPeriode([
+                periodeStartet,
+                opplysninger1UtenEgenvurdering,
+                profileringForOpplysninger1,
+                opplysninger2UtenEgenvurdering,
+                opplysninger3,
+                profileringForOpplysninger3,
+                egenvurdering1,
+                bekreftelse,
+            ]);
 
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
-            expect(renderedHendelser[0]).toHaveAttribute('data-timestamp', '2025-01-13T10:00:00.000Z');
-            expect(renderedHendelser[1]).toHaveAttribute('data-timestamp', '2025-01-13T11:00:00.000Z');
-            expect(renderedHendelser[2]).toHaveAttribute('data-timestamp', '2025-01-13T12:00:00.000Z');
+            // Finn og verifiser at opplysninger 3 er tilstede
+            const _opplysninger3 = screen.getByTestId('opplysninger-id-3');
+            expect(_opplysninger3).toBeInTheDocument;
+            expect(_opplysninger3).toHaveTextContent('opplysninger-id-3');
+
+            // Hent parent wrapper (merged-hendelse)
+            const parent = _opplysninger3.parentElement;
+            if (!parent) throw new Error('Parent element not found for opplysninger-id-3');
+            const _egenvurdering = within(parent).getByText('Egenvurdering');
+            expect(_egenvurdering).toBeInTheDocument();
         });
 
-        test('skal opprettholde rekkefølge for hendelser med samme tidspunkt', () => {
-            const timestamp = '2025-01-13T10:00:00.000Z';
-            const hendelser: Hendelse[] = [createOpplysningerHendelse(timestamp), createBekreftelseHendelse(timestamp)];
+        test('Skal ikke merge eller rendere egenvurdering dersom den ikke finner en tilhørende opplysning', () => {
+            const periodeStartet = createPeriodeStartetHendelse('2025-01-10T10:00:00Z');
+            const opplysninger1UtenEgenvurdering = createOpplysningerHendelse(
+                '2025-01-10T10:01:00Z',
+                'opplysninger-id-1',
+            );
+            const profileringForOpplysninger1 = createProfileringHendelse(
+                '2025-01-10T10:02:00Z',
+                'profilering-id-1',
+                'opplysninger-id-1',
+            );
+            const opplysninger2UtenEgenvurdering = createOpplysningerHendelse(
+                '2025-01-20T10:00:00Z',
+                'opplysninger-id-2',
+            );
+            const opplysninger3 = createOpplysningerHendelse('2025-01-20T10:00:00Z', 'opplysninger-id-3');
+            const profileringForOpplysninger3 = createProfileringHendelse(
+                '2025-01-20T10:01:00Z',
+                'profilering-id-2',
+                'opplysninger-id-3',
+            );
+            const egenvurdering1 = createEgenvurderingHendelse(
+                '2025-01-20T11:00:00Z',
+                'profilering-id-FINNES-IKKE',
+                'ANTATT_GODE_MULIGHETER',
+                'egenvurdering-id-1',
+            );
+            const bekreftelse = createBekreftelseHendelse('2025-01-21T10:00:00Z');
 
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
+            // Sjekk at ingen teskt "Egenvurdering" finnes i renderet output
+            const hendelser = [
+                periodeStartet,
+                opplysninger1UtenEgenvurdering,
+                profileringForOpplysninger1,
+                opplysninger2UtenEgenvurdering,
+                opplysninger3,
+                profileringForOpplysninger3,
+                egenvurdering1,
+                bekreftelse,
+            ];
 
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
-            expect(renderedHendelser).toHaveLength(2);
+            renderPeriode(hendelser);
+
+            expect(screen.queryByText('Egenvurdering')).not.toBeInTheDocument();
+        });
+
+        test('Skal merge egenvurdering med tilhørende opplysning når opplysning er en del av de to første', () => {
+            // Alle disse hendelsene skal merges i en og samme Opplysninger-komponent (profilering er kun brukt for mapping)
+            const hendelser = [
+                createPeriodeStartetHendelse('2025-01-10T10:00:00Z'),
+                createOpplysningerHendelse('2025-01-10T10:01:00Z', 'opplysninger-id-1'),
+                createProfileringHendelse('2025-01-10T10:02:00Z', 'profilering-id-1', 'opplysninger-id-1'),
+                createEgenvurderingHendelse(
+                    '2025-01-20T11:00:00Z',
+                    'profilering-id-1',
+                    'ANTATT_GODE_MULIGHETER',
+                    'egenvurdering-id-1',
+                ),
+            ];
+
+            renderPeriode(hendelser);
+
+            const forsteHendelse = screen.getByTestId('merged-hendelse-registrert-som-arbeidssøker');
+            expect(forsteHendelse).toBeInTheDocument();
+
+            const _opplysninger = within(forsteHendelse).getByTestId('opplysninger-id-1');
+            expect(_opplysninger).toBeInTheDocument();
+            expect(_opplysninger).toHaveTextContent('opplysninger-id-1');
+
+            const _egenvurdering = within(forsteHendelse).getByText('Egenvurdering');
+            expect(_egenvurdering).toBeInTheDocument();
         });
     });
 
-    describe('Sammenslåingslogikk - shouldMergeFirstTwoHendelser', () => {
+    describe('Fletting av periode startet og opplysninger', () => {
         test('skal IKKE slå sammen når det er færre enn 2 hendelser', () => {
             const hendelser: Hendelse[] = [createPeriodeStartetHendelse('2025-01-13T10:00:00.000Z')];
-
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
-
+            renderPeriode(hendelser);
             expect(screen.queryByTestId('opplysninger')).not.toBeInTheDocument();
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
+            const renderedHendelser = screen.getAllByTestId('merged-hendelse-registrert-som-arbeidssøker-av-veileder');
             expect(renderedHendelser).toHaveLength(1);
         });
 
-        test('skal IKKE slå sammen når det er nøyaktig 0 hendelser', () => {
-            const hendelser: Hendelse[] = [];
+        test('Skal merge opplysninger med periode startet når begge er blant de to første hendelsene', () => {
+            const hendelser = [
+                createPeriodeStartetHendelse('2025-01-10T10:00:00Z'),
+                createOpplysningerHendelse('2025-01-10T10:01:00Z', 'opplysninger-id-1'),
+                createProfileringHendelse('2025-01-10T10:02:00Z', 'profilering-id-1', 'opplysninger-id-1'),
+                createEgenvurderingHendelse(
+                    '2025-01-20T11:00:00Z',
+                    'profilering-id-1',
+                    'ANTATT_GODE_MULIGHETER',
+                    'egenvurdering-id-1',
+                ),
+                createBekreftelseHendelse('2025-01-21T10:00:00Z'),
+                createBekreftelseHendelse('2025-02-13T10:00:00Z'),
+            ];
+            renderPeriode(hendelser);
 
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
+            const forsteHendelse = screen.getByTestId('merged-hendelse-registrert-som-arbeidssøker');
+            expect(forsteHendelse).toBeInTheDocument();
+            expect(forsteHendelse).toHaveAttribute('data-title', 'Registrert som arbeidssøker');
 
-            expect(screen.queryByTestId('opplysninger')).not.toBeInTheDocument();
-            expect(screen.queryByTestId('individual-hendelse')).not.toBeInTheDocument();
+            const opplysninger = within(forsteHendelse).getByTestId('opplysninger-id-1');
+            expect(opplysninger).toBeInTheDocument();
+            expect(opplysninger).toHaveTextContent('opplysninger-id-1');
+        });
+        test('Skal merge opplysninger med periode startet når begge er blant de to første hendelsene (men i motsatt rekkefølge)', () => {
+            const hendelser = [
+                createOpplysningerHendelse('2025-01-10T10:00:00Z', 'opplysninger-id-1'),
+                createPeriodeStartetHendelse('2025-01-10T10:01:00Z'),
+                createProfileringHendelse('2025-01-10T10:02:00Z', 'profilering-id-1', 'opplysninger-id-1'),
+                createEgenvurderingHendelse(
+                    '2025-01-20T11:00:00Z',
+                    'profilering-id-1',
+                    'ANTATT_GODE_MULIGHETER',
+                    'egenvurdering-id-1',
+                ),
+                createBekreftelseHendelse('2025-01-21T10:00:00Z'),
+                createBekreftelseHendelse('2025-02-13T10:00:00Z'),
+            ];
+            renderPeriode(hendelser);
+
+            const forsteHendelse = screen.getByTestId('merged-hendelse-registrert-som-arbeidssøker');
+            expect(forsteHendelse).toBeInTheDocument();
+            expect(forsteHendelse).toHaveAttribute('data-title', 'Registrert som arbeidssøker');
+
+            const opplysninger = within(forsteHendelse).getByTestId('opplysninger-id-1');
+            expect(opplysninger).toBeInTheDocument();
+            expect(opplysninger).toHaveTextContent('opplysninger-id-1');
         });
 
-        test('skal slå sammen PERIODE_STARTET_V1 og OPPLYSNINGER_V4 når de er de to første (i den rekkefølgen)', () => {
-            const hendelser: Hendelse[] = [
-                createProfileringHendelse('2025-01-13T10:02:00.000Z'),
-                createOpplysningerHendelse('2025-01-13T10:01:00.000Z', 'opplysninger-1'),
-                createPeriodeStartetHendelse('2025-01-13T10:00:00.000Z'),
+        test('Skal ikke merge opplysninger med periode startet når opplysninger ikke er blant de to første hendelsene', () => {
+            const hendelser = [
+                createPeriodeStartetHendelse('2025-01-10T10:00:00Z'),
+                createBekreftelseHendelse('2025-01-10T10:01:00Z'),
+                createBekreftelseHendelse('2025-01-10T10:02:00Z'),
+                createBekreftelseHendelse('2025-01-10T10:03:00Z'),
+                createOpplysningerHendelse('2025-01-10T10:04:00Z', 'opplysninger-id-1'),
             ];
+            renderPeriode(hendelser);
+            // "merged-hendelse-x", merged er lagt på via mock, det betyr ikke at en reel fletting
+            const forsteHendelse = screen.getByTestId('merged-hendelse-registrert-som-arbeidssøker-av-veileder');
+            expect(forsteHendelse).toBeInTheDocument();
 
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
-
-            expect(screen.getByTestId('merged-hendelse-wrapper')).toBeInTheDocument();
-            expect(screen.getByTestId('opplysninger')).toHaveAttribute('data-id', 'opplysninger-1');
-            expect(screen.getByTestId('merged-hendelse-wrapper')).toHaveAttribute(
-                'data-title',
-                'Registrert som arbeidssøker',
-            );
-
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
-            expect(renderedHendelser).toHaveLength(1);
-            expect(renderedHendelser[0]).toHaveAttribute('data-type', 'PROFILERING_V1');
-        });
-
-        test('skal slå sammen OPPLYSNINGER_V4 og PERIODE_STARTET_V1 når de er de to første (omvendt rekkefølge)', () => {
-            const hendelser: Hendelse[] = [
-                createProfileringHendelse('2025-01-13T10:02:00.000Z'),
-                createPeriodeStartetHendelse('2025-01-13T10:01:00.000Z'),
-                createOpplysningerHendelse('2025-01-13T10:00:00.000Z', 'opplysninger-2'),
-            ];
-
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
-
-            expect(screen.getByTestId('merged-hendelse-wrapper')).toBeInTheDocument();
-            expect(screen.getByTestId('opplysninger')).toHaveAttribute('data-id', 'opplysninger-2');
-
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
-            expect(renderedHendelser).toHaveLength(1);
-        });
-
-        test('skal IKKE slå sammen når de to første er PERIODE_STARTET_V1 og PROFILERING_V1', () => {
-            const hendelser: Hendelse[] = [
-                createProfileringHendelse('2025-01-13T10:01:00.000Z'),
-                createPeriodeStartetHendelse('2025-01-13T10:00:00.000Z'),
-            ];
-
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
-
-            expect(screen.queryByTestId('opplysninger')).not.toBeInTheDocument();
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
-            expect(renderedHendelser).toHaveLength(2);
-        });
-
-        test('skal IKKE slå sammen når de to første er BEKREFTELSE_V1 og PROFILERING_V1', () => {
-            const hendelser: Hendelse[] = [
-                createProfileringHendelse('2025-01-13T10:02:00.000Z'),
-                createBekreftelseHendelse('2025-01-13T10:01:00.000Z'),
-                createPeriodeStartetHendelse('2025-01-13T10:03:00.000Z'),
-            ];
-
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
-
-            expect(screen.queryByTestId('opplysninger')).not.toBeInTheDocument();
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
-            expect(renderedHendelser).toHaveLength(3);
-        });
-
-        test('skal IKKE slå sammen når OPPLYSNINGER_V4 IKKE er i de to første posisjonene', () => {
-            const hendelser: Hendelse[] = [
-                createOpplysningerHendelse('2025-01-13T10:03:00.000Z'),
-                createProfileringHendelse('2025-01-13T10:02:00.000Z'),
-                createBekreftelseHendelse('2025-01-13T10:01:00.000Z'),
-                createPeriodeStartetHendelse('2025-01-13T10:00:00.000Z'),
-            ];
-
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
-
-            expect(screen.queryByTestId('opplysninger')).not.toBeInTheDocument();
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
-            expect(renderedHendelser).toHaveLength(4);
-        });
-
-        test('skal slå sammen selv når det bare er nøyaktig 2 hendelser (PERIODE_STARTET_V1 og OPPLYSNINGER_V4)', () => {
-            const hendelser: Hendelse[] = [
-                createOpplysningerHendelse('2025-01-13T10:01:00.000Z', 'only-two'),
-                createPeriodeStartetHendelse('2025-01-13T10:00:00.000Z'),
-            ];
-
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
-
-            expect(screen.getByTestId('merged-hendelse-wrapper')).toBeInTheDocument();
-            expect(screen.getByTestId('opplysninger')).toHaveAttribute('data-id', 'only-two');
-
-            expect(screen.queryByTestId('individual-hendelse')).not.toBeInTheDocument();
-        });
-
-        test('skal håndtere usortert input korrekt - slå sammen etter sortering', () => {
-            const hendelser: Hendelse[] = [
-                createProfileringHendelse('2025-01-13T10:03:00.000Z'),
-                createPeriodeStartetHendelse('2025-01-13T10:01:00.000Z'),
-                createOpplysningerHendelse('2025-01-13T10:00:00.000Z', 'unsorted'),
-            ];
-
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
-
-            expect(screen.getByTestId('merged-hendelse-wrapper')).toBeInTheDocument();
-            expect(screen.getByTestId('opplysninger')).toHaveAttribute('data-id', 'unsorted');
-
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
-            expect(renderedHendelser).toHaveLength(1);
-            expect(renderedHendelser[0]).toHaveAttribute('data-type', 'PROFILERING_V1');
+            // Sjekk at forsteHendelse ikke inneholder opplysninger
+            expect(within(forsteHendelse).queryByTestId('opplysninger-id-1')).not.toBeInTheDocument();
         });
     });
 
-    describe('Renderingslogikk', () => {
-        test('skal bruke PERIODE_STARTET_V1 tidspunkt for sammenslått hendelse', () => {
-            const hendelser: Hendelse[] = [
-                createOpplysningerHendelse('2025-01-13T10:01:00.000Z'),
-                createPeriodeStartetHendelse('2025-01-13T10:00:00.000Z'),
+    describe('Sortering av hendelser', () => {
+        test('Hendelser som kommer med nyeste først skal snus', () => {
+            const hendelser = [
+                createBekreftelseHendelse('2025-02-13T10:00:00Z'),
+                createEgenvurderingHendelse(
+                    '2025-01-20T11:00:00Z',
+                    'profilering-id-1',
+                    'ANTATT_GODE_MULIGHETER',
+                    'egenvurdering-id-1',
+                ),
+                createBekreftelseHendelse('2025-01-21T10:00:00Z'),
+                createProfileringHendelse('2025-01-10T10:02:00Z', 'profilering-id-1', 'opplysninger-id-1'),
+                createOpplysningerHendelse('2025-01-10T10:01:00Z', 'opplysninger-id-1'),
+                createPeriodeStartetHendelse('2025-01-10T10:00:00Z'),
             ];
+            renderPeriode(hendelser);
 
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
+            const hendelseElements = screen.getAllByTestId(/merged-hendelse-/);
+            expect(hendelseElements.length).toBe(3);
 
-            const hendelse = screen.getByTestId('merged-hendelse-wrapper');
-            expect(hendelse).toHaveAttribute('data-timestamp', '2025-01-13T10:00:00.000Z');
+            // Sjekk at den første hendelsen er den eldste (Periode startet)
+            expect(hendelseElements[0]).toHaveAttribute('data-title', 'Registrert som arbeidssøker');
+
+            // Sjekk at den siste hendelsen er den nyeste (Bekreftelse)
+            expect(hendelseElements[2]).toHaveAttribute('data-title', 'Bekreftelse levert');
         });
 
-        test('skal rendere alle hendelser når de ikke slås sammen', () => {
-            const hendelser: Hendelse[] = [
-                createBekreftelseHendelse('2025-01-13T10:02:00.000Z'),
-                createProfileringHendelse('2025-01-13T10:01:00.000Z'),
-                createOpplysningerHendelse('2025-01-13T10:00:00.000Z'),
+        test('Hendelser som kommer i helt tilfeldig rekkefølge skal sorteres korrekt', () => {
+            const hendelser = [
+                createBekreftelseHendelse('2025-01-15T10:00:00Z'),
+                createEgenvurderingHendelse(
+                    '2025-01-03T11:00:00Z',
+                    'profilering-id-1',
+                    'ANTATT_GODE_MULIGHETER',
+                    'egenvurdering-id-1',
+                ),
+                createOpplysningerHendelse('2025-01-02T10:01:00Z', 'opplysninger-id-1'),
+                createBekreftelseHendelse('2025-02-21T10:00:00Z'),
+                createProfileringHendelse('2025-03-10T10:02:00Z', 'profilering-id-1', 'opplysninger-id-1'),
+                createPeriodeStartetHendelse('2025-01-01T10:00:00Z'),
             ];
-
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
-
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
-            expect(renderedHendelser).toHaveLength(3);
-        });
-
-        test('skal rendere hendelser i riktig rekkefølge etter sammenslåing', () => {
-            const hendelser: Hendelse[] = [
-                createBekreftelseHendelse('2025-01-13T10:03:00.000Z'),
-                createProfileringHendelse('2025-01-13T10:02:00.000Z'),
-                createOpplysningerHendelse('2025-01-13T10:01:00.000Z'),
-                createPeriodeStartetHendelse('2025-01-13T10:00:00.000Z'),
-            ];
-
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
-
-            const mergedHendelse = screen.getByTestId('merged-hendelse-wrapper');
-            expect(mergedHendelse).toBeInTheDocument();
-
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
-            expect(renderedHendelser).toHaveLength(2);
-            expect(renderedHendelser[0]).toHaveAttribute('data-type', 'PROFILERING_V1');
-            expect(renderedHendelser[1]).toHaveAttribute('data-type', 'BEKREFTELSE_V1');
+            renderPeriode(hendelser);
         });
     });
-
-    describe('Spesialtilfeller med komplekse perioder', () => {
-        test('skal håndtere flere OPPLYSNINGER_V4 hendelser - slå kun sammen første forekomst', () => {
-            const hendelser: Hendelse[] = [
-                createOpplysningerHendelse('2025-01-13T10:04:00.000Z', 'third-opplysninger'),
-                createOpplysningerHendelse('2025-01-13T10:03:00.000Z', 'second-opplysninger'),
-                createProfileringHendelse('2025-01-13T10:02:00.000Z'),
-                createOpplysningerHendelse('2025-01-13T10:01:00.000Z', 'first-opplysninger'),
-                createPeriodeStartetHendelse('2025-01-13T10:00:00.000Z'),
+    describe('Komponenter som ikke skal renderes', () => {
+        test('Skal ikke rendere Profilering hendelser', () => {
+            const hendelser = [
+                createProfileringHendelse('2025-03-10T10:02:00Z', 'profilering-id-1', 'opplysninger-id-1'),
             ];
-
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
-
-            expect(screen.getByTestId('opplysninger')).toHaveAttribute('data-id', 'first-opplysninger');
-
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
-            expect(renderedHendelser).toHaveLength(3);
-            const opplysningerRenderer = renderedHendelser.find(
-                (el) => el.getAttribute('data-type') === 'OPPLYSNINGER_V4',
-            );
-            expect(opplysningerRenderer).toBeInTheDocument();
+            const { container } = render(<HendelseRenderer hendelse={hendelser[0]} sprak={sprak} />);
+            expect(container.firstChild).toBeNull();
         });
-
-        test('skal håndtere periode med bare PERIODE_STARTET_V1', () => {
-            const hendelser: Hendelse[] = [createPeriodeStartetHendelse('2025-01-13T10:00:00.000Z')];
-
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
-
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
-            expect(renderedHendelser).toHaveLength(1);
-            expect(renderedHendelser[0]).toHaveAttribute('data-type', 'PERIODE_STARTET_V1');
+        test('Skal ikke rendere pa-vegne-av-start hendelse', () => {
+            const hendelser = [createPaaVegneAvStartet()];
+            const { container } = render(<HendelseRenderer hendelse={hendelser[0]} sprak={sprak} />);
+            expect(container.firstChild).toBeNull();
         });
-
-        test('skal håndtere periode med bare OPPLYSNINGER_V4', () => {
-            const hendelser: Hendelse[] = [createOpplysningerHendelse('2025-01-13T10:00:00.000Z')];
-
-            render(<Periode hendelser={hendelser} sprak={sprak} />);
-
-            const renderedHendelser = screen.getAllByTestId('individual-hendelse');
-            expect(renderedHendelser).toHaveLength(1);
-            expect(renderedHendelser[0]).toHaveAttribute('data-type', 'OPPLYSNINGER_V4');
-        });
-
-        test('skal sende riktig språk til underkomponenter ved sammenslåing', () => {
-            const hendelser: Hendelse[] = [
-                createOpplysningerHendelse('2025-01-13T10:01:00.000Z'),
-                createPeriodeStartetHendelse('2025-01-13T10:00:00.000Z'),
-            ];
-
-            render(<Periode hendelser={hendelser} sprak="en" />);
-
-            expect(screen.getByTestId('merged-hendelse-wrapper')).toBeInTheDocument();
-            expect(screen.getByTestId('opplysninger')).toBeInTheDocument();
+        test('Skal ikke rendere pa-vegne-av-stopp hendelse', () => {
+            const hendelser = [createPaaVegneAvStoppet()];
+            const { container } = render(<HendelseRenderer hendelse={hendelser[0]} sprak={sprak} />);
+            expect(container.firstChild).toBeNull();
         });
     });
 });
