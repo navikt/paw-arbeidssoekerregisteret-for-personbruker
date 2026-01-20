@@ -19,7 +19,6 @@ const TEKSTER = {
         periode_avsluttet: 'Ikke lengre registrert som arbeidssøker',
         periode_started: 'Registrert som arbeidssøker',
         periode_started_sys: 'Registrert som arbeidssøker av',
-        utfoert_egenvurdering: 'Utført egenvurdering',
         innsending_av_oppslysninger: 'Du sendte inn opplysninger',
         innsending_av_oppslysninger_veil: 'Veileder sendte inn opplysninger',
         bekreftelse_levert: 'Bekreftelse levert',
@@ -35,7 +34,6 @@ const TEKSTER = {
         periode_avsluttet: 'Ikkje lengre registrert som arbeidssøkjar',
         periode_started: 'Registrert seg som arbeidssøkjar',
         periode_started_sys: 'Registrert som arbeidssøkjar av',
-        utfoert_egenvurdering: 'Utført eigenvurdering',
         innsending_av_oppslysninger: 'Du sende inn opplysningar',
         innsending_av_oppslysninger_veil: 'Rettleiar sende inn opplysningar',
         bekreftelse_levert: 'Bekreftelse levert',
@@ -52,7 +50,6 @@ const TEKSTER = {
         periode_avsluttet: 'No longer registered as job seeker',
         periode_started: 'Registered as job seeker',
         periode_started_sys: 'Registered as job seeker by',
-        utfoert_egenvurdering: 'Performed self-assessment',
         innsending_av_oppslysninger: 'You submitted information',
         innsending_av_oppslysninger_veil: 'Supervisor submitted information',
         bekreftelse_levert: 'Confirmation delivered',
@@ -119,21 +116,8 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
             );
 
         case 'EGENVURDERING_V1':
+            // Denne renderes i periode.tsx
             return null;
-            // Egenvurdering holdes skjult inntil videre
-            return (
-                <HendelseKomponent
-                    timestamp={hendelse.tidspunkt}
-                    title={overskriftTekster('utfoert_egenvurdering')}
-                    sprak={sprak}
-                >
-                    <Box as={'p'}>
-                        <b>{overskriftTekster('vurdert_til')}</b>
-                        {': '}
-                        {/*{profileringsTekster(hendelse.egenvurdering)}*/}
-                    </Box>
-                </HendelseKomponent>
-            );
 
         case 'OPPLYSNINGER_V4':
             return (
