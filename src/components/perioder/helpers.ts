@@ -1,4 +1,5 @@
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { PeriodeStartetHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 const norsk = [
     'januar',
     'februar',
@@ -49,3 +50,35 @@ export function prettyPrintDatoOgKlokkeslettKortform(dato: string, locale?: Spra
 
     return `${date.getDate().toString().padStart(2, '0')}.${maaned.toString().padStart(2, '0')}${visAar || thisYear !== year ? '.' + year : ''} ${timer.toString().length === 1 ? '0' : ''}${timer}:${minutter.toString().length === 1 ? '0' : ''}${minutter}`;
 }
+
+const TEKSTER = {
+    nb: {
+        periode_started: 'Registrert som arbeidssøker',
+        periode_started_sys: 'Registrert som arbeidssøker av',
+        SYSTEM: 'Nav',
+        VEILEDER: 'veileder',
+    },
+    nn: {
+        periode_started: 'Registrert seg som arbeidssøkjar',
+        periode_started_sys: 'Registrert som arbeidssøkjar av',
+        SYSTEM: 'Nav',
+        VEILEDER: 'rettleiar',
+    },
+
+    en: {
+        periode_started: 'Registered as job seeker',
+        periode_started_sys: 'Registered as job seeker by',
+        SYSTEM: 'Nav',
+        VEILEDER: 'supervisor',
+    },
+};
+
+export const opprettHeadingTilPeriodeStartet = (hendelse: PeriodeStartetHendelse, sprak: Sprak): string => {
+    const overskriftTekster = lagHentTekstForSprak(TEKSTER, sprak);
+    const opprettetAvBruker = hendelse.sendtInnAv.utfoertAv.type === 'SLUTTBRUKER';
+    if (!opprettetAvBruker) {
+        const doneBy = hendelse.sendtInnAv.utfoertAv.type;
+        return `${overskriftTekster('periode_started_sys')} ${overskriftTekster(doneBy)}`;
+    }
+    return overskriftTekster('periode_started');
+};

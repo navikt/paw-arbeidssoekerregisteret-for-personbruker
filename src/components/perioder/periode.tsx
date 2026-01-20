@@ -6,22 +6,17 @@ import { findOpplysningerMedEgenvurdering, finnEgenvurderingForOpplysninger } fr
 import { Hendelse } from './hendelse';
 import { HendelseRenderer } from './hendelse-renderer';
 import { OpplysningerMedEgenvurdering } from './opplysninger-med-egenvurdering';
+import { opprettHeadingTilPeriodeStartet } from './helpers';
 
 const TEKSTER = {
     nb: {
-        periode_started: 'Registrert som arbeidssøker',
         opplysninger: 'Opplysninger',
-        egenvurdering: 'Egenvurdering',
     },
     nn: {
-        periode_started: 'Registrert seg som arbeidssøkjar',
         opplysninger: 'Opplysningar',
-        egenvurdering: 'Egenvurdering',
     },
     en: {
-        periode_started: 'Registered as job seeker',
         opplysninger: 'Information',
-        egenvurdering: 'Self-assessment',
     },
 };
 
@@ -58,7 +53,11 @@ const Periode: React.FC<PeriodeProps> = (props) => {
             <Process>
                 <>
                     {shouldMergeStartWithOpplysninger && periodeStartet && opplysninger && (
-                        <Hendelse title={tekst('periode_started')} sprak={sprak} timestamp={periodeStartet.tidspunkt}>
+                        <Hendelse
+                            title={opprettHeadingTilPeriodeStartet(periodeStartet, sprak)}
+                            sprak={sprak}
+                            timestamp={periodeStartet.tidspunkt}
+                        >
                             <OpplysningerMedEgenvurdering
                                 opplysninger={opplysninger}
                                 egenvurdering={finnEgenvurderingForOpplysninger(

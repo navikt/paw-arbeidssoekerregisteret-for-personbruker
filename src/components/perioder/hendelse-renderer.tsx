@@ -13,6 +13,7 @@ import { Hendelse as HendelseKomponent } from './hendelse';
 import { PROFILERT_TIL_TEKSTER } from './models';
 import { Opplysninger } from './opplysninger';
 import { oversettSluttaarsak } from './sluttaarsak';
+import { opprettHeadingTilPeriodeStartet } from './helpers';
 
 const TEKSTER = {
     nb: {
@@ -70,17 +71,7 @@ type HendelseRendererProps = {
 
 const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) => {
     const sluttaarsak = oversettSluttaarsak(sprak);
-    const profileringsTekster = lagHentTekstForSprak(PROFILERT_TIL_TEKSTER, sprak);
     const overskriftTekster = lagHentTekstForSprak(TEKSTER, sprak);
-
-    const opprettHeadingTilPeriodeStartet = (_hendelse: PeriodeStartetHendelse) => {
-        const opprettetAvBruker = _hendelse.sendtInnAv.utfoertAv.type === 'SLUTTBRUKER';
-        if (!opprettetAvBruker) {
-            const doneBy = _hendelse.sendtInnAv.utfoertAv.type;
-            return `${overskriftTekster('periode_started_sys')} ${overskriftTekster(doneBy)}`;
-        }
-        return overskriftTekster('periode_started');
-    };
 
     const opprettHeadingTilOpplysninger = (_hendelse: OpplysningerHendelse) => {
         const opprettetAvBruker = _hendelse.sendtInnAv.utfoertAv.type === 'SLUTTBRUKER';
@@ -95,7 +86,7 @@ const HendelseRenderer: React.FC<HendelseRendererProps> = ({ hendelse, sprak }) 
             return (
                 <HendelseKomponent
                     timestamp={hendelse.tidspunkt}
-                    title={opprettHeadingTilPeriodeStartet(hendelse)}
+                    title={opprettHeadingTilPeriodeStartet(hendelse, sprak)}
                     sprak={sprak}
                 />
             );
