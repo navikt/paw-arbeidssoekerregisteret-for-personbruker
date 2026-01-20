@@ -168,7 +168,7 @@ describe('Periode-komponent', () => {
 
             renderPeriode(hendelser);
 
-            const forsteHendelse = screen.getByTestId('merged-hendelse-registrert-som-arbeidssøker');
+            const forsteHendelse = screen.getByTestId('merged-hendelse-registrert-som-arbeidssøker-av-veileder');
             expect(forsteHendelse).toBeInTheDocument();
 
             const _opplysninger = within(forsteHendelse).getByTestId('opplysninger-id-1');
@@ -205,9 +205,9 @@ describe('Periode-komponent', () => {
             ];
             renderPeriode(hendelser);
 
-            const forsteHendelse = screen.getByTestId('merged-hendelse-registrert-som-arbeidssøker');
+            const forsteHendelse = screen.getByTestId('merged-hendelse-registrert-som-arbeidssøker-av-veileder');
             expect(forsteHendelse).toBeInTheDocument();
-            expect(forsteHendelse).toHaveAttribute('data-title', 'Registrert som arbeidssøker');
+            expect(forsteHendelse).toHaveAttribute('data-title', 'Registrert som arbeidssøker av veileder');
 
             const opplysninger = within(forsteHendelse).getByTestId('opplysninger-id-1');
             expect(opplysninger).toBeInTheDocument();
@@ -229,9 +229,9 @@ describe('Periode-komponent', () => {
             ];
             renderPeriode(hendelser);
 
-            const forsteHendelse = screen.getByTestId('merged-hendelse-registrert-som-arbeidssøker');
+            const forsteHendelse = screen.getByTestId('merged-hendelse-registrert-som-arbeidssøker-av-veileder');
             expect(forsteHendelse).toBeInTheDocument();
-            expect(forsteHendelse).toHaveAttribute('data-title', 'Registrert som arbeidssøker');
+            expect(forsteHendelse).toHaveAttribute('data-title', 'Registrert som arbeidssøker av veileder');
 
             const opplysninger = within(forsteHendelse).getByTestId('opplysninger-id-1');
             expect(opplysninger).toBeInTheDocument();
@@ -277,7 +277,7 @@ describe('Periode-komponent', () => {
             expect(hendelseElements.length).toBe(3);
 
             // Sjekk at den første hendelsen er den eldste (Periode startet)
-            expect(hendelseElements[0]).toHaveAttribute('data-title', 'Registrert som arbeidssøker');
+            expect(hendelseElements[0]).toHaveAttribute('data-title', 'Registrert som arbeidssøker av veileder');
 
             // Sjekk at den siste hendelsen er den nyeste (Bekreftelse)
             expect(hendelseElements[2]).toHaveAttribute('data-title', 'Bekreftelse levert');
@@ -317,6 +317,23 @@ describe('Periode-komponent', () => {
             const hendelser = [createPaaVegneAvStoppet()];
             const { container } = render(<HendelseRenderer hendelse={hendelser[0]} sprak={sprak} />);
             expect(container.firstChild).toBeNull();
+        });
+    });
+
+    describe('Generering av tittel for periode startet hendelse', () => {
+        test('Skal generer korrekt tittel når bruker har registert seg selv', () => {
+            const hendelse = createPeriodeStartetHendelse('2025-01-10T10:00:00Z', 'SLUTTBRUKER');
+            renderPeriode([hendelse]);
+            const forsteHendelse = screen.getByTestId('merged-hendelse-registrert-som-arbeidssøker');
+            expect(forsteHendelse).toBeInTheDocument();
+            expect(forsteHendelse).toHaveAttribute('data-title', 'Registrert som arbeidssøker');
+        });
+        test('Skal generer korrekt tittel når veileder har registert bruker', () => {
+            const hendelse = createPeriodeStartetHendelse('2025-01-10T10:00:00Z', 'VEILEDER');
+            renderPeriode([hendelse]);
+            const forsteHendelse = screen.getByTestId('merged-hendelse-registrert-som-arbeidssøker-av-veileder');
+            expect(forsteHendelse).toBeInTheDocument();
+            expect(forsteHendelse).toHaveAttribute('data-title', 'Registrert som arbeidssøker av veileder');
         });
     });
 });

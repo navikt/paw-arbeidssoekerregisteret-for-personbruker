@@ -4,11 +4,14 @@ import {
     PaaVegneAvStoppHendelse,
 } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
-export const createPeriodeStartetHendelse = (tidspunkt: string): Hendelse => ({
+export const createPeriodeStartetHendelse = (
+    tidspunkt: string,
+    utfoertAvType: 'VEILEDER' | 'SLUTTBRUKER' = 'VEILEDER',
+): Hendelse => ({
     sendtInnAv: {
         tidspunkt,
         utfoertAv: {
-            type: 'VEILEDER',
+            type: utfoertAvType,
             id: 'Z123456',
         },
         kilde: 'test',
