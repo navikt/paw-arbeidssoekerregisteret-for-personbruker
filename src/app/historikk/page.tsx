@@ -1,15 +1,17 @@
-import { Alert, Heading, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
-import { Sprak, lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
-
-import { fetchAggregertePerioder, fetchBekreftelserMedStatus } from '@/app/actions';
-import { NextPageProps } from '../../../types/next';
-import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
+import { getPerioder } from './actions';
+import { Heading, Loader } from '@navikt/ds-react';
+import { Perioder } from '../../components/perioder/perioder';
+import { ShowDetailsProvider } from '../../contexts/show-details-context';
+import { VisDetaljerToggle } from '@/components/perioder/vis-detaljer-toggle';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
-import { HistorikkWrapper } from '@/components/historikk/historikk-wrapper';
+import { NextPageProps } from '../../../types/next';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
+import { PerioderFeilmelding } from '@/components/perioder/perioder-feilmelding';
+import { PerioderTom } from '@/components/perioder/perioder-tom';
 
-import { repackBekreftelserMedStatus } from '@/lib/repack-bekreftelser-med-status';
-import { mergeGyldigeBekreftelser } from '@/lib/merge-gyldige-bekreftelser';
+export const dynamic = 'force-dynamic';
 
 const TEKSTER = {
     nb: {
@@ -24,41 +26,21 @@ const TEKSTER = {
 };
 
 async function HistorikkServerComponent({ sprak }: { sprak: Sprak }) {
-    const { data: aggregertePerioder, error: aggregertError } = await fetchAggregertePerioder({});
+    const { perioder, error } = await getPerioder();
 
-    if (aggregertError) {
-        return <Alert variant={'error'}>Noe gikk dessverre galt ved henting av historikk</Alert>;
+    if (error) {
+        return <PerioderFeilmelding sprak={sprak} />;
     }
 
-    const periodeids = aggregertePerioder?.map((periode) => periode.periodeId as string) || [];
-
-    const { data: bekreftelserMedStatus, error: bekreftelserMedStatusError } = await fetchBekreftelserMedStatus({
-        perioder: periodeids,
-    });
-
-    if (bekreftelserMedStatusError) {
-        return <Alert variant={'error'}>Noe gikk dessverre galt ved henting av historikk</Alert>;
+    if (!perioder || perioder.length === 0) {
+        return <PerioderTom sprak={sprak} />;
     }
-
-    const repakkedeBekreftelser = repackBekreftelserMedStatus(bekreftelserMedStatus?.bekreftelser || []);
-
-    const aggregertePerioderMedGyldigeBekreftelser = aggregertePerioder
-        ? mergeGyldigeBekreftelser(aggregertePerioder, repakkedeBekreftelser)
-        : [];
 
     return (
-        <div className={'flex flex-col max-w-3xl mx-auto'}>
-            {aggregertePerioder &&
-                aggregertePerioderMedGyldigeBekreftelser.map((periode, index) => (
-                    <div
-                        className={'p-4'}
-                        key={periode.periodeId}
-                        style={{ background: index % 2 !== 0 ? 'var(--a-surface-subtle)' : undefined }}
-                    >
-                        <HistorikkWrapper {...periode} sprak={sprak} />
-                    </div>
-                ))}
-        </div>
+        <>
+            <VisDetaljerToggle sprak={sprak} />
+            <Perioder perioder={perioder} sprak={sprak} />
+        </>
     );
 }
 
@@ -68,30 +50,38 @@ export default async function HistorikkPage({ params }: NextPageProps) {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <div className={'max-w-3xl mx-auto py-8'}>
+        <div className={'max-w-3xl mx-auto py-8 px-4'}>
             <SettSprakIDekorator sprak={sprak} />
-            <Breadcrumbs
-                breadcrumbs={[
-                    {
-                        title: 'Min side',
-                        url: `/minside${sprakUrl}`,
-                    },
-                    {
-                        title: 'Arbeidssøkerregisteret',
-                        url: `/arbeidssoekerregisteret${sprakUrl}`,
-                    },
-                    {
-                        title: 'Historikk',
-                        url: `${sprakUrl}/historikk`,
-                    },
-                ]}
-            />
-            <Heading size="xlarge" level="1" className="p-4">
-                {tekst('tittel')}
-            </Heading>
-            <Suspense fallback={<Loader />}>
-                <HistorikkServerComponent sprak={sprak} />
-            </Suspense>
+            <ShowDetailsProvider>
+                <Breadcrumbs
+                    breadcrumbs={[
+                        {
+                            title: 'Min side',
+                            url: `/minside${sprakUrl}`,
+                        },
+                        {
+                            title: 'Arbeidssøkerregisteret',
+                            url: `/arbeidssoekerregisteret${sprakUrl}`,
+                        },
+                        {
+                            title: 'Historikk',
+                            url: `${sprakUrl}/historikk`,
+                        },
+                    ]}
+                />
+                <Heading level="1" size="medium" spacing>
+                    {tekst('tittel')}
+                </Heading>
+                <Suspense
+                    fallback={
+                        <div className="text-center">
+                            <Loader size="large" />
+                        </div>
+                    }
+                >
+                    <HistorikkServerComponent sprak={sprak} />
+                </Suspense>
+            </ShowDetailsProvider>
         </div>
     );
 }

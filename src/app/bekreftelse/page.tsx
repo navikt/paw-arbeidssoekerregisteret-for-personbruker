@@ -2,7 +2,7 @@ import { Loader } from '@navikt/ds-react';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { Suspense } from 'react';
 import BekreftelseWrapper from '@/components/bekreftelse/bekreftelse-wrapper';
-import { fetchAggregertePerioder } from '@/app/actions';
+import { fetchArbeidssoekerregisteretSnapshot } from '@/app/actions';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { NextPageProps } from '../../../types/next';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
@@ -15,16 +15,13 @@ import unleashKeys from '@/unleash-keys';
 
 async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
     const { data: tilgjengeligeBekreftelser, error } = await fetchTilgjengeligeBekreftelser();
-    const { data: aggregertePerioder, error: aggregertePerioderError } = await fetchAggregertePerioder({
-        visKunSisteInformasjon: true,
-    });
+    const { data: snapshotData, error: snapshotError } = await fetchArbeidssoekerregisteretSnapshot();
 
-    if (error || aggregertePerioderError) {
-        return <Feil sprak={sprak} error={error?.message ?? aggregertePerioderError?.message ?? ''} />;
+    if (error || snapshotError) {
+        return <Feil sprak={sprak} error={error?.message ?? snapshotError?.message ?? ''} />;
     }
-    const sisteInformasjon = aggregertePerioder && aggregertePerioder[0];
-    const erAktivArbeidssoker = Boolean(sisteInformasjon?.periodeId) && !Boolean(sisteInformasjon?.avsluttet);
-    const sistInnsendteBekreftelse = sisteInformasjon?.bekreftelser[0];
+    const erAktivArbeidssoker = Boolean(snapshotData?.id) && !Boolean(snapshotData?.avsluttet);
+    const sistInnsendteBekreftelse = snapshotData?.bekreftelse;
 
     const skalViseStyrkeloeft = await isEnabled(unleashKeys.VIS_STYRKELOEFT);
     let brukerprofil;

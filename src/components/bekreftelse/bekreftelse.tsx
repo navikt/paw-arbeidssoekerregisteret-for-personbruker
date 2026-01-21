@@ -17,10 +17,11 @@ import IngenTilgjengeligeBekreftelser from '@/components/bekreftelse/ingen-tilgj
 import { BekreftelseSkjemaType } from '@/model/bekreftelse';
 import { loggAktivitet, loggVisning } from '@/lib/tracking';
 import { Brukerprofil } from '@/model/brukerprofil';
+import { BekreftelseHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
 export interface BekreftelseProps {
     sprak: Sprak;
-    sistInnsendteBekreftelse?: InnsendtBekreftelse;
+    sistInnsendteBekreftelse?: BekreftelseHendelse;
     tilgjengeligeBekreftelser?: TilgjengeligeBekreftelser;
     erAktivArbeidssoker: boolean;
     onSubmit(data: BekreftelseSkjemaType): Promise<void>;

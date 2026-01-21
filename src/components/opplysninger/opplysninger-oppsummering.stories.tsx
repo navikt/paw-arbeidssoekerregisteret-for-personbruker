@@ -1,9 +1,7 @@
 import { Meta, StoryObj } from '@storybook/nextjs';
-import { aggregertePerioderMockData, snapshotMock } from '@/app/mockdata';
+import { snapshotMock } from '@/app/mockdata';
 import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
-
-const opplysningerOmArbeidssoker = snapshotMock.opplysning;
 
 const meta = {
     title: 'Komponenter/OpplysningerOppsummering',
