@@ -149,7 +149,7 @@ describe('Periode-komponent', () => {
 
             renderPeriode(hendelser);
 
-            expect(screen.getAllByTestId('egenvurdering')).not.toBeInTheDocument();
+            expect(screen.queryByTestId('egenvurdering')).not.toBeInTheDocument();
         });
 
         test('Skal merge egenvurdering med tilhørende opplysning når opplysning er en del av de to første', () => {
