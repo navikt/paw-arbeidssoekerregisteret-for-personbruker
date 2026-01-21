@@ -9,17 +9,17 @@ const TEKSTER = {
     nb: {
         periode_started: 'Registrert som arbeidssøker',
         opplysninger: 'Opplysninger',
-        egenvurdering: 'Egenvurdering',
+        egenvurdering: 'Hva slags veiledning ønsker du?',
     },
     nn: {
         periode_started: 'Registrert seg som arbeidssøkjar',
         opplysninger: 'Opplysningar',
-        egenvurdering: 'Egenvurdering',
+        egenvurdering: 'Kva slags rettleiing ønskjer du?',
     },
     en: {
         periode_started: 'Registered as job seeker',
         opplysninger: 'Information',
-        egenvurdering: 'Self-assessment',
+        egenvurdering: 'What kind of guidance do you want?',
     },
 };
 
@@ -38,10 +38,11 @@ const OpplysningerMedEgenvurdering: React.FC<OpplysningerMedEgenvurderingProps> 
         <>
             <Opplysninger opplysninger={opplysninger} sprak={sprak} />
             {egenvurdering && (
-                <Box as={'p'}>
-                    <b>{tekst('egenvurdering')}</b>
-                    {': '}
-                    {profileringsTekster(egenvurdering.egenvurdering)}
+                <Box data-testid="egenvurdering">
+                    <div>
+                        <b>{tekst('egenvurdering')}</b>
+                    </div>
+                    <div>{profileringsTekster(egenvurdering.egenvurdering)}</div>
                 </Box>
             )}
         </>

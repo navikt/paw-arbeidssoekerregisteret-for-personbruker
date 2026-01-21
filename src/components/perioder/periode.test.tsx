@@ -102,7 +102,7 @@ describe('Periode-komponent', () => {
             // Hent parent wrapper (merged-hendelse)
             const parent = _opplysninger3.parentElement;
             if (!parent) throw new Error('Parent element not found for opplysninger-id-3');
-            const _egenvurdering = within(parent).getByText('Egenvurdering');
+            const _egenvurdering = within(parent).getByTestId('egenvurdering');
             expect(_egenvurdering).toBeInTheDocument();
         });
 
@@ -149,7 +149,7 @@ describe('Periode-komponent', () => {
 
             renderPeriode(hendelser);
 
-            expect(screen.queryByText('Egenvurdering')).not.toBeInTheDocument();
+            expect(screen.getAllByTestId('egenvurdering')).not.toBeInTheDocument();
         });
 
         test('Skal merge egenvurdering med tilhørende opplysning når opplysning er en del av de to første', () => {
@@ -175,7 +175,7 @@ describe('Periode-komponent', () => {
             expect(_opplysninger).toBeInTheDocument();
             expect(_opplysninger).toHaveTextContent('opplysninger-id-1');
 
-            const _egenvurdering = within(forsteHendelse).getByText('Egenvurdering');
+            const _egenvurdering = within(forsteHendelse).getByTestId('egenvurdering');
             expect(_egenvurdering).toBeInTheDocument();
         });
     });
