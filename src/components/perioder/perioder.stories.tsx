@@ -15,6 +15,7 @@ import { OpplysningerHendelse, PeriodeAvsluttetHendelse } from '@navikt/arbeidss
 const meta: Meta = {
     title: 'Komponenter/Perioder/Periode',
     component: Periode,
+    tags: ['autodocs'],
     parameters: {
         layout: 'padded',
         docs: {
@@ -163,6 +164,20 @@ export const MedBekreftelse: Story = {
         docs: {
             description: {
                 story: 'Viser en periode hvor bruker har bekreftet at de fortsatt er arbeidssøker.',
+            },
+        },
+    },
+};
+
+export const MedOpplysninger: Story = {
+    args: {
+        hendelser: [createOpplysningerHendelse()],
+        sprak: 'nb',
+    },
+    parameters: {
+        docs: {
+            description: {
+                story: 'Viser opplysninger innsendt',
             },
         },
     },
