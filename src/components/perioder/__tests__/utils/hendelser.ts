@@ -2,10 +2,11 @@ import {
     Hendelse,
     PaaVegneAvStartHendelse,
     PaaVegneAvStoppHendelse,
+    PeriodeAvsluttetHendelse,
 } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
 export const createPeriodeStartetHendelse = (
-    tidspunkt: string,
+    tidspunkt: string = '2025-01-01T10:00:00Z',
     utfoertAvType: 'VEILEDER' | 'SLUTTBRUKER' = 'VEILEDER',
 ): Hendelse => ({
     sendtInnAv: {
@@ -21,7 +22,7 @@ export const createPeriodeStartetHendelse = (
     type: 'PERIODE_STARTET_V1',
 });
 
-export const createOpplysningerHendelse = (tidspunkt: string, id = 'test-id'): Hendelse => ({
+export const createOpplysningerHendelse = (tidspunkt: string = '2025-01-01T10:00:00Z', id = 'test-id'): Hendelse => ({
     id,
     sendtInnAv: {
         tidspunkt,
@@ -43,7 +44,7 @@ export const createOpplysningerHendelse = (tidspunkt: string, id = 'test-id'): H
     jobbsituasjon: {
         beskrivelser: [
             {
-                beskrivelse: 'UKJENT_VERDI',
+                beskrivelse: 'VIL_BYTTE_JOBB',
                 detaljer: {},
             },
         ],
@@ -56,7 +57,7 @@ export const createOpplysningerHendelse = (tidspunkt: string, id = 'test-id'): H
 });
 
 export const createProfileringHendelse = (
-    tidspunkt: string,
+    tidspunkt: string = '2025-01-01T10:00:00Z',
     id = 'profilering-id',
     opplysningerOmArbeidssokerId = 'opplysninger-id',
 ): Hendelse => ({
@@ -102,7 +103,7 @@ export const createBekreftelseHendelse = (tidspunkt: string): Hendelse => ({
 });
 
 export const createEgenvurderingHendelse = (
-    tidspunkt: string,
+    tidspunkt: string = '2025-01-01T10:00:00Z',
     profileringId: string,
     egenvurdering:
         | 'ANTATT_GODE_MULIGHETER'
@@ -142,4 +143,21 @@ export const createPaaVegneAvStoppet = (): PaaVegneAvStoppHendelse => ({
     fristBrutt: false,
     tidspunkt: '2026-01-13T12:35:03.331Z',
     type: 'PAA_VEGNE_AV_STOPP_V1',
+});
+
+export const createPeriodeAvsluttetHendelse = (
+    tidspunkt: string = '2025-01-01T10:00:00Z',
+    utfoertAvType: 'SLUTTBRUKER' | 'VEILEDER' | 'SYSTEM' | 'UDEFINERT' | 'UKJENT_VERDI' = 'SLUTTBRUKER',
+): PeriodeAvsluttetHendelse => ({
+    sendtInnAv: {
+        tidspunkt,
+        utfoertAv: {
+            type: utfoertAvType,
+            id: 'europe-north1-docker.pkg.dev/nais-management-233d/paw/paw-arbeidssoekerregisteret-bekreftelse-utgang:25.03.18.180-1',
+        },
+        kilde: 'paw.arbeidssoekerregisteret.bekreftelse-utgang',
+        aarsak: '[Bekreftelse] ikke levert innen fristen',
+    },
+    tidspunkt: '2025-03-18T13:32:56.440Z',
+    type: 'PERIODE_AVSLUTTET_V1',
 });
