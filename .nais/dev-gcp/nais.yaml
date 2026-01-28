@@ -46,8 +46,6 @@ spec:
           value: http://paw-arbeidssoekerregisteret-api-oppslag
         - name: OPPSLAG_API_V2_URL
           value: http://paw-arbeidssoekerregisteret-api-oppslag-v2
-        - name: AIA_BACKEND_URL
-          value: http://aia-backend/aia-backend
         - name: REGISTRER_ARBEIDSSOKER_URL
           value: https://www.ansatt.dev.nav.no/arbeid/registrering
         - name: OPPDATER_OPPLYSNINGER_URL
@@ -83,7 +81,6 @@ spec:
                 - application: paw-arbeidssoekerregisteret-api-oppslag-v2
                 - application: paw-arbeidssoekerregisteret-api-bekreftelse
                 - application: paw-arbeidssoekerregisteret-api-mine-stillinger
-                - application: aia-backend
                 - application: paw-arbeidssoekerregisteret-api-egenvurdering
                 - application: nav-dekoratoren
                   namespace: personbruker
