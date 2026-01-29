@@ -61,13 +61,7 @@ function AktivBrukerStateless(props: Props) {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <Box
-            className={'py-4 px-6'}
-            borderRadius="large"
-            shadow="xsmall"
-            borderColor={'border-subtle'}
-            borderWidth={'1'}
-        >
+        <Box className={'py-4 px-6'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
             <div className={'flex justify-between'}>
                 <Heading size={'medium'} level={'3'} className={'mb-4'}>
                     {tekst('heading')}
@@ -78,7 +72,6 @@ function AktivBrukerStateless(props: Props) {
             <div className={'mb-4 -mt-2'}>
                 <Beta sprak={sprak} />
             </div>
-
             {!isEditMode && (
                 <ErrorBoundary errorComponent={() => null}>
                     <Suspense fallback={<Loader />}>

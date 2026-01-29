@@ -43,9 +43,9 @@ function EgenvurderingAvklart(props: BehovvurderingAvklartProps) {
 
     return (
         <Box
-            background="surface-default"
-            borderRadius="large"
-            borderColor={'border-subtle'}
+            background="default"
+            borderRadius="8"
+            borderColor={'neutral-subtle'}
             borderWidth={'1'}
             className={'divide-y divide-gray-300'}
             data-umami-event={VisningEventNavn}

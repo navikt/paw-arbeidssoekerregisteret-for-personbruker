@@ -1,4 +1,4 @@
-import { ReadMore, List } from '@navikt/ds-react';
+import { ReadMore, List, Box } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 interface ReadMoreProps {
@@ -44,15 +44,17 @@ export default function ReadMoreEksperiment(props: ReadMoreProps) {
 
     return (
         <ReadMore header={tekst('header')}>
-            <List as="ul">
-                <List.Item>{tekst('om')}</List.Item>
-                <List.Item>{tekst('endre')}</List.Item>
-                <List.Item>{tekst('privat')}</List.Item>
-                <List.Item>{tekst('avslutte')}</List.Item>
-                <List.Item>{tekst('sletting')}</List.Item>
-                <List.Item>{tekst('adressebeskyttelse')}</List.Item>
-                <List.Item>{tekst('testing')}</List.Item>
-            </List>
+            <Box marginBlock="space-16" asChild>
+                <List data-aksel-migrated-v8 as="ul">
+                    <List.Item>{tekst('om')}</List.Item>
+                    <List.Item>{tekst('endre')}</List.Item>
+                    <List.Item>{tekst('privat')}</List.Item>
+                    <List.Item>{tekst('avslutte')}</List.Item>
+                    <List.Item>{tekst('sletting')}</List.Item>
+                    <List.Item>{tekst('adressebeskyttelse')}</List.Item>
+                    <List.Item>{tekst('testing')}</List.Item>
+                </List>
+            </Box>
         </ReadMore>
     );
 }

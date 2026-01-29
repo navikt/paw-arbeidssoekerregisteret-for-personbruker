@@ -47,11 +47,11 @@ const EgenvurderingStateless = (props: Props) => {
 
     return (
         <Box
-            background="surface-default"
-            borderRadius="large"
-            borderColor={'border-subtle'}
+            background="default"
+            borderRadius="8"
+            borderColor={'neutral-subtle'}
             borderWidth={'1'}
-            className={'divide-y divide-gray-300'}
+            className={'divide-y divide-ax-border-neutral-subtle'}
             data-umami-event={VisningEventNavn}
             data-umami-event-viser={'Egenvurdering'}
         >

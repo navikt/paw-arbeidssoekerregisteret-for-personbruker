@@ -39,7 +39,7 @@ const ManglerOpplysninger = (props: ManglerOpplysningerProps) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <Box background="surface-default" padding="6" borderRadius="xlarge" borderColor="border-subtle" borderWidth="1">
+        <Box background="default" padding="space-24" borderRadius="12" borderColor="neutral-subtle" borderWidth="1">
             <BodyShort className={'mb-2'}>{tekst('header')}</BodyShort>
             <BodyLong spacing={!visAdvarsel}>{tekst('body')}</BodyLong>
             {visAdvarsel && (

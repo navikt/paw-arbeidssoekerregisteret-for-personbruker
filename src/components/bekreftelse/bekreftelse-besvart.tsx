@@ -1,7 +1,7 @@
 'use client';
 
 import { Bekreftelse, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { BodyShort, Button, Heading, List } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, List, Box } from '@navikt/ds-react';
 import { formaterDato } from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/tracking';
 import { BekreftelseHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
@@ -53,18 +53,20 @@ const BesvarelseInfo = (props: { sprak: Sprak; besvarelse: Props['besvarelse']; 
             <BodyShort>
                 {innsendtDato} {tekst('svarteDu')}
             </BodyShort>
-            <List size={'small'}>
-                <List.Item>
-                    {tekst(besvarelse.svar.harJobbetIDennePerioden ? 'vaertIArbeid' : 'ikkeVaertIArbeid')}
-                </List.Item>
-                <List.Item>
-                    {tekst(
-                        besvarelse.svar.vilFortsetteSomArbeidssoeker
-                            ? 'onskerAaVaereRegistrert'
-                            : 'onskerIkkeAaVaereRegistrert',
-                    )}
-                </List.Item>
-            </List>
+            <Box marginBlock="space-16" asChild>
+                <List data-aksel-migrated-v8 size={'small'}>
+                    <List.Item>
+                        {tekst(besvarelse.svar.harJobbetIDennePerioden ? 'vaertIArbeid' : 'ikkeVaertIArbeid')}
+                    </List.Item>
+                    <List.Item>
+                        {tekst(
+                            besvarelse.svar.vilFortsetteSomArbeidssoeker
+                                ? 'onskerAaVaereRegistrert'
+                                : 'onskerIkkeAaVaereRegistrert',
+                        )}
+                    </List.Item>
+                </List>
+            </Box>
         </>
     );
 };

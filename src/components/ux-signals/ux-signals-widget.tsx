@@ -17,7 +17,7 @@ export default async function UxSignalsWidget(props: UxSignalsWidgetProps) {
     if (!erUndersoekelseAktiv) return null;
 
     return (
-        <Box background="surface-default" borderRadius="large" borderColor={'border-subtle'} className="mb-8 mt-8">
+        <Box background="default" borderRadius="8" borderColor={'neutral-subtle'} className="mb-8 mt-8">
             <div data-uxsignals-embed={uxSignalsUndersoekelseId} data-uxsignals-mode={erDemo ? 'demo' : ''}></div>
             <Script type="module" strategy="lazyOnload" src="https://widget.uxsignals.com/embed.js" />
         </Box>

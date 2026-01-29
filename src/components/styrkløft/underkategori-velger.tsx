@@ -199,8 +199,8 @@ function UnderkategoriVelger(props: Props) {
             <Chips className={'ml-2'}>
                 {uiStateToChips(uiState).map((c) => (
                     <Chips.Removable
+                        data-color="neutral"
                         key={c}
-                        variant="neutral"
                         onClick={() => {
                             onChange(uiStateToValues(toggleOffChip(uiState, c)));
                             loggUnderkategoriFilter({ aktivitet: 'Trykker på Chips' });

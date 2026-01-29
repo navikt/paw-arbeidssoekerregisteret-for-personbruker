@@ -1,4 +1,4 @@
-import { BodyShort, Box, CopyButton, Heading, HStack, VStack, Link } from '@navikt/ds-react';
+import { BodyShort, Box, CopyButton, Heading, HStack, Link, VStack } from '@navikt/ds-react';
 import { Buildings3Icon, CheckmarkIcon, FilesIcon, LocationPinIcon } from '@navikt/aksel-icons';
 
 import { loggStyrkeloft } from '@/lib/tracking';
@@ -12,7 +12,7 @@ function LedigStilling(props: Props) {
     const ledigStillingUrl = `https://arbeidsplassen.nav.no/stillinger/stilling/${ledigStilling.arbeidsplassenNoId}`;
 
     return (
-        <Box className={'py-4 pl-4 pr-2'} borderRadius="large" shadow="xsmall">
+        <Box className={'py-4 pl-4 pr-2'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
             <Heading level={'2'} size={'small'}>
                 <Link
                     href={ledigStillingUrl}
