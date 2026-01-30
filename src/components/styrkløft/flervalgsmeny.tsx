@@ -38,7 +38,8 @@ const FlerValgsMeny: React.FC<FlerValgsMenyProps> = (props) => {
             <ActionMenu>
                 <ActionMenu.Trigger>
                     <Button
-                        variant="tertiary-neutral"
+                        data-color="neutral"
+                        variant="tertiary"
                         icon={<MenuElipsisVerticalIcon title="Saksmeny" />}
                         size="small"
                         onClick={() => loggStyrkeloft({ aktivitet: 'Åpner flervalgsmeny' })}

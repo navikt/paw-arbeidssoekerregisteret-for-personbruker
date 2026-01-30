@@ -81,7 +81,7 @@ const Source: React.FC<SourceProps> = (props) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <Tag size="small" variant="info" className="sm:ml-auto">
+        <Tag data-color="info" size="small" variant="outline" className="sm:ml-auto">
             <span>
                 {tekst('kilde')}
                 {':'}&nbsp;

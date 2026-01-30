@@ -32,16 +32,18 @@ function Paginering(props: Props) {
     return (
         <HStack gap={'space-8'}>
             <Button
+                data-color="neutral"
                 aria-label={'Forrige side'}
                 onClick={() => onClick(Math.max(1, aktivSide - 1))}
-                variant={'tertiary-neutral'}
+                variant={'tertiary'}
                 icon={<ArrowLeftIcon title="a11y-title" fontSize="1.5rem" />}
             ></Button>
             <NummererteKnapper {...props} />
             <Button
+                data-color="neutral"
                 aria-label={'Neste side'}
                 onClick={() => onClick(Math.min(aktivSide + 1, antallSider))}
-                variant={'tertiary-neutral'}
+                variant={'tertiary'}
                 icon={<ArrowRightIcon title="a11y-title" fontSize="1.5rem" />}
                 iconPosition={'right'}
             ></Button>

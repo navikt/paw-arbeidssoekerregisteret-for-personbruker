@@ -47,7 +47,11 @@ function FilterVelger(props: Props) {
             </Dropdown>
             <Chips className={'ml-2'}>
                 {values.map((c) => (
-                    <Chips.Removable key={c} variant="neutral" onClick={() => onChange(values.filter((v) => v !== c))}>
+                    <Chips.Removable
+                        data-color="neutral"
+                        key={c}
+                        onClick={() => onChange(values.filter((v) => v !== c))}
+                    >
                         {c}
                     </Chips.Removable>
                 ))}

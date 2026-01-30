@@ -85,7 +85,7 @@ export default function VelgStillingssoekStateless(props: Props) {
                     {tekst('lagre')}
                 </Button>
                 {kanAvbryte && (
-                    <Button variant={'tertiary-neutral'} onClick={onCancel} className={'ml-4'}>
+                    <Button data-color="neutral" variant={'tertiary'} onClick={onCancel} className={'ml-4'}>
                         {tekst('avbryt')}
                     </Button>
                 )}

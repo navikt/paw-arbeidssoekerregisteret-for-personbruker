@@ -1,6 +1,6 @@
 'use client';
 
-import { BodyShort, List, ReadMore } from '@navikt/ds-react';
+import { BodyShort, List, ReadMore, Box } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
 
@@ -32,11 +32,13 @@ function ReadMoreVurdering(props: ReadmoreProps) {
     return (
         <ReadMore size="medium" header={tekst('header')} onClick={() => handleClickReadMore()}>
             <BodyShort>{tekst('tittel')}:</BodyShort>
-            <List as="ul">
-                <List.Item>{tekst('punkt1')}</List.Item>
-                <List.Item>{tekst('punkt2')}</List.Item>
-                <List.Item>{tekst('punkt3')}</List.Item>
-            </List>
+            <Box marginBlock="space-16" asChild>
+                <List data-aksel-migrated-v8 as="ul">
+                    <List.Item>{tekst('punkt1')}</List.Item>
+                    <List.Item>{tekst('punkt2')}</List.Item>
+                    <List.Item>{tekst('punkt3')}</List.Item>
+                </List>
+            </Box>
         </ReadMore>
     );
 }

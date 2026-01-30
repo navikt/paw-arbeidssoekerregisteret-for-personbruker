@@ -29,7 +29,7 @@ const InteractiveWrapper: React.FC<Omit<React.ComponentProps<typeof BekreftAvmel
     };
 
     return (
-        <VStack gap="4" align="start">
+        <VStack gap="space-16" align="start">
             <Button type="button" variant="tertiary" onClick={() => setOpen(true)} size="small">
                 Jeg vil melde meg av
             </Button>
