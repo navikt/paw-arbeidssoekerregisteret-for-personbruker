@@ -58,8 +58,9 @@ const EgenvurderingStateless = (props: Props) => {
             <div
                 className={'flex items-center py-4 px-6'}
                 style={{
-                    background: 'var(--a-blue-100)',
-                    borderRadius: 'var(--a-border-radius-large) var(--a-border-radius-large) 0 0',
+                    background: 'var(--ax-bg-brand-blue-moderate)',
+                    borderRadius: 'var(--ax-radius-8) var(--ax-radius-8) 0 0',
+                    borderColor: 'var(--ax-border-brand-blue-subtle)',
                 }}
             >
                 <Hide below={'sm'}>

@@ -1,6 +1,3 @@
-import { BekreftelserMedStatusResponse } from '@/model/bekreftelse';
-import { AggregertePerioder, BekreftelseStatus, JaEllerNei } from '@navikt/arbeidssokerregisteret-utils';
-import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 import { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
 export const snapshotMock: Snapshot = {
@@ -9,16 +6,18 @@ export const snapshotMock: Snapshot = {
     startet: {
         type: 'PERIODE_STARTET_V1',
         tidspunkt: '2025-12-22T07:24:04.989Z',
-        utfoertAv: {
-            type: 'SLUTTBRUKER',
-            id: 'string',
-            sikkerhetsnivaa: 'string',
-        },
-        kilde: 'string',
-        aarsak: 'string',
-        tidspunktFraKilde: {
-            tidspunkt: '2025-12-22T07:24:04.989Z',
-            avviksType: 'UKJENT_VERDI',
+        sendtInnAv: {
+            utfoertAv: {
+                type: 'SLUTTBRUKER',
+                id: 'string',
+                sikkerhetsnivaa: 'string',
+            },
+            kilde: 'string',
+            aarsak: 'string',
+            tidspunktFraKilde: {
+                tidspunkt: '2025-12-22T07:24:04.989Z',
+                avviksType: 'UKJENT_VERDI',
+            },
         },
     },
     // avsluttet: {

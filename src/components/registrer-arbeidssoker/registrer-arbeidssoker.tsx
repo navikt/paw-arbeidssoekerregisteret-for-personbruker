@@ -27,7 +27,7 @@ export default function RegistrerArbeidssoker(props: Props) {
 
     return (
         <Box>
-            <LinkCard style={{ background: 'var(--a-surface-action-subtle)' }} className={props.className ?? ''}>
+            <LinkCard style={{ background: 'var(--ax-bg-accent-moderate)' }} className={props.className ?? ''}>
                 <LinkCard.Title>
                     <LinkCard.Anchor
                         href={props.registrerArbeidssokerUrl}

@@ -45,12 +45,12 @@ const TilgjengeligBekreftelseLink = (props: Props) => {
 
     return (
         <>
-            <LinkCard style={{ background: 'var(--a-surface-warning-subtle)' }}>
+            <LinkCard style={{ background: 'var(--ax-bg-warning-moderate)' }}>
                 <LinkCard.Icon>
                     <Hide below={'sm'}>
                         <ExclamationmarkTriangleFillIcon
                             title={tekst('iconTitle')}
-                            style={{ color: 'var(--a-icon-warning)' }}
+                            style={{ color: 'var(--ax-bg-warning-strong)' }}
                         />
                     </Hide>
                 </LinkCard.Icon>

@@ -47,15 +47,16 @@ function EgenvurderingAvklart(props: BehovvurderingAvklartProps) {
             borderRadius="8"
             borderColor={'neutral-subtle'}
             borderWidth={'1'}
-            className={'divide-y divide-gray-300'}
+            className={'divide-y divide-ax-border-neutral-subtle'}
             data-umami-event={VisningEventNavn}
             data-umami-event-viser={'Egenvurdering avklart'}
         >
             <div
                 className={'flex items-center py-4 px-6'}
                 style={{
-                    background: 'var(--a-blue-100)',
-                    borderRadius: 'var(--a-border-radius-large) var(--a-border-radius-large) 0 0',
+                    background: 'var(--ax-bg-brand-blue-moderate)',
+                    borderRadius: 'var(--ax-radius-8) var(--ax-radius-8) 0 0',
+                    borderColor: 'var(--ax-border-brand-blue-subtle)',
                 }}
             >
                 <Hide below={'sm'}>
