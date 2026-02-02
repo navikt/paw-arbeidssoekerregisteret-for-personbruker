@@ -1,7 +1,6 @@
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Tjenestestatus } from '@/model/brukerprofil';
 import { Alert, BodyShort, Box, Button, Heading } from '@navikt/ds-react';
-import Beta from '@/components/styrkløft/beta';
 import ReadMoreEksperiment from './godkjenn-eksperiment-readmore';
 
 import { loggStyrkeloft } from '@/lib/tracking';
@@ -59,9 +58,6 @@ function GodkjennEksperiment(props: Props) {
         <Box>
             <Heading level="3" size="large">
                 {tekst('heading')}
-                <div>
-                    <Beta sprak={sprak} />
-                </div>
             </Heading>
             <BodyShort className={'py-4'}>{tekst('body')}</BodyShort>
             {visFeilmelding && <Alert variant={'error'}>{tekst('feilmelding')}</Alert>}

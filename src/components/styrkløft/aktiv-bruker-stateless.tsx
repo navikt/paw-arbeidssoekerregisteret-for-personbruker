@@ -1,4 +1,4 @@
-import { Box, Heading, Loader, LocalAlert } from '@navikt/ds-react';
+import { Box, Heading, Loader } from '@navikt/ds-react';
 import { FlerValgsMeny } from '@/components/styrkløft/flervalgsmeny';
 import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import { AktivBrukerProps } from '@/components/styrkløft/aktiv-bruker';
@@ -10,7 +10,6 @@ import { Tjenestestatus } from '@/model/brukerprofil';
 import { KvitteringAvmeldt } from '@/components/styrkløft/kvittering-avmeldt';
 import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggStyrkeloft } from '@/lib/tracking';
-import Beta from './beta';
 
 interface Props extends AktivBrukerProps {
     isEditMode: boolean;
@@ -65,12 +64,8 @@ function AktivBrukerStateless(props: Props) {
             <div className={'flex justify-between'}>
                 <Heading size={'medium'} level={'3'} className={'mb-4'}>
                     {tekst('heading')}
-                    {/*<span className={'ml-2'}><Beta sprak={sprak} /></span>*/}
                 </Heading>
                 <FlerValgsMeny onEditSearch={onEditSearch} onEnd={() => onVisAvmeldModal(true)} sprak={sprak} />
-            </div>
-            <div className={'mb-4 -mt-2'}>
-                <Beta sprak={sprak} />
             </div>
             {!isEditMode && (
                 <ErrorBoundary errorComponent={() => null}>
