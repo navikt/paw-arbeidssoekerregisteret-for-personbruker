@@ -16,6 +16,20 @@ const TEKSTER = {
         punkt2: 'opplysningene Nav har om din situasjon',
         punkt3: 'det du selv mener',
     },
+    nn: {
+        header: 'Korleis vurderer vi behovet ditt for rettleiing?',
+        tittel: 'Vurderinga vår er basert på',
+        punkt1: 'svara dine frå registreringa',
+        punkt2: 'opplysningane Nav har om situasjonen din',
+        punkt3: 'det du sjølv meiner',
+    },
+    en: {
+        header: 'How do we assess your need for guidance?',
+        tittel: 'Our assessment is based on',
+        punkt1: 'your answers from registration',
+        punkt2: 'the information Nav has about your situation',
+        punkt3: 'what you believe yourself',
+    },
 };
 
 function ReadMoreVurdering(props: ReadmoreProps) {

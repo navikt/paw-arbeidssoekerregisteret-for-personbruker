@@ -16,6 +16,20 @@ const TEKSTER = {
         veilederKanIkke:
             'Veilederne kan ikke svare på spørsmål om søknad om dagpenger, behandling av dagpengesøknaden, utbetaling av dagpenger eller utfylling av meldekort.',
     },
+    nn: {
+        header: 'Kva slags hjelp kan du få frå ein rettleiar?',
+        veiledersOppgaver:
+            'Oppgåva til rettleiaren er å svare på spørsmål, hjelpe deg med å søkje stillingar og tilby deg hjelp på vegen til arbeid.',
+        veilederKanIkke:
+            'Rettleiarane kan ikkje svare på spørsmål om søknad om dagpengar, behandling av dagpengesøknaden, utbetaling av dagpengar eller utfylling av meldekort.',
+    },
+    en: {
+        header: 'What kind of help can you get from a supervisor?',
+        veiledersOppgaver:
+            'A supervisor’s role is to answer questions, help you apply for jobs, and support you on your way to work.',
+        veilederKanIkke:
+            'Supervisors cannot answer questions about applying for unemployment benefits, processing of the application, payment of benefits, or filling out employment status cards.',
+    },
 };
 
 function Innhold(props: ReadmoreProps) {

@@ -31,6 +31,33 @@ const TEKSTER = {
         'svarUenigKnappetekst-situasjonsbestemt': 'Nei, jeg vil gjerne klare meg selv',
         feilmelding: 'Vi klarte ikke lagre svaret ditt, prøv igjen om et par minutter.',
     },
+    nn: {
+        'heading-standard': 'Vi trur du har gode høve til å kome i jobb utan ein rettleiar eller tiltak frå Nav',
+        'beskrivelse-standard':
+            'Oppgåva til ein rettleiar er å hjelpe deg med å søkje stillingar og finne aktuelle tiltak på vegen til arbeid.',
+        'svarEnigKnappetekst-standard': 'Eg klarer meg utan hjelp',
+        'svarUenigKnappetekst-standard': 'Eg ønskjer hjelp frå ein rettleiar',
+        veilederKanIkke: 'Ein rettleiar kan ikkje svare på spørsmål om dagpengar eller meldekort.',
+        'heading-situasjonsbestemt': 'Ønskjer du hjelp frå ein rettleiar?',
+        'beskrivelse-situasjonsbestemt': 'Vi trur du vil trenge hjelp frå ein rettleiar for å nå målet ditt om arbeid.',
+        'svarEnigKnappetekst-situasjonsbestemt': 'Ja, eg ønskjer hjelp',
+        'svarUenigKnappetekst-situasjonsbestemt': 'Nei, eg vil gjerne klare meg sjølv',
+        feilmelding: 'Vi klarte ikkje lagre svaret ditt. Prøv igjen om eit par minutt.',
+    },
+    en: {
+        'heading-standard': 'We believe you have a good chance of getting a job without a supervisor or help from Nav',
+        'beskrivelse-standard':
+            'A supervisor’s role is to help you apply for jobs and find relevant measures on your way to work.',
+        'svarEnigKnappetekst-standard': 'I can manage without help',
+        'svarUenigKnappetekst-standard': 'I want help from a supervisor',
+        veilederKanIkke: 'A supervisor cannot answer questions about unemployment benefits or employment status cards.',
+        'heading-situasjonsbestemt': 'Do you want help from a supervisor?',
+        'beskrivelse-situasjonsbestemt':
+            'We believe you will need help from a supervisor to reach your goal of working.',
+        'svarEnigKnappetekst-situasjonsbestemt': 'Yes, I want help',
+        'svarUenigKnappetekst-situasjonsbestemt': 'No, I’d like to manage on my own',
+        feilmelding: 'We couldn’t save your answer. Please try again in a couple of minutes.',
+    },
 };
 
 const EgenvurderingStateless = (props: Props) => {
