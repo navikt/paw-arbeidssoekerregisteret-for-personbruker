@@ -114,4 +114,7 @@ async function fetchLedigStillinger(): Promise<{
     return getBrukerprofilApi<LedigeStillinger>('/api/v1/ledigestillinger?pageSize=14');
 }
 
-export { fetchBrukerprofil, fetchLedigStillinger };
+async function fetchKodeverkFylker() {
+    return getBrukerprofilApi<LedigeStillinger>('/api/v1/kodeverk/fylker');
+}
+export { fetchBrukerprofil, fetchLedigStillinger, fetchKodeverkFylker };
