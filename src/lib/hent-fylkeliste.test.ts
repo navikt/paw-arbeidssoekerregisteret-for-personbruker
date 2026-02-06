@@ -1,4 +1,4 @@
-import { hentFylkeliste } from './hent-fylkeliste';
+import { byggFylkerMedKommunerPayload, hentFylkeliste } from './hent-fylkeliste';
 import { Fylke } from '../model/brukerprofil';
 
 describe('hentFylkeliste', () => {
@@ -55,5 +55,46 @@ describe('hentFylkeliste', () => {
             { navn: 'Vestland', kommuner: [], fylkesnummer: '46' },
         ];
         expect(hentFylkeliste(fylker)).toEqual(expectedFylker);
+    });
+});
+
+describe('byggFylkerMedKommunerPayload', () => {
+    it('returnerer som vanlig for fylker', () => {
+        const fylker = ['Oslo', 'Akershus'];
+        const expectedFylker: Fylke[] = [
+            { navn: 'Oslo', kommuner: [], fylkesnummer: '03' },
+            { navn: 'Akershus', kommuner: [], fylkesnummer: '32' },
+        ];
+        expect(byggFylkerMedKommunerPayload(fylker)).toEqual(expectedFylker);
+    });
+
+    it('returnerer ´fylker med kommuner der det er valg', () => {
+        expect(byggFylkerMedKommunerPayload(['Oslo', 'Fredrikstad', 'Moss', 'Tønsberg'])).toEqual([
+            { navn: 'Oslo', kommuner: [], fylkesnummer: '03' },
+            {
+                fylkesnummer: '31',
+                kommuner: [
+                    {
+                        kommunenummer: '3107',
+                        navn: 'Fredrikstad',
+                    },
+                    {
+                        kommunenummer: '3103',
+                        navn: 'Moss',
+                    },
+                ],
+                navn: 'Østfold',
+            },
+            {
+                fylkesnummer: '39',
+                kommuner: [
+                    {
+                        kommunenummer: '3905',
+                        navn: 'Tønsberg',
+                    },
+                ],
+                navn: 'Vestfold',
+            },
+        ]);
     });
 });

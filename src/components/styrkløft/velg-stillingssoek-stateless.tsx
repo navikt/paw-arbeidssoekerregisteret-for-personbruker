@@ -4,6 +4,7 @@ import { FYLKER } from '@/components/styrkløft/fylker';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import UnderkategoriVelger from '@/components/styrkløft/underkategori-velger';
 import { byggYrkeskoderTilStyrkMap } from '@/lib/bygg-yrkeskoder-med-styrk-map';
+import byggFylkerOgKommunerUnderkategoriStruktur from '@/lib/bygg-fylker-og-kommuner-underkategori-struktur';
 
 interface Props {
     onSubmit(data: any): Promise<void>;
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const YRKESKATEGORIER = byggYrkeskoderTilStyrkMap();
+const FYLKER_OG_KOMMUNER = byggFylkerOgKommunerUnderkategoriStruktur();
 const TEKSTER = {
     nb: {
         heading: 'Velg yrkeskategorier og fylker du vil se stillinger fra',
@@ -73,7 +75,13 @@ export default function VelgStillingssoekStateless(props: Props) {
                 />
             </section>
             <section className={'my-4'}>
-                <FilterVelger values={fylker} options={FYLKER} heading={tekst('velgFylke')} onChange={onChangeFylker} />
+                {/*<FilterVelger values={fylker} options={FYLKER} heading={tekst('velgFylke')} onChange={onChangeFylker} />*/}
+                <UnderkategoriVelger
+                    triggerText={tekst('velgFylke')}
+                    options={FYLKER_OG_KOMMUNER}
+                    values={fylker}
+                    onChange={onChangeFylker}
+                />
             </section>
             {error && (
                 <Alert variant={'error'} className={'my-4'}>
