@@ -90,15 +90,11 @@ async function fetchLedigStillinger(): Promise<{
                         soek: {
                             soekType: 'STED_SOEK_V1',
                             fylker: [
+                                { navn: 'Oslo', fylkesnummer: '03', kommuner: [] },
                                 {
-                                    navn: 'Buskerud',
-                                    kommuner: [
-                                        {
-                                            navn: 'Bergen',
-                                            kommunenummer: '4601',
-                                        },
-                                    ],
-                                    fylkesnummer: '46',
+                                    navn: 'Akershus',
+                                    fylkesnummer: '32',
+                                    kommuner: [{ kommunenummer: '3212', navn: 'Nesodden' }],
                                 },
                             ],
                             soekeord: [],

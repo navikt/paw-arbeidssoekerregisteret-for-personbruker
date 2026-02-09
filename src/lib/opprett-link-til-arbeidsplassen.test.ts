@@ -5,18 +5,24 @@ import { Fylke, StedSoek } from '@/model/brukerprofil';
 const fylker: Fylke[] = [
     {
         navn: 'Buskerud',
-        kommuner: [
-            {
-                navn: 'Bergen',
-                kommunenummer: '4601',
-            },
-        ],
+        kommuner: [],
         fylkesnummer: '33',
     },
     {
         navn: 'Oslo',
         kommuner: [],
         fylkesnummer: '03',
+    },
+];
+const fylkerMedKommuner: Fylke[] = [
+    { navn: 'Oslo', fylkesnummer: '03', kommuner: [] },
+    {
+        navn: 'Akershus',
+        fylkesnummer: '32',
+        kommuner: [
+            { kommunenummer: '3212', navn: 'Nesodden' },
+            { kommunenummer: '3213', navn: 'Ås' },
+        ],
     },
 ];
 const styrkOgSokeord = {
@@ -89,6 +95,12 @@ describe('opprettLinkTilArbeidsplassen', () => {
         const url = opprettLinkTilArbeidsplassen({ ...stedSoekUtenFylker, styrk08: ['2166', '3514'] });
         expect(url).toBe(
             'https://arbeidsplassen.nav.no/stillinger?v=5&occupationLevel1=IT&occupationLevel2=IT.Interaksjonsdesign&occupationLevel2=IT.Drift%2C+vedlikehold',
+        );
+    });
+    it('mapper fylker med valgte underkategorier (kommuner)', () => {
+        const url = opprettLinkTilArbeidsplassen({ ...stedSoekUtenStyrk, fylker: fylkerMedKommuner });
+        expect(url).toBe(
+            'https://arbeidsplassen.nav.no/stillinger?v=5&county=OSLO&county=AKERSHUS&municipal=AKERSHUS.NESODDEN&municipal=AKERSHUS.%C3%85S',
         );
     });
 });
