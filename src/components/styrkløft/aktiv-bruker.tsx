@@ -27,6 +27,9 @@ function AktivBruker(props: AktivBrukerProps) {
     );
     const [visAvmeldModal, settVisAvmeldModal] = useState<boolean>(false);
 
+    console.log('brukerprofil', props.brukerprofil);
+    console.log('lagretSok', lagretSok);
+
     const onSubmitStillingssoek = async (data: any) => {
         await props.onSubmitStillingsSoek(data);
         settLagretSok(data);
