@@ -74,3 +74,13 @@ export function byggFylkerMedKommunerPayload(values: string[]): Fylke[] {
 
     return Object.keys(fylkesMap).map((key: any) => fylkesMap[key]);
 }
+
+export function hentFylkerUnderkategorier(fylker: Fylke[]): string[] {
+    return fylker.flatMap((f) => {
+        if (f.kommuner.length === 0) {
+            return f.navn;
+        }
+
+        return f.kommuner.map((k) => k.navn);
+    });
+}

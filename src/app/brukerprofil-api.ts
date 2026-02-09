@@ -52,8 +52,24 @@ async function fetchBrukerprofil(): Promise<{
         return Promise.resolve({
             data: {
                 identitetsnummer: '42',
-                tjenestestatus: 'INAKTIV',
-                stillingssoek: [],
+                // tjenestestatus: 'INAKTIV',
+                // stillingssoek: [],
+                tjenestestatus: 'AKTIV',
+                stillingssoek: [
+                    {
+                        soekType: 'STED_SOEK_V1',
+                        soekeord: [],
+                        styrk08: ['3514', '2166', '1330', '2514'],
+                        fylker: [
+                            { navn: 'Oslo', fylkesnummer: '03', kommuner: [] },
+                            {
+                                navn: 'Akershus',
+                                fylkesnummer: '32',
+                                kommuner: [{ kommunenummer: '3212', navn: 'Nesodden' }],
+                            },
+                        ],
+                    },
+                ],
             },
         });
     }

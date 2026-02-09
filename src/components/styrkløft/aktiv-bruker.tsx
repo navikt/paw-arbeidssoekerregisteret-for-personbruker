@@ -4,6 +4,7 @@ import AktivBrukerStateless from '@/components/styrkløft/aktiv-bruker-stateless
 import { useState } from 'react';
 import { hentYrkeUnderkategorier } from '@/lib/hent-yrkeskategorier';
 import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
+import { hentFylkerUnderkategorier } from '@/lib/hent-fylkeliste';
 
 export interface AktivBrukerProps {
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
@@ -15,7 +16,7 @@ export interface AktivBrukerProps {
 
 function initLagretSok(brukerprofil: Brukerprofil) {
     const lagretSoek = (brukerprofil?.stillingssoek ?? []).find((s) => s.soekType === 'STED_SOEK_V1');
-    const fylker = (lagretSoek?.fylker ?? []).map((f) => f.navn);
+    const fylker = hentFylkerUnderkategorier(lagretSoek?.fylker ?? []);
     const yrkeskategorier = hentYrkeUnderkategorier(lagretSoek?.styrk08 ?? []);
     return { fylker, yrkeskategorier };
 }
@@ -26,9 +27,6 @@ function AktivBruker(props: AktivBrukerProps) {
         initLagretSok(props.brukerprofil),
     );
     const [visAvmeldModal, settVisAvmeldModal] = useState<boolean>(false);
-
-    console.log('brukerprofil', props.brukerprofil);
-    console.log('lagretSok', lagretSok);
 
     const onSubmitStillingssoek = async (data: any) => {
         await props.onSubmitStillingsSoek(data);
