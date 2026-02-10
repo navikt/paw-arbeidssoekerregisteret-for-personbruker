@@ -10,13 +10,13 @@ const meta = {
     args: {},
     render: function Render(args) {
         const [values, setValues] = useState(args.values);
-        console.log('values', values);
         return (
             <UnderkategoriVelger
                 values={values}
                 options={args.options}
                 triggerText={args.triggerText}
                 onChange={setValues}
+                sprak={args.sprak}
             />
         );
     },
@@ -33,5 +33,6 @@ export const Default: Story = {
         onChange(values: string[]) {
             console.log('onChange', values);
         },
+        sprak: 'nb',
     },
 };
