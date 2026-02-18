@@ -7,12 +7,12 @@
         "build": "next build --webpack",
         "start": "next start",
         "lint": "eslint",
-        "test": "npm run lint && vitest",
-        "test:ci": "npm run lint && vitest run",
+        "test": "pnpm lint && vitest",
+        "test:ci": "pnpm lint && vitest run",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build -o public/storybook",
         "test-storybook": "test-storybook",
-        "refresh": "rm -rf node_modules && rm package-lock.json && npm i --ignore-scripts",
+        "refresh": "rm -rf node_modules && rm pnpm-lock.yaml && pnpm i --ignore-scripts",
         "prepare": "husky"
     },
     "dependencies": {
@@ -43,6 +43,7 @@
         "@storybook/test-runner": "0.24.2",
         "@tailwindcss/postcss": "4.1.18",
         "@testing-library/dom": "10.4.1",
+        "@testing-library/jest-dom": "6.9.1",
         "@testing-library/react": "16.3.2",
         "@types/jest": "30.0.0",
         "@types/node": "25.2.3",
