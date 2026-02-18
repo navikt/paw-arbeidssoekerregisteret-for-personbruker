@@ -10,6 +10,9 @@ Tilgang til egne opplysninger i arbeidssøkerregisteret for personbruker
 
 Bruk Node.js 24 `nvm use` (dersom du bruker nvm til versjonshåndtering av Node.js).
 
+Bruk [pnpm](https://pnpm.io/) som pakkemanager.
+(Innstaller med feks homebrew: `brew install pnpm`)
+
 Dersom du ikke kjører i mock-modus må du ha koblet til [naisdevice](https://doc.nais.io/device/) for å nå noen av endepunktene.
 
 Siden noen av modulene hentes fra GitHubs package registry må du også gjøre litt ekstra konfigurasjon for å kjøre løsningen lokalt.
@@ -21,14 +24,14 @@ Siden noen av modulene hentes fra GitHubs package registry må du også gjøre l
 Deretter fortsette du med
 
 - klon repo
-- innstaller avhengigheter `npm i`
-- kjør tester `npm t`
-- start utviklingsserver `npm run dev`
+- innstaller avhengigheter `pnpm i`
+- kjør tester `pnpm t`
+- start utviklingsserver `pnpm run dev`
 - åpne nettleseren på `http://localhost:3000`
 
 For å jobbe i Storybook modus
 
-- kjør `npm run storybook`
+- kjør `pnpm run storybook`
 
 ## Deploye kun til dev
 
