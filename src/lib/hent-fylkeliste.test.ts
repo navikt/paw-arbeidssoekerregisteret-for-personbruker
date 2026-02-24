@@ -97,4 +97,34 @@ describe('byggFylkerMedKommunerPayload', () => {
             },
         ]);
     });
+
+    it('mapper om alle kommuner til fylke uten kommuner', () => {
+        expect(
+            byggFylkerMedKommunerPayload([
+                'Eigersund',
+                'Stavanger',
+                'Haugesund',
+                'Sandnes',
+                'Sokndal',
+                'Lund',
+                'Bjerkreim',
+                'Hå',
+                'Klepp',
+                'Time',
+                'Gjesdal',
+                'Sola',
+                'Randaberg',
+                'Strand',
+                'Hjelmeland',
+                'Suldal',
+                'Sauda',
+                'Kvitsøy',
+                'Bokn',
+                'Tysvær',
+                'Karmøy',
+                'Utsira',
+                'Vindafjord',
+            ]),
+        ).toEqual([{ navn: 'Rogaland', kommuner: [], fylkesnummer: '11' }]);
+    });
 });
