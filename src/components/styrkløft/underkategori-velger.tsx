@@ -97,13 +97,6 @@ function toggleOffChip(savedState: SavedState, kategori: string): SavedState {
     }
 }
 
-export function erUnderkategoriValgt(options: Options, kategorier: string[]) {
-    const uiState = getUiState(options, kategorier);
-    const valgteKategorier = uiStateToChips(uiState);
-    const hovedKategorier = options.map((o) => o.navn);
-    return valgteKategorier.some((k) => !hovedKategorier.includes(k));
-}
-
 const TEKSTER = {
     nb: {
         tilbake: 'Tilbake',
