@@ -1,7 +1,7 @@
 import { opprettLinkTilArbeidsplassen } from '@/lib/opprett-link-til-arbeidsplassen';
 import { StedSoek } from '@/model/brukerprofil';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Link } from '@navikt/ds-react';
+import { LinkCard } from '@navikt/ds-react';
 import React from 'react';
 
 import { loggStyrkeloft } from '@/lib/tracking';
@@ -29,9 +29,11 @@ const LinkTilArbeidsplassen: React.FC<LinkTilArbeidsplassenProps> = (props) => {
     const urlTilArbeidsplasen = opprettLinkTilArbeidsplassen(stedSoek);
 
     return (
-        <Link href={urlTilArbeidsplasen} onClick={() => loggStyrkeloft({ aktivitet: 'Går til søk på arbeidsplassen' })}>
-            {tekst('linkTittel')}
-        </Link>
+        <LinkCard data-color="accent" onClick={() => loggStyrkeloft({ aktivitet: 'Går til søk på arbeidsplassen' })}>
+            <LinkCard.Title>
+                <LinkCard.Anchor href={urlTilArbeidsplasen}>{tekst('linkTittel')}</LinkCard.Anchor>
+            </LinkCard.Title>
+        </LinkCard>
     );
 };
 
