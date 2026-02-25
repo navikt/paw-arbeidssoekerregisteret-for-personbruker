@@ -51,7 +51,6 @@ export const DefaultLedigStilling: Story = {
         onClick: () => {},
         aktivSide: 1,
         antallSider: 1,
-        viserUnderkategoriTips: false,
     },
 };
 
@@ -64,7 +63,6 @@ export const IngenTreff: Story = {
         onClick: () => {},
         aktivSide: 1,
         antallSider: 1,
-        viserUnderkategoriTips: false,
     },
 };
 
@@ -108,6 +106,5 @@ export const MedPaginering: Story = {
         onClick: () => {},
         aktivSide: 1,
         antallSider: 2,
-        viserUnderkategoriTips: false,
     },
 };

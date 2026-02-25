@@ -70,11 +70,7 @@ function AktivBrukerStateless(props: Props) {
             {!isEditMode && (
                 <ErrorBoundary errorComponent={() => null}>
                     <Suspense fallback={<Loader />}>
-                        <LedigeStillinger
-                            useOnFetchData={props.useOnFetchStillinger}
-                            sprak={sprak}
-                            viserUnderkategoriTips={false}
-                        />
+                        <LedigeStillinger useOnFetchData={props.useOnFetchStillinger} sprak={sprak} />
                     </Suspense>
                 </ErrorBoundary>
             )}

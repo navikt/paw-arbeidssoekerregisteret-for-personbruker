@@ -1,4 +1,4 @@
-import { BodyShort, Box, HGrid } from '@navikt/ds-react';
+import { Box, HGrid } from '@navikt/ds-react';
 import LedigStilling from '@/components/styrkløft/ledig-stilling';
 import { LinkTilArbeidsplassen } from '@/components/styrkløft/link-til-arbeidsplassen';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
@@ -14,35 +14,30 @@ interface Props {
     aktivSide: number;
     onClick: (side: any) => void;
     brukPaginering: boolean;
-    viserUnderkategoriTips: boolean;
 }
 
 const TEKSTER = {
     nb: {
         ingenTreff: 'Ingen treff',
-        endreYrkeskategorier: 'Du kan forsøke å endre valgene dine for yrkeskategori i det lagrede søket',
     },
     nn: {
         ingenTreff: 'Ingen treff',
-        endreYrkeskategorier: 'Du kan prøva å endra vala dine for yrkeskategori i det lagra søket',
     },
     en: {
         ingenTreff: 'No matches',
-        endreYrkeskategorier: 'You can try changing your job category selections in the saved search',
     },
 };
 
 function LedigeStillingerStateless(props: Props) {
-    const { resultat, soek, sprak, brukPaginering, ref, viserUnderkategoriTips } = props;
+    const { resultat, soek, sprak, brukPaginering, ref } = props;
     const harTreff = resultat && resultat.length > 0;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
         <Box ref={ref}>
             {!harTreff && (
-                <Box className="mb-2">
-                    <BodyShort>{tekst('ingenTreff')}</BodyShort>
-                    {!viserUnderkategoriTips && <BodyShort>{tekst('endreYrkeskategorier')}.</BodyShort>}
+                <Box className="mb-2" padding="space-16" background="info-soft">
+                    {tekst('ingenTreff')}
                 </Box>
             )}
             {harTreff && (
