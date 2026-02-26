@@ -27,7 +27,6 @@ function AktivBruker(props: AktivBrukerProps) {
         initLagretSok(props.brukerprofil),
     );
     console.log('props.brukerprofil', props.brukerprofil);
-    console.log('lagretSok', lagretSok);
 
     const [visAvmeldModal, settVisAvmeldModal] = useState<boolean>(false);
 
