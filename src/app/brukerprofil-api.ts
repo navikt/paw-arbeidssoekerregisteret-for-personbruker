@@ -62,6 +62,7 @@ async function fetchBrukerprofil(): Promise<{
                         styrk08: ['3514', '2166', '1330', '2514'],
                         fylker: [
                             { navn: 'Oslo', fylkesnummer: '03', kommuner: [] },
+                            { navn: 'Østfold', fylkesnummer: '31', kommuner: [] },
                             {
                                 navn: 'Akershus',
                                 fylkesnummer: '32',

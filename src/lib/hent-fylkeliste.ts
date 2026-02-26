@@ -90,7 +90,8 @@ export function byggFylkerMedKommunerPayload(values: string[]): Fylke[] {
 export function hentFylkerUnderkategorier(fylker: Fylke[]): string[] {
     return fylker.flatMap((f) => {
         if (f.kommuner.length === 0) {
-            return f.navn;
+            const fylkeMedAllekommuner = ALLE_FYLKER_OG_KOMMUMER.find((fylke) => fylke.navn === f.navn)!;
+            return fylkeMedAllekommuner.kommuner.map((k) => k.navn);
         }
 
         return f.kommuner.map((k) => k.navn);
