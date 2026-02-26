@@ -21,25 +21,25 @@ const FYLKER_OG_KOMMUNER = byggFylkerOgKommunerUnderkategoriStruktur();
 
 const TEKSTER = {
     nb: {
-        heading: 'Velg yrkeskategorier og fylker du vil se stillinger fra',
+        heading: 'Velg yrkeskategorier og områder du vil se stillinger fra',
         velgYrkeskategori: 'Velg yrkeskategori',
-        velgFylke: 'Velg fylke',
+        velgFylke: 'Velg område',
         feilMelding: 'Noe gikk dessverre galt',
         lagre: 'Lagre og vis stillinger',
         avbryt: 'Avbryt',
     },
     nn: {
-        heading: 'Vel yrkeskategoriar og fylke du vil sjå stillingar frå',
+        heading: 'Vel yrkeskategoriar og område du vil sjå stillingar frå',
         velgYrkeskategori: 'Vel yrkeskategori',
-        velgFylke: 'Vel fylke',
+        velgFylke: 'Vel område',
         feilMelding: 'Noko gjekk dessverre gale',
         lagre: 'Lagre og vis stillingar',
         avbryt: 'Avbryt',
     },
     en: {
-        heading: 'Select job categories and counties you want to see job offers from',
+        heading: 'Select job categories and regions you want to see job offers from',
         velgYrkeskategori: 'Select job category',
-        velgFylke: 'Select county',
+        velgFylke: 'Select region',
         feilMelding: 'Something went wrong',
         lagre: 'Save and view job offers',
         avbryt: 'Cancel',
