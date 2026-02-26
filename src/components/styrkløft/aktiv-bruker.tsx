@@ -26,8 +26,6 @@ function AktivBruker(props: AktivBrukerProps) {
     const [lagretSok, settLagretSok] = useState<{ fylker: string[]; yrkeskategorier: string[] }>(
         initLagretSok(props.brukerprofil),
     );
-    console.log('props.brukerprofil', props.brukerprofil);
-
     const [visAvmeldModal, settVisAvmeldModal] = useState<boolean>(false);
 
     const onSubmitStillingssoek = async (data: any) => {
