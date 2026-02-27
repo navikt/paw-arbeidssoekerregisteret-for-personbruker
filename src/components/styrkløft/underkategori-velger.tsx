@@ -142,6 +142,7 @@ function UnderkategoriVelger(props: Props) {
                                     e.preventDefault();
                                     e.stopPropagation();
                                     settAktivNode(null);
+                                    loggUnderkategoriFilter({ aktivitet: 'Trykker på Tilbake' });
                                 }}
                             >
                                 <ChevronLeftIcon title="a11y-title" fontSize="1.5rem" /> {tekst('tilbake')}
@@ -205,6 +206,7 @@ function UnderkategoriVelger(props: Props) {
                             <ActionMenu.Item
                                 onSelect={() => {
                                     settAktivNode(null);
+                                    loggUnderkategoriFilter({ aktivitet: 'Trykker på Lukk' });
                                 }}
                             >
                                 <XMarkIcon title="a11y-title" fontSize="1.5rem" />

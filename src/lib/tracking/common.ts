@@ -48,7 +48,9 @@ export type UnderkategoriFilterData =
     | { aktivitet: 'Trykker på fjern alle' }
     | { aktivitet: 'Trykker på underkategori' }
     | { aktivitet: 'Trykker på hovedkategori' }
-    | { aktivitet: 'Trykker på Chips' };
+    | { aktivitet: 'Trykker på Chips' }
+    | { aktivitet: 'Trykker på Tilbake' }
+    | { aktivitet: 'Trykker på Lukk' };
 
 export type EventData = VisningsData | AktivitetData | StyrkeloftData | UnderkategoriFilterData;
 
