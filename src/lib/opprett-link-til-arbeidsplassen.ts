@@ -52,6 +52,11 @@ export function opprettLinkTilArbeidsplassen(stedSoek: StedSoek): string {
             if (fylke.navn && fylke.navn.trim()) {
                 urlParams.append('county', fylke.navn.toUpperCase());
             }
+            if (fylke.kommuner.length > 0) {
+                fylke.kommuner.forEach((kommune) => {
+                    urlParams.append('municipal', `${fylke.navn.toUpperCase()}.${kommune.navn.toUpperCase()}`);
+                });
+            }
         });
     }
     return `${BASE_URL}?${urlParams.toString()}`;

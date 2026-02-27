@@ -1,9 +1,8 @@
 import { Alert, Box, Button, Heading } from '@navikt/ds-react';
-import FilterVelger from '@/components/styrkløft/filter-velger';
-import { FYLKER } from '@/components/styrkløft/fylker';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import UnderkategoriVelger from '@/components/styrkløft/underkategori-velger';
 import { byggYrkeskoderTilStyrkMap } from '@/lib/bygg-yrkeskoder-med-styrk-map';
+import byggFylkerOgKommunerUnderkategoriStruktur from '@/lib/bygg-fylker-og-kommuner-underkategori-struktur';
 
 interface Props {
     onSubmit(data: any): Promise<void>;
@@ -18,27 +17,29 @@ interface Props {
 }
 
 const YRKESKATEGORIER = byggYrkeskoderTilStyrkMap();
+const FYLKER_OG_KOMMUNER = byggFylkerOgKommunerUnderkategoriStruktur();
+
 const TEKSTER = {
     nb: {
-        heading: 'Velg yrkeskategorier og fylker du vil se stillinger fra',
+        heading: 'Velg yrkeskategorier og områder du vil se stillinger fra',
         velgYrkeskategori: 'Velg yrkeskategori',
-        velgFylke: 'Velg fylke',
+        velgFylke: 'Velg område',
         feilMelding: 'Noe gikk dessverre galt',
         lagre: 'Lagre og vis stillinger',
         avbryt: 'Avbryt',
     },
     nn: {
-        heading: 'Vel yrkeskategoriar og fylke du vil sjå stillingar frå',
+        heading: 'Vel yrkeskategoriar og område du vil sjå stillingar frå',
         velgYrkeskategori: 'Vel yrkeskategori',
-        velgFylke: 'Vel fylke',
+        velgFylke: 'Vel område',
         feilMelding: 'Noko gjekk dessverre gale',
         lagre: 'Lagre og vis stillingar',
         avbryt: 'Avbryt',
     },
     en: {
-        heading: 'Select job categories and counties you want to see job offers from',
+        heading: 'Select job categories and regions you want to see job offers from',
         velgYrkeskategori: 'Select job category',
-        velgFylke: 'Select county',
+        velgFylke: 'Select region',
         feilMelding: 'Something went wrong',
         lagre: 'Save and view job offers',
         avbryt: 'Cancel',
@@ -70,10 +71,18 @@ export default function VelgStillingssoekStateless(props: Props) {
                     options={YRKESKATEGORIER}
                     values={yrkeskategorier}
                     onChange={onChangeYrkeskategorier}
+                    sprak={sprak}
                 />
             </section>
             <section className={'my-4'}>
-                <FilterVelger values={fylker} options={FYLKER} heading={tekst('velgFylke')} onChange={onChangeFylker} />
+                {/*<FilterVelger values={fylker} options={FYLKER} heading={tekst('velgFylke')} onChange={onChangeFylker} />*/}
+                <UnderkategoriVelger
+                    triggerText={tekst('velgFylke')}
+                    options={FYLKER_OG_KOMMUNER}
+                    values={fylker}
+                    onChange={onChangeFylker}
+                    sprak={sprak}
+                />
             </section>
             {error && (
                 <Alert variant={'error'} className={'my-4'}>

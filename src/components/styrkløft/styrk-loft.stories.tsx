@@ -228,8 +228,10 @@ export const PlaywrightTestVisStillinger: Story = {
         await userEvent.click(await screen.findByText('IT'));
         await userEvent.click(await screen.findByText('Velg alle'));
         await userEvent.click(await canvas.getByRole('button', { name: 'Velg yrkeskategori' })); // lukk yrkeskategorier
-        await userEvent.click(await canvas.getByRole('button', { name: 'Velg fylke Endre' }));
-        await userEvent.click(await canvas.findByText('Oslo'));
+        await userEvent.click(await canvas.getByRole('button', { name: 'Velg område' }));
+        await userEvent.click(await screen.findByText('Oslo'));
+        await userEvent.click(await screen.findByText('Velg alle'));
+        await userEvent.click(await canvas.getByRole('button', { name: 'Velg område' })); // lukk områder
         await userEvent.click(await canvas.findByText('Lagre og vis stillinger'));
 
         await expect(await canvas.findByText('Tannlegeassistent, Tannhelsesekretær, Klinikkassistent')).toBeDefined();

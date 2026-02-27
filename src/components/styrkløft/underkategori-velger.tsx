@@ -1,8 +1,9 @@
 import { ActionMenu, Button, Chips } from '@navikt/ds-react';
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { useState } from 'react';
 import { alfabetiskSortering } from '@/lib/hent-yrkeskategorier';
 import { loggUnderkategoriFilter } from '@/lib/tracking';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 type SavedState = {
     [key: string]: {
@@ -16,6 +17,7 @@ interface Props {
     options: Options;
     values: string[];
     onChange: (values: string[]) => void;
+    sprak: Sprak;
 }
 
 function hentAktiveKategorier(options: any[], aktivNode: string | null) {
@@ -95,20 +97,23 @@ function toggleOffChip(savedState: SavedState, kategori: string): SavedState {
     }
 }
 
-export function erUnderkategoriValgt(options: Options, kategorier: string[]) {
-    const uiState = getUiState(options, kategorier);
-    const valgteKategorier = uiStateToChips(uiState);
-    const hovedKategorier = options.map((o) => o.navn);
-    return valgteKategorier.some((k) => !hovedKategorier.includes(k));
-}
-
+const TEKSTER = {
+    nb: {
+        tilbake: 'Tilbake',
+        lukk: 'Lukk',
+    },
+    en: {
+        tilbake: 'Back',
+        lukk: 'Close',
+    },
+};
 function UnderkategoriVelger(props: Props) {
     const { triggerText, options, values, onChange } = props;
     const [aktivNode, settAktivNode] = useState<string | null>(null);
     const aktiveKategorier = hentAktiveKategorier(options, aktivNode);
 
     const uiState = getUiState(options, values);
-
+    const tekst = lagHentTekstForSprak(TEKSTER, props.sprak);
     return (
         <div className={'flex flex-wrap md:flexno-wrap'}>
             <ActionMenu
@@ -139,7 +144,7 @@ function UnderkategoriVelger(props: Props) {
                                     settAktivNode(null);
                                 }}
                             >
-                                <ChevronLeftIcon title="a11y-title" fontSize="1.5rem" /> Tilbake
+                                <ChevronLeftIcon title="a11y-title" fontSize="1.5rem" /> {tekst('tilbake')}
                             </ActionMenu.Item>
                             <ActionMenu.Divider />
                             <ActionMenu.CheckboxItem
@@ -194,6 +199,19 @@ function UnderkategoriVelger(props: Props) {
                             </ActionMenu.CheckboxItem>
                         );
                     })}
+                    {Boolean(aktivNode) && (
+                        <>
+                            <ActionMenu.Divider />
+                            <ActionMenu.Item
+                                onSelect={() => {
+                                    settAktivNode(null);
+                                }}
+                            >
+                                <XMarkIcon title="a11y-title" fontSize="1.5rem" />
+                                {tekst('lukk')}
+                            </ActionMenu.Item>
+                        </>
+                    )}
                 </ActionMenu.Content>
             </ActionMenu>
             <Chips className={'ml-2'}>

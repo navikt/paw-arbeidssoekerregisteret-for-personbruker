@@ -52,8 +52,25 @@ async function fetchBrukerprofil(): Promise<{
         return Promise.resolve({
             data: {
                 identitetsnummer: '42',
-                tjenestestatus: 'INAKTIV',
-                stillingssoek: [],
+                // tjenestestatus: 'INAKTIV',
+                // stillingssoek: [],
+                tjenestestatus: 'AKTIV',
+                stillingssoek: [
+                    {
+                        soekType: 'STED_SOEK_V1',
+                        soekeord: [],
+                        styrk08: ['3514', '2166', '1330', '2514'],
+                        fylker: [
+                            { navn: 'Oslo', fylkesnummer: '03', kommuner: [] },
+                            { navn: 'Østfold', fylkesnummer: '31', kommuner: [] },
+                            {
+                                navn: 'Akershus',
+                                fylkesnummer: '32',
+                                kommuner: [{ kommunenummer: '3212', navn: 'Nesodden' }],
+                            },
+                        ],
+                    },
+                ],
             },
         });
     }
@@ -74,15 +91,11 @@ async function fetchLedigStillinger(): Promise<{
                         soek: {
                             soekType: 'STED_SOEK_V1',
                             fylker: [
+                                { navn: 'Oslo', fylkesnummer: '03', kommuner: [] },
                                 {
-                                    navn: 'Buskerud',
-                                    kommuner: [
-                                        {
-                                            navn: 'Bergen',
-                                            kommunenummer: '4601',
-                                        },
-                                    ],
-                                    fylkesnummer: '46',
+                                    navn: 'Akershus',
+                                    fylkesnummer: '32',
+                                    kommuner: [{ kommunenummer: '3212', navn: 'Nesodden' }],
                                 },
                             ],
                             soekeord: [],
@@ -114,4 +127,7 @@ async function fetchLedigStillinger(): Promise<{
     return getBrukerprofilApi<LedigeStillinger>('/api/v1/ledigestillinger?pageSize=14');
 }
 
-export { fetchBrukerprofil, fetchLedigStillinger };
+async function fetchKodeverkFylker() {
+    return getBrukerprofilApi<LedigeStillinger>('/api/v1/kodeverk/fylker');
+}
+export { fetchBrukerprofil, fetchLedigStillinger, fetchKodeverkFylker };

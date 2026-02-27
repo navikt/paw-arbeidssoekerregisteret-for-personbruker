@@ -1,4 +1,4 @@
-import { Box, Heading, Loader } from '@navikt/ds-react';
+import { Box, Heading, InlineMessage, Loader } from '@navikt/ds-react';
 import { FlerValgsMeny } from '@/components/styrkløft/flervalgsmeny';
 import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import { AktivBrukerProps } from '@/components/styrkløft/aktiv-bruker';
@@ -29,12 +29,15 @@ interface Props extends AktivBrukerProps {
 const TEKSTER = {
     nb: {
         heading: 'Ledige stillinger',
+        nyhet: 'Nå kan du også filtrere på kommuner i stillingssøket',
     },
     nn: {
         heading: 'Ledige stillingar',
+        nyhet: 'No kan du også filtrere på kommunar i stillingssøket',
     },
     en: {
         heading: 'Vacant jobs',
+        nyhet: 'You can now also filter by municipality in the job search',
     },
 };
 
@@ -67,14 +70,13 @@ function AktivBrukerStateless(props: Props) {
                 </Heading>
                 <FlerValgsMeny onEditSearch={onEditSearch} onEnd={() => onVisAvmeldModal(true)} sprak={sprak} />
             </div>
+            <InlineMessage status={'info'} className={'mb-4'}>
+                {tekst('nyhet')}
+            </InlineMessage>
             {!isEditMode && (
                 <ErrorBoundary errorComponent={() => null}>
                     <Suspense fallback={<Loader />}>
-                        <LedigeStillinger
-                            useOnFetchData={props.useOnFetchStillinger}
-                            sprak={sprak}
-                            viserUnderkategoriTips={false}
-                        />
+                        <LedigeStillinger useOnFetchData={props.useOnFetchStillinger} sprak={sprak} />
                     </Suspense>
                 </ErrorBoundary>
             )}

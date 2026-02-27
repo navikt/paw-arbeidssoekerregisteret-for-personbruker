@@ -1,4 +1,4 @@
-import { hentFylkeliste } from '@/lib/hent-fylkeliste';
+import { byggFylkerMedKommunerPayload, hentFylkeliste } from '@/lib/hent-fylkeliste';
 import { byggYrkeskodeTilStyrkMap } from '@/lib/bygg-yrkeskode-til-styrk-map';
 import { Stillingssoek } from '@/model/brukerprofil';
 
@@ -14,7 +14,7 @@ function byggStillingssoekPayload(val: Incoming): Array<Stillingssoek> {
         {
             soekType: 'STED_SOEK_V1',
             soekeord: [],
-            fylker: hentFylkeliste(val.fylker),
+            fylker: byggFylkerMedKommunerPayload(val.fylker),
             styrk08,
         },
     ];
