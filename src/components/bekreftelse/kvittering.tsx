@@ -1,7 +1,7 @@
 import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggAktivitet } from '@/lib/tracking';
-import StyrkEksperiment from '@/components/styrkløft/styrk-eksperiment';
+import StyrkWidget from '@/components/styrkløft/styrk-widget';
 import { Brukerprofil } from '@/model/brukerprofil';
 import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
 
@@ -89,7 +89,7 @@ const Kvittering = (props: Props) => {
                                 slug={'arbeids-og-velferdsetaten-nav/styrkeloft-eksperimentavslutning'}
                             />
                             <div className={'my-4'}>
-                                <StyrkEksperiment sprak={sprak} brukerprofil={brukerprofil} />
+                                <StyrkWidget sprak={sprak} brukerprofil={brukerprofil} />
                             </div>
                         </>
                     )}

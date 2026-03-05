@@ -36,7 +36,7 @@ const swrFetcher = (url: string) => {
     });
 };
 
-function StyrkEksperiment(props: Props) {
+function StyrkWidget(props: Props) {
     const onSubmitTjenesteStatus = (status: Tjenestestatus) => {
         return fetcher(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/tjenestestatus`, {
             tjenestestatus: status,
@@ -68,4 +68,4 @@ function StyrkEksperiment(props: Props) {
     );
 }
 
-export default StyrkEksperiment;
+export default StyrkWidget;

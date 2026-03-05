@@ -10,8 +10,6 @@ import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 import Feil from '@/components/feil';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import { fetchBrukerprofil } from '@/app/brukerprofil-api';
-import { isEnabled } from '@/lib/unleash-is-enabled';
-import unleashKeys from '@/unleash-keys';
 
 async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
     const { data: tilgjengeligeBekreftelser, error } = await fetchTilgjengeligeBekreftelser();
@@ -23,10 +21,9 @@ async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
     const erAktivArbeidssoker = Boolean(snapshotData?.id) && !Boolean(snapshotData?.avsluttet);
     const sistInnsendteBekreftelse = snapshotData?.bekreftelse;
 
-    const skalViseStyrkeloeft = await isEnabled(unleashKeys.VIS_STYRKELOEFT);
     let brukerprofil;
 
-    if (erAktivArbeidssoker && skalViseStyrkeloeft) {
+    if (erAktivArbeidssoker) {
         brukerprofil = (await fetchBrukerprofil()).data;
     }
 

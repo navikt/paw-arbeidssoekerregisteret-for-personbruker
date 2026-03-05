@@ -19,7 +19,7 @@ import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import Egenvurdering from '@/components/egenvurdering/egenvurdering';
 import { fetchBrukerprofil } from '@/app/brukerprofil-api';
-import StyrkEksperiment from '@/components/styrkløft/styrk-eksperiment';
+import StyrkWidget from '@/components/styrkløft/styrk-widget';
 import unleashKeys from '@/unleash-keys';
 import { isEnabled } from '@/lib/unleash-is-enabled';
 import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
@@ -57,7 +57,7 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
             </Suspense>
             {harAktivPeriode && (
                 <Suspense>
-                    <StyrkEksperimentServerKomponent sprak={sprak} />
+                    <StyrkLoftServerKomponent sprak={sprak} />
                 </Suspense>
             )}
             {harAktivPeriode && snapshotData?.opplysning && (
@@ -115,12 +115,11 @@ const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
     );
 };
 
-const StyrkEksperimentServerKomponent = async ({ sprak }: Props) => {
-    const skalViseStyrkeloeft = await isEnabled(unleashKeys.VIS_STYRKELOEFT);
+const StyrkLoftServerKomponent = async ({ sprak }: Props) => {
     const { data, error } = await fetchBrukerprofil();
     const erSkyraAktiv = await isEnabled(unleashKeys.BRUK_SKYRA);
 
-    if (error || !data || !skalViseStyrkeloeft) {
+    if (error || !data) {
         return null;
     }
 
@@ -133,7 +132,7 @@ const StyrkEksperimentServerKomponent = async ({ sprak }: Props) => {
                 />
             )}
             <div className={'mt-4'}>
-                <StyrkEksperiment sprak={sprak} brukerprofil={data} />
+                <StyrkWidget sprak={sprak} brukerprofil={data} />
             </div>
             <VisWidgetForAktiveStyrkeloeftere brukerprofil={data} />
         </>
