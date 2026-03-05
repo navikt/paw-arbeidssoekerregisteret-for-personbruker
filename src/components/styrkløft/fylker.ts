@@ -1,22 +1,3 @@
-export const FYLKER = [
-    'Agder',
-    'Akershus',
-    'Buskerud',
-    'Finnmark',
-    'Innlandet',
-    'Møre og Romsdal',
-    'Nordland',
-    'Oslo',
-    'Rogaland',
-    'Svalbard',
-    'Telemark',
-    'Troms',
-    'Trøndelag',
-    'Vestfold',
-    'Vestland',
-    'Østfold',
-];
-
 export const FYLKER_OG_FYLKENUMMER = [
     {
         navn: 'Møre og Romsdal',

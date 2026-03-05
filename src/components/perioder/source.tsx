@@ -2,7 +2,7 @@ import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-util
 import { Tag } from '@navikt/ds-react';
 import React from 'react';
 
-export const TEKSTER = {
+const TEKSTER = {
     nb: {
         kilde: 'Kilde',
         SLUTTBRUKER: 'Bruker',

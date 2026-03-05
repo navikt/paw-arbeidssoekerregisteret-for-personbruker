@@ -46,10 +46,7 @@ function getDinSituasjonSvar(opplysninger: OpplysningerHendelse) {
     return situasjon ? situasjon.beskrivelse : 'Ikke oppgitt';
 }
 
-export function mapOpplysninger(
-    opplysninger: OpplysningerHendelse,
-    egenvurdering?: EgenvurderingHendelse,
-): OpplysningProps[] {
+function mapOpplysninger(opplysninger: OpplysningerHendelse, egenvurdering?: EgenvurderingHendelse): OpplysningProps[] {
     return [
         {
             sporsmal: SporsmalId.dinSituasjon,
