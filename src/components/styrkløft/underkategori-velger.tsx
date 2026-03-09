@@ -101,10 +101,17 @@ const TEKSTER = {
     nb: {
         tilbake: 'Tilbake',
         lukk: 'Lukk',
+        velgAlle: 'Velg alle',
+    },
+    nn: {
+        tilbake: 'Tilbake',
+        lukk: 'Lukk',
+        velgAlle: 'Vel alle',
     },
     en: {
         tilbake: 'Back',
         lukk: 'Close',
+        velgAlle: 'Select all',
     },
 };
 function UnderkategoriVelger(props: Props) {
@@ -165,7 +172,7 @@ function UnderkategoriVelger(props: Props) {
                                     });
                                 }}
                             >
-                                Velg alle
+                                {tekst('velgAlle')}
                             </ActionMenu.CheckboxItem>
                         </>
                     )}
