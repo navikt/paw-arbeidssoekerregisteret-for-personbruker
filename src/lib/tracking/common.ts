@@ -1,3 +1,5 @@
+'use client';
+
 import { getCurrentConsent } from '@navikt/nav-dekoratoren-moduler';
 
 export const AktivitetEventNavn = 'arbeidssoekerregisteret-for-personbruker.aktivitet';
