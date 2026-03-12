@@ -10,7 +10,6 @@ import { Tjenestestatus } from '@/model/brukerprofil';
 import { KvitteringAvmeldt } from '@/components/styrkløft/kvittering-avmeldt';
 import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggStyrkeloft } from '@/lib/tracking';
-import VisWidgetForAktiveStyrkeloeftere from '@/components/ux-signals/vis-widget-for-aktive-styrkeloeftere';
 
 interface Props extends AktivBrukerProps {
     isEditMode: boolean;
@@ -74,7 +73,6 @@ function AktivBrukerStateless(props: Props) {
             <InlineMessage status={'info'} className={'mb-4'}>
                 {tekst('nyhet')}
             </InlineMessage>
-            {!isEditMode && <VisWidgetForAktiveStyrkeloeftere brukerprofil={props.brukerprofil} className={'mb-4'} />}
             {!isEditMode && (
                 <ErrorBoundary errorComponent={() => null}>
                     <Suspense fallback={<Loader />}>

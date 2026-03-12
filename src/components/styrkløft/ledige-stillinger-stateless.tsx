@@ -4,6 +4,7 @@ import { LinkTilArbeidsplassen } from '@/components/styrkløft/link-til-arbeidsp
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import Paginering from '@/components/styrkløft/paginering';
 import { Ref } from 'react';
+import VisWidgetForAktiveStyrkeloeftere from '@/components/ux-signals/vis-widget-for-aktive-styrkeloeftere';
 
 interface Props {
     ref?: Ref<HTMLDivElement>;
@@ -36,7 +37,7 @@ function LedigeStillingerStateless(props: Props) {
     return (
         <Box ref={ref}>
             {!harTreff && (
-                <Box className="mb-2" padding="space-16" background="info-soft">
+                <Box className="mb-4" padding="space-16" background="info-soft">
                     {tekst('ingenTreff')}
                 </Box>
             )}
@@ -54,6 +55,7 @@ function LedigeStillingerStateless(props: Props) {
                     )}
                 </>
             )}
+            <VisWidgetForAktiveStyrkeloeftere className={'mb-4'} />
             <LinkTilArbeidsplassen stedSoek={soek} sprak={sprak} />
         </Box>
     );
