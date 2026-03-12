@@ -1,9 +1,9 @@
 import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
-
-import UxSignalsWidget from './ux-signals-widget';
+import UxSignalsClientSideWidget from '@/components/ux-signals/ux-signals-client-side-widget';
 
 interface WidgetProps {
     brukerprofil: Brukerprofil;
+    className?: string;
 }
 
 export default function VisWidgetForAktiveStyrkeloeftere(props: WidgetProps) {
@@ -16,5 +16,14 @@ export default function VisWidgetForAktiveStyrkeloeftere(props: WidgetProps) {
 
     if (!skalHaWidget) return null;
 
-    return <UxSignalsWidget />;
+    return (
+        <>
+            <style jsx>{`
+                :global(.uxsignals-container) {
+                    background-color: pink;
+                }
+            `}</style>
+            <UxSignalsClientSideWidget className={props.className} erDemo={false} />
+        </>
+    );
 }

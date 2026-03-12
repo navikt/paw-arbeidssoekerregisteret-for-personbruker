@@ -23,7 +23,6 @@ import StyrkWidget from '@/components/styrkløft/styrk-widget';
 import unleashKeys from '@/unleash-keys';
 import { isEnabled } from '@/lib/unleash-is-enabled';
 import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
-import VisWidgetForAktiveStyrkeloeftere from '@/components/ux-signals/vis-widget-for-aktive-styrkeloeftere';
 
 interface Props {
     sprak: Sprak;
@@ -134,7 +133,6 @@ const StyrkLoftServerKomponent = async ({ sprak }: Props) => {
             <div className={'mt-4'}>
                 <StyrkWidget sprak={sprak} brukerprofil={data} />
             </div>
-            <VisWidgetForAktiveStyrkeloeftere brukerprofil={data} />
         </>
     );
 };
