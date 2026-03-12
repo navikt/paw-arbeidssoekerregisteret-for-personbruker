@@ -25,7 +25,7 @@ export default function VisWidgetForAktiveStyrkeloeftere(props: WidgetProps) {
                     background-color: var(--ax-bg-meta-purple-soft) !important;
                 }
             `}</style>
-            <UxSignalsClientSideWidget className={props.className} erDemo={true} />
+            <UxSignalsClientSideWidget className={props.className} erDemo={false} />
         </>
     );
 }
