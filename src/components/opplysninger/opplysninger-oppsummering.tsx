@@ -106,14 +106,6 @@ const OpplysningerOppsummering = (props: Props) => {
         <FormSummary>
             <FormSummary.Header>
                 <FormSummary.Heading level="2">{tekst('heading')}</FormSummary.Heading>
-                {visEndreLink && (
-                    <FormSummary.EditLink
-                        href={oppdaterOpplysningerUrl}
-                        onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Endre opplysninger"' })}
-                    >
-                        {tekst('linkText')}
-                    </FormSummary.EditLink>
-                )}
             </FormSummary.Header>
             <FormSummary.Answers>
                 {besvarelser.map((besvarelse, idx) => {
@@ -126,6 +118,16 @@ const OpplysningerOppsummering = (props: Props) => {
                     );
                 })}
             </FormSummary.Answers>
+            {visEndreLink && (
+                <FormSummary.Footer>
+                    <FormSummary.EditLink
+                        href={oppdaterOpplysningerUrl}
+                        onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Endre opplysninger"' })}
+                    >
+                        {tekst('linkText')}
+                    </FormSummary.EditLink>
+                </FormSummary.Footer>
+            )}
         </FormSummary>
     );
 };
