@@ -1,4 +1,5 @@
 import { ALLE_FYLKER_OG_KOMMUMER } from '@/components/styrkløft/fylker';
+import { alfabetiskSortering } from '@/lib/hent-yrkeskategorier';
 
 interface underKategori {
     navn: string;
@@ -17,6 +18,6 @@ export default function byggFylkerOgKommunerUnderkategoriStruktur() {
     return ALLE_FYLKER_OG_KOMMUMER.map((n) => ({
         navn: n.navn,
         fylkesnummer: n.fylkesnummer,
-        underKategorier: n.kommuner,
-    }));
+        underKategorier: n.kommuner.sort((a, b) => alfabetiskSortering(a.navn, b.navn)),
+    })).sort((a, b) => alfabetiskSortering(a.navn, b.navn));
 }
