@@ -1,16 +1,15 @@
-import { BodyShort, Box, CopyButton, Heading, HStack, Link, VStack } from '@navikt/ds-react';
-import { Buildings3Icon, CheckmarkIcon, FilesIcon, LocationPinIcon } from '@navikt/aksel-icons';
-
+import { BodyShort, Box, Heading, HStack, Link, Tag, VStack } from '@navikt/ds-react';
 import { loggStyrkeloft } from '@/lib/tracking';
+import { Buildings3Icon, LocationPinIcon } from '@navikt/aksel-icons';
 import { JobbAnnonse } from '@/model/brukerprofil';
 
 interface Props {
     ledigStilling: JobbAnnonse;
 }
 
-function LedigStilling(props: Props) {
+function DirektemeldtStilling(props: Props) {
     const { ledigStilling } = props;
-    const ledigStillingUrl = `https://arbeidsplassen.nav.no/stillinger/stilling/${ledigStilling.arbeidsplassenNoId}`;
+    const ledigStillingUrl = `https://arbeidsplassen.nav.no/muligheter/mulighet/${ledigStilling.arbeidsplassenNoId}`;
 
     return (
         <Box className={'py-4 pl-4 pr-2'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
@@ -35,20 +34,15 @@ function LedigStilling(props: Props) {
                     <BodyShort>{ledigStilling.kommune}</BodyShort>
                 </HStack>
             </VStack>
-            <Box className="flex justify-between">
+            <Box className="flex justify-between mb-4">
                 <BodyShort weight="semibold" textColor="subtle" className={'mt-4'}>
                     <label>Søknadsfrist:</label> {ledigStilling.soeknadsfrist?.raw}
                 </BodyShort>
-                <CopyButton
-                    copyText={ledigStillingUrl}
-                    icon={<FilesIcon title="Kopier lenke til den ledige stillingen" />}
-                    activeIcon={<CheckmarkIcon title="Kopierte lenke til stillingen" />}
-                    onClick={() => loggStyrkeloft({ aktivitet: 'Kopierer lenke til stilling' })}
-                    className={'hidden md:block'}
-                />
             </Box>
+            <Tag variant="moderate" data-color="accent">
+                Reserverte stillinger
+            </Tag>
         </Box>
     );
 }
-
-export default LedigStilling;
+export default DirektemeldtStilling;

@@ -9,6 +9,12 @@ export type Brukerprofil = {
     identitetsnummer: string;
     tjenestestatus: Tjenestestatus;
     stillingssoek?: Array<Stillingssoek>;
+    flagg?: Array<Flagg>;
+};
+
+export type Flagg = {
+    navn: 'DIREKTEMELDTE_STILLINGER' | 'OPT_OUT' | 'TJENESTEN_AKTIVERT';
+    tidspunkt?: string;
 };
 
 export type Stillingssoek =
@@ -70,6 +76,7 @@ export type LedigeStillinger = {
     resultat: Array<JobbAnnonse>;
 };
 
+export type DirektemeldtStillingTag = 'DIREKTEMELDT_V1';
 export type JobbAnnonse = {
     arbeidsplassenNoId: string;
     tittel: string;
@@ -80,6 +87,7 @@ export type JobbAnnonse = {
     kommune?: string;
     sektor: Sektor;
     selskap: string;
+    tags: readonly DirektemeldtStillingTag[];
 };
 
 export type Soeknadsfrist = {

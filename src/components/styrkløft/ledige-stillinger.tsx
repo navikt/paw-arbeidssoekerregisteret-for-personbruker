@@ -2,15 +2,18 @@ import LedigeStillingerStateless from '@/components/styrkløft/ledige-stillinger
 import { useRef, useState } from 'react';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggStyrkeloft } from '@/lib/tracking';
-
+import { LedigeStillinger as LedigeStillingerSoek } from '@/model/brukerprofil';
 interface Props {
-    useOnFetchData(): { data?: any; error?: Error };
+    useOnFetchData(): { data?: LedigeStillingerSoek; error?: Error };
     sprak: Sprak;
+    kanSeDirektemeldteStillinger: boolean;
 }
-
+export type AktivFane = 'ledigeStillinger' | 'direktemeldteStillinger';
 function LedigeStillinger(props: Props) {
     const { data } = props.useOnFetchData();
     const [aktivSide, settAktivSide] = useState<number>(1);
+    const [aktivFane, settAktivFane] = useState<AktivFane>('direktemeldteStillinger');
+
     const ref = useRef<HTMLDivElement>(null);
 
     const onClick = (side: number) => {
@@ -23,10 +26,13 @@ function LedigeStillinger(props: Props) {
         }
     };
 
-    const resultat = data?.resultat ?? [];
+    const visDirekteMeldteStillinger = props.kanSeDirektemeldteStillinger && aktivFane === 'direktemeldteStillinger';
+    const resultat = (data?.resultat ?? []).filter((stilling) => {
+        const erDirektemeldtStilling = (stilling.tags || []).includes('DIREKTEMELDT_V1');
+        return visDirekteMeldteStillinger ? erDirektemeldtStilling : !erDirektemeldtStilling;
+    });
     const brukPaginering = resultat.length > 7;
     const aktivtResultat = aktivSide === 1 ? Array.from(resultat).splice(0, 7) : Array.from(resultat).splice(7);
-
     return (
         <LedigeStillingerStateless
             ref={ref}
@@ -37,6 +43,9 @@ function LedigeStillinger(props: Props) {
             antallSider={2}
             aktivSide={aktivSide}
             brukPaginering={brukPaginering}
+            kanSeDirektemeldteStillinger={props.kanSeDirektemeldteStillinger}
+            aktivFane={aktivFane}
+            onAktivFaneChange={settAktivFane}
         />
     );
 }

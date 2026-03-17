@@ -71,6 +71,7 @@ async function fetchBrukerprofil(): Promise<{
                         ],
                     },
                 ],
+                // flagg: [{ navn: 'DIREKTEMELDTE_STILLINGER'}]
             },
         });
     }
@@ -116,6 +117,8 @@ async function fetchLedigStillinger(): Promise<{
                                 kommune: 'Oslo',
                                 sektor: 'Offentlig',
                                 selskap: 'Snedige Løsninger AS',
+                                tags: [],
+                                // tags: ['DIREKTEMELDT_V1']
                             },
                         ],
                     },

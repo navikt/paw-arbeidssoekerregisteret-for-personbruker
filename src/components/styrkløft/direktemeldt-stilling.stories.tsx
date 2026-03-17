@@ -1,18 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
-import LedigStilling from '@/components/styrkløft/ledig-stilling';
+import DirektemeldtStilling from '@/components/styrkløft/direktemeldt-stilling';
 
 const meta = {
-    title: 'Styrkløft/Komponenter/Ledig stilling',
-    component: LedigStilling,
+    title: 'Styrkløft/Komponenter/Direktemeldt stilling',
+    component: DirektemeldtStilling,
     tags: ['autodocs'],
     args: {},
-} satisfies Meta<typeof LedigStilling>;
+} satisfies Meta<typeof DirektemeldtStilling>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const DefaultLedigStilling: Story = {
+export const DefaultDirektemeldtStilling: Story = {
     args: {
         ledigStilling: {
             arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
@@ -25,7 +24,7 @@ export const DefaultLedigStilling: Story = {
             },
             publisert: '',
             land: 'no',
-            tags: [],
+            tags: ['DIREKTEMELDT_V1'],
             sektor: 'Ukjent',
         },
     },

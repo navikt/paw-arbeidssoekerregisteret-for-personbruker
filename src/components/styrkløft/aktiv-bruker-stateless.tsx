@@ -55,13 +55,16 @@ function AktivBrukerStateless(props: Props) {
         submittedTjenestestatus,
         pendingTjenestestatus,
         errorTjenestestatus,
+        brukerprofil,
     } = props;
 
     if (submittedTjenestestatus === 'OPT_OUT') {
         return <KvitteringAvmeldt sprak={sprak} />;
     }
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-
+    const kanSeDirektemeldteStillinger = (brukerprofil.flagg ?? []).some(
+        (flagg) => flagg.navn === 'DIREKTEMELDTE_STILLINGER',
+    );
     return (
         <Box className={'py-4 px-6'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
             <div className={'flex justify-between'}>
@@ -76,7 +79,11 @@ function AktivBrukerStateless(props: Props) {
             {!isEditMode && (
                 <ErrorBoundary errorComponent={() => null}>
                     <Suspense fallback={<Loader />}>
-                        <LedigeStillinger useOnFetchData={props.useOnFetchStillinger} sprak={sprak} />
+                        <LedigeStillinger
+                            useOnFetchData={props.useOnFetchStillinger}
+                            sprak={sprak}
+                            kanSeDirektemeldteStillinger={kanSeDirektemeldteStillinger}
+                        />
                     </Suspense>
                 </ErrorBoundary>
             )}
