@@ -26,10 +26,10 @@ function LedigeStillinger(props: Props) {
         }
     };
 
-    const visDirekteMeldteStillinger = props.kanSeDirektemeldteStillinger && aktivFane === 'direktemeldteStillinger';
+    const visDirektemeldteStillinger = props.kanSeDirektemeldteStillinger && aktivFane === 'direktemeldteStillinger';
     const resultat = (data?.resultat ?? []).filter((stilling) => {
         const erDirektemeldtStilling = (stilling.tags || []).includes('DIREKTEMELDT_V1');
-        return visDirekteMeldteStillinger ? erDirektemeldtStilling : !erDirektemeldtStilling;
+        return visDirektemeldteStillinger === erDirektemeldtStilling;
     });
     const brukPaginering = resultat.length > 7;
     const aktivtResultat = aktivSide === 1 ? Array.from(resultat).splice(0, 7) : Array.from(resultat).splice(7);
