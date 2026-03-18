@@ -1,5 +1,5 @@
-import { BodyShort, Box, CopyButton, Heading, HStack, Link, VStack } from '@navikt/ds-react';
-import { Buildings3Icon, CheckmarkIcon, FilesIcon, LocationPinIcon } from '@navikt/aksel-icons';
+import { BodyShort, Box, Heading, HStack, Link, VStack } from '@navikt/ds-react';
+import { Buildings3Icon, LocationPinIcon } from '@navikt/aksel-icons';
 
 import { loggStyrkeloft } from '@/lib/tracking';
 import { JobbAnnonse } from '@/model/brukerprofil';
@@ -50,18 +50,9 @@ function LedigStilling(props: Props) {
                     <BodyShort>{ledigStilling.kommune}</BodyShort>
                 </HStack>
             </VStack>
-            <Box className="flex justify-between">
-                <BodyShort weight="semibold" textColor="subtle" className={'mt-4'}>
-                    <label>{tekst('soknadsfrist')}:</label> {ledigStilling.soeknadsfrist?.raw}
-                </BodyShort>
-                <CopyButton
-                    copyText={ledigStillingUrl}
-                    icon={<FilesIcon title="Kopier lenke til den ledige stillingen" />}
-                    activeIcon={<CheckmarkIcon title="Kopierte lenke til stillingen" />}
-                    onClick={() => loggStyrkeloft({ aktivitet: 'Kopierer lenke til stilling' })}
-                    className={'hidden md:block'}
-                />
-            </Box>
+            <BodyShort weight="semibold" textColor="subtle" className={'mt-4'}>
+                <label>{tekst('soknadsfrist')}:</label> {ledigStilling.soeknadsfrist?.raw}
+            </BodyShort>
         </Box>
     );
 }
