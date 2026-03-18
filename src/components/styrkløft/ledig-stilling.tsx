@@ -12,13 +12,13 @@ interface Props {
 
 const TEKSTER = {
     nb: {
-        soeknadsfrist: 'Søknadsfrist',
+        soknadsfrist: 'Søknadsfrist',
     },
     nn: {
-        soeknadsfrist: 'Søknadsfrist',
+        soknadsfrist: 'Søknadsfrist',
     },
     en: {
-        soeknadsfrist: 'Application deadline',
+        soknadsfrist: 'Application deadline',
     },
 };
 
