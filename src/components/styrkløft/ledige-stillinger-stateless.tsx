@@ -27,12 +27,18 @@ interface Props {
 const TEKSTER = {
     nb: {
         ingenTreff: 'Ingen treff',
+        direktemeldteStillinger: 'Reserverte jobber',
+        ledigeStillinger: 'Ledige stillinger',
     },
     nn: {
         ingenTreff: 'Ingen treff',
+        direktemeldteStillinger: 'Reserverte jobbar',
+        ledigeStillinger: 'Ledige stillingar',
     },
     en: {
         ingenTreff: 'No matches',
+        direktemeldteStillinger: 'Reserved jobs',
+        ledigeStillinger: 'Open positions',
     },
 };
 
@@ -50,8 +56,10 @@ function LedigeStillingerStateless(props: Props) {
                     onChange={(value) => onAktivFaneChange(value as AktivFane)}
                     className={'mb-4'}
                 >
-                    <ToggleGroup.Item value={'direktemeldteStillinger'}>Reserverte jobber</ToggleGroup.Item>
-                    <ToggleGroup.Item value={'ledigeStillinger'}>Ledige stillinger</ToggleGroup.Item>
+                    <ToggleGroup.Item value={'direktemeldteStillinger'}>
+                        {tekst('direktemeldteStillinger')}
+                    </ToggleGroup.Item>
+                    <ToggleGroup.Item value={'ledigeStillinger'}>{tekst('ledigeStillinger')}</ToggleGroup.Item>
                 </ToggleGroup>
             )}
             {!harTreff && (
@@ -65,9 +73,17 @@ function LedigeStillingerStateless(props: Props) {
                         {resultat.map((stilling) => {
                             const erDirekteMeldtStilling = (stilling.tags || []).includes('DIREKTEMELDT_V1');
                             return erDirekteMeldtStilling ? (
-                                <DirektemeldtStilling ledigStilling={stilling} key={stilling.arbeidsplassenNoId} />
+                                <DirektemeldtStilling
+                                    ledigStilling={stilling}
+                                    key={stilling.arbeidsplassenNoId}
+                                    sprak={sprak}
+                                />
                             ) : (
-                                <LedigStilling ledigStilling={stilling} key={stilling.arbeidsplassenNoId} />
+                                <LedigStilling
+                                    ledigStilling={stilling}
+                                    key={stilling.arbeidsplassenNoId}
+                                    sprak={sprak}
+                                />
                             );
                         })}
                     </HGrid>

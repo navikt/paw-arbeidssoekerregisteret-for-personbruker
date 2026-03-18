@@ -27,5 +27,6 @@ export const DefaultDirektemeldtStilling: Story = {
             tags: ['DIREKTEMELDT_V1'],
             sektor: 'Ukjent',
         },
+        sprak: 'nb',
     },
 };

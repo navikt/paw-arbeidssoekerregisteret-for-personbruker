@@ -28,5 +28,6 @@ export const DefaultLedigStilling: Story = {
             tags: [],
             sektor: 'Ukjent',
         },
+        sprak: 'nb',
     },
 };

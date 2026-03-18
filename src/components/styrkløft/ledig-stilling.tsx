@@ -3,14 +3,29 @@ import { Buildings3Icon, CheckmarkIcon, FilesIcon, LocationPinIcon } from '@navi
 
 import { loggStyrkeloft } from '@/lib/tracking';
 import { JobbAnnonse } from '@/model/brukerprofil';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 interface Props {
     ledigStilling: JobbAnnonse;
+    sprak: Sprak;
 }
 
+const TEKSTER = {
+    nb: {
+        soeknadsfrist: 'Søknadsfrist',
+    },
+    nn: {
+        soeknadsfrist: 'Søknadsfrist',
+    },
+    en: {
+        soeknadsfrist: 'Application deadline',
+    },
+};
+
 function LedigStilling(props: Props) {
-    const { ledigStilling } = props;
+    const { ledigStilling, sprak } = props;
     const ledigStillingUrl = `https://arbeidsplassen.nav.no/stillinger/stilling/${ledigStilling.arbeidsplassenNoId}`;
+    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
         <Box className={'py-4 pl-4 pr-2'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
@@ -37,7 +52,7 @@ function LedigStilling(props: Props) {
             </VStack>
             <Box className="flex justify-between">
                 <BodyShort weight="semibold" textColor="subtle" className={'mt-4'}>
-                    <label>Søknadsfrist:</label> {ledigStilling.soeknadsfrist?.raw}
+                    <label>{tekst('soknadsfrist')}:</label> {ledigStilling.soeknadsfrist?.raw}
                 </BodyShort>
                 <CopyButton
                     copyText={ledigStillingUrl}
