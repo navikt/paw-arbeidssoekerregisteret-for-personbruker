@@ -51,11 +51,9 @@ function DirektemeldtStilling(props: Props) {
                     <BodyShort>{ledigStilling.kommune}</BodyShort>
                 </HStack>
             </VStack>
-            <Box className="flex justify-between mb-4">
-                <BodyShort weight="semibold" textColor="subtle" className={'mt-4'}>
-                    <label>{tekst('soknadsfrist')}:</label> {ledigStilling.soeknadsfrist?.raw}
-                </BodyShort>
-            </Box>
+            <BodyShort weight="semibold" textColor="subtle" className={'my-4'}>
+                <label>{tekst('soknadsfrist')}:</label> {ledigStilling.soeknadsfrist?.raw}
+            </BodyShort>
             <Tag variant="moderate" data-color="accent">
                 {tekst('reserverteStillinger')}
             </Tag>
