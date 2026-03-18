@@ -27,12 +27,12 @@ interface Props {
 const TEKSTER = {
     nb: {
         ingenTreff: 'Ingen treff',
-        direktemeldteStillinger: 'Reserverte jobber',
+        direktemeldteStillinger: 'Reserverte stillinger',
         ledigeStillinger: 'Ledige stillinger',
     },
     nn: {
         ingenTreff: 'Ingen treff',
-        direktemeldteStillinger: 'Reserverte jobbar',
+        direktemeldteStillinger: 'Reserverte stillingar',
         ledigeStillinger: 'Ledige stillingar',
     },
     en: {

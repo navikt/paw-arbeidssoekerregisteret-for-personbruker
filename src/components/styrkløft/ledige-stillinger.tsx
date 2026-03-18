@@ -31,7 +31,7 @@ function LedigeStillinger(props: Props) {
         // nullstill paginering ved fanebytte
         settAktivSide(1);
         loggDirektemeldtStillinger({
-            aktivitet: `Trykker på "${fane === 'ledigeStillinger' ? 'Ledige stillinger' : 'Reserverte jobber'}" fane`,
+            aktivitet: `Trykker på "${fane === 'ledigeStillinger' ? 'Ledige' : 'Reserverte'} stillinger" fane`,
         });
     };
     const visDirektemeldteStillinger = props.kanSeDirektemeldteStillinger && aktivFane === 'direktemeldteStillinger';

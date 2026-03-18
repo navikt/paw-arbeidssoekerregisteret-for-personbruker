@@ -57,7 +57,7 @@ export type UnderkategoriFilterData =
 export type DirektemeldtestillingerData =
     | { aktivitet: 'Går til annonse på arbeidsplassen' }
     | { aktivitet: 'Går til søk på arbeidsplassen' }
-    | { aktivitet: 'Trykker på "Reserverte jobber" fane' }
+    | { aktivitet: 'Trykker på "Reserverte stillinger" fane' }
     | { aktivitet: 'Trykker på "Ledige stillinger" fane' };
 
 export type EventData =
