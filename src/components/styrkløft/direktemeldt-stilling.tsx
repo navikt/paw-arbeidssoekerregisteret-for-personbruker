@@ -11,15 +11,15 @@ interface Props {
 
 const TEKSTER = {
     nb: {
-        soeknadsfrist: 'Søknadsfrist',
+        soknadsfrist: 'Søknadsfrist',
         reserverteStillinger: 'Reserverte stillinger',
     },
     nn: {
-        soeknadsfrist: 'Søknadsfrist',
+        soknadsfrist: 'Søknadsfrist',
         reserverteStillinger: 'Reserverte stillingar',
     },
     en: {
-        soeknadsfrist: 'Application deadline',
+        soknadsfrist: 'Application deadline',
         reserverteStillinger: 'Reserved jobs',
     },
 };
