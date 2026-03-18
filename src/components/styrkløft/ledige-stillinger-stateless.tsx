@@ -8,6 +8,7 @@ import VisWidgetForAktiveStyrkeloeftere from '@/components/ux-signals/vis-widget
 import { AktivFane } from '@/components/styrkløft/ledige-stillinger';
 import DirektemeldtStilling from '@/components/styrkløft/direktemeldt-stilling';
 import { JobbAnnonse } from '@/model/brukerprofil';
+import { LinkTilDirektemeldteStillinger } from '@/components/styrkløft/link-til-direktemeldte-stillinger';
 
 interface Props {
     ref?: Ref<HTMLDivElement>;
@@ -77,8 +78,12 @@ function LedigeStillingerStateless(props: Props) {
                     )}
                 </>
             )}
-            <VisWidgetForAktiveStyrkeloeftere className={'mb-4'} />
-            <LinkTilArbeidsplassen stedSoek={soek} sprak={sprak} />
+            {kanSeDirektemeldteStillinger && aktivFane === 'direktemeldteStillinger' ? (
+                <LinkTilDirektemeldteStillinger sprak={sprak} />
+            ) : (
+                <LinkTilArbeidsplassen stedSoek={soek} sprak={sprak} />
+            )}
+            <VisWidgetForAktiveStyrkeloeftere className={'mt-4'} />
         </Box>
     );
 }

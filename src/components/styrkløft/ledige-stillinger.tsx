@@ -1,7 +1,7 @@
 import LedigeStillingerStateless from '@/components/styrkløft/ledige-stillinger-stateless';
 import { useRef, useState } from 'react';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { loggStyrkeloft } from '@/lib/tracking';
+import { loggDirektemeldtStillinger, loggStyrkeloft } from '@/lib/tracking';
 import { LedigeStillinger as LedigeStillingerSoek } from '@/model/brukerprofil';
 interface Props {
     useOnFetchData(): { data?: LedigeStillingerSoek; error?: Error };
@@ -26,6 +26,14 @@ function LedigeStillinger(props: Props) {
         }
     };
 
+    const onAktivFaneChange = (fane: AktivFane) => {
+        settAktivFane(fane);
+        // nullstill paginering ved fanebytte
+        settAktivSide(1);
+        loggDirektemeldtStillinger({
+            aktivitet: `Trykker på "${fane === 'ledigeStillinger' ? 'Ledige stillinger' : 'Reserverte jobber'}" fane`,
+        });
+    };
     const visDirektemeldteStillinger = props.kanSeDirektemeldteStillinger && aktivFane === 'direktemeldteStillinger';
     const resultat = (data?.resultat ?? []).filter((stilling) => {
         const erDirektemeldtStilling = (stilling.tags || []).includes('DIREKTEMELDT_V1');
@@ -45,7 +53,7 @@ function LedigeStillinger(props: Props) {
             brukPaginering={brukPaginering}
             kanSeDirektemeldteStillinger={props.kanSeDirektemeldteStillinger}
             aktivFane={aktivFane}
-            onAktivFaneChange={settAktivFane}
+            onAktivFaneChange={onAktivFaneChange}
         />
     );
 }

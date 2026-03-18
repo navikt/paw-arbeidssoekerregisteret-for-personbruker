@@ -8,6 +8,8 @@ import {
     StyrkeloftEventNavn,
     UnderkategoriFilterData,
     UnderkategoriFilterEventNavn,
+    DirektemeldtestillingerData,
+    DirektemeldteStillingerEventNavn,
 } from '@/lib/tracking/common';
 import { logUmamiEvent } from '@/lib/tracking/umami';
 
@@ -36,6 +38,15 @@ export async function loggUnderkategoriFilter(data: UnderkategoriFilterData) {
 
     const eventData = data || ({} as UnderkategoriFilterData);
     await logUmamiEvent(UnderkategoriFilterEventNavn, eventData);
+}
+
+export async function loggDirektemeldtStillinger(data: DirektemeldtestillingerData) {
+    if (!isConsentingToAnalytics()) {
+        return;
+    }
+
+    const eventData = data || ({} as DirektemeldtestillingerData);
+    await logUmamiEvent(DirektemeldteStillingerEventNavn, eventData);
 }
 
 export async function loggVisning(data: VisningsData) {

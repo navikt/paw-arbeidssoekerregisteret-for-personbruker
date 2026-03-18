@@ -6,6 +6,7 @@ export const AktivitetEventNavn = 'arbeidssoekerregisteret-for-personbruker.akti
 export const VisningEventNavn = 'arbeidssoekerregisteret-for-personbruker.visning';
 export const StyrkeloftEventNavn = 'arbeidssoekerregisteret-for-personbruker.styrkloft';
 export const UnderkategoriFilterEventNavn = 'arbeidssoekerregisteret-for-personbruker.uk-filter';
+export const DirektemeldteStillingerEventNavn = 'arbeidssoekerregisteret-for-personbruker.dms';
 
 export type VisningsData =
     | { viser: 'IkkeAktivArbeidssøker fra Bekreftelse' }
@@ -54,7 +55,18 @@ export type UnderkategoriFilterData =
     | { aktivitet: 'Trykker på Tilbake' }
     | { aktivitet: 'Trykker på Lukk' };
 
-export type EventData = VisningsData | AktivitetData | StyrkeloftData | UnderkategoriFilterData;
+export type DirektemeldtestillingerData =
+    | { aktivitet: 'Går til annonse på arbeidsplassen' }
+    | { aktivitet: 'Går til søk på arbeidsplassen' }
+    | { aktivitet: 'Trykker på "Reserverte jobber" fane' }
+    | { aktivitet: 'Trykker på "Ledige stillinger" fane' };
+
+export type EventData =
+    | VisningsData
+    | AktivitetData
+    | StyrkeloftData
+    | UnderkategoriFilterData
+    | DirektemeldtestillingerData;
 
 const defaultConsent = {
     consent: {

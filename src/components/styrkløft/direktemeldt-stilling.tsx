@@ -1,5 +1,5 @@
 import { BodyShort, Box, Heading, HStack, Link, Tag, VStack } from '@navikt/ds-react';
-import { loggStyrkeloft } from '@/lib/tracking';
+import { loggDirektemeldtStillinger } from '@/lib/tracking';
 import { Buildings3Icon, LocationPinIcon } from '@navikt/aksel-icons';
 import { JobbAnnonse } from '@/model/brukerprofil';
 
@@ -16,7 +16,7 @@ function DirektemeldtStilling(props: Props) {
             <Heading level={'2'} size={'small'}>
                 <Link
                     href={ledigStillingUrl}
-                    onClick={() => loggStyrkeloft({ aktivitet: 'Går til annonse på arbeidsplassen' })}
+                    onClick={() => loggDirektemeldtStillinger({ aktivitet: 'Går til annonse på arbeidsplassen' })}
                 >
                     {ledigStilling.tittel}
                 </Link>
