@@ -10,7 +10,6 @@ export const DirektemeldteStillingerEventNavn = 'arbeidssoekerregisteret-for-per
 
 export type VisningsData =
     | { viser: 'IkkeAktivArbeidssøker fra Bekreftelse' }
-    | { viser: 'Bekreftelse'; antallTilgjengeligeBekreftelser: number; erAktivArbeidssoker: boolean }
     | { viser: 'ErrorBoundaryFeil'; error: any }
     | { viser: 'Egenvurdering' }
     | { viser: 'Egenvurdering avklart' };

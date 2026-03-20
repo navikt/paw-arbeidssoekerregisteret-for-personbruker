@@ -1,12 +1,8 @@
 'use client';
 
-import {
-    Bekreftelse as InnsendtBekreftelse,
-    Sprak,
-    TilgjengeligeBekreftelser,
-} from '@navikt/arbeidssokerregisteret-utils';
+import { Sprak, TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
 import { BekreftelseSkjema } from './bekreftelse-skjema';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BekreftelseBesvart } from './bekreftelse-besvart';
 import { Kvittering } from './kvittering';
 import { sorterEtterEldsteFoerst } from '@/lib/sorter-etter-eldste-foerst';
@@ -15,7 +11,7 @@ import { useRouter } from 'next/navigation';
 import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import IngenTilgjengeligeBekreftelser from '@/components/bekreftelse/ingen-tilgjengelige-bekreftelser';
 import { BekreftelseSkjemaType } from '@/model/bekreftelse';
-import { loggAktivitet, loggVisning } from '@/lib/tracking';
+import { loggAktivitet } from '@/lib/tracking';
 import { Brukerprofil } from '@/model/brukerprofil';
 import { BekreftelseHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
@@ -61,14 +57,6 @@ function Bekreftelse(props: BekreftelseProps) {
         loggAktivitet({ aktivitet: 'Trykker på "Avbryt" i bekreftelse-skjemaet' });
         router.push(tilSprakAvhengigAppPath('/', sprak));
     };
-
-    useEffect(() => {
-        loggVisning({
-            viser: 'Bekreftelse',
-            antallTilgjengeligeBekreftelser: tilgjengeligeBekreftelser?.length,
-            erAktivArbeidssoker: erAktivArbeidssoker,
-        });
-    }, []);
 
     if (!erAktivArbeidssoker) {
         return <IkkeAktivArbeidssoker sprak={sprak} registrerArbeidssokerUrl={registrerArbeidssokerUrl} />;
