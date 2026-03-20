@@ -28,7 +28,7 @@ function Feil(props: Props) {
 
     useEffect(() => {
         loggVisning({ viser: 'ErrorBoundaryFeil', error });
-    }, []);
+    }, [error]);
 
     return <Alert variant={'error'}>{tekst('melding')}</Alert>;
 }
