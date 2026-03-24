@@ -4,6 +4,7 @@ import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
 import AktivBruker from '@/components/styrkløft/aktiv-bruker';
 import byggStillingssoekPayload from '@/lib/bygg-stillingssoek-payload';
+import Avmeldt from '@/components/styrkløft/avmeldt';
 
 interface onSubmitStillingsSoekPayload {
     fylker: string[];
@@ -28,7 +29,7 @@ function StyrkLoftStateless(props: StatelessProps) {
     const { visStartKomponent, visStillinger, erAvmeldt } = props;
 
     if (erAvmeldt) {
-        return null;
+        return <Avmeldt {...props} />;
     } else if (visStillinger) {
         return <AktivBruker {...props} />;
     } else if (visStartKomponent) {
