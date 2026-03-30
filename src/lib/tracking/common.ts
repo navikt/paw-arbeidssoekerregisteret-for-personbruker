@@ -12,7 +12,8 @@ export type VisningsData =
     | { viser: 'IkkeAktivArbeidssøker fra Bekreftelse' }
     | { viser: 'ErrorBoundaryFeil'; error: any }
     | { viser: 'Egenvurdering' }
-    | { viser: 'Egenvurdering avklart' };
+    | { viser: 'Egenvurdering avklart' }
+    | { viser: 'Styrkløft avmeldt' };
 
 export type AktivitetData =
     | { aktivitet: 'Sender inn bekreftelse'; vilFortsetteSomArbeidssoeker: boolean }
