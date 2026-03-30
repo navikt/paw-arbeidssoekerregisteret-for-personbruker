@@ -50,6 +50,10 @@ export async function loggDirektemeldtStillinger(data: DirektemeldtestillingerDa
 }
 
 export async function loggVisning(data: VisningsData) {
+    if (!isConsentingToAnalytics()) {
+        return;
+    }
+
     const eventData = data || ({} as VisningsData);
     await logUmamiEvent(VisningEventNavn, eventData);
 }
