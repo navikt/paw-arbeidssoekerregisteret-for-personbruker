@@ -1,4 +1,4 @@
-import { Box, HGrid, ToggleGroup } from '@navikt/ds-react';
+import { Box, HGrid, InlineMessage, ToggleGroup } from '@navikt/ds-react';
 import LedigStilling from '@/components/styrkløft/ledig-stilling';
 import { LinkTilArbeidsplassen } from '@/components/styrkløft/link-til-arbeidsplassen';
 import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
@@ -29,16 +29,22 @@ const TEKSTER = {
         ingenTreff: 'Ingen treff',
         direktemeldteStillinger: 'Reserverte stillinger',
         ledigeStillinger: 'Ledige stillinger',
+        direktemeldteStillingerInfo:
+            'Reserverte stillinger vises kun til registrerte arbeidssøkere og gir deg større sjanse til å bli vurdert av arbeidsgivere',
     },
     nn: {
         ingenTreff: 'Ingen treff',
         direktemeldteStillinger: 'Reserverte stillingar',
         ledigeStillinger: 'Ledige stillingar',
+        direktemeldteStillingerInfo:
+            'Reserverte stillingar blir berre viste til registrerte arbeidssøkjarar og gir deg større sjanse til å bli vurdert av arbeidsgivarar',
     },
     en: {
         ingenTreff: 'No matches',
         direktemeldteStillinger: 'Reserved jobs',
         ledigeStillinger: 'Open positions',
+        direktemeldteStillingerInfo:
+            'Reserved jobs are shown only to registered job seekers and give you a better chance of being considered by employers',
     },
 };
 
@@ -51,16 +57,21 @@ function LedigeStillingerStateless(props: Props) {
     return (
         <Box ref={ref}>
             {kanSeDirektemeldteStillinger && (
-                <ToggleGroup
-                    value={aktivFane}
-                    onChange={(value) => onAktivFaneChange(value as AktivFane)}
-                    className={'mb-4'}
-                >
-                    <ToggleGroup.Item value={'direktemeldteStillinger'}>
-                        {tekst('direktemeldteStillinger')}
-                    </ToggleGroup.Item>
-                    <ToggleGroup.Item value={'ledigeStillinger'}>{tekst('ledigeStillinger')}</ToggleGroup.Item>
-                </ToggleGroup>
+                <>
+                    <InlineMessage status={'info'} className={'mb-4'}>
+                        {tekst('direktemeldteStillingerInfo')}
+                    </InlineMessage>
+                    <ToggleGroup
+                        value={aktivFane}
+                        onChange={(value) => onAktivFaneChange(value as AktivFane)}
+                        className={'mb-4'}
+                    >
+                        <ToggleGroup.Item value={'direktemeldteStillinger'}>
+                            {tekst('direktemeldteStillinger')}
+                        </ToggleGroup.Item>
+                        <ToggleGroup.Item value={'ledigeStillinger'}>{tekst('ledigeStillinger')}</ToggleGroup.Item>
+                    </ToggleGroup>
+                </>
             )}
             {!harTreff && (
                 <Box className="mb-4" padding="space-16" background="info-soft">

@@ -12,15 +12,15 @@ interface Props {
 const TEKSTER = {
     nb: {
         soknadsfrist: 'Søknadsfrist',
-        reserverteStillinger: 'Reserverte stillinger',
+        reserverteStillinger: 'Vises til begrenset antall jobbsøkere',
     },
     nn: {
         soknadsfrist: 'Søknadsfrist',
-        reserverteStillinger: 'Reserverte stillingar',
+        reserverteStillinger: 'Blir vist til eit avgrensa tal jobbsøkjarar',
     },
     en: {
         soknadsfrist: 'Application deadline',
-        reserverteStillinger: 'Reserved jobs',
+        reserverteStillinger: 'Shown to a limited number of job seekers',
     },
 };
 function DirektemeldtStilling(props: Props) {
