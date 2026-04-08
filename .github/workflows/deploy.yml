@@ -93,7 +93,7 @@ jobs:
                   project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
             - name: Install Playwright
-              run: pnpm dlx playwright install --with-deps
+              run: pnpm exec playwright install --with-deps
 
             - name: Build storybook-static
               run: pnpm build-storybook
