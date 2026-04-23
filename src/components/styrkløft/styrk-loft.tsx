@@ -1,3 +1,5 @@
+'use client';
+
 import { Brukerprofil, Stillingssoek, Tjenestestatus } from '@/model/brukerprofil';
 import StartStyrkloft from '@/components/styrkløft/start-styrkloft';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
@@ -16,6 +18,7 @@ interface Props {
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
     onSubmitStillingsSoek(data: onSubmitStillingsSoekPayload): Promise<void>;
     useOnFetchStillinger(): { data?: any; error?: Error };
+    onRefreshServerComponent: () => void;
     sprak: Sprak;
 }
 
@@ -74,6 +77,7 @@ function StyrkLoft(props: Props) {
             onSubmitStillingsSoek={onSubmitStillingsSoek}
             useOnFetchStillinger={useOnFetchStillinger}
             sprak={sprak}
+            onRefreshServerComponent={props.onRefreshServerComponent}
         />
     );
 }

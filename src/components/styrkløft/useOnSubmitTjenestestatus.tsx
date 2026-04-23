@@ -1,12 +1,16 @@
 import { Tjenestestatus } from '@/model/brukerprofil';
 import { useState } from 'react';
 
-function useOnSubmitTjenestestatus(submitTjenestestatus: (status: Tjenestestatus) => Promise<void>): {
+export type UseOnSubmitTjenestestatusResult = {
     pendingTjenestestatus: Tjenestestatus | null;
     errorTjenestestatus: string | null;
     submittedTjenestestatus: Tjenestestatus | null;
     onSubmitTjenestestatus: (status: Tjenestestatus) => Promise<void>;
-} {
+};
+
+function useOnSubmitTjenestestatus(
+    submitTjenestestatus: (status: Tjenestestatus) => Promise<void>,
+): UseOnSubmitTjenestestatusResult {
     const [pendingTjenestestatus, setPendingTjenestestatus] = useState<Tjenestestatus | null>(null);
     const [errorTjenestestatus, setErrorTjenestestatus] = useState<string | null>(null);
     const [submittedTjenestestatus, setSubmittedTjenestestatus] = useState<Tjenestestatus | null>(null);

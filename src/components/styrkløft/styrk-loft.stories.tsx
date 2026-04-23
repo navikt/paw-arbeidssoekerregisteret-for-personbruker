@@ -32,7 +32,7 @@ const ledigStillingerRespons = {
         },
         resultat: [
             {
-                arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+                arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa5',
                 tittel: 'Nittedal Tannlegesenter har ledig stilling som tannhelsesekretær/tannlegeassistent, er du den rette?',
                 stillingbeskrivelse: 'Tannlegeassistent, Tannhelsesekretær, Klinikkassistent',
                 selskap: 'Nittedal Tannlegesenter Og Tannlegevakt',
@@ -73,6 +73,9 @@ export const Demo: Story = {
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
         },
+        onRefreshServerComponent() {
+            console.log('onRefreshServerComponent');
+        },
         sprak: 'nb',
     },
 };
@@ -91,6 +94,9 @@ export const Avmeldt: Story = {
         },
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
+        },
+        onRefreshServerComponent() {
+            console.log('onRefreshServerComponent');
         },
         sprak: 'nb',
     },
@@ -111,6 +117,9 @@ export const AktivUtenLagretSøk: Story = {
         },
         useOnFetchStillinger() {
             return ledigStillingerRespons;
+        },
+        onRefreshServerComponent() {
+            console.log('onRefreshServerComponent');
         },
         sprak: 'nb',
     },
@@ -149,6 +158,9 @@ export const MedLagretSøk: Story = {
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
         },
+        onRefreshServerComponent() {
+            console.log('onRefreshServerComponent');
+        },
         sprak: 'nb',
     },
 };
@@ -176,6 +188,9 @@ export const MedFeilNårManLagrerTjenestestatus: Story = {
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
         },
+        onRefreshServerComponent() {
+            console.log('onRefreshServerComponent');
+        },
         sprak: 'nb',
     },
 };
@@ -200,6 +215,9 @@ export const MedFeilNårManLagrerSøk: Story = {
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
         },
+        onRefreshServerComponent() {
+            console.log('onRefreshServerComponent');
+        },
         sprak: 'nb',
     },
 };
@@ -218,6 +236,9 @@ export const PlaywrightTestVisStillinger: Story = {
         },
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
+        },
+        onRefreshServerComponent() {
+            console.log('onRefreshServerComponent');
         },
         sprak: 'nb',
     },
@@ -252,6 +273,9 @@ export const PlaywrightTestAvmelding: Story = {
         },
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
+        },
+        onRefreshServerComponent() {
+            console.log('onRefreshServerComponent');
         },
         sprak: 'nb',
     },

@@ -3,12 +3,25 @@
 import { AktivBrukerProps } from '@/components/styrkløft/aktiv-bruker';
 import { useEffect } from 'react';
 import { loggVisning } from '@/lib/tracking';
+import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
+import AvmeldtStateless from '@/components/styrkløft/avmeldt-stateless';
 
 function Avmeldt(props: AktivBrukerProps) {
-    const { brukerprofil } = props;
+    const { brukerprofil, onRefreshServerComponent } = props;
     const optOutTidspunkt = (brukerprofil.flagg || [])
         .filter((f) => f.navn === 'OPT_OUT')
         .sort((a, b) => new Date(b.tidspunkt ?? 0).getTime() - new Date(a.tidspunkt ?? 0).getTime())[0]?.tidspunkt;
+
+    const { onSubmitTjenestestatus, ...submitProps } = useOnSubmitTjenestestatus(props.onSubmitTjenestestatus);
+
+    const onSubmit = async () => {
+        try {
+            await onSubmitTjenestestatus('AKTIV');
+            onRefreshServerComponent();
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     useEffect(() => {
         if (!optOutTidspunkt) {
@@ -18,18 +31,7 @@ function Avmeldt(props: AktivBrukerProps) {
         loggVisning({ viser: 'Styrkløft avmeldt' });
     }, [optOutTidspunkt]);
 
-    return null;
+    return <AvmeldtStateless {...submitProps} onSubmit={onSubmit} />;
 }
-
-// function AvmeldtKomponent(props: AktivBrukerProps) {
-//     return (
-//         <Box background="default" padding="space-24" borderRadius="12" borderColor="neutral-subtle" borderWidth="1">
-//             <InlineMessage status={'info'}>
-//                 Du har sagt at du ikke vil se ledige stillinger. Ønsker du å ombestemme deg? Gå til{' '}
-//                 <a href="#">innstillinger</a> for å endre dette.
-//             </InlineMessage>
-//         </Box>
-//     );
-// }
 
 export default Avmeldt;

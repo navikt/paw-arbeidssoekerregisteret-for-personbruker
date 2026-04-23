@@ -60,6 +60,9 @@ export const Default: Story = {
         },
         onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
         onSubmitStillingsSoek: (data: any) => Promise.resolve(),
+        onRefreshServerComponent() {
+            console.log('onRefreshServerComponent');
+        },
         sprak: 'nb',
         isEditMode: false,
         visAvmeldModal: false,
@@ -84,6 +87,9 @@ export const MedAktivAvmelding: Story = {
         },
         onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
         onSubmitStillingsSoek: (data: any) => Promise.resolve(),
+        onRefreshServerComponent() {
+            console.log('onRefreshServerComponent');
+        },
         sprak: 'nb',
         isEditMode: false,
         visAvmeldModal: true,
@@ -108,6 +114,9 @@ export const Avmeldt: Story = {
         },
         onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
         onSubmitStillingsSoek: (data: any) => Promise.resolve(),
+        onRefreshServerComponent() {
+            console.log('onRefreshServerComponent');
+        },
         sprak: 'nb',
         isEditMode: false,
         visAvmeldModal: false,

@@ -7,6 +7,11 @@ const meta = {
     component: Kvittering,
     tags: ['autodocs'],
     args: {},
+    parameters: {
+        nextjs: {
+            appDirectory: true,
+        },
+    },
 } satisfies Meta<typeof Kvittering>;
 
 export default meta;

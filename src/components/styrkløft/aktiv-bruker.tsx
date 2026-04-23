@@ -10,6 +10,7 @@ export interface AktivBrukerProps {
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
     onSubmitStillingsSoek(data: any): Promise<void>;
     useOnFetchStillinger(): { data?: any; error?: Error };
+    onRefreshServerComponent: () => void;
     brukerprofil: Brukerprofil;
     sprak: Sprak;
 }

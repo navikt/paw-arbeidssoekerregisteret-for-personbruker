@@ -62,6 +62,9 @@ export const Default: Story = {
         },
         onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
         onSubmitStillingsSoek: (data: any) => Promise.resolve(),
+        onRefreshServerComponent() {
+            console.log('onRefreshServerComponent');
+        },
         brukerprofil: {
             identitetsnummer: '42',
             tjenestestatus: 'AKTIV',
