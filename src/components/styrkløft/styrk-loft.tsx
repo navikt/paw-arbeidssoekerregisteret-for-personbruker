@@ -58,9 +58,8 @@ function StyrkLoft(props: Props) {
     const [harLagretSoek, settHarLagretSoek] = useState<null | onSubmitStillingsSoekPayload>(null);
 
     const erAvmeldt = brukerprofil.tjenestestatus === 'OPT_OUT' || brukerprofil.tjenestestatus === 'KAN_IKKE_LEVERES';
-    const visStartKomponent =
-        brukerprofil.tjenestestatus === 'INAKTIV' || (brukerprofil.stillingssoek ?? []).length === 0;
-    const visStillinger = brukerprofil.tjenestestatus === 'AKTIV' && (brukerprofil.stillingssoek ?? []).length > 0;
+    const visStartKomponent = brukerprofil.tjenestestatus === 'INAKTIV'; // || (brukerprofil.stillingssoek ?? []).length === 0;
+    const visStillinger = brukerprofil.tjenestestatus === 'AKTIV'; // && (brukerprofil.stillingssoek ?? []).length > 0;
 
     const onSubmitStillingsSoek = async (data: onSubmitStillingsSoekPayload) => {
         await props.onSubmitStillingsSoek(data);

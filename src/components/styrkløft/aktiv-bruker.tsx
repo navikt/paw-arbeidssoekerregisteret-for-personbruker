@@ -23,7 +23,7 @@ function initLagretSok(brukerprofil: Brukerprofil) {
 }
 
 function AktivBruker(props: AktivBrukerProps) {
-    const [isEditMode, setIsEditMode] = useState<boolean>(false);
+    const [isEditMode, setIsEditMode] = useState<boolean>((props.brukerprofil.stillingssoek ?? []).length === 0);
     const [lagretSok, settLagretSok] = useState<{ fylker: string[]; yrkeskategorier: string[] }>(
         initLagretSok(props.brukerprofil),
     );

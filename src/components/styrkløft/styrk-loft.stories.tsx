@@ -226,7 +226,8 @@ export const PlaywrightTestVisStillinger: Story = {
     args: {
         brukerprofil: {
             identitetsnummer: '42',
-            tjenestestatus: 'INAKTIV',
+            // tjenestestatus: 'INAKTIV',
+            tjenestestatus: 'AKTIV',
         },
         onSubmitTjenestestatus(status: Tjenestestatus) {
             return Promise.resolve();
@@ -244,7 +245,7 @@ export const PlaywrightTestVisStillinger: Story = {
     },
     async play(context) {
         const canvas = context.canvas;
-        await userEvent.click(await canvas.findByText('Vis meg ledige stillinger'));
+        // await userEvent.click(await canvas.findByText('Vis meg ledige stillinger'));
         await userEvent.click(await canvas.getByRole('button', { name: 'Velg yrkeskategori' }));
         await userEvent.click(await screen.findByText('IT'));
         await userEvent.click(await screen.findByText('Velg alle'));
