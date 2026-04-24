@@ -7,6 +7,7 @@ interface Props {
     brukerprofil: Brukerprofil;
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
     onSubmitStillingsSoek(data: any): Promise<void>;
+    onRefreshServerComponent: () => void;
     sprak: Sprak;
 }
 
@@ -15,9 +16,16 @@ function StartStyrkloft(props: Props) {
     const { onSubmitTjenestestatus, submittedTjenestestatus, pendingTjenestestatus, errorTjenestestatus } =
         useOnSubmitTjenestestatus(props.onSubmitTjenestestatus);
 
+    const onSubmit = async (status: Tjenestestatus) => {
+        await onSubmitTjenestestatus(status);
+        if (status === 'AKTIV') {
+            props.onRefreshServerComponent();
+        }
+    };
+
     return (
         <StartStyrkloftStateless
-            onSubmitTjenestestatus={onSubmitTjenestestatus}
+            onSubmitTjenestestatus={onSubmit}
             onSubmitStillingsSoek={props.onSubmitStillingsSoek}
             visGodkjennEksperiment={submittedTjenestestatus === null}
             visVelgFiltere={submittedTjenestestatus === 'AKTIV' || brukerprofil.tjenestestatus === 'AKTIV'}

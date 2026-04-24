@@ -33,7 +33,7 @@ export function StartStyrkloftStateless(props: Props) {
     } else if (visGodkjennEksperiment || visVelgFiltere) {
         return (
             <Box className={'py-4 px-6'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
-                {visVelgFiltere && <VelgStillingssoek sprak={sprak} onSubmit={onSubmitStillingsSoek} />}
+                {/*{visVelgFiltere && <VelgStillingssoek sprak={sprak} onSubmit={onSubmitStillingsSoek} />}*/}
                 {visGodkjennEksperiment && !visVelgFiltere && (
                     <GodkjennEksperiment
                         sprak={sprak}
