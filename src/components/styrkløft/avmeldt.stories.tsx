@@ -21,5 +21,6 @@ export const Default: Story = {
         onSubmit() {
             Promise.resolve();
         },
+        sprak: 'nb'
     } as any,
 };

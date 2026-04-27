@@ -31,7 +31,7 @@ function Avmeldt(props: AktivBrukerProps) {
         loggVisning({ viser: 'Styrkløft avmeldt' });
     }, [optOutTidspunkt]);
 
-    return <AvmeldtStateless {...submitProps} onSubmit={onSubmit} />;
+    return <AvmeldtStateless {...submitProps} onSubmit={onSubmit} sprak={props.sprak}/>;
 }
 
 export default Avmeldt;
