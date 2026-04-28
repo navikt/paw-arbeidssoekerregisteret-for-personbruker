@@ -47,7 +47,7 @@ export type StyrkState = {
 };
 
 export type StyrkAction =
-    | { type: 'SUBMITTED_TJENESTESTATUS'; payload: Tjenestestatus | null }
+    | { type: 'SUBMITTED_TJENESTESTATUS'; payload: Tjenestestatus }
     | { type: 'VIS_ENDRE_SOK'; payload: boolean }
     | { type: 'VIS_AVSLUTT_MODAL'; payload: boolean }
     | { type: 'LAGRER_SOEK'; payload: any };

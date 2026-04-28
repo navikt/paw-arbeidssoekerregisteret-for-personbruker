@@ -21,13 +21,7 @@ function Avmeldt(props: AvmeldtProps) {
 
     const { onSubmitTjenestestatus, ...submitProps } = useOnSubmitTjenestestatus(props.onSubmitTjenestestatus);
 
-    const onSubmit = async () => {
-        try {
-            await onSubmitTjenestestatus('AKTIV');
-        } catch (err) {
-            console.error(err);
-        }
-    };
+    const onSubmit = () => onSubmitTjenestestatus('AKTIV');
 
     useEffect(() => {
         if (!optOutTidspunkt) {
