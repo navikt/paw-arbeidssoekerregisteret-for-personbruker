@@ -54,7 +54,9 @@ function StyrkLoft(props: Props) {
     const brukerprofil = state.brukerprofil;
     const visStartKomponent = brukerprofil.tjenestestatus === 'INAKTIV' && state.submittedTjenestestatus === null;
     const visKvitteringAvmeldt = state.submittedTjenestestatus === 'OPT_OUT';
-    const visAvmeldt = brukerprofil.tjenestestatus === 'OPT_OUT' || brukerprofil.tjenestestatus === 'KAN_IKKE_LEVERES';
+    const visAvmeldt =
+        (brukerprofil.tjenestestatus === 'OPT_OUT' || brukerprofil.tjenestestatus === 'KAN_IKKE_LEVERES') &&
+        state.submittedTjenestestatus === null;
     const visAktiv = brukerprofil.tjenestestatus === 'AKTIV' || state.submittedTjenestestatus === 'AKTIV';
 
     const onSubmitStillingsSoek = async (data: onSubmitStillingsSoekPayload) => {
