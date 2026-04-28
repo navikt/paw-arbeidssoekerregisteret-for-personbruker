@@ -34,7 +34,7 @@ function AvmeldtStateless(props: AvmeldtKomponentProps) {
                     size={'xsmall'}
                     onClick={onSubmit}
                     disabled={Boolean(pendingTjenestestatus)}
-                    aria-busy={Boolean(pendingTjenestestatus)}
+                    loading={Boolean(pendingTjenestestatus)}
                 >
                     {tekst('buttonTekst')}
                 </Button>
