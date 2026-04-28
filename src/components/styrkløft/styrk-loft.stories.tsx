@@ -1,14 +1,32 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import StyrkLoft from '@/components/styrkløft/styrk-loft';
-import { Tjenestestatus } from '@/model/brukerprofil';
+import type { Tjenestestatus } from '@/model/brukerprofil';
 import { expect, userEvent, screen } from 'storybook/test';
+import { useReducer } from 'react';
+import { reducer, initialStyrkState } from '@/components/styrkløft/reducer';
+import { Brukerprofil } from '@/model/brukerprofil';
+import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+
+interface StyrkLoftStoryProps {
+    brukerprofil: Brukerprofil;
+    onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
+    onSubmitStillingsSoek(data: any): Promise<void>;
+    useOnFetchStillinger(): { data?: any; error?: Error };
+    sprak: Sprak;
+}
+
+function StyrkLoftWithState(props: StyrkLoftStoryProps) {
+    const [state, dispatch] = useReducer(reducer, props.brukerprofil, initialStyrkState);
+    console.log('state', state);
+    return <StyrkLoft {...props} state={state} dispatch={dispatch} />;
+}
 
 const meta = {
     title: 'Styrkløft/Styrkløft',
-    component: StyrkLoft,
+    component: StyrkLoftWithState,
     tags: ['autodocs'],
     args: {},
-} satisfies Meta<typeof StyrkLoft>;
+} satisfies Meta<typeof StyrkLoftWithState>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -73,9 +91,6 @@ export const Demo: Story = {
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
         },
-        onRefreshServerComponent() {
-            console.log('onRefreshServerComponent');
-        },
         sprak: 'nb',
     },
 };
@@ -94,9 +109,6 @@ export const Avmeldt: Story = {
         },
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
-        },
-        onRefreshServerComponent() {
-            console.log('onRefreshServerComponent');
         },
         sprak: 'nb',
     },
@@ -118,10 +130,10 @@ export const AktivUtenLagretSøk: Story = {
         useOnFetchStillinger() {
             return ledigStillingerRespons;
         },
-        onRefreshServerComponent() {
-            console.log('onRefreshServerComponent');
-        },
         sprak: 'nb',
+    },
+    async play(context) {
+        await expect(context.canvas.queryByText('Avbryt')).toBeNull();
     },
 };
 export const MedLagretSøk: Story = {
@@ -158,9 +170,6 @@ export const MedLagretSøk: Story = {
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
         },
-        onRefreshServerComponent() {
-            console.log('onRefreshServerComponent');
-        },
         sprak: 'nb',
     },
 };
@@ -188,9 +197,6 @@ export const MedFeilNårManLagrerTjenestestatus: Story = {
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
         },
-        onRefreshServerComponent() {
-            console.log('onRefreshServerComponent');
-        },
         sprak: 'nb',
     },
 };
@@ -215,9 +221,6 @@ export const MedFeilNårManLagrerSøk: Story = {
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
         },
-        onRefreshServerComponent() {
-            console.log('onRefreshServerComponent');
-        },
         sprak: 'nb',
     },
 };
@@ -226,8 +229,7 @@ export const PlaywrightTestVisStillinger: Story = {
     args: {
         brukerprofil: {
             identitetsnummer: '42',
-            // tjenestestatus: 'INAKTIV',
-            tjenestestatus: 'AKTIV',
+            tjenestestatus: 'INAKTIV',
         },
         onSubmitTjenestestatus(status: Tjenestestatus) {
             return Promise.resolve();
@@ -238,14 +240,11 @@ export const PlaywrightTestVisStillinger: Story = {
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
         },
-        onRefreshServerComponent() {
-            console.log('onRefreshServerComponent');
-        },
         sprak: 'nb',
     },
     async play(context) {
         const canvas = context.canvas;
-        // await userEvent.click(await canvas.findByText('Vis meg ledige stillinger'));
+        await userEvent.click(await canvas.findByText('Vis meg ledige stillinger'));
         await userEvent.click(await canvas.getByRole('button', { name: 'Velg yrkeskategori' }));
         await userEvent.click(await screen.findByText('IT'));
         await userEvent.click(await screen.findByText('Velg alle'));
@@ -274,9 +273,6 @@ export const PlaywrightTestAvmelding: Story = {
         },
         useOnFetchStillinger() {
             return { ...ledigStillingerRespons };
-        },
-        onRefreshServerComponent() {
-            console.log('onRefreshServerComponent');
         },
         sprak: 'nb',
     },

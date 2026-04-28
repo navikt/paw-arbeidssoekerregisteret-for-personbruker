@@ -1,21 +1,24 @@
-import { Box, Heading, InlineMessage, Loader } from '@navikt/ds-react';
+import { Box, Heading, Loader } from '@navikt/ds-react';
 import { FlerValgsMeny } from '@/components/styrkløft/flervalgsmeny';
 import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
-import { AktivBrukerProps } from '@/components/styrkløft/aktiv-bruker';
 import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
 import { BekreftAvmelding } from '@/components/styrkløft/bekreft-avmelding';
-import { Tjenestestatus } from '@/model/brukerprofil';
-import { KvitteringAvmeldt } from '@/components/styrkløft/kvittering-avmeldt';
-import { lagHentTekstForSprak } from '@navikt/arbeidssokerregisteret-utils';
+import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
+import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggStyrkeloft } from '@/lib/tracking';
 
-interface Props extends AktivBrukerProps {
-    isEditMode: boolean;
+interface Props {
+    brukerprofil: Brukerprofil;
+    sprak: Sprak;
+    useOnFetchStillinger(): { data?: any; error?: Error };
+    onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
+    onSubmitStillingsSoek(data: any): Promise<void>;
+    visEndreSok: boolean;
     visAvmeldModal: boolean;
     onEditSearch: () => void;
-    onCancelEditSearch: () => void;
+    onCancelEditSearch?: () => void;
     lagretSok: {
         fylker: string[];
         yrkeskategorier: string[];
@@ -44,7 +47,7 @@ const TEKSTER = {
 function AktivBrukerStateless(props: Props) {
     const {
         sprak,
-        isEditMode,
+        visEndreSok,
         visAvmeldModal,
         lagretSok,
         onSubmitStillingsSoek,
@@ -52,34 +55,34 @@ function AktivBrukerStateless(props: Props) {
         onCancelEditSearch,
         onVisAvmeldModal,
         onSubmitTjenestestatus,
-        submittedTjenestestatus,
         pendingTjenestestatus,
         errorTjenestestatus,
         brukerprofil,
     } = props;
-
-    if (submittedTjenestestatus === 'OPT_OUT') {
-        return <KvitteringAvmeldt sprak={sprak} />;
-    }
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+
     const kanSeDirektemeldteStillinger = (brukerprofil.flagg ?? []).some(
         (flagg) => flagg.navn === 'DIREKTEMELDTE_STILLINGER',
     );
+
     return (
         <Box className={'py-4 px-6'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
             <div className={'flex justify-between'}>
                 <Heading size={'medium'} level={'3'} className={'mb-4'}>
                     {tekst('heading')}
                 </Heading>
-                <FlerValgsMeny onEditSearch={onEditSearch} onEnd={() => onVisAvmeldModal(true)} sprak={sprak} />
+                <FlerValgsMeny
+                    disabledEditSearch={visEndreSok}
+                    onEditSearch={onEditSearch}
+                    onEnd={() => onVisAvmeldModal(true)}
+                    sprak={sprak}
+                />
             </div>
-            <InlineMessage status={'info'} className={'mb-4'}>
-                {tekst('nyhet')}
-            </InlineMessage>
-            {!isEditMode && (
+            {!visEndreSok && (
                 <ErrorBoundary errorComponent={() => null}>
                     <Suspense fallback={<Loader />}>
                         <LedigeStillinger
+                            key={`${lagretSok.fylker.join(',')}-${lagretSok.yrkeskategorier.join(',')}`}
                             useOnFetchData={props.useOnFetchStillinger}
                             sprak={sprak}
                             kanSeDirektemeldteStillinger={kanSeDirektemeldteStillinger}
@@ -87,7 +90,7 @@ function AktivBrukerStateless(props: Props) {
                     </Suspense>
                 </ErrorBoundary>
             )}
-            {isEditMode && (
+            {visEndreSok && (
                 <VelgStillingssoek
                     sprak={sprak}
                     fylker={lagretSok.fylker}

@@ -60,65 +60,8 @@ export const Default: Story = {
         },
         onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
         onSubmitStillingsSoek: (data: any) => Promise.resolve(),
-        onRefreshServerComponent() {
-            console.log('onRefreshServerComponent');
-        },
         sprak: 'nb',
-        isEditMode: false,
-        visAvmeldModal: false,
-        brukerprofil: {
-            identitetsnummer: '42',
-            tjenestestatus: 'AKTIV',
-        },
-        onEditSearch: () => console.log('onEditSearch'),
-        lagretSok: {
-            fylker: [],
-            yrkeskategorier: [],
-        },
-        onCancelEditSearch: () => console.log('onCancelEditSearch'),
-        onVisAvmeldModal: () => console.log('onVisAvmeldModal'),
-    },
-};
-
-export const MedAktivAvmelding: Story = {
-    args: {
-        useOnFetchStillinger() {
-            return ledigStillingerRespons;
-        },
-        onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
-        onSubmitStillingsSoek: (data: any) => Promise.resolve(),
-        onRefreshServerComponent() {
-            console.log('onRefreshServerComponent');
-        },
-        sprak: 'nb',
-        isEditMode: false,
-        visAvmeldModal: true,
-        brukerprofil: {
-            identitetsnummer: '42',
-            tjenestestatus: 'AKTIV',
-        },
-        onEditSearch: () => console.log('onEditSearch'),
-        lagretSok: {
-            fylker: [],
-            yrkeskategorier: [],
-        },
-        onCancelEditSearch: () => console.log('onCancelEditSearch'),
-        onVisAvmeldModal: () => console.log('onVisAvmeldModal'),
-    },
-};
-
-export const Avmeldt: Story = {
-    args: {
-        useOnFetchStillinger() {
-            return ledigStillingerRespons;
-        },
-        onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
-        onSubmitStillingsSoek: (data: any) => Promise.resolve(),
-        onRefreshServerComponent() {
-            console.log('onRefreshServerComponent');
-        },
-        sprak: 'nb',
-        isEditMode: false,
+        visEndreSok: false,
         visAvmeldModal: false,
         brukerprofil: {
             identitetsnummer: '42',

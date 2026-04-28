@@ -15,6 +15,7 @@ export const DefaultFlerValgsMeny: Story = {
     args: {
         onEditSearch: () => console.log('onEditSearch'),
         onEnd: () => console.log('onEndSearch'),
+        disabledEditSearch: false,
         sprak: 'nb',
     },
 };

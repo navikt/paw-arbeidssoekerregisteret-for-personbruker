@@ -6,6 +6,8 @@ import StyrkLoft from '@/components/styrkløft/styrk-loft';
 import byggStillingssoekPayload from '@/lib/bygg-stillingssoek-payload';
 import useSWRImmutable from 'swr/immutable';
 import { useRouter } from 'next/navigation';
+import { useReducer } from 'react';
+import { initialStyrkState, reducer } from '@/components/styrkløft/reducer';
 
 interface Props {
     sprak: Sprak;
@@ -59,9 +61,7 @@ function StyrkWidget(props: Props) {
         });
     };
 
-    const onRefreshServerComponent = () => {
-        router.refresh();
-    };
+    const [state, dispatch] = useReducer(reducer, props.brukerprofil, initialStyrkState);
 
     return (
         <StyrkLoft
@@ -70,7 +70,8 @@ function StyrkWidget(props: Props) {
             useOnFetchStillinger={useOnFetchStillinger}
             onSubmitStillingsSoek={onSubmitStillingsSoek}
             onSubmitTjenestestatus={onSubmitTjenesteStatus}
-            onRefreshServerComponent={onRefreshServerComponent}
+            state={state}
+            dispatch={dispatch}
         />
     );
 }

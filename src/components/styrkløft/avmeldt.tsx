@@ -1,13 +1,20 @@
 'use client';
 
-import { AktivBrukerProps } from '@/components/styrkløft/aktiv-bruker';
 import { useEffect } from 'react';
 import { loggVisning } from '@/lib/tracking';
 import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
 import AvmeldtStateless from '@/components/styrkløft/avmeldt-stateless';
+import { Brukerprofil } from '@/model/brukerprofil';
+import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
-function Avmeldt(props: AktivBrukerProps) {
-    const { brukerprofil, onRefreshServerComponent } = props;
+interface AvmeldtProps {
+    brukerprofil: Brukerprofil;
+    onSubmitTjenestestatus(status: string): Promise<void>;
+    sprak: Sprak;
+}
+
+function Avmeldt(props: AvmeldtProps) {
+    const { brukerprofil } = props;
     const optOutTidspunkt = (brukerprofil.flagg || [])
         .filter((f) => f.navn === 'OPT_OUT')
         .sort((a, b) => new Date(b.tidspunkt ?? 0).getTime() - new Date(a.tidspunkt ?? 0).getTime())[0]?.tidspunkt;
@@ -17,7 +24,6 @@ function Avmeldt(props: AktivBrukerProps) {
     const onSubmit = async () => {
         try {
             await onSubmitTjenestestatus('AKTIV');
-            onRefreshServerComponent();
         } catch (err) {
             console.error(err);
         }
@@ -31,7 +37,7 @@ function Avmeldt(props: AktivBrukerProps) {
         loggVisning({ viser: 'Styrkløft avmeldt' });
     }, [optOutTidspunkt]);
 
-    return <AvmeldtStateless {...submitProps} onSubmit={onSubmit} sprak={props.sprak}/>;
+    return <AvmeldtStateless {...submitProps} onSubmit={onSubmit} sprak={props.sprak} />;
 }
 
 export default Avmeldt;

@@ -62,7 +62,7 @@ export default function VelgStillingssoekStateless(props: Props) {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     return (
         <Box>
-            <Heading level={kanAvbryte ? '4' : '3'} size={kanAvbryte ? 'small' : 'large'}>
+            <Heading level={'4'} size={'small'}>
                 {tekst('heading')}
             </Heading>
             <section className={'my-4'}>
@@ -75,7 +75,6 @@ export default function VelgStillingssoekStateless(props: Props) {
                 />
             </section>
             <section className={'my-4'}>
-                {/*<FilterVelger values={fylker} options={FYLKER} heading={tekst('velgFylke')} onChange={onChangeFylker} />*/}
                 <UnderkategoriVelger
                     triggerText={tekst('velgFylke')}
                     options={FYLKER_OG_KOMMUNER}
