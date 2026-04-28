@@ -130,9 +130,7 @@ const StyrkLoftServerKomponent = async ({ sprak }: Props) => {
                     slug={'arbeids-og-velferdsetaten-nav/styrkeloft-eksperimentavslutning'}
                 />
             )}
-            <div className={'mt-4'}>
-                <StyrkWidget sprak={sprak} brukerprofil={data} />
-            </div>
+            <StyrkWidget sprak={sprak} brukerprofil={data} />
         </>
     );
 };
