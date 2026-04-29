@@ -43,7 +43,8 @@ export type StyrkeloftData =
     | { aktivitet: 'Takker nei til å delta' }
     | { aktivitet: 'Åpner flervalgsmeny' }
     | { aktivitet: 'Går til endre stillingssøk' }
-    | { aktivitet: 'Trykker på pagineringsknapp' };
+    | { aktivitet: 'Trykker på pagineringsknapp' }
+    | { aktivitet: 'Trykker på Vis ledige stillinger fra avmeldt' };
 
 export type UnderkategoriFilterData =
     | { aktivitet: 'Trykker på velg alle' }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { loggVisning } from '@/lib/tracking';
+import { loggStyrkeloft, loggVisning } from '@/lib/tracking';
 import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
 import AvmeldtStateless from '@/components/styrkløft/avmeldt-stateless';
 import { Brukerprofil } from '@/model/brukerprofil';
@@ -21,7 +21,10 @@ function Avmeldt(props: AvmeldtProps) {
 
     const { onSubmitTjenestestatus, ...submitProps } = useOnSubmitTjenestestatus(props.onSubmitTjenestestatus);
 
-    const onSubmit = () => onSubmitTjenestestatus('AKTIV');
+    const onSubmit = () => {
+        loggStyrkeloft({ aktivitet: 'Trykker på Vis ledige stillinger fra avmeldt' });
+        return onSubmitTjenestestatus('AKTIV');
+    };
 
     useEffect(() => {
         if (!optOutTidspunkt) {
