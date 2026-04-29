@@ -5,7 +5,6 @@ import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import StyrkLoft from '@/components/styrkløft/styrk-loft';
 import byggStillingssoekPayload from '@/lib/bygg-stillingssoek-payload';
 import useSWRImmutable from 'swr/immutable';
-import { useRouter } from 'next/navigation';
 import { useReducer } from 'react';
 import { initialStyrkState, reducer } from '@/components/styrkløft/reducer';
 
@@ -40,7 +39,6 @@ const swrFetcher = (url: string) => {
 };
 
 function StyrkWidget(props: Props) {
-    const router = useRouter();
     const onSubmitTjenesteStatus = (status: Tjenestestatus) => {
         return fetcher(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/tjenestestatus`, {
             tjenestestatus: status,
@@ -66,7 +64,6 @@ function StyrkWidget(props: Props) {
     return (
         <StyrkLoft
             sprak={props.sprak}
-            brukerprofil={props.brukerprofil}
             useOnFetchStillinger={useOnFetchStillinger}
             onSubmitStillingsSoek={onSubmitStillingsSoek}
             onSubmitTjenestestatus={onSubmitTjenesteStatus}

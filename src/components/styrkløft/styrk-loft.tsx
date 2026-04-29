@@ -1,6 +1,6 @@
 'use client';
 
-import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
+import { Tjenestestatus } from '@/model/brukerprofil';
 import StartStyrkloft from '@/components/styrkløft/start-styrkloft';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { ActionDispatch } from 'react';
@@ -15,7 +15,6 @@ interface onSubmitStillingsSoekPayload {
 }
 
 interface Props {
-    brukerprofil: Brukerprofil;
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
     onSubmitStillingsSoek(data: onSubmitStillingsSoekPayload): Promise<void>;
     useOnFetchStillinger(): { data?: any; error?: Error };
@@ -25,23 +24,35 @@ interface Props {
 }
 
 interface StatelessProps extends Omit<Props, 'dispatch'> {
-    visStartKomponent: boolean;
-    visKvitteringAvmeldt: boolean;
-    visAktiv: boolean;
-    visAvmeldt: boolean;
     onSettEndreSok(payload: boolean): void;
     onVisAvmeldModal(payload: boolean): void;
 }
 
+export function hentVisningsState(state: StyrkState) {
+    const brukerprofil = state.brukerprofil;
+    return {
+        visStartKomponent: brukerprofil.tjenestestatus === 'INAKTIV' && state.submittedTjenestestatus === null,
+        visKvitteringAvmeldt: state.submittedTjenestestatus === 'OPT_OUT',
+        visAvmeldt: brukerprofil.tjenestestatus === 'OPT_OUT' && state.submittedTjenestestatus === null,
+        visAktiv: brukerprofil.tjenestestatus === 'AKTIV' || state.submittedTjenestestatus === 'AKTIV',
+    };
+}
+
 function StyrkLoftStateless(props: StatelessProps) {
-    const { visStartKomponent, visAktiv, visAvmeldt, visKvitteringAvmeldt } = props;
+    const { visStartKomponent, visAktiv, visAvmeldt, visKvitteringAvmeldt } = hentVisningsState(props.state);
 
     if (visStartKomponent) {
         return <StartStyrkloft {...props} />;
     } else if (visKvitteringAvmeldt) {
         return <KvitteringAvmeldt sprak={props.sprak} />;
     } else if (visAvmeldt) {
-        return <Avmeldt {...props} />;
+        return (
+            <Avmeldt
+                sprak={props.sprak}
+                onSubmitTjenestestatus={props.onSubmitTjenestestatus}
+                brukerprofil={props.state.brukerprofil}
+            />
+        );
     } else if (visAktiv) {
         return <AktivBruker {...props} />;
     }
@@ -51,13 +62,6 @@ function StyrkLoftStateless(props: StatelessProps) {
 
 function StyrkLoft(props: Props) {
     const { sprak, useOnFetchStillinger, state, dispatch } = props;
-    const brukerprofil = state.brukerprofil;
-    const visStartKomponent = brukerprofil.tjenestestatus === 'INAKTIV' && state.submittedTjenestestatus === null;
-    const visKvitteringAvmeldt = state.submittedTjenestestatus === 'OPT_OUT';
-    const visAvmeldt =
-        (brukerprofil.tjenestestatus === 'OPT_OUT' || brukerprofil.tjenestestatus === 'KAN_IKKE_LEVERES') &&
-        state.submittedTjenestestatus === null;
-    const visAktiv = brukerprofil.tjenestestatus === 'AKTIV' || state.submittedTjenestestatus === 'AKTIV';
 
     const onSubmitStillingsSoek = async (data: onSubmitStillingsSoekPayload) => {
         await props.onSubmitStillingsSoek(data);
@@ -74,11 +78,6 @@ function StyrkLoft(props: Props) {
 
     return (
         <StyrkLoftStateless
-            visAvmeldt={visAvmeldt}
-            visStartKomponent={visStartKomponent}
-            visAktiv={visAktiv}
-            visKvitteringAvmeldt={visKvitteringAvmeldt}
-            brukerprofil={brukerprofil}
             onSubmitTjenestestatus={onSubmitTjenestestatus}
             onSubmitStillingsSoek={onSubmitStillingsSoek}
             useOnFetchStillinger={useOnFetchStillinger}
