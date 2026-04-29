@@ -1,16 +1,19 @@
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 import AktivBrukerStateless from '@/components/styrkløft/aktiv-bruker-stateless';
-import { useState } from 'react';
+import { ActionDispatch, useState } from 'react';
 import { hentYrkeUnderkategorier } from '@/lib/hent-yrkeskategorier';
 import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
 import { hentFylkerUnderkategorier } from '@/lib/hent-fylkeliste';
+import { StyrkAction, StyrkState } from '@/components/styrkløft/reducer';
 
 export interface AktivBrukerProps {
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
     onSubmitStillingsSoek(data: any): Promise<void>;
     useOnFetchStillinger(): { data?: any; error?: Error };
-    brukerprofil: Brukerprofil;
+    onSettEndreSok(payload: boolean): void;
+    onVisAvmeldModal(payload: boolean): void;
+    state: StyrkState;
     sprak: Sprak;
 }
 
@@ -22,37 +25,40 @@ function initLagretSok(brukerprofil: Brukerprofil) {
 }
 
 function AktivBruker(props: AktivBrukerProps) {
-    const [isEditMode, setIsEditMode] = useState<boolean>(false);
+    const { state, onSettEndreSok, onVisAvmeldModal } = props;
     const [lagretSok, settLagretSok] = useState<{ fylker: string[]; yrkeskategorier: string[] }>(
-        initLagretSok(props.brukerprofil),
+        initLagretSok(state.brukerprofil),
     );
-    const [visAvmeldModal, settVisAvmeldModal] = useState<boolean>(false);
 
     const onSubmitStillingssoek = async (data: any) => {
         await props.onSubmitStillingsSoek(data);
         settLagretSok(data);
-        setIsEditMode(false);
+        onSettEndreSok(false);
     };
 
-    const onEditSearch = () => setIsEditMode(true);
-    const onCancelEditSearch = () => setIsEditMode(false);
+    const onEditSearch = () => onSettEndreSok(true);
+    const onCancelEditSearch = () => onSettEndreSok(false);
+
     const { onSubmitTjenestestatus, submittedTjenestestatus, pendingTjenestestatus, errorTjenestestatus } =
         useOnSubmitTjenestestatus(props.onSubmitTjenestestatus);
+    const kanAvbryteEndreSok = (state.brukerprofil.stillingssoek || []).length > 0;
 
     return (
         <AktivBrukerStateless
-            {...props}
-            isEditMode={isEditMode}
-            visAvmeldModal={visAvmeldModal}
+            sprak={props.sprak}
+            useOnFetchStillinger={props.useOnFetchStillinger}
+            visEndreSok={state.visEndreSok}
+            visAvmeldModal={state.visAvsluttModal}
             onEditSearch={onEditSearch}
             onSubmitStillingsSoek={onSubmitStillingssoek}
             lagretSok={lagretSok}
-            onCancelEditSearch={onCancelEditSearch}
-            onVisAvmeldModal={(val: boolean) => settVisAvmeldModal(val)}
+            onCancelEditSearch={kanAvbryteEndreSok ? onCancelEditSearch : undefined}
+            onVisAvmeldModal={onVisAvmeldModal}
             onSubmitTjenestestatus={onSubmitTjenestestatus}
             submittedTjenestestatus={submittedTjenestestatus}
             pendingTjenestestatus={pendingTjenestestatus}
             errorTjenestestatus={errorTjenestestatus}
+            brukerprofil={state.brukerprofil}
         />
     );
 }

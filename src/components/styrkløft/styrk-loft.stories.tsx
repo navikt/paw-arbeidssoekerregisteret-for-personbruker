@@ -1,14 +1,32 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import StyrkLoft from '@/components/styrkløft/styrk-loft';
-import { Tjenestestatus } from '@/model/brukerprofil';
+import type { Tjenestestatus } from '@/model/brukerprofil';
 import { expect, userEvent, screen } from 'storybook/test';
+import { useReducer } from 'react';
+import { reducer, initialStyrkState } from '@/components/styrkløft/reducer';
+import { Brukerprofil } from '@/model/brukerprofil';
+import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+
+interface StyrkLoftStoryProps {
+    brukerprofil: Brukerprofil;
+    onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
+    onSubmitStillingsSoek(data: any): Promise<void>;
+    useOnFetchStillinger(): { data?: any; error?: Error };
+    sprak: Sprak;
+}
+
+function StyrkLoftWithState(props: StyrkLoftStoryProps) {
+    const [state, dispatch] = useReducer(reducer, props.brukerprofil, initialStyrkState);
+    console.log('state', state);
+    return <StyrkLoft {...props} state={state} dispatch={dispatch} />;
+}
 
 const meta = {
     title: 'Styrkløft/Styrkløft',
-    component: StyrkLoft,
+    component: StyrkLoftWithState,
     tags: ['autodocs'],
     args: {},
-} satisfies Meta<typeof StyrkLoft>;
+} satisfies Meta<typeof StyrkLoftWithState>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -32,7 +50,7 @@ const ledigStillingerRespons = {
         },
         resultat: [
             {
-                arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+                arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa5',
                 tittel: 'Nittedal Tannlegesenter har ledig stilling som tannhelsesekretær/tannlegeassistent, er du den rette?',
                 stillingbeskrivelse: 'Tannlegeassistent, Tannhelsesekretær, Klinikkassistent',
                 selskap: 'Nittedal Tannlegesenter Og Tannlegevakt',
@@ -113,6 +131,9 @@ export const AktivUtenLagretSøk: Story = {
             return ledigStillingerRespons;
         },
         sprak: 'nb',
+    },
+    async play(context) {
+        await expect(context.canvas.queryByText('Avbryt')).toBeNull();
     },
 };
 export const MedLagretSøk: Story = {

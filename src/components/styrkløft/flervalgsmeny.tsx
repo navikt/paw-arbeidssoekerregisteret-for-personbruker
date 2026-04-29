@@ -24,13 +24,14 @@ const TEKSTER = {
 };
 
 type FlerValgsMenyProps = {
+    disabledEditSearch: boolean;
     onEditSearch: () => void;
     onEnd: () => void;
     sprak: Sprak;
 };
 
 const FlerValgsMeny: React.FC<FlerValgsMenyProps> = (props) => {
-    const { onEditSearch, onEnd, sprak } = props;
+    const { onEditSearch, onEnd, sprak, disabledEditSearch } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
@@ -48,6 +49,7 @@ const FlerValgsMeny: React.FC<FlerValgsMenyProps> = (props) => {
                 <ActionMenu.Content>
                     <ActionMenu.Group label="Tilvalg for arbeidsøket">
                         <ActionMenu.Item
+                            disabled={disabledEditSearch}
                             onSelect={onEditSearch}
                             onClick={() => loggStyrkeloft({ aktivitet: 'Går til endre stillingssøk' })}
                         >

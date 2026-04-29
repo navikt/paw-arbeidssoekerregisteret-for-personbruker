@@ -18,53 +18,32 @@ export const Start: Story = {
             console.log('onSubmitTjenestestatus', status);
             return Promise.resolve();
         },
-        onSubmitStillingsSoek(data: any) {
-            console.log('onSubmitStillingsSoek', data);
-            return Promise.resolve();
-        },
-        visGodkjennEksperiment: true,
-        visVelgFiltere: false,
-        visAvmeldtKvittering: false,
         pendingTjenestestatus: null,
         errorTjenestestatus: null,
         sprak: 'nb',
     },
 };
 
-export const ValgtVisStillinger: Story = {
+export const MedPendingRequest: Story = {
     args: {
         onSubmitTjenestestatus(status: Tjenestestatus) {
             console.log('onSubmitTjenestestatus', status);
             return Promise.resolve();
         },
-        onSubmitStillingsSoek(data: any) {
-            console.log('onSubmitStillingsSoek', data);
-            return Promise.resolve();
-        },
-        visGodkjennEksperiment: false,
-        visVelgFiltere: true,
-        visAvmeldtKvittering: false,
-        pendingTjenestestatus: null,
+        pendingTjenestestatus: 'AKTIV',
         errorTjenestestatus: null,
         sprak: 'nb',
     },
 };
 
-export const ValgtNeiTakk: Story = {
+export const MedFeil: Story = {
     args: {
         onSubmitTjenestestatus(status: Tjenestestatus) {
             console.log('onSubmitTjenestestatus', status);
             return Promise.resolve();
         },
-        onSubmitStillingsSoek(data: any) {
-            console.log('onSubmitStillingsSoek', data);
-            return Promise.resolve();
-        },
-        visGodkjennEksperiment: false,
-        visVelgFiltere: false,
-        visAvmeldtKvittering: true,
         pendingTjenestestatus: null,
-        errorTjenestestatus: null,
+        errorTjenestestatus: 'Noe gikk galt',
         sprak: 'nb',
     },
 };

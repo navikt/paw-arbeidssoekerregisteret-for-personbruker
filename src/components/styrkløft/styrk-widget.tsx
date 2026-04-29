@@ -5,6 +5,8 @@ import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import StyrkLoft from '@/components/styrkløft/styrk-loft';
 import byggStillingssoekPayload from '@/lib/bygg-stillingssoek-payload';
 import useSWRImmutable from 'swr/immutable';
+import { useReducer } from 'react';
+import { initialStyrkState, reducer } from '@/components/styrkløft/reducer';
 
 interface Props {
     sprak: Sprak;
@@ -57,13 +59,16 @@ function StyrkWidget(props: Props) {
         });
     };
 
+    const [state, dispatch] = useReducer(reducer, props.brukerprofil, initialStyrkState);
+
     return (
         <StyrkLoft
             sprak={props.sprak}
-            brukerprofil={props.brukerprofil}
             useOnFetchStillinger={useOnFetchStillinger}
             onSubmitStillingsSoek={onSubmitStillingsSoek}
             onSubmitTjenestestatus={onSubmitTjenesteStatus}
+            state={state}
+            dispatch={dispatch}
         />
     );
 }

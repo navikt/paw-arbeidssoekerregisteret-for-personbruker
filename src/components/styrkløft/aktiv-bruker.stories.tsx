@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import StyrkLoft from '@/components/styrkløft/styrk-loft';
 import AktivBruker from '@/components/styrkløft/aktiv-bruker';
 import { Tjenestestatus } from '@/model/brukerprofil';
 
@@ -8,7 +7,7 @@ const meta = {
     component: AktivBruker,
     tags: ['autodocs'],
     args: {},
-} satisfies Meta<typeof StyrkLoft>;
+} satisfies Meta<typeof AktivBruker>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -62,9 +61,16 @@ export const Default: Story = {
         },
         onSubmitTjenestestatus: (status: Tjenestestatus) => Promise.resolve(),
         onSubmitStillingsSoek: (data: any) => Promise.resolve(),
-        brukerprofil: {
-            identitetsnummer: '42',
-            tjenestestatus: 'AKTIV',
+        onSettEndreSok: (val) => console.log('onSettEndreSok', val),
+        onVisAvmeldModal: (val) => console.log('onVisAvmeldModal', val),
+        state: {
+            submittedTjenestestatus: null,
+            visAvsluttModal: false,
+            visEndreSok: false,
+            brukerprofil: {
+                identitetsnummer: '42',
+                tjenestestatus: 'AKTIV',
+            },
         },
         sprak: 'nb',
     },

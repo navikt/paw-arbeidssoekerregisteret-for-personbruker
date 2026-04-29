@@ -1,14 +1,30 @@
 'use client';
 
-import { AktivBrukerProps } from '@/components/styrkløft/aktiv-bruker';
 import { useEffect } from 'react';
-import { loggVisning } from '@/lib/tracking';
+import { loggStyrkeloft, loggVisning } from '@/lib/tracking';
+import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
+import AvmeldtStateless from '@/components/styrkløft/avmeldt-stateless';
+import { Brukerprofil } from '@/model/brukerprofil';
+import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
-function Avmeldt(props: AktivBrukerProps) {
+interface AvmeldtProps {
+    brukerprofil: Brukerprofil;
+    onSubmitTjenestestatus(status: string): Promise<void>;
+    sprak: Sprak;
+}
+
+function Avmeldt(props: AvmeldtProps) {
     const { brukerprofil } = props;
     const optOutTidspunkt = (brukerprofil.flagg || [])
         .filter((f) => f.navn === 'OPT_OUT')
         .sort((a, b) => new Date(b.tidspunkt ?? 0).getTime() - new Date(a.tidspunkt ?? 0).getTime())[0]?.tidspunkt;
+
+    const { onSubmitTjenestestatus, ...submitProps } = useOnSubmitTjenestestatus(props.onSubmitTjenestestatus);
+
+    const onSubmit = () => {
+        loggStyrkeloft({ aktivitet: 'Trykker på Vis ledige stillinger fra avmeldt' });
+        return onSubmitTjenestestatus('AKTIV');
+    };
 
     useEffect(() => {
         if (!optOutTidspunkt) {
@@ -18,18 +34,7 @@ function Avmeldt(props: AktivBrukerProps) {
         loggVisning({ viser: 'Styrkløft avmeldt' });
     }, [optOutTidspunkt]);
 
-    return null;
+    return <AvmeldtStateless {...submitProps} onSubmit={onSubmit} sprak={props.sprak} />;
 }
-
-// function AvmeldtKomponent(props: AktivBrukerProps) {
-//     return (
-//         <Box background="default" padding="space-24" borderRadius="12" borderColor="neutral-subtle" borderWidth="1">
-//             <InlineMessage status={'info'}>
-//                 Du har sagt at du ikke vil se ledige stillinger. Ønsker du å ombestemme deg? Gå til{' '}
-//                 <a href="#">innstillinger</a> for å endre dette.
-//             </InlineMessage>
-//         </Box>
-//     );
-// }
 
 export default Avmeldt;
