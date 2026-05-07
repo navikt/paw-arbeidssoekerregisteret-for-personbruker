@@ -28,10 +28,26 @@ interface Props {
     sprak: Sprak;
 }
 
-async function SamletInformasjonServerComponent({ sprak }: Props) {
-    const { data: snapshotData, error: snapshotError } = await fetchArbeidssoekerregisteretSnapshot();
+interface SamletInformasjonProps extends Props {
+    snapshotPromise: ReturnType<typeof fetchArbeidssoekerregisteretSnapshot>;
+    bekreftelserPromise: ReturnType<typeof fetchTilgjengeligeBekreftelser>;
+    egenvurderingPromise: ReturnType<typeof fetchTilgjengeligEgenvurdering>;
+    brukerprofilPromise: ReturnType<typeof fetchBrukerprofil>;
+    skyraPromise: ReturnType<typeof isEnabled>;
+}
 
-    const { data: innloggingsNivaa } = await hentInnloggingsNivaa();
+async function SamletInformasjonServerComponent({
+    sprak,
+    snapshotPromise,
+    bekreftelserPromise,
+    egenvurderingPromise,
+    brukerprofilPromise,
+    skyraPromise,
+}: SamletInformasjonProps) {
+    const [{ data: snapshotData, error: snapshotError }, { data: innloggingsNivaa }] = await Promise.all([
+        snapshotPromise,
+        hentInnloggingsNivaa(),
+    ]);
 
     if (snapshotError) {
         return (
@@ -49,14 +65,18 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
             <RegistrertTittel snapshot={snapshotData} sprak={sprak} />
             <PeriodeInfo snapshot={snapshotData} sprak={sprak} />
             <Suspense fallback={<Loader />}>
-                <TilgjengeligBekreftelseKomponent sprak={sprak} />
+                <TilgjengeligBekreftelseKomponent sprak={sprak} bekreftelserPromise={bekreftelserPromise} />
             </Suspense>
             <Suspense fallback={<Loader />}>
-                <EgenvurderingServerKomponent sprak={sprak} />
+                <EgenvurderingServerKomponent sprak={sprak} egenvurderingPromise={egenvurderingPromise} />
             </Suspense>
             {harAktivPeriode && (
                 <Suspense>
-                    <StyrkLoftServerKomponent sprak={sprak} />
+                    <StyrkLoftServerKomponent
+                        sprak={sprak}
+                        brukerprofilPromise={brukerprofilPromise}
+                        skyraPromise={skyraPromise}
+                    />
                 </Suspense>
             )}
             {harAktivPeriode && snapshotData?.opplysning && (
@@ -90,8 +110,12 @@ async function SamletInformasjonServerComponent({ sprak }: Props) {
     );
 }
 
-const TilgjengeligBekreftelseKomponent = async ({ sprak }: Props) => {
-    const { data, error } = await fetchTilgjengeligeBekreftelser();
+interface BekreftelseProps extends Props {
+    bekreftelserPromise: ReturnType<typeof fetchTilgjengeligeBekreftelser>;
+}
+
+const TilgjengeligBekreftelseKomponent = async ({ sprak, bekreftelserPromise }: BekreftelseProps) => {
+    const { data, error } = await bekreftelserPromise;
 
     if (error) {
         return null;
@@ -100,8 +124,12 @@ const TilgjengeligBekreftelseKomponent = async ({ sprak }: Props) => {
     return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data!} sprak={sprak} />;
 };
 
-const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
-    const { data } = await fetchTilgjengeligEgenvurdering();
+interface EgenvurderingProps extends Props {
+    egenvurderingPromise: ReturnType<typeof fetchTilgjengeligEgenvurdering>;
+}
+
+const EgenvurderingServerKomponent = async ({ sprak, egenvurderingPromise }: EgenvurderingProps) => {
+    const { data } = await egenvurderingPromise;
 
     if (!data?.grunnlag) {
         return null;
@@ -114,9 +142,13 @@ const EgenvurderingServerKomponent = async ({ sprak }: Props) => {
     );
 };
 
-const StyrkLoftServerKomponent = async ({ sprak }: Props) => {
-    const { data, error } = await fetchBrukerprofil();
-    const erSkyraAktiv = await isEnabled(unleashKeys.BRUK_SKYRA);
+interface StyrkLoftProps extends Props {
+    brukerprofilPromise: ReturnType<typeof fetchBrukerprofil>;
+    skyraPromise: ReturnType<typeof isEnabled>;
+}
+
+const StyrkLoftServerKomponent = async ({ sprak, brukerprofilPromise, skyraPromise }: StyrkLoftProps) => {
+    const [{ data, error }, erSkyraAktiv] = await Promise.all([brukerprofilPromise, skyraPromise]);
 
     if (error || !data) {
         return null;
@@ -140,6 +172,13 @@ export default async function Home({ params }: NextPageProps) {
     const title = lagHentTekstForSprak(BREADCRUMBS_TITLES, sprak);
     const url = lagHentTekstForSprak(BREADCRUMBS_URLS, sprak);
 
+    // Start all API fetches immediately in parallel before any await
+    const snapshotPromise = fetchArbeidssoekerregisteretSnapshot();
+    const bekreftelserPromise = fetchTilgjengeligeBekreftelser();
+    const egenvurderingPromise = fetchTilgjengeligEgenvurdering();
+    const brukerprofilPromise = fetchBrukerprofil();
+    const skyraPromise = isEnabled(unleashKeys.BRUK_SKYRA);
+
     return (
         <main className="flex flex-col max-w-3xl mx-auto px-4">
             <SettSprakIDekorator sprak={sprak} />
@@ -150,7 +189,14 @@ export default async function Home({ params }: NextPageProps) {
                 }))}
             />
             <Suspense fallback={<Loader />}>
-                <SamletInformasjonServerComponent sprak={sprak} />
+                <SamletInformasjonServerComponent
+                    sprak={sprak}
+                    snapshotPromise={snapshotPromise}
+                    bekreftelserPromise={bekreftelserPromise}
+                    egenvurderingPromise={egenvurderingPromise}
+                    brukerprofilPromise={brukerprofilPromise}
+                    skyraPromise={skyraPromise}
+                />
             </Suspense>
         </main>
     );

@@ -8,8 +8,15 @@ interface FeatureTogglesContextState {
 }
 
 const FeatureTogglesContext = createContext<FeatureTogglesContextState>({} as any);
-function FeatureTogglesProvider({ children }: { children: ReactNode }) {
-    const [toggles, settToggles] = useState<{ [key: string]: boolean }>({});
+
+function FeatureTogglesProvider({
+    children,
+    initialToggles = {},
+}: {
+    children: ReactNode;
+    initialToggles?: { [key: string]: boolean };
+}) {
+    const [toggles, settToggles] = useState<{ [key: string]: boolean }>(initialToggles);
 
     useEffect(() => {
         async function fetchToggles() {
