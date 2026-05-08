@@ -8,6 +8,8 @@ import InitFaroKomponent from '@/components/init-faro-komponent';
 import { isEnabled } from '@/lib/unleash-is-enabled';
 import unleashKeys from '@/unleash-keys';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: 'Arbeidssøkerregisteret',
     description: 'Nav arbeidssøkerregisteret',
