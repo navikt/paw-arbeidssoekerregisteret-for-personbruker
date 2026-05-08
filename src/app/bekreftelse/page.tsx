@@ -11,9 +11,21 @@ import Feil from '@/components/feil';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import { fetchBrukerprofil } from '@/app/brukerprofil-api';
 
-async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
-    const { data: tilgjengeligeBekreftelser, error } = await fetchTilgjengeligeBekreftelser();
-    const { data: snapshotData, error: snapshotError } = await fetchArbeidssoekerregisteretSnapshot();
+interface BekreftelseServerComponentProps {
+    sprak: Sprak;
+    bekreftelserPromise: ReturnType<typeof fetchTilgjengeligeBekreftelser>;
+    snapshotPromise: ReturnType<typeof fetchArbeidssoekerregisteretSnapshot>;
+    brukerprofilPromise: ReturnType<typeof fetchBrukerprofil>;
+}
+
+async function BekreftelseServerComponent({
+    sprak,
+    bekreftelserPromise,
+    snapshotPromise,
+    brukerprofilPromise,
+}: BekreftelseServerComponentProps) {
+    const [{ data: tilgjengeligeBekreftelser, error }, { data: snapshotData, error: snapshotError }] =
+        await Promise.all([bekreftelserPromise, snapshotPromise]);
 
     if (error || snapshotError) {
         return <Feil sprak={sprak} error={error?.message ?? snapshotError?.message ?? ''} />;
@@ -21,11 +33,7 @@ async function BekreftelseServerComponent({ sprak }: { sprak: Sprak }) {
     const erAktivArbeidssoker = Boolean(snapshotData?.id) && !Boolean(snapshotData?.avsluttet);
     const sistInnsendteBekreftelse = snapshotData?.bekreftelse;
 
-    let brukerprofil;
-
-    if (erAktivArbeidssoker) {
-        brukerprofil = (await fetchBrukerprofil()).data;
-    }
+    const brukerprofil = erAktivArbeidssoker ? (await brukerprofilPromise).data : undefined;
 
     return (
         <BekreftelseWrapper
@@ -44,6 +52,11 @@ export default async function BekreftelsePage({ params }: NextPageProps) {
     const title = lagHentTekstForSprak(BREADCRUMBS_TITLES, sprak);
     const url = lagHentTekstForSprak(BREADCRUMBS_URLS, sprak);
 
+    // Start alle fetches umiddelbart i parallell
+    const bekreftelserPromise = fetchTilgjengeligeBekreftelser();
+    const snapshotPromise = fetchArbeidssoekerregisteretSnapshot();
+    const brukerprofilPromise = fetchBrukerprofil();
+
     return (
         <div className={'flex flex-col max-w-3xl mx-auto py-8'}>
             <SettSprakIDekorator sprak={sprak} />
@@ -54,7 +67,12 @@ export default async function BekreftelsePage({ params }: NextPageProps) {
                 }))}
             />
             <Suspense fallback={<Loader />}>
-                <BekreftelseServerComponent sprak={sprak} />
+                <BekreftelseServerComponent
+                    sprak={sprak}
+                    bekreftelserPromise={bekreftelserPromise}
+                    snapshotPromise={snapshotPromise}
+                    brukerprofilPromise={brukerprofilPromise}
+                />
             </Suspense>
         </div>
     );
