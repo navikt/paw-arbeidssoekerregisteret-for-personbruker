@@ -12,22 +12,22 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
-              uses: actions/checkout@v5
+              uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
             - name: Set up pnpm
-              uses: pnpm/action-setup@v4
+              uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
               with:
                   version: 10
 
             - name: Set up node
-              uses: actions/setup-node@v5
+              uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
               with:
                   node-version: '24.12.0'
                   cache: 'pnpm'
                   registry-url: 'https://npm.pkg.github.com'
 
             - name: Install
-              run: pnpm install --no-frozen-lockfile --ignore-scripts --force
+              run: pnpm install --frozen-lockfile --ignore-scripts
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
                   HUSKY: 0
@@ -40,6 +40,7 @@ jobs:
 
     build:
         name: Build and Publish Docker image
+        needs: [test]
         runs-on: ubuntu-latest
         permissions:
             contents: 'read'
@@ -49,32 +50,25 @@ jobs:
             image: ${{ steps.docker-build-push.outputs.image }}
         steps:
             - name: Checkout code
-              uses: actions/checkout@v5
+              uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
             - name: Set up pnpm
-              uses: pnpm/action-setup@v4
+              uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
               with:
                   version: 10
 
             - name: Set up node
-              uses: actions/setup-node@v5
+              uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
               with:
                   node-version: '24.12.0'
                   cache: 'pnpm'
                   registry-url: 'https://npm.pkg.github.com'
 
             - name: Install
-              run: pnpm install --no-frozen-lockfile --ignore-scripts --force
+              run: pnpm install --frozen-lockfile --ignore-scripts
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
                   HUSKY: 0
-
-            - name: Set up node
-              uses: actions/setup-node@v5
-              with:
-                  node-version: '24.12.0'
-                  cache: 'pnpm'
-                  registry-url: 'https://npm.pkg.github.com'
 
             - name: Build
               run: pnpm build
@@ -83,8 +77,19 @@ jobs:
                   NEXT_PUBLIC_BASE_PATH: /arbeidssoekerregisteret
                   HUSKY: 0
 
+            - name: Build storybook-static
+              run: pnpm build-storybook
+
+            - name: Install Playwright
+              run: pnpm exec playwright install --with-deps
+
+            - name: Run test-storybook
+              run: pnpm dlx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+                  "pnpm dlx http-server public/storybook --port 6006 --silent" \
+                  "pnpm dlx wait-on tcp:127.0.0.1:6006 && pnpm test-storybook"
+
             - name: Upload static files to NAV CDN
-              uses: nais/deploy/actions/cdn-upload/v2@master
+              uses: nais/deploy/actions/cdn-upload/v2@823ec9b7e305ce7cf911d0f9a25f7da9d7486cf2
               with:
                   team: paw
                   source: ./.next/static
@@ -92,19 +97,8 @@ jobs:
                   identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
                   project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
-            - name: Install Playwright
-              run: pnpm exec playwright install --with-deps
-
-            - name: Build storybook-static
-              run: pnpm build-storybook
-
-            - name: Run test-storybook
-              run: pnpm dlx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-                  "pnpm dlx http-server public/storybook --port 6006 --silent" \
-                  "pnpm dlx wait-on tcp:127.0.0.1:6006 && pnpm test-storybook"
-
             - name: Push docker image to GAR
-              uses: nais/docker-build-push@v0
+              uses: nais/docker-build-push@be85229e81c0293c265c646c084f05317fb6e0d2 # v0
               id: docker-build-push
               with:
                   team: paw
@@ -116,14 +110,14 @@ jobs:
         permissions:
             contents: 'read'
             id-token: 'write'
-        needs: [test, build, apply-apitoken-unleash]
+        needs: [build, apply-apitoken-unleash]
         if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/dev')
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v5
+              uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
             - name: Deploy
-              uses: nais/deploy/actions/deploy@v2
+              uses: nais/deploy/actions/deploy@823ec9b7e305ce7cf911d0f9a25f7da9d7486cf2 # v2
               env:
                   CLUSTER: dev-gcp
                   RESOURCE: .nais/dev-gcp/nais.yaml
@@ -135,14 +129,14 @@ jobs:
         permissions:
             contents: 'read'
             id-token: 'write'
-        needs: [test, build, apply-apitoken-unleash]
+        needs: [build, apply-apitoken-unleash]
         if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v5
+              uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
             - name: Deploy
-              uses: nais/deploy/actions/deploy@v2
+              uses: nais/deploy/actions/deploy@823ec9b7e305ce7cf911d0f9a25f7da9d7486cf2 # v2
               env:
                   CLUSTER: prod-gcp
                   RESOURCE: .nais/prod-gcp/nais.yaml
@@ -155,17 +149,18 @@ jobs:
             contents: 'read'
             id-token: 'write'
         runs-on: ubuntu-latest
-        needs: [test, build]
+        needs: [build]
         steps:
             - name: Checkout code
-              uses: actions/checkout@v5
+              uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
             - name: deploy to dev
-              uses: nais/deploy/actions/deploy@v2
+              uses: nais/deploy/actions/deploy@823ec9b7e305ce7cf911d0f9a25f7da9d7486cf2 # v2
               env:
                   CLUSTER: dev-gcp
                   RESOURCE: .nais/dev-gcp/unleash-apitoken.yaml
             - name: deploy to prod
-              uses: nais/deploy/actions/deploy@v2
+              if: github.ref == 'refs/heads/main'
+              uses: nais/deploy/actions/deploy@823ec9b7e305ce7cf911d0f9a25f7da9d7486cf2 # v2
               env:
                   CLUSTER: prod-gcp
                   RESOURCE: .nais/prod-gcp/unleash-apitoken.yaml
