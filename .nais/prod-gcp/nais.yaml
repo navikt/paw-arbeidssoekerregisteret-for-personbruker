@@ -22,14 +22,14 @@ spec:
 #        enabled: true
 #        path: /arbeidssoeker/api/prometheus
     replicas:
-        min: 1
+        min: 2
         max: 3
-        cpuThresholdPercentage: 50
+        cpuThresholdPercentage: 75
     resources:
         limits:
             memory: 256Mi
         requests:
-            cpu: 200m
+            cpu: 60m
             memory: 256Mi
     env:
         - name: DEKORATOR_URL
