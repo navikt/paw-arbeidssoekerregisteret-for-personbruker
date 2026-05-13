@@ -1,5 +1,4 @@
-import { gyldigTjenestestatus } from '@/lib/gyldig-tjenestestatus';
-import { TjenestestatusRequest } from '@/model/brukerprofil';
+import { TJENESTESTATUSER, TjenestestatusRequest } from '@/model/brukerprofil';
 import { logger } from '@navikt/next-logger';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,7 +7,7 @@ import { getToken, requestOboToken } from '@navikt/oasis';
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const BRUKERPROFIL_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-mine-stillinger`;
 const TJENESTESTATUS_API_URL = `${process.env.BRUKERPROFIL_API_URL}/api/v1/brukerprofil/tjenestestatus`;
-const ALLOWED_TJENESTESTATUSER = new Set(['AKTIV', 'INAKTIV']);
+const ALLOWED_TJENESTESTATUSER = new Set(TJENESTESTATUSER);
 
 /**
  * PUT endepunktet for `tjenestestatus` i brukerprofil API.
@@ -52,19 +51,6 @@ export const PUT = async (request: Request) => {
                 status: 400,
                 headers: { 'Content-Type': 'application/json' },
             });
-        }
-
-        if (!gyldigTjenestestatus(body)) {
-            logger.error({ x_trace_id: traceId }, 'Ugyldig request format');
-            return new Response(
-                JSON.stringify({
-                    error: 'Ugyldig request format',
-                }),
-                {
-                    status: 400,
-                    headers: { 'Content-Type': 'application/json' },
-                },
-            );
         }
 
         const { tjenestestatus } = body;

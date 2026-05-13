@@ -3,7 +3,8 @@
  * Les mer her: https://heyapi.dev/openapi-ts/get-started
  * OpenApi-Spec: https://raw.githubusercontent.com/navikt/paw-arbeidssoekerregisteret-monorepo-ekstern/refs/heads/main/apps/mine-stillinger-api/src/main/resources/openapi/openapi-spec.yaml
  */
-export type Tjenestestatus = 'AKTIV' | 'INAKTIV' | 'OPT_OUT' | 'KAN_IKKE_LEVERES';
+export const TJENESTESTATUSER = ['AKTIV', 'INAKTIV', 'OPT_OUT', 'KAN_IKKE_LEVERES'] as const;
+export type Tjenestestatus = (typeof TJENESTESTATUSER)[number];
 
 export type Brukerprofil = {
     identitetsnummer: string;
