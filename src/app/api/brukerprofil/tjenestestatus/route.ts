@@ -8,6 +8,7 @@ import { getToken, requestOboToken } from '@navikt/oasis';
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const BRUKERPROFIL_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-mine-stillinger`;
 const TJENESTESTATUS_API_URL = `${process.env.BRUKERPROFIL_API_URL}/api/v1/brukerprofil/tjenestestatus`;
+const ALLOWED_TJENESTESTATUSER = new Set(['AKTIV', 'INAKTIV']);
 
 /**
  * PUT endepunktet for `tjenestestatus` i brukerprofil API.
@@ -68,7 +69,15 @@ export const PUT = async (request: Request) => {
 
         const { tjenestestatus } = body;
 
-        const urlWithPath = `${TJENESTESTATUS_API_URL}/${tjenestestatus}`;
+        if (!ALLOWED_TJENESTESTATUSER.has(tjenestestatus)) {
+            logger.error({ x_trace_id: traceId }, 'Ugyldig tjenestestatus');
+            return new Response(JSON.stringify({ error: 'Ugyldig tjenestestatus' }), {
+                status: 400,
+                headers: { 'Content-Type': 'application/json' },
+            });
+        }
+
+        const urlWithPath = `${TJENESTESTATUS_API_URL}/${encodeURIComponent(tjenestestatus)}`;
         logger.info({ x_trace_id: traceId }, `Starter PUT ${urlWithPath}`);
 
         const response = await fetch(urlWithPath, {
