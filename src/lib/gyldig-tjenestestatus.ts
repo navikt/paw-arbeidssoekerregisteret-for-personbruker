@@ -1,4 +1,6 @@
-import { TjenestestatusRequest } from '@/model/brukerprofil';
+import { TJENESTESTATUSER, TjenestestatusRequest } from '@/model/brukerprofil';
+
+const ALLOWED_TJENESTESTATUSER = new Set(TJENESTESTATUSER);
 
 /**
  * Manuell sjekk av type for TjenestestatusRequest.
@@ -9,10 +11,5 @@ import { TjenestestatusRequest } from '@/model/brukerprofil';
  * @returns True dersom body inneholder gyldig tjenestestatus
  */
 export function gyldigTjenestestatus(body: any): body is TjenestestatusRequest {
-    return (
-        typeof body === 'object' &&
-        body !== null &&
-        typeof body.tjenestestatus === 'string' &&
-        body.tjenestestatus.trim().length > 0
-    );
+    return ALLOWED_TJENESTESTATUSER.has(body?.tjenestestatus);
 }
