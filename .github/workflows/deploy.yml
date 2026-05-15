@@ -14,17 +14,27 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
-            - name: Set up pnpm
-              uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
-              with:
-                  version: 11
-
             - name: Set up node
               uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
               with:
                   node-version: '24.12.0'
-                  cache: 'pnpm'
                   registry-url: 'https://npm.pkg.github.com'
+
+            - name: Set up pnpm
+              uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+              with:
+                  version: 10
+
+            - name: Get pnpm store directory
+              run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+            - name: Cache pnpm store
+              uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+              with:
+                  path: ${{ env.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
 
             - name: Install
               run: pnpm install --frozen-lockfile --ignore-scripts
@@ -52,17 +62,27 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
-            - name: Set up pnpm
-              uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
-              with:
-                  version: 11
-
             - name: Set up node
               uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
               with:
                   node-version: '24.12.0'
-                  cache: 'pnpm'
                   registry-url: 'https://npm.pkg.github.com'
+
+            - name: Set up pnpm
+              uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+              with:
+                  version: 10
+
+            - name: Get pnpm store directory
+              run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+            - name: Cache pnpm store
+              uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+              with:
+                  path: ${{ env.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
 
             - name: Install
               run: pnpm install --frozen-lockfile --ignore-scripts
