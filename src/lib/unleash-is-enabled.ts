@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { evaluateFlags, flagsClient, getDefinitions } from '@unleash/nextjs';
 import { logger } from '@navikt/next-logger';
+import { randomUUID } from 'node:crypto';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -11,8 +12,7 @@ export const isEnabled = async (toggle: string) => {
 
     try {
         const cookieStore = await cookies();
-        const sessionId =
-            cookieStore.get('unleash-session-id')?.value || `${Math.floor(Math.random() * 1_000_000_000)}`;
+        const sessionId = cookieStore.get('unleash-session-id')?.value || randomUUID();
 
         const definitions = await getDefinitions({
             fetchOptions: {
