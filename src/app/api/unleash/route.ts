@@ -15,10 +15,8 @@ export async function GET(request: NextRequest) {
     }
 
     if (brukerMock()) {
-        const mockResponse = toggles.reduce((acc, key) => {
-            return { ...acc, [key]: true };
-        }, {});
-        return HttpResponse.json(mockResponse);
+        const mockResponse = toggles.reduce((acc, key) => acc.set(key, true), new Map<string, boolean>());
+        return HttpResponse.json(Object.fromEntries(mockResponse));
     }
 
     const results = await Promise.all(toggles.map(async (key) => [key, await isEnabled(key)]));
