@@ -7,7 +7,7 @@ export async function logUmamiEvent(eventName: string, data: EventData) {
     try {
         if (!brukerMock) {
             const tracker = getAnalyticsInstance('arbeidssoekerregisteret-for-personbruker');
-            await tracker(eventName, data);
+            await tracker.custom(eventName, data);
         } else {
             console.log(`Logger til umami: ${eventName}`, data);
         }
