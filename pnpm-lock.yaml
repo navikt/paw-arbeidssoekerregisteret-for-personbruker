@@ -16,6 +16,7 @@ overrides:
   uuid@<11.1.1: '>=11.1.1'
   vite@>=7.0.0 <=7.3.1: '>=7.3.2'
   ws@>=8.0.0 <8.20.1: '>=8.20.1'
+  qs@>=6.11.1 <=6.15.1: '>=6.15.2'
 
 importers:
 
@@ -6024,8 +6025,8 @@ packages:
   pure-rand@7.0.1:
     resolution: {integrity: sha512-oTUZM/NAZS8p7ANR3SHh30kXB+zK2r2BPcEn/awJIbOvq82WoMN4p62AWWp3Hhw50G0xMsw1mhIBLqHw64EcNQ==}
 
-  qs@6.15.1:
-    resolution: {integrity: sha512-6YHEFRL9mfgcAvql/XhwTvf5jKcOiiupt2FiJxHkiX1z4j7WL8J/jRHYLluORvc1XxB5rV20KoeK00gVJamspg==}
+  qs@6.15.2:
+    resolution: {integrity: sha512-Rzq0KEyX/w/tEybncDgdkZrJgVUsUMk3xjh3t5bv3S1HTAtg+uOYt72+ZfwiQwKdysThkTBdL/rTi6HDmX9Ddw==}
     engines: {node: '>=0.6'}
 
   querystring-es3@0.2.1:
@@ -13679,7 +13680,7 @@ snapshots:
 
   pure-rand@7.0.1: {}
 
-  qs@6.15.1:
+  qs@6.15.2:
     dependencies:
       side-channel: 1.1.0
 
@@ -14757,7 +14758,7 @@ snapshots:
   url@0.11.4:
     dependencies:
       punycode: 1.4.1
-      qs: 6.15.1
+      qs: 6.15.2
 
   use-sync-external-store@1.6.0(react@19.2.6):
     dependencies:
