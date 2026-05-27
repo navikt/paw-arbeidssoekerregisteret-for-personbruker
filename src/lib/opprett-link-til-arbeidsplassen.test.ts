@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import type { Fylke, StedSoek } from '@/model/brukerprofil';
 import { opprettLinkTilArbeidsplassen } from './opprett-link-til-arbeidsplassen';
-import { Fylke, StedSoek } from '@/model/brukerprofil';
 
 const fylker: Fylke[] = [
     {

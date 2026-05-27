@@ -1,7 +1,7 @@
 import { logger } from '@navikt/next-logger';
+import { getToken, requestOboToken } from '@navikt/oasis';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
-import { getToken, requestOboToken } from '@navikt/oasis';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const BRUKERPROFIL_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:paw-arbeidssoekerregisteret-api-mine-stillinger`;

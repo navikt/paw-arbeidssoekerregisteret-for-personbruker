@@ -1,15 +1,15 @@
-import { Suspense } from 'react';
-import { getPerioder } from './actions';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Heading, Loader } from '@navikt/ds-react';
-import { Perioder } from '../../components/perioder/perioder';
-import { ShowDetailsProvider } from '../../contexts/show-details-context';
-import { VisDetaljerToggle } from '@/components/perioder/vis-detaljer-toggle';
-import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
-import { NextPageProps } from '../../../types/next';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { Suspense } from 'react';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import { PerioderFeilmelding } from '@/components/perioder/perioder-feilmelding';
 import { PerioderTom } from '@/components/perioder/perioder-tom';
+import { VisDetaljerToggle } from '@/components/perioder/vis-detaljer-toggle';
+import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
+import type { NextPageProps } from '../../../types/next';
+import { Perioder } from '../../components/perioder/perioder';
+import { ShowDetailsProvider } from '../../contexts/show-details-context';
+import { getPerioder } from './actions';
 
 export const dynamic = 'force-dynamic';
 

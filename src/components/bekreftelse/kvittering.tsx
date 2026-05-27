@@ -1,9 +1,9 @@
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { loggAktivitet } from '@/lib/tracking';
-import StyrkWidget from '@/components/styrkløft/styrk-widget';
-import { Brukerprofil } from '@/model/brukerprofil';
 import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
+import StyrkWidget from '@/components/styrkløft/styrk-widget';
+import { loggAktivitet } from '@/lib/tracking';
+import type { Brukerprofil } from '@/model/brukerprofil';
 
 interface Props {
     sprak: Sprak;

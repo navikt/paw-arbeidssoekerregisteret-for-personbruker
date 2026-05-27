@@ -1,5 +1,6 @@
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { PeriodeStartetHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { PeriodeStartetHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+
 const norsk = [
     'januar',
     'februar',

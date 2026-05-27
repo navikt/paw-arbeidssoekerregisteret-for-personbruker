@@ -1,5 +1,5 @@
-import { harPermittertSituasjon } from './har-permittert-situasjon';
 import { DinSituasjon, mapSituasjonTilBeskrivelse, PermittertSvar } from '@navikt/arbeidssokerregisteret-utils';
+import { harPermittertSituasjon } from './har-permittert-situasjon';
 
 describe('har-permittert-situasjon', () => {
     test('returnerer false for tom input', () => {

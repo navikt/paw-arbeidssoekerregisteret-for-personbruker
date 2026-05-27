@@ -1,15 +1,15 @@
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Loader } from '@navikt/ds-react';
-import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { Suspense } from 'react';
-import BekreftelseWrapper from '@/components/bekreftelse/bekreftelse-wrapper';
 import { fetchArbeidssoekerregisteretSnapshot } from '@/app/actions';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { NextPageProps } from '../../../types/next';
-import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
-import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
-import Feil from '@/components/feil';
-import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
+import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { fetchBrukerprofil } from '@/app/brukerprofil-api';
+import BekreftelseWrapper from '@/components/bekreftelse/bekreftelse-wrapper';
+import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
+import Feil from '@/components/feil';
+import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
+import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
+import type { NextPageProps } from '../../../types/next';
 
 interface BekreftelseServerComponentProps {
     sprak: Sprak;
@@ -30,7 +30,7 @@ async function BekreftelseServerComponent({
     if (error || snapshotError) {
         return <Feil sprak={sprak} error={error?.message ?? snapshotError?.message ?? ''} />;
     }
-    const erAktivArbeidssoker = Boolean(snapshotData?.id) && !Boolean(snapshotData?.avsluttet);
+    const erAktivArbeidssoker = Boolean(snapshotData?.id) && !snapshotData?.avsluttet;
     const sistInnsendteBekreftelse = snapshotData?.bekreftelse;
 
     const brukerprofil = erAktivArbeidssoker ? (await brukerprofilPromise).data : undefined;

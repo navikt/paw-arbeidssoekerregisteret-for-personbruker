@@ -1,5 +1,5 @@
-import arbeidsplassenMapping from './arbeidsplassen-mapping.json';
 import { alfabetiskSortering } from '@/lib/hent-yrkeskategorier';
+import arbeidsplassenMapping from './arbeidsplassen-mapping.json';
 
 interface underKategori {
     navn: string;

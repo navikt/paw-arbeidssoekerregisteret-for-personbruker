@@ -1,28 +1,28 @@
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 import { fetchArbeidssoekerregisteretSnapshot, fetchTilgjengeligEgenvurdering } from '@/app/actions';
-import PeriodeInfo from '@/components/min-situasjon/periode-info';
-import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengelig-bekreftelse-link';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
+import { fetchBrukerprofil } from '@/app/brukerprofil-api';
+import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengelig-bekreftelse-link';
+import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
+import Egenvurdering from '@/components/egenvurdering/egenvurdering';
+import Feil from '@/components/feil';
+import { SeHistorikkLenke } from '@/components/historikk/se-historikk-lenke';
+import PeriodeInfo from '@/components/min-situasjon/periode-info';
+import ManglerOpplysninger from '@/components/opplysninger/mangler-opplysninger';
 import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
 import RegistrerArbeidssoker from '@/components/registrer-arbeidssoker/registrer-arbeidssoker';
 import RegistrertTittel from '@/components/registrert-tittel/registrert-tittel';
-import { NextPageProps } from '../../types/next';
-import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
-import { SeHistorikkLenke } from '@/components/historikk/se-historikk-lenke';
-import ManglerOpplysninger from '@/components/opplysninger/mangler-opplysninger';
-import Feil from '@/components/feil';
-import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
-import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
-import Egenvurdering from '@/components/egenvurdering/egenvurdering';
-import { fetchBrukerprofil } from '@/app/brukerprofil-api';
-import StyrkWidget from '@/components/styrkløft/styrk-widget';
-import unleashKeys from '@/unleash-keys';
-import { isEnabled } from '@/lib/unleash-is-enabled';
 import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
+import StyrkWidget from '@/components/styrkløft/styrk-widget';
+import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
+import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
+import { isEnabled } from '@/lib/unleash-is-enabled';
+import unleashKeys from '@/unleash-keys';
+import type { NextPageProps } from '../../types/next';
 
 interface Props {
     sprak: Sprak;
@@ -57,7 +57,7 @@ async function SamletInformasjonServerComponent({
         );
     }
 
-    const harAktivPeriode = Boolean(snapshotData?.id) && !Boolean(snapshotData?.avsluttet);
+    const harAktivPeriode = Boolean(snapshotData?.id) && !snapshotData?.avsluttet;
     const harHistorikk = Boolean(snapshotData);
 
     return (

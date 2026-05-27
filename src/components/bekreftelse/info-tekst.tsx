@@ -1,4 +1,4 @@
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BodyLong } from '@navikt/ds-react';
 
 const TEKSTER = {

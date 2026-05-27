@@ -1,8 +1,8 @@
 'use client';
 
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Switch } from '@navikt/ds-react';
 import { useShowDetails } from '@/contexts/show-details-context';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 const TEKSTER = {
     nb: { tittel: 'Vis detaljer' },

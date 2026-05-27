@@ -1,7 +1,6 @@
-import { Meta, StoryObj } from '@storybook/nextjs';
-
-import PeriodeInfo from './periode-info';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { snapshotMock } from '@/app/mockdata';
+import PeriodeInfo from './periode-info';
 
 const snapshot = snapshotMock;
 const avsluttetPeriode = {

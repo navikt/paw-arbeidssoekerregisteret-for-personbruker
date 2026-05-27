@@ -1,11 +1,11 @@
-import { Button, HGrid, HStack } from '@navikt/ds-react';
 import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons';
 import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { Button, HGrid, HStack } from '@navikt/ds-react';
 
 interface Props {
     antallSider: number;
     aktivSide: number;
-    onClick: (side: Number) => void;
+    onClick: (side: number) => void;
 }
 
 function NummererteKnapper(props: Props) {

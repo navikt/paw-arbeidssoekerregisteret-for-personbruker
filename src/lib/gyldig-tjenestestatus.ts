@@ -1,4 +1,4 @@
-import { TJENESTESTATUSER, TjenestestatusRequest } from '@/model/brukerprofil';
+import { TJENESTESTATUSER, type TjenestestatusRequest } from '@/model/brukerprofil';
 
 const ALLOWED_TJENESTESTATUSER = new Set(TJENESTESTATUSER);
 

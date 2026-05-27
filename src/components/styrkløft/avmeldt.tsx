@@ -1,11 +1,11 @@
 'use client';
 
+import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useEffect } from 'react';
-import { loggStyrkeloft, loggVisning } from '@/lib/tracking';
-import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
 import AvmeldtStateless from '@/components/styrkløft/avmeldt-stateless';
-import { Brukerprofil } from '@/model/brukerprofil';
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
+import { loggStyrkeloft, loggVisning } from '@/lib/tracking';
+import type { Brukerprofil } from '@/model/brukerprofil';
 
 interface AvmeldtProps {
     brukerprofil: Brukerprofil;

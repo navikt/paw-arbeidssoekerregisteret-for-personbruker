@@ -1,7 +1,7 @@
 'use client';
 
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BodyShort, ReadMore } from '@navikt/ds-react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
 
 interface ReadmoreProps {

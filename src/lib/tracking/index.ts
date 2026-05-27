@@ -1,15 +1,15 @@
 import {
-    AktivitetData,
+    type AktivitetData,
     AktivitetEventNavn,
-    isConsentingToAnalytics,
-    VisningEventNavn,
-    VisningsData,
-    StyrkeloftData,
-    StyrkeloftEventNavn,
-    UnderkategoriFilterData,
-    UnderkategoriFilterEventNavn,
-    DirektemeldtestillingerData,
     DirektemeldteStillingerEventNavn,
+    type DirektemeldtestillingerData,
+    isConsentingToAnalytics,
+    type StyrkeloftData,
+    StyrkeloftEventNavn,
+    type UnderkategoriFilterData,
+    UnderkategoriFilterEventNavn,
+    VisningEventNavn,
+    type VisningsData,
 } from '@/lib/tracking/common';
 import { logUmamiEvent } from '@/lib/tracking/umami';
 

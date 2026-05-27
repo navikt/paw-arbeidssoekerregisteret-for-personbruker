@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import { http, HttpResponse } from 'msw';
+import { HttpResponse, http } from 'msw';
 import { Kvittering } from './kvittering';
 
 const meta = {

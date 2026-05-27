@@ -1,9 +1,8 @@
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Tjenestestatus } from '@/model/brukerprofil';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Alert, BodyShort, Box, Button, Heading } from '@navikt/ds-react';
-import ReadMoreEksperiment from './godkjenn-eksperiment-readmore';
-
 import { loggStyrkeloft } from '@/lib/tracking';
+import type { Tjenestestatus } from '@/model/brukerprofil';
+import ReadMoreEksperiment from './godkjenn-eksperiment-readmore';
 
 interface Props {
     sprak: Sprak;

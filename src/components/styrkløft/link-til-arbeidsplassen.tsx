@@ -1,10 +1,9 @@
-import { opprettLinkTilArbeidsplassen } from '@/lib/opprett-link-til-arbeidsplassen';
-import { StedSoek } from '@/model/brukerprofil';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { LinkCard } from '@navikt/ds-react';
-import React from 'react';
-
+import type React from 'react';
+import { opprettLinkTilArbeidsplassen } from '@/lib/opprett-link-til-arbeidsplassen';
 import { loggStyrkeloft } from '@/lib/tracking';
+import type { StedSoek } from '@/model/brukerprofil';
 
 const TEKSTER = {
     nb: {

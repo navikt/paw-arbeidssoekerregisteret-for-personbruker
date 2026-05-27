@@ -1,7 +1,7 @@
-import { describe, it, expect, vi } from 'vitest';
-import { GET } from './route';
 import { NextRequest } from 'next/server';
+import { describe, expect, it, vi } from 'vitest';
 import * as unleashIsEnabled from '@/lib/unleash-is-enabled';
+import { GET } from './route';
 
 function createRequest(url: string): NextRequest {
     return new NextRequest(new URL(url, 'http://localhost'));

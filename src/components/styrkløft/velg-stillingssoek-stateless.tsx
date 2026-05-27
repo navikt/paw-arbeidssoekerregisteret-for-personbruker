@@ -1,8 +1,8 @@
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Alert, Box, Button, Heading } from '@navikt/ds-react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import UnderkategoriVelger from '@/components/styrkløft/underkategori-velger';
-import { byggYrkeskoderTilStyrkMap } from '@/lib/bygg-yrkeskoder-med-styrk-map';
 import byggFylkerOgKommunerUnderkategoriStruktur from '@/lib/bygg-fylker-og-kommuner-underkategori-struktur';
+import { byggYrkeskoderTilStyrkMap } from '@/lib/bygg-yrkeskoder-med-styrk-map';
 
 interface Props {
     onSubmit(data: any): Promise<void>;

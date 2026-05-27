@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/nextjs';
 import { Button, VStack } from '@navikt/ds-react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
+import type React from 'react';
+import { useState } from 'react';
 import { BekreftAvmelding } from './bekreft-avmelding';
 
 const meta: Meta<typeof BekreftAvmelding> = {

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import RegistrerArbeidssoker from '@/components/registrer-arbeidssoker/registrer-arbeidssoker';
 
 const meta = {

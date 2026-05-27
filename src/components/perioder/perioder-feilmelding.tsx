@@ -1,6 +1,6 @@
 'use client';
 
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { LocalAlert } from '@navikt/ds-react';
 
 const TEKSTER = {

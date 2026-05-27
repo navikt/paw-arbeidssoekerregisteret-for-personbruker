@@ -1,9 +1,9 @@
-import { ActionMenu, Button, Chips } from '@navikt/ds-react';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from '@navikt/aksel-icons';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { ActionMenu, Button, Chips } from '@navikt/ds-react';
 import { useState } from 'react';
 import { alfabetiskSortering } from '@/lib/hent-yrkeskategorier';
 import { loggUnderkategoriFilter } from '@/lib/tracking';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 type SavedState = {
     [key: string]: {
@@ -66,13 +66,9 @@ function uiStateToChips(savedState: SavedState): string[] {
             if (Object.values(savedState[key]).every((underKategori) => underKategori)) {
                 return res.concat(key);
             } else {
-                const aktiveUnderKategorier = Object.keys(savedState[key])
-                    .map((underKategori) => {
-                        if (savedState[key][underKategori]) {
-                            return underKategori;
-                        }
-                    })
-                    .filter((i) => i) as string[];
+                const aktiveUnderKategorier = Object.keys(savedState[key]).filter(
+                    (underKategori) => savedState[key][underKategori],
+                );
 
                 return res.concat(aktiveUnderKategorier);
             }

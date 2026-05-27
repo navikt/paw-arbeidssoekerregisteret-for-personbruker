@@ -1,5 +1,5 @@
-import { Brukerprofil } from '@/model/brukerprofil';
 import UxSignalsClientSideWidget from '@/components/ux-signals/ux-signals-client-side-widget';
+import type { Brukerprofil } from '@/model/brukerprofil';
 
 interface WidgetProps {
     brukerprofil?: Brukerprofil;

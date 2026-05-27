@@ -1,19 +1,19 @@
 'use client';
 
-import { Sprak, TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
-import { BekreftelseSkjema } from './bekreftelse-skjema';
-import { useState } from 'react';
-import { BekreftelseBesvart } from './bekreftelse-besvart';
-import { Kvittering } from './kvittering';
-import { sorterEtterEldsteFoerst } from '@/lib/sorter-etter-eldste-foerst';
-import { IkkeAktivArbeidssoker } from './ikke-aktiv-arbeidssoker';
+import type { Sprak, TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
+import type { BekreftelseHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { useRouter } from 'next/navigation';
-import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
+import { useState } from 'react';
 import IngenTilgjengeligeBekreftelser from '@/components/bekreftelse/ingen-tilgjengelige-bekreftelser';
-import { BekreftelseSkjemaType } from '@/model/bekreftelse';
+import { sorterEtterEldsteFoerst } from '@/lib/sorter-etter-eldste-foerst';
+import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import { loggAktivitet } from '@/lib/tracking';
-import { Brukerprofil } from '@/model/brukerprofil';
-import { BekreftelseHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import type { BekreftelseSkjemaType } from '@/model/bekreftelse';
+import type { Brukerprofil } from '@/model/brukerprofil';
+import { BekreftelseBesvart } from './bekreftelse-besvart';
+import { BekreftelseSkjema } from './bekreftelse-skjema';
+import { IkkeAktivArbeidssoker } from './ikke-aktiv-arbeidssoker';
+import { Kvittering } from './kvittering';
 
 export interface BekreftelseProps {
     sprak: Sprak;

@@ -1,10 +1,10 @@
-import { AggregerteBekreftelser } from '@/model/bekreftelse';
 import {
-    AggregertePerioder,
-    AggregertPeriode,
-    Bekreftelse,
+    type AggregertePerioder,
+    type AggregertPeriode,
+    type Bekreftelse,
     BekreftelseStatus,
 } from '@navikt/arbeidssokerregisteret-utils';
+import type { AggregerteBekreftelser } from '@/model/bekreftelse';
 
 function isGyldigBekreftelse(bekreftelse: Bekreftelse | undefined) {
     return bekreftelse && bekreftelse.status === BekreftelseStatus.GYLDIG;

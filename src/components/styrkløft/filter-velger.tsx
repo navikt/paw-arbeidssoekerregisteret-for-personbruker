@@ -1,5 +1,5 @@
-import { Button, Chips, Dropdown } from '@navikt/ds-react';
 import { PencilIcon } from '@navikt/aksel-icons';
+import { Button, Chips, Dropdown } from '@navikt/ds-react';
 
 interface Props {
     values: string[];

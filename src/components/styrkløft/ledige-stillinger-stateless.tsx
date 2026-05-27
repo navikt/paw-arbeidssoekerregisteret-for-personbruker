@@ -1,14 +1,14 @@
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Box, HGrid, InlineMessage, ToggleGroup } from '@navikt/ds-react';
-import LedigStilling from '@/components/styrkløft/ledig-stilling';
-import { LinkTilArbeidsplassen } from '@/components/styrkløft/link-til-arbeidsplassen';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import Paginering from '@/components/styrkløft/paginering';
-import { Ref } from 'react';
-import VisWidgetForAktiveStyrkeloeftere from '@/components/ux-signals/vis-widget-for-aktive-styrkeloeftere';
-import { AktivFane } from '@/components/styrkløft/ledige-stillinger';
+import type { Ref } from 'react';
 import DirektemeldtStilling from '@/components/styrkløft/direktemeldt-stilling';
-import { JobbAnnonse } from '@/model/brukerprofil';
+import LedigStilling from '@/components/styrkløft/ledig-stilling';
+import type { AktivFane } from '@/components/styrkløft/ledige-stillinger';
+import { LinkTilArbeidsplassen } from '@/components/styrkløft/link-til-arbeidsplassen';
 import { LinkTilDirektemeldteStillinger } from '@/components/styrkløft/link-til-direktemeldte-stillinger';
+import Paginering from '@/components/styrkløft/paginering';
+import VisWidgetForAktiveStyrkeloeftere from '@/components/ux-signals/vis-widget-for-aktive-styrkeloeftere';
+import type { JobbAnnonse } from '@/model/brukerprofil';
 
 interface Props {
     ref?: Ref<HTMLDivElement>;

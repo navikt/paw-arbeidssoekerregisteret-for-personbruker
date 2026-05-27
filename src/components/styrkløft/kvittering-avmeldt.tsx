@@ -1,5 +1,5 @@
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Alert, Heading } from '@navikt/ds-react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 const TEKSTER = {
     nb: {

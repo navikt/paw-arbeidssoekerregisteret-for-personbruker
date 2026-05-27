@@ -1,7 +1,7 @@
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { BekreftelseHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import type React from 'react';
 import { prettyPrintDato } from '@/lib/date-utils';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { BekreftelseHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
-import React from 'react';
 
 const TEKSTER = {
     nb: {

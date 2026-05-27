@@ -1,10 +1,10 @@
 'use client';
 
-import { Bekreftelse, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { BodyShort, Button, Heading, List, Box } from '@navikt/ds-react';
+import { Bekreftelse, lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { BekreftelseHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { BodyShort, Box, Button, Heading, List } from '@navikt/ds-react';
 import { formaterDato } from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/tracking';
-import { BekreftelseHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
 interface Props {
     besvarelse: BekreftelseHendelse;

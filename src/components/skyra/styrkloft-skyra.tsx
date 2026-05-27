@@ -1,5 +1,5 @@
-import { Brukerprofil } from '@/model/brukerprofil';
 import InlineSkyraSurvey from '@/components/skyra/inline-skyra-survey';
+import type { Brukerprofil } from '@/model/brukerprofil';
 
 interface Props {
     brukerprofil: Brukerprofil;

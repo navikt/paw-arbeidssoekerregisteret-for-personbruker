@@ -1,12 +1,12 @@
 'use client';
 
-import NextLink from 'next/link';
-import { Hide, LinkCard } from '@navikt/ds-react';
-import { lagHentTekstForSprak, Sprak, TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
-import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import LenkeTilBekreftelseArtikkel from '../lenke-til-bekreftelse-artikkel';
+import { lagHentTekstForSprak, type Sprak, type TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
+import { Hide, LinkCard } from '@navikt/ds-react';
+import NextLink from 'next/link';
+import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
 import { loggAktivitet } from '@/lib/tracking';
+import LenkeTilBekreftelseArtikkel from '../lenke-til-bekreftelse-artikkel';
 
 interface Props {
     tilgjengeligeBekreftelser: TilgjengeligeBekreftelser;

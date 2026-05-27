@@ -1,7 +1,7 @@
-import { Meta } from '@storybook/nextjs';
-import { Periode } from './periode';
-import { ShowDetailsProvider } from '@/contexts/show-details-context';
+import type { OpplysningerHendelse, PeriodeAvsluttetHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { Accordion } from '@navikt/ds-react';
+import type { Meta } from '@storybook/nextjs';
+import { ShowDetailsProvider } from '@/contexts/show-details-context';
 import {
     createBekreftelseHendelse,
     createEgenvurderingHendelse,
@@ -10,7 +10,7 @@ import {
     createPeriodeStartetHendelse,
     createProfileringHendelse,
 } from './__tests__/utils/hendelser';
-import { OpplysningerHendelse, PeriodeAvsluttetHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { Periode } from './periode';
 
 const meta: Meta = {
     title: 'Komponenter/Perioder/Periode',

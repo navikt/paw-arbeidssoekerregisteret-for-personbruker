@@ -1,7 +1,7 @@
 'use client';
 
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Box, Link } from '@navikt/ds-react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggAktivitet } from '@/lib/tracking';
 
 const TEKSTER = {

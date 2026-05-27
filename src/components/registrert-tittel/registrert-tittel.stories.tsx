@@ -1,6 +1,6 @@
-import { Meta, StoryObj } from '@storybook/nextjs';
-import RegistrertTittel from './registrert-tittel';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { snapshotMock } from '@/app/mockdata';
+import RegistrertTittel from './registrert-tittel';
 
 const snapshot = snapshotMock;
 const avsluttetPeriode = JSON.parse(JSON.stringify(snapshot));

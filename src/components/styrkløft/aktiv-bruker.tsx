@@ -1,11 +1,11 @@
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
-import AktivBrukerStateless from '@/components/styrkløft/aktiv-bruker-stateless';
+import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { ActionDispatch, useState } from 'react';
-import { hentYrkeUnderkategorier } from '@/lib/hent-yrkeskategorier';
+import AktivBrukerStateless from '@/components/styrkløft/aktiv-bruker-stateless';
+import { StyrkAction, type StyrkState } from '@/components/styrkløft/reducer';
 import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
 import { hentFylkerUnderkategorier } from '@/lib/hent-fylkeliste';
-import { StyrkAction, StyrkState } from '@/components/styrkløft/reducer';
+import { hentYrkeUnderkategorier } from '@/lib/hent-yrkeskategorier';
+import type { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 
 export interface AktivBrukerProps {
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;

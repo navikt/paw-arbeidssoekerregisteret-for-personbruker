@@ -1,10 +1,10 @@
 'use client';
 
-import { prettyPrintDato } from '@/lib/date-utils';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Periode as PeriodeType } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { Periode as PeriodeType } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { Accordion, BodyShort } from '@navikt/ds-react';
-import React from 'react';
+import type React from 'react';
+import { prettyPrintDato } from '@/lib/date-utils';
 import { Periode } from './periode';
 
 type PerioderProps = {

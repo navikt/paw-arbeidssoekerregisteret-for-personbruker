@@ -7,9 +7,9 @@
         "dev": "next dev",
         "build": "next build --webpack",
         "start": "next start",
-        "lint": "eslint",
+        "lint": "biome lint .",
         "test": "pnpm lint && vitest",
-        "test:ci": "pnpm lint && vitest run",
+        "test:ci": "biome ci && vitest run",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build -o public/storybook",
         "test-storybook": "test-storybook",
@@ -35,6 +35,7 @@
         "uuid": "14.0.0"
     },
     "devDependencies": {
+        "@biomejs/biome": "2.4.15",
         "@chromatic-com/storybook": "5.2.1",
         "@storybook/addon-a11y": "10.4.1",
         "@storybook/addon-docs": "10.4.1",
@@ -53,8 +54,6 @@
         "@vitejs/plugin-react": "6.0.2",
         "axe-playwright": "2.2.2",
         "concurrently": "9.2.1",
-        "eslint": "9.39.2",
-        "eslint-config-next": "16.2.6",
         "husky": "9.1.7",
         "jsdom": "29.1.1",
         "knip": "6.14.2",
@@ -63,17 +62,11 @@
         "msw-storybook-addon": "2.0.7",
         "playwright": "1.60.0",
         "postcss": "8.5.15",
-        "prettier": "3.8.3",
         "storybook": "10.4.1",
         "tailwindcss": "4.3.0",
         "typescript": "6.0.3",
         "vite": "8.0.14",
         "vitest": "4.1.7"
-    },
-    "prettier": {
-        "printWidth": 120,
-        "singleQuote": true,
-        "tabWidth": 4
     },
     "engines": {
         "node": ">=24.12.0"
@@ -84,9 +77,8 @@
         ]
     },
     "lint-staged": {
-        "*.{ts,tsx,json,md,js,jsx,md}": [
-            "eslint --fix",
-            "prettier --write"
+        "*.{ts,tsx,json,md,js,jsx}": [
+            "biome check --write"
         ]
     },
     "pnpm": {

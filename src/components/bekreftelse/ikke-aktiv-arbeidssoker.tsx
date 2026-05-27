@@ -1,7 +1,7 @@
 'use client';
 
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Button, Heading } from '@navikt/ds-react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useEffect } from 'react';
 import { loggAktivitet, loggVisning } from '@/lib/tracking';
 

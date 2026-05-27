@@ -1,5 +1,5 @@
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
 import { prettyPrintDato } from '@/lib/date-utils';

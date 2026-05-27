@@ -1,5 +1,5 @@
 import { getAnalyticsInstance } from '@navikt/nav-dekoratoren-moduler';
-import { EventData } from '@/lib/tracking/common';
+import type { EventData } from '@/lib/tracking/common';
 
 const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
 

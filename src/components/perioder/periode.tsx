@@ -1,12 +1,12 @@
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Hendelse as HendelseType } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { Hendelse as HendelseType } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { Accordion, Process } from '@navikt/ds-react';
-import React from 'react';
+import type React from 'react';
 import { findOpplysningerMedEgenvurdering, finnEgenvurderingForOpplysninger } from './egenvurdering-mapping';
+import { opprettHeadingTilPeriodeStartet } from './helpers';
 import { Hendelse } from './hendelse';
 import { HendelseRenderer } from './hendelse-renderer';
 import { OpplysningerMedEgenvurdering } from './opplysninger-med-egenvurdering';
-import { opprettHeadingTilPeriodeStartet } from './helpers';
 
 const TEKSTER = {
     nb: {
@@ -91,6 +91,7 @@ const Periode: React.FC<PeriodeProps> = (props) => {
                             );
                         }
                         return (
+                            // biome-ignore lint/suspicious/noArrayIndexKey: compound key with tidspunkt is stable enough
                             <HendelseRenderer key={`${i}-${hendelse.tidspunkt}`} hendelse={hendelse} sprak={sprak} />
                         );
                     })}
