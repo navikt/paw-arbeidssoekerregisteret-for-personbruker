@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
-import Egenvurdering from '@/components/egenvurdering/egenvurdering';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
-import { http, HttpResponse } from 'msw';
+import type { Meta, StoryObj } from '@storybook/nextjs';
+import { HttpResponse, http } from 'msw';
+import Egenvurdering from '@/components/egenvurdering/egenvurdering';
 
 const meta = {
     title: 'Komponenter/Egenvurdering',

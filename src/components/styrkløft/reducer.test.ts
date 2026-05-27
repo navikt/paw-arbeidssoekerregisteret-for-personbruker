@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { initialStyrkState, reducer, StyrkState } from './reducer';
-import { Brukerprofil } from '@/model/brukerprofil';
+import type { Brukerprofil } from '@/model/brukerprofil';
+import { initialStyrkState, reducer, type StyrkState } from './reducer';
 
 const inaktivBruker: Brukerprofil = {
     identitetsnummer: '42',

@@ -1,4 +1,4 @@
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 function tilSprakAvhengigAppPath(path: string, sprak: Sprak) {
     if (path[0] !== '/') {

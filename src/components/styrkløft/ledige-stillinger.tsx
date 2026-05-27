@@ -1,8 +1,9 @@
-import LedigeStillingerStateless from '@/components/styrkløft/ledige-stillinger-stateless';
+import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useRef, useState } from 'react';
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import LedigeStillingerStateless from '@/components/styrkløft/ledige-stillinger-stateless';
 import { loggDirektemeldtStillinger, loggStyrkeloft } from '@/lib/tracking';
-import { LedigeStillinger as LedigeStillingerSoek } from '@/model/brukerprofil';
+import type { LedigeStillinger as LedigeStillingerSoek } from '@/model/brukerprofil';
+
 interface Props {
     useOnFetchData(): { data?: LedigeStillingerSoek; error?: Error };
     sprak: Sprak;

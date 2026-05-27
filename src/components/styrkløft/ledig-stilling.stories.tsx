@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 import LedigStilling from '@/components/styrkløft/ledig-stilling';
+import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 
 const meta = {
     title: 'Styrkløft/Komponenter/Ledig stilling',

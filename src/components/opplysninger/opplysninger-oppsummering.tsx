@@ -5,12 +5,16 @@ import {
     mapNusKodeTilUtdannignsnivaa,
     SPORSMAL_TEKSTER,
     SporsmalId,
-    Sprak,
-    Svar,
+    type Sprak,
+    type Svar,
 } from '@navikt/arbeidssokerregisteret-utils';
+import type {
+    EgenvurderingHendelse,
+    OpplysningerHendelse,
+    Snapshot,
+} from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { FormSummary } from '@navikt/ds-react';
 import { loggAktivitet } from '@/lib/tracking';
-import { EgenvurderingHendelse, OpplysningerHendelse, Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { identity } from '@/lib/utils';
 
 type Props = {
@@ -108,10 +112,10 @@ const OpplysningerOppsummering = (props: Props) => {
                 <FormSummary.Heading level="2">{tekst('heading')}</FormSummary.Heading>
             </FormSummary.Header>
             <FormSummary.Answers>
-                {besvarelser.map((besvarelse, idx) => {
+                {besvarelser.map((besvarelse) => {
                     const { sporsmal, svar } = besvarelse;
                     return (
-                        <FormSummary.Answer key={`${sporsmal}-${idx}`}>
+                        <FormSummary.Answer key={sporsmal}>
                             <FormSummary.Label>{besvarelseTekst(sporsmal)}</FormSummary.Label>
                             <FormSummary.Value>{besvarelseTekst(svar as string) ?? svar}</FormSummary.Value>
                         </FormSummary.Answer>

@@ -1,13 +1,13 @@
 'use client';
 
-import { Tjenestestatus } from '@/model/brukerprofil';
-import StartStyrkloft from '@/components/styrkløft/start-styrkloft';
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { ActionDispatch } from 'react';
+import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { ActionDispatch } from 'react';
 import AktivBruker from '@/components/styrkløft/aktiv-bruker';
 import Avmeldt from '@/components/styrkløft/avmeldt';
-import { StyrkAction, StyrkState } from '@/components/styrkløft/reducer';
 import { KvitteringAvmeldt } from '@/components/styrkløft/kvittering-avmeldt';
+import type { StyrkAction, StyrkState } from '@/components/styrkløft/reducer';
+import StartStyrkloft from '@/components/styrkløft/start-styrkloft';
+import type { Tjenestestatus } from '@/model/brukerprofil';
 
 interface onSubmitStillingsSoekPayload {
     fylker: string[];

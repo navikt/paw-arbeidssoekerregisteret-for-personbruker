@@ -1,6 +1,6 @@
-import { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs';
+import { Brukerprofil, type StedSoek } from '@/model/brukerprofil';
 import { LinkTilArbeidsplassen } from './link-til-arbeidsplassen';
-import { Brukerprofil, StedSoek } from '@/model/brukerprofil';
 
 const meta = {
     title: 'Styrkløft/Komponenter/Link til arbeidsplassen',

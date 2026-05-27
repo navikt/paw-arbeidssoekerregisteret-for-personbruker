@@ -1,5 +1,5 @@
+import type { Fylke } from '../model/brukerprofil';
 import { byggFylkerMedKommunerPayload, hentFylkeliste } from './hent-fylkeliste';
-import { Fylke } from '../model/brukerprofil';
 
 describe('hentFylkeliste', () => {
     it('Når vi ikke har fylker, skal vi få tom liste', () => {

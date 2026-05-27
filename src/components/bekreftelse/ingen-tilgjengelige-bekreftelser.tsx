@@ -1,6 +1,6 @@
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import LenkeTilBekreftelseArtikkel from '../lenke-til-bekreftelse-artikkel';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Alert } from '@navikt/ds-react';
+import LenkeTilBekreftelseArtikkel from '../lenke-til-bekreftelse-artikkel';
 
 interface Props {
     sprak: Sprak;

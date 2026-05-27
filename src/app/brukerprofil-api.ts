@@ -1,8 +1,8 @@
-import { Brukerprofil, LedigeStillinger } from '@/model/brukerprofil';
-import { headers } from 'next/headers';
 import { logger } from '@navikt/next-logger';
-import { getTokenXToken } from '@/app/actions';
 import { getToken } from '@navikt/oasis';
+import { headers } from 'next/headers';
+import { getTokenXToken } from '@/app/actions';
+import type { Brukerprofil, LedigeStillinger } from '@/model/brukerprofil';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -133,4 +133,5 @@ async function fetchLedigStillinger(): Promise<{
 async function fetchKodeverkFylker() {
     return getBrukerprofilApi<LedigeStillinger>('/api/v1/kodeverk/fylker');
 }
-export { fetchBrukerprofil, fetchLedigStillinger, fetchKodeverkFylker };
+
+export { fetchBrukerprofil, fetchKodeverkFylker, fetchLedigStillinger };

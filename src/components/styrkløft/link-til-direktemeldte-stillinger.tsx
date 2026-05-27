@@ -1,6 +1,6 @@
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { LinkCard } from '@navikt/ds-react';
-import React from 'react';
+import type React from 'react';
 
 import { loggDirektemeldtStillinger } from '@/lib/tracking';
 

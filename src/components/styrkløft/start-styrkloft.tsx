@@ -1,7 +1,7 @@
-import { Tjenestestatus } from '@/model/brukerprofil';
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { StartStyrkloftStateless } from '@/components/styrkløft/start-styrkloft-stateless';
 import useOnSubmitTjenestestatus from '@/components/styrkløft/useOnSubmitTjenestestatus';
+import type { Tjenestestatus } from '@/model/brukerprofil';
 
 interface Props {
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;

@@ -1,8 +1,7 @@
-import { AggregertePerioder, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { AggregertePerioder, lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { Heading } from '@navikt/ds-react';
-
 import { harPermittertSituasjon } from '@/lib/har-permittert-situasjon';
-import { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
 const TEKSTER = {
     nb: {
@@ -54,8 +53,8 @@ const RegistrertTittel = (props: Props) => {
     const { snapshot, sprak } = props;
 
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const harIkkeHattArbeidssoekerperiode = !Boolean(snapshot);
-    const harAktivArbeidssokerperiode = Boolean(snapshot) && !Boolean(snapshot!.avsluttet);
+    const harIkkeHattArbeidssoekerperiode = !snapshot;
+    const harAktivArbeidssokerperiode = Boolean(snapshot) && !snapshot!.avsluttet;
     const erPermittert = Boolean(snapshot?.opplysning) && harPermittertSituasjon(snapshot!.opplysning!);
 
     return (

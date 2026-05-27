@@ -1,4 +1,4 @@
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
 import VelgStillingssoekStateless from '@/components/styrkløft/velg-stillingssoek-stateless';
 

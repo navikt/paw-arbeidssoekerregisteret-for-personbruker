@@ -1,6 +1,6 @@
-import { headers } from 'next/headers';
-import { decodeJwt } from 'jose';
 import { getToken } from '@navikt/oasis';
+import { decodeJwt } from 'jose';
+import { headers } from 'next/headers';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 

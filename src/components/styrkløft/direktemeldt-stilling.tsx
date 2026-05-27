@@ -1,8 +1,8 @@
+import { Buildings3Icon, LocationPinIcon } from '@navikt/aksel-icons';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BodyShort, Box, Heading, HStack, Link, Tag, VStack } from '@navikt/ds-react';
 import { loggDirektemeldtStillinger } from '@/lib/tracking';
-import { Buildings3Icon, LocationPinIcon } from '@navikt/aksel-icons';
-import { JobbAnnonse } from '@/model/brukerprofil';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { JobbAnnonse } from '@/model/brukerprofil';
 
 interface Props {
     ledigStilling: JobbAnnonse;
@@ -52,7 +52,7 @@ function DirektemeldtStilling(props: Props) {
                 </HStack>
             </VStack>
             <BodyShort weight="semibold" textColor="subtle" className={'my-4'}>
-                <label>{tekst('soknadsfrist')}:</label> {ledigStilling.soeknadsfrist?.raw}
+                <span>{tekst('soknadsfrist')}:</span> {ledigStilling.soeknadsfrist?.raw}
             </BodyShort>
             <Tag variant="moderate" data-color="accent">
                 {tekst('reserverteStillinger')}

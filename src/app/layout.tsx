@@ -1,9 +1,9 @@
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
-import Script from 'next/script';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import './globals.css';
-import { FeatureTogglesProvider } from '@/contexts/feature-toggle-context';
 import InitFaroKomponent from '@/components/init-faro-komponent';
+import { FeatureTogglesProvider } from '@/contexts/feature-toggle-context';
 import { isEnabled } from '@/lib/unleash-is-enabled';
 import unleashKeys from '@/unleash-keys';
 

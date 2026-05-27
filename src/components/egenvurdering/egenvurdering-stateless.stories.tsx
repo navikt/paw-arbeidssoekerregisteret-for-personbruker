@@ -1,6 +1,6 @@
+import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import Egenvurdering from '@/components/egenvurdering/egenvurdering-stateless';
-import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 
 const meta = {
     title: 'Komponenter/Egenvurdering/Stateless',

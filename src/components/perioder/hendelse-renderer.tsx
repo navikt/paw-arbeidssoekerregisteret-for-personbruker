@@ -1,19 +1,19 @@
 'use client';
 
-import { BekreftelseStatus, lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { BekreftelseStatus, lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import {
-    Hendelse,
-    OpplysningerHendelse,
+    type Hendelse,
+    type OpplysningerHendelse,
     PeriodeStartetHendelse,
 } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { Box } from '@navikt/ds-react';
-import React from 'react';
+import type React from 'react';
 import { Bekreftelse } from './bekreftelse';
+import { opprettHeadingTilPeriodeStartet } from './helpers';
 import { Hendelse as HendelseKomponent } from './hendelse';
 import { PROFILERT_TIL_TEKSTER } from './models';
 import { Opplysninger } from './opplysninger';
 import { oversettSluttaarsak } from './sluttaarsak';
-import { opprettHeadingTilPeriodeStartet } from './helpers';
 
 const TEKSTER = {
     nb: {

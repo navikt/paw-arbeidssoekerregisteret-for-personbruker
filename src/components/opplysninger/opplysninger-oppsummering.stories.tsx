@@ -1,7 +1,7 @@
-import { Meta, StoryObj } from '@storybook/nextjs';
+import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { snapshotMock } from '@/app/mockdata';
 import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
-import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 
 const meta = {
     title: 'Komponenter/OpplysningerOppsummering',

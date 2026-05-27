@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { LinkTilDirektemeldteStillinger } from '@/components/styrkløft/link-til-direktemeldte-stillinger';
 
 const meta = {

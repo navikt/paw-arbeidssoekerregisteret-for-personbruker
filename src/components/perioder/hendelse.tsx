@@ -1,11 +1,11 @@
 'use client';
 
+import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Process } from '@navikt/ds-react';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useShowDetails } from '../../contexts/show-details-context';
 import { prettyPrintDatoOgKlokkeslettKortform } from './helpers';
 import { Source } from './source';
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 type HendelseProps = {
     timestamp?: string;

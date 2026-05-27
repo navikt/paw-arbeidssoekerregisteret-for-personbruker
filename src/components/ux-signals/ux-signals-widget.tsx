@@ -1,6 +1,6 @@
+import { UxSignalsComponent, type UxSignalsWidgetProps } from '@/components/ux-signals/ux-signals-component';
 import { isEnabled } from '@/lib/unleash-is-enabled';
 import unleashKeys from '@/unleash-keys';
-import { UxSignalsComponent, UxSignalsWidgetProps } from '@/components/ux-signals/ux-signals-component';
 
 export default async function UxSignalsWidget(props: UxSignalsWidgetProps) {
     const { erDemo } = props;

@@ -1,13 +1,13 @@
-import type { OpplysningerHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import {
     lagHentTekstForSprak,
     mapNusKodeTilUtdannignsnivaa,
     SPORSMAL_TEKSTER,
     SporsmalId,
-    Sprak,
+    type Sprak,
 } from '@navikt/arbeidssokerregisteret-utils';
-import React from 'react';
+import type { OpplysningerHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { BodyShort } from '@navikt/ds-react';
+import type React from 'react';
 
 function getSisteStillingSvar(opplysninger: OpplysningerHendelse) {
     return opplysninger.jobbsituasjon?.beskrivelser[0].detaljer?.stilling || 'Ikke oppgitt';

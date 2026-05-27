@@ -1,7 +1,6 @@
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
-
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { prettyPrintDato } from '@/lib/date-utils';
-import { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
 interface PeriodeInfoProps {
     sprak: Sprak;
@@ -55,7 +54,7 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
         return <div className={'flex items-center flex-wrap mb-4'}>{tekst('ikkeTidligereRegistrert')}</div>;
     }
 
-    const harAktivPeriode = !Boolean(periode.avsluttet);
+    const harAktivPeriode = !periode.avsluttet;
     const opprettetDato = periode && periode.startet?.tidspunkt;
     const harBekreftet = Boolean(bekreftet);
     const bekreftetDato = bekreftet && bekreftet?.svar?.sendtInnAv?.tidspunkt;

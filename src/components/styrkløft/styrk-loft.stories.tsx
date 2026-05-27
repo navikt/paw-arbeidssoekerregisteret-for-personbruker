@@ -1,11 +1,10 @@
+import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import StyrkLoft from '@/components/styrkløft/styrk-loft';
-import type { Tjenestestatus } from '@/model/brukerprofil';
-import { expect, userEvent, screen } from 'storybook/test';
 import { useReducer } from 'react';
-import { reducer, initialStyrkState } from '@/components/styrkløft/reducer';
-import { Brukerprofil } from '@/model/brukerprofil';
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { expect, screen, userEvent } from 'storybook/test';
+import { initialStyrkState, reducer } from '@/components/styrkløft/reducer';
+import StyrkLoft from '@/components/styrkløft/styrk-loft';
+import type { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 
 interface StyrkLoftStoryProps {
     brukerprofil: Brukerprofil;

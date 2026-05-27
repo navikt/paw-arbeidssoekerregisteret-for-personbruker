@@ -1,9 +1,9 @@
-import { ShowDetailsProvider } from '@/contexts/show-details-context';
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Hendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { Hendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { Accordion } from '@navikt/ds-react';
 import { render, screen, within } from '@testing-library/react';
 import { test, vi } from 'vitest';
+import { ShowDetailsProvider } from '@/contexts/show-details-context';
 import {
     createBekreftelseHendelse,
     createEgenvurderingHendelse,

@@ -1,7 +1,7 @@
 'use client';
 
+import { type DecoratorParams, setBreadcrumbs } from '@navikt/nav-dekoratoren-moduler';
 import { useEffect } from 'react';
-import { setBreadcrumbs, DecoratorParams } from '@navikt/nav-dekoratoren-moduler';
 
 export default function Breadcrumbs(props: { breadcrumbs: NonNullable<DecoratorParams['breadcrumbs']> }) {
     const { breadcrumbs } = props;

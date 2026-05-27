@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import type { Brukerprofil } from '@/model/brukerprofil';
+import type { StyrkState } from './reducer';
 import { hentVisningsState } from './styrk-loft';
-import { StyrkState } from './reducer';
-import { Brukerprofil } from '@/model/brukerprofil';
 
 function lagState(
     tjenestestatus: Brukerprofil['tjenestestatus'],

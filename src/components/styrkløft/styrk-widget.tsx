@@ -1,12 +1,12 @@
 'use client';
 
-import { Brukerprofil, LedigeStillinger, Tjenestestatus } from '@/model/brukerprofil';
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { useReducer } from 'react';
+import useSWRImmutable from 'swr/immutable';
+import { initialStyrkState, reducer } from '@/components/styrkløft/reducer';
 import StyrkLoft from '@/components/styrkløft/styrk-loft';
 import byggStillingssoekPayload from '@/lib/bygg-stillingssoek-payload';
-import useSWRImmutable from 'swr/immutable';
-import { useReducer } from 'react';
-import { initialStyrkState, reducer } from '@/components/styrkløft/reducer';
+import type { Brukerprofil, LedigeStillinger, Tjenestestatus } from '@/model/brukerprofil';
 
 interface Props {
     sprak: Sprak;

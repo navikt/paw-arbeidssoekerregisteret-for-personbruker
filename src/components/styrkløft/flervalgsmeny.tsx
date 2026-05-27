@@ -1,7 +1,7 @@
-import React from 'react';
 import { MenuElipsisVerticalIcon } from '@navikt/aksel-icons';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { ActionMenu, Button } from '@navikt/ds-react';
+import type React from 'react';
 
 import { loggStyrkeloft } from '@/lib/tracking';
 

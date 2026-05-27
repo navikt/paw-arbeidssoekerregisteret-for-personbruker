@@ -1,9 +1,8 @@
-import { BodyShort, Box, Heading, HStack, Link, VStack } from '@navikt/ds-react';
 import { Buildings3Icon, LocationPinIcon } from '@navikt/aksel-icons';
-
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { BodyShort, Box, Heading, HStack, Link, VStack } from '@navikt/ds-react';
 import { loggStyrkeloft } from '@/lib/tracking';
-import { JobbAnnonse } from '@/model/brukerprofil';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { JobbAnnonse } from '@/model/brukerprofil';
 
 interface Props {
     ledigStilling: JobbAnnonse;
@@ -51,7 +50,7 @@ function LedigStilling(props: Props) {
                 </HStack>
             </VStack>
             <BodyShort weight="semibold" textColor="subtle" className={'mt-4'}>
-                <label>{tekst('soknadsfrist')}:</label> {ledigStilling.soeknadsfrist?.raw}
+                <span>{tekst('soknadsfrist')}:</span> {ledigStilling.soeknadsfrist?.raw}
             </BodyShort>
         </Box>
     );

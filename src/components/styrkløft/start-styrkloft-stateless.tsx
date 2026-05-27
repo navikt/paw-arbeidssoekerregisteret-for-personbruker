@@ -1,7 +1,7 @@
-import GodkjennEksperiment from '@/components/styrkløft/godkjenn-eksperiment';
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Tjenestestatus } from '@/model/brukerprofil';
+import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Box } from '@navikt/ds-react';
+import GodkjennEksperiment from '@/components/styrkløft/godkjenn-eksperiment';
+import type { Tjenestestatus } from '@/model/brukerprofil';
 
 interface Props {
     onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;

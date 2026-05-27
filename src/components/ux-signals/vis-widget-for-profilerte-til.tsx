@@ -1,4 +1,4 @@
-import { ProfilertTil, OpplysningerMedProfilering } from '@navikt/arbeidssokerregisteret-utils';
+import type { OpplysningerMedProfilering, ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 
 import UxSignalsWidget from './ux-signals-widget';
 

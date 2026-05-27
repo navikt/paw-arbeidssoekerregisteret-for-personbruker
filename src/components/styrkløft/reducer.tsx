@@ -1,5 +1,5 @@
-import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 import byggStillingssoekPayload from '@/lib/bygg-stillingssoek-payload';
+import type { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 
 export function initialStyrkState(brukerprofil: Brukerprofil): StyrkState {
     return {

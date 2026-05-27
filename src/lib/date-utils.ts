@@ -1,4 +1,4 @@
-import { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 
 const norsk = [
     'januar',
@@ -59,4 +59,5 @@ function formaterDato(
 ): string {
     return dateString ? new Intl.DateTimeFormat('nb', options).format(new Date(dateString)) : 'Ingen tidspunkt funnet';
 }
-export { prettyPrintDato, formaterDato };
+
+export { formaterDato, prettyPrintDato };

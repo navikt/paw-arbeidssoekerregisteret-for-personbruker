@@ -1,6 +1,9 @@
-import { JobbsituasjonBeskrivelse, OpplysningerOmArbeidssokerResponse } from '@navikt/arbeidssokerregisteret-utils';
-import { hentSisteOpplysningerOmArbeidssoker } from '@navikt/arbeidssokerregisteret-utils';
-import { OpplysningerHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import {
+    hentSisteOpplysningerOmArbeidssoker,
+    type JobbsituasjonBeskrivelse,
+    OpplysningerOmArbeidssokerResponse,
+} from '@navikt/arbeidssokerregisteret-utils';
+import type { OpplysningerHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
 const PERMITTERT_BESKRIVELSER: JobbsituasjonBeskrivelse[] = ['ER_PERMITTERT', 'MIDLERTIDIG_JOBB', 'NY_JOBB', 'KONKURS'];
 

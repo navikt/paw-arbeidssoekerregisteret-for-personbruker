@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { StartStyrkloftStateless } from '@/components/styrkløft/start-styrkloft-stateless';
-import { Tjenestestatus } from '@/model/brukerprofil';
+import type { Tjenestestatus } from '@/model/brukerprofil';
 
 const meta = {
     title: 'Styrkløft/Komponenter/StartStyrkløftStateless',

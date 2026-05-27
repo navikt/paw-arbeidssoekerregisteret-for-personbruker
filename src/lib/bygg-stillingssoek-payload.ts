@@ -1,6 +1,6 @@
-import { byggFylkerMedKommunerPayload, hentFylkeliste } from '@/lib/hent-fylkeliste';
 import { byggYrkeskodeTilStyrkMap } from '@/lib/bygg-yrkeskode-til-styrk-map';
-import { Stillingssoek } from '@/model/brukerprofil';
+import { byggFylkerMedKommunerPayload, hentFylkeliste } from '@/lib/hent-fylkeliste';
+import type { Stillingssoek } from '@/model/brukerprofil';
 
 interface Incoming {
     fylker: string[];

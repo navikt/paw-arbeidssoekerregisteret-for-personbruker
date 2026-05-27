@@ -1,5 +1,5 @@
-import { ReadMore, List, Box } from '@navikt/ds-react';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { Box, List, ReadMore } from '@navikt/ds-react';
 
 interface ReadMoreProps {
     sprak: Sprak;

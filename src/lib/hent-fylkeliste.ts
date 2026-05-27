@@ -1,5 +1,5 @@
 import { ALLE_FYLKER_OG_KOMMUMER, FYLKER_OG_FYLKENUMMER } from '@/components/styrkløft/fylker';
-import { Fylke, Kommune } from '@/model/brukerprofil';
+import type { Fylke, Kommune } from '@/model/brukerprofil';
 
 export function hentFylkeliste(fylker: string[]): Fylke[] {
     // Stoler ikke på TS her

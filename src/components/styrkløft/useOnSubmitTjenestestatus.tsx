@@ -1,5 +1,5 @@
-import { Tjenestestatus } from '@/model/brukerprofil';
 import { useState } from 'react';
+import type { Tjenestestatus } from '@/model/brukerprofil';
 
 export type UseOnSubmitTjenestestatusResult = {
     pendingTjenestestatus: Tjenestestatus | null;

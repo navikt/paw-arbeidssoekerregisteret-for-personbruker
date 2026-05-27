@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import UnderkategoriVelger from '@/components/styrkløft/underkategori-velger';
 import { useState } from 'react';
+import UnderkategoriVelger from '@/components/styrkløft/underkategori-velger';
 import { byggYrkeskoderTilStyrkMap } from '@/lib/bygg-yrkeskoder-med-styrk-map';
 
 const meta = {

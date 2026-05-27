@@ -1,14 +1,14 @@
 'use client';
 
-import { lagHentTekstForSprak, Sprak, TilgjengeligBekreftelse } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, type Sprak, type TilgjengeligBekreftelse } from '@navikt/arbeidssokerregisteret-utils';
 import { Button, Heading, Radio, RadioGroup } from '@navikt/ds-react';
-import InfoTekst from './info-tekst';
 import { useEffect, useState } from 'react';
 import { BekreftAvsluttPeriode } from '@/components/bekreftelse/bekreft-avslutt-periode';
-import { prettyPrintDato } from '@/lib/date-utils';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
-import { BekreftelseSkjemaType } from '@/model/bekreftelse';
+import { prettyPrintDato } from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/tracking';
+import type { BekreftelseSkjemaType } from '@/model/bekreftelse';
+import InfoTekst from './info-tekst';
 
 interface Skjema {
     harJobbetIDennePerioden?: boolean;

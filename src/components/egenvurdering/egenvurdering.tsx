@@ -1,10 +1,9 @@
 'use client';
 
-import { Profilering, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { Profilering, ProfilertTil, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { useState } from 'react';
-import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
-import EgenvurderingStateless from '@/components/egenvurdering/egenvurdering-stateless';
 import EgenvurderingAvklart from '@/components/egenvurdering/egenvurdering-avklart';
+import EgenvurderingStateless from '@/components/egenvurdering/egenvurdering-stateless';
 
 interface Props {
     sprak: Sprak;

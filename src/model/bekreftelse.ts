@@ -1,4 +1,4 @@
-import { Bekreftelse, BekreftelseStatus } from '@navikt/arbeidssokerregisteret-utils';
+import type { Bekreftelse, BekreftelseStatus } from '@navikt/arbeidssokerregisteret-utils';
 
 export interface BekreftelseMedStatusResponse {
     status?: BekreftelseStatus;

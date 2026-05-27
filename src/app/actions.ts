@@ -1,12 +1,11 @@
 'use server';
 
+import type { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { logger } from '@navikt/next-logger';
+import { getToken, parseIdportenToken, requestOboToken } from '@navikt/oasis';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
-
 import { snapshotMock } from './mockdata';
-import { getToken, parseIdportenToken, requestOboToken } from '@navikt/oasis';
-import { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 
@@ -133,4 +132,4 @@ async function fetchTilgjengeligEgenvurdering(): Promise<{ data?: any; error?: a
     }
 }
 
-export { fetchTilgjengeligEgenvurdering, getTokenXToken, fetchArbeidssoekerregisteretSnapshot };
+export { fetchArbeidssoekerregisteretSnapshot, fetchTilgjengeligEgenvurdering, getTokenXToken };

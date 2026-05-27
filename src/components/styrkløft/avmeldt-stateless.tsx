@@ -1,6 +1,6 @@
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { BodyShort, Box, Button, HStack } from '@navikt/ds-react';
-import { UseOnSubmitTjenestestatusResult } from '@/components/styrkløft/useOnSubmitTjenestestatus';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { UseOnSubmitTjenestestatusResult } from '@/components/styrkløft/useOnSubmitTjenestestatus';
 
 interface AvmeldtKomponentProps extends Omit<UseOnSubmitTjenestestatusResult, 'onSubmitTjenestestatus'> {
     onSubmit(): Promise<void>;

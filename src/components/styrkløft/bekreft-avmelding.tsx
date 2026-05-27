@@ -1,6 +1,6 @@
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Alert, BodyLong, Button, Dialog } from '@navikt/ds-react';
-import React from 'react';
+import type React from 'react';
 
 const TEKSTER = {
     nb: {

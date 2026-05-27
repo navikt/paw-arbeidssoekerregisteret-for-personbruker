@@ -1,6 +1,6 @@
-import { hentYrkeskategorier } from '@/lib/hent-yrkeskategorier';
-import { StedSoek } from '@/model/brukerprofil';
 import { byggStyrkTilUnderkategorinavnMap, byggYrkeskodeTilStyrkMap } from '@/lib/bygg-yrkeskode-til-styrk-map';
+import { hentYrkeskategorier } from '@/lib/hent-yrkeskategorier';
+import type { StedSoek } from '@/model/brukerprofil';
 
 /**
  * Opprett en URL basert på informasjon fra brukerprofil (api)

@@ -1,13 +1,13 @@
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Box, Heading, Loader } from '@navikt/ds-react';
+import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
+import { Suspense } from 'react';
+import { BekreftAvmelding } from '@/components/styrkløft/bekreft-avmelding';
 import { FlerValgsMeny } from '@/components/styrkløft/flervalgsmeny';
 import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
-import { Suspense } from 'react';
-import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
-import { BekreftAvmelding } from '@/components/styrkløft/bekreft-avmelding';
-import { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { loggStyrkeloft } from '@/lib/tracking';
+import type { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 
 interface Props {
     brukerprofil: Brukerprofil;

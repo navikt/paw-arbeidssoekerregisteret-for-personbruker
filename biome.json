@@ -1,0 +1,48 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
+    "files": {
+        "ignoreUnknown": true,
+        "includes": [
+            "**",
+            "!.next",
+            "!out",
+            "!build",
+            "!public/storybook",
+            "!public/mockServiceWorker.js",
+            "!msw",
+            "!next-env.d.ts",
+            "!**/*.css"
+        ]
+    },
+    "formatter": {
+        "enabled": true,
+        "lineWidth": 120,
+        "indentStyle": "space",
+        "indentWidth": 4
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "single",
+            "jsxQuoteStyle": "double",
+            "trailingCommas": "all"
+        }
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true
+        },
+        "domains": {
+            "next": "recommended",
+            "test": "recommended"
+        }
+    },
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "organizeImports": "on"
+            }
+        }
+    }
+}

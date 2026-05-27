@@ -1,9 +1,9 @@
-import React from 'react';
-import { Opplysninger } from './opplysninger';
+import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { EgenvurderingHendelse, OpplysningerHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { Box } from '@navikt/ds-react';
-import { EgenvurderingHendelse, OpplysningerHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
-import { lagHentTekstForSprak, Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type React from 'react';
 import { PROFILERT_TIL_TEKSTER } from './models';
+import { Opplysninger } from './opplysninger';
 
 const TEKSTER = {
     nb: {

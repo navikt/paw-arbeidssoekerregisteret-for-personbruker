@@ -1,11 +1,11 @@
 'use server';
 
-import { getToken, parseIdportenToken, requestOboToken } from '@navikt/oasis';
+import type { TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
 import { logger } from '@navikt/next-logger';
+import { getToken, parseIdportenToken, requestOboToken } from '@navikt/oasis';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
-import { ApiResponse } from '../../../types/api-response';
-import { TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
+import type { ApiResponse } from '../../../types/api-response';
 
 const brukerMock = process.env.ENABLE_MOCK === 'enabled';
 const TILGJENGELIGE_BEKREFTELSER_URL = `${process.env.BEKREFTELSE_API_URL}/api/v1/tilgjengelige-bekreftelser`;
