@@ -29,7 +29,7 @@ function initLagretSok(brukerprofil: Brukerprofil): StillingsSoekPayload {
     const yrkeskategorier = hentYrkeUnderkategorier(lagretSoek?.styrk08 ?? []);
     const soekeTags = lagretSoek?.soekeTags ?? [];
     const visStillingerUtenKrav =
-        soekeTags.includes('INGEN_KRAV_TIL_ARBEIDSERFARING_V1') && soekeTags.includes('INGEN_KRAV_TIL_UTDANNING_V1');
+        soekeTags.includes('INGEN_KRAV_TIL_ARBEIDSERFARING_V1') || soekeTags.includes('INGEN_KRAV_TIL_UTDANNING_V1');
     return { fylker, yrkeskategorier, visStillingerUtenKrav };
 }
 
