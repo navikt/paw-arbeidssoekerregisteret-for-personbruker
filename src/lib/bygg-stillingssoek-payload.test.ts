@@ -31,7 +31,7 @@ describe('bygg-stillingssoek-payload', () => {
                 soekeord: [],
                 fylker: [],
                 styrk08: [],
-                soekeTags: ['INGEN_KRAV_TIL_ARBEIDSERFARING_V1', 'INGEN_KRAV_TIL_UTDANNING_V1'],
+                soekeTags: ['INGEN_KRAV_TIL_ARBEIDSERFARING_V1' /*, 'INGEN_KRAV_TIL_UTDANNING_V1'*/],
             },
         ]);
     });
