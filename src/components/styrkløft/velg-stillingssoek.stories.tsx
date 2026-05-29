@@ -17,8 +17,10 @@ export const Default: Story = {
         sprak: 'nb',
         fylker: [],
         yrkeskategorier: [],
+        visStillingerUtenKrav: false,
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
     },
 };
 
@@ -28,8 +30,10 @@ export const MedValgteKategorier: Story = {
         sprak: 'nb',
         fylker: [],
         yrkeskategorier: ['IT'],
+        visStillingerUtenKrav: false,
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
     },
 };
 
@@ -39,8 +43,10 @@ export const MedValgteFylker: Story = {
         sprak: 'nb',
         fylker: ['Oslo', 'Østfold'],
         yrkeskategorier: [],
+        visStillingerUtenKrav: false,
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
     },
 };
 
@@ -50,8 +56,10 @@ export const MedGyldigeVerdier: Story = {
         sprak: 'nb',
         fylker: ['Oslo', 'Østfold'],
         yrkeskategorier: ['IT'],
+        visStillingerUtenKrav: false,
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
     },
 };
 
@@ -61,8 +69,10 @@ export const MedHengendeRequest: Story = {
         sprak: 'nb',
         fylker: ['Oslo', 'Østfold'],
         yrkeskategorier: ['IT'],
+        visStillingerUtenKrav: false,
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
         pending: true,
     },
 };
@@ -73,8 +83,10 @@ export const MedFeil: Story = {
         sprak: 'nb',
         fylker: ['Oslo', 'Østfold'],
         yrkeskategorier: ['IT'],
+        visStillingerUtenKrav: false,
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
         error: 'feil',
     },
 };
@@ -86,7 +98,9 @@ export const MedAvbrytKnapp: Story = {
         sprak: 'nb',
         fylker: ['Oslo', 'Østfold'],
         yrkeskategorier: ['IT'],
+        visStillingerUtenKrav: false,
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
     },
 };

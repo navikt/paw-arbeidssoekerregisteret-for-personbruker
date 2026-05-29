@@ -71,6 +71,7 @@ export const Default: Story = {
         lagretSok: {
             fylker: [],
             yrkeskategorier: [],
+            visStillingerUtenKrav: false,
         },
         onCancelEditSearch: () => console.log('onCancelEditSearch'),
         onVisAvmeldModal: () => console.log('onVisAvmeldModal'),

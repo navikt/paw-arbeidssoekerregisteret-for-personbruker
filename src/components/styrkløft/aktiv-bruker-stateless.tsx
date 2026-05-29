@@ -8,6 +8,7 @@ import LedigeStillinger from '@/components/styrkløft/ledige-stillinger';
 import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 import { loggStyrkeloft } from '@/lib/tracking';
 import type { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
+import type { StillingsSoekPayload } from '@/model/stillings-soek';
 
 interface Props {
     brukerprofil: Brukerprofil;
@@ -19,10 +20,7 @@ interface Props {
     visAvmeldModal: boolean;
     onEditSearch: () => void;
     onCancelEditSearch?: () => void;
-    lagretSok: {
-        fylker: string[];
-        yrkeskategorier: string[];
-    };
+    lagretSok: StillingsSoekPayload;
     onVisAvmeldModal: (val: boolean) => void;
     submittedTjenestestatus?: Tjenestestatus | null;
     pendingTjenestestatus?: Tjenestestatus | null;
@@ -95,6 +93,7 @@ function AktivBrukerStateless(props: Props) {
                     sprak={sprak}
                     fylker={lagretSok.fylker}
                     yrkeskategorier={lagretSok.yrkeskategorier}
+                    visStillingerUtenKrav={lagretSok.visStillingerUtenKrav}
                     onSubmit={onSubmitStillingsSoek}
                     onCancel={onCancelEditSearch}
                 />

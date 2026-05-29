@@ -7,6 +7,7 @@ import { initialStyrkState, reducer } from '@/components/styrkløft/reducer';
 import StyrkLoft from '@/components/styrkløft/styrk-loft';
 import byggStillingssoekPayload from '@/lib/bygg-stillingssoek-payload';
 import type { Brukerprofil, LedigeStillinger, Tjenestestatus } from '@/model/brukerprofil';
+import type { StillingsSoekPayload } from '@/model/stillings-soek';
 
 interface Props {
     sprak: Sprak;
@@ -45,7 +46,7 @@ function StyrkWidget(props: Props) {
         });
     };
 
-    const onSubmitStillingsSoek = (val: any) => {
+    const onSubmitStillingsSoek = (val: StillingsSoekPayload) => {
         return fetcher(
             `${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/stillingsoek`,
             byggStillingssoekPayload(val),
