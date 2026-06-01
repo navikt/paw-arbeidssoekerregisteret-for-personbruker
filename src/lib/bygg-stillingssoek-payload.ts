@@ -14,7 +14,7 @@ function byggStillingssoekPayload(val: StillingsSoekPayload): Array<Stillingssoe
             fylker: byggFylkerMedKommunerPayload(fylker),
             styrk08,
             soekeTags: visStillingerUtenKrav
-                ? ['INGEN_KRAV_TIL_ARBEIDSERFARING_V1' /*, 'INGEN_KRAV_TIL_UTDANNING_V1'*/]
+                ? ['INGEN_KRAV_TIL_ARBEIDSERFARING_V1', 'INGEN_KRAV_TIL_UTDANNING_V1']
                 : [],
         },
     ];
