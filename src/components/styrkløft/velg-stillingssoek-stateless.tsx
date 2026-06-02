@@ -1,16 +1,14 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Alert, Box, Button, Heading, Switch } from '@navikt/ds-react';
 import UnderkategoriVelger from '@/components/styrkløft/underkategori-velger';
+import type { VelgStillingssoekState } from '@/components/styrkløft/velg-stillingssoek-reducer';
 import byggFylkerOgKommunerUnderkategoriStruktur from '@/lib/bygg-fylker-og-kommuner-underkategori-struktur';
 import { byggYrkeskoderTilStyrkMap } from '@/lib/bygg-yrkeskoder-med-styrk-map';
 
 interface Props {
     onSubmit(data: any): Promise<void>;
-
     onCancel?: () => void;
-    fylker: string[];
-    yrkeskategorier: string[];
-    visStillingerUtenKrav: boolean;
+    skjemaState: VelgStillingssoekState;
     sprak: Sprak;
     pending?: boolean;
     error?: string | null;
@@ -31,6 +29,7 @@ const TEKSTER = {
         lagre: 'Lagre og vis stillinger',
         avbryt: 'Avbryt',
         stillingerUtenKrav: 'Vis kun stillinger uten krav til utdanning eller erfaring',
+        valideringsFeilmelding: 'må fylles ut',
     },
     nn: {
         heading: 'Vel yrkeskategoriar og område du vil sjå stillingar frå',
@@ -52,9 +51,7 @@ const TEKSTER = {
 export default function VelgStillingssoekStateless(props: Props) {
     const {
         onSubmit,
-        fylker,
-        yrkeskategorier,
-        visStillingerUtenKrav,
+        skjemaState,
         sprak,
         pending,
         error,
@@ -64,7 +61,6 @@ export default function VelgStillingssoekStateless(props: Props) {
         onCancel,
     } = props;
 
-    const isDisabled = !visStillingerUtenKrav ? fylker.length === 0 || yrkeskategorier.length === 0 : false;
     const kanAvbryte = Boolean(onCancel);
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     return (
@@ -76,7 +72,9 @@ export default function VelgStillingssoekStateless(props: Props) {
                 <UnderkategoriVelger
                     triggerText={tekst('velgYrkeskategori')}
                     options={YRKESKATEGORIER}
-                    values={yrkeskategorier}
+                    values={skjemaState.yrkeskategorier.verdi}
+                    showError={skjemaState.yrkeskategorier.visFeilmelding}
+                    errorMessage={tekst('valideringsFeilmelding')}
                     onChange={onChangeYrkeskategorier}
                     sprak={sprak}
                 />
@@ -85,14 +83,16 @@ export default function VelgStillingssoekStateless(props: Props) {
                 <UnderkategoriVelger
                     triggerText={tekst('velgFylke')}
                     options={FYLKER_OG_KOMMUNER}
-                    values={fylker}
+                    values={skjemaState.fylker.verdi}
+                    showError={skjemaState.fylker.visFeilmelding}
+                    errorMessage={tekst('valideringsFeilmelding')}
                     onChange={onChangeFylker}
                     sprak={sprak}
                 />
             </section>
             <section className={'mb-4'}>
                 <Switch
-                    checked={visStillingerUtenKrav}
+                    checked={skjemaState.visStillingerUtenKrav}
                     onChange={(e) => onChangeVisStillingerUtenKrav(e.target.checked)}
                 >
                     {tekst('stillingerUtenKrav')}
@@ -104,7 +104,7 @@ export default function VelgStillingssoekStateless(props: Props) {
                 </Alert>
             )}
             <div className={'flex'}>
-                <Button variant={'primary'} onClick={onSubmit} disabled={isDisabled || pending} loading={pending}>
+                <Button variant={'primary'} onClick={onSubmit} disabled={pending} loading={pending}>
                     {tekst('lagre')}
                 </Button>
                 {kanAvbryte && (

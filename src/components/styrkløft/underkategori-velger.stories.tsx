@@ -17,6 +17,8 @@ const meta = {
                 triggerText={args.triggerText}
                 onChange={setValues}
                 sprak={args.sprak}
+                showError={args.showError}
+                errorMessage={args.errorMessage}
             />
         );
     },
@@ -34,5 +36,21 @@ export const Default: Story = {
             console.log('onChange', values);
         },
         sprak: 'nb',
+        showError: false,
+        errorMessage: 'må fylles ut',
+    },
+};
+
+export const MedFeil: Story = {
+    args: {
+        options: byggYrkeskoderTilStyrkMap(),
+        values: [],
+        triggerText: 'Velg kategori',
+        onChange(values: string[]) {
+            console.log('onChange', values);
+        },
+        sprak: 'nb',
+        showError: true,
+        errorMessage: 'må fylles ut',
     },
 };
