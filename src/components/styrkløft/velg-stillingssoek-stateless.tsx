@@ -31,7 +31,7 @@ const TEKSTER = {
         lagre: 'Lagre og vis stillinger',
         avbryt: 'Avbryt',
         stillingerUtenKrav: 'Vis kun stillinger uten krav til utdanning eller erfaring',
-        valideringsFeilmelding: 'må fylles ut',
+        valideringsFeilmelding: 'Må fylles ut',
     },
     nn: {
         heading: 'Vel yrkeskategoriar og område du vil sjå stillingar frå',
@@ -40,6 +40,8 @@ const TEKSTER = {
         feilMelding: 'Noko gjekk dessverre gale',
         lagre: 'Lagre og vis stillingar',
         avbryt: 'Avbryt',
+        stillingerUtenKrav: 'Vis berre stillingar utan krav til utdanning eller erfaring',
+        valideringsFeilmelding: 'Må fyllast ut',
     },
     en: {
         heading: 'Select job categories and regions you want to see job offers from',
@@ -48,6 +50,8 @@ const TEKSTER = {
         feilMelding: 'Something went wrong',
         lagre: 'Save and view job offers',
         avbryt: 'Cancel',
+        stillingerUtenKrav: 'Show only positions with no requirements for education or experience',
+        valideringsFeilmelding: 'Required',
     },
 };
 export default function VelgStillingssoekStateless(props: Props) {
