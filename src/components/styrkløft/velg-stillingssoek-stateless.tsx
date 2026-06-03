@@ -1,5 +1,6 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Alert, Box, Button, Heading, Switch } from '@navikt/ds-react';
+import { Alert, Box, Button, Heading } from '@navikt/ds-react';
+import StillingerUtenKravToggler from '@/components/styrkløft/stillinger-uten-krav-toggler';
 import UnderkategoriVelger from '@/components/styrkløft/underkategori-velger';
 import type { VelgStillingssoekState } from '@/components/styrkløft/velg-stillingssoek-reducer';
 import byggFylkerOgKommunerUnderkategoriStruktur from '@/lib/bygg-fylker-og-kommuner-underkategori-struktur';
@@ -7,6 +8,7 @@ import { byggYrkeskoderTilStyrkMap } from '@/lib/bygg-yrkeskoder-med-styrk-map';
 
 interface Props {
     onSubmit(data: any): Promise<void>;
+
     onCancel?: () => void;
     skjemaState: VelgStillingssoekState;
     sprak: Sprak;
@@ -91,12 +93,11 @@ export default function VelgStillingssoekStateless(props: Props) {
                 />
             </section>
             <section className={'mb-4'}>
-                <Switch
+                <StillingerUtenKravToggler
                     checked={skjemaState.visStillingerUtenKrav}
-                    onChange={(e) => onChangeVisStillingerUtenKrav(e.target.checked)}
-                >
-                    {tekst('stillingerUtenKrav')}
-                </Switch>
+                    onChange={onChangeVisStillingerUtenKrav}
+                    tekst={tekst('stillingerUtenKrav')}
+                />
             </section>
             {error && (
                 <Alert variant={'error'} className={'my-4'}>

@@ -44,7 +44,9 @@ export type StyrkeloftData =
     | { aktivitet: 'Åpner flervalgsmeny' }
     | { aktivitet: 'Går til endre stillingssøk' }
     | { aktivitet: 'Trykker på pagineringsknapp' }
-    | { aktivitet: 'Trykker på Vis ledige stillinger fra avmeldt' };
+    | { aktivitet: 'Trykker på Vis ledige stillinger fra avmeldt' }
+    | { aktivitet: 'Skrur på Stillinger uten krav' }
+    | { aktivitet: 'Skrur av Stillinger uten krav' };
 
 export type UnderkategoriFilterData =
     | { aktivitet: 'Trykker på velg alle' }
