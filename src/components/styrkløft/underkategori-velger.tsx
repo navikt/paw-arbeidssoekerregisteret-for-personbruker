@@ -1,7 +1,7 @@
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { ActionMenu, Button, Chips, ErrorMessage } from '@navikt/ds-react';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { alfabetiskSortering } from '@/lib/hent-yrkeskategorier';
 import { loggUnderkategoriFilter } from '@/lib/tracking';
 
@@ -117,10 +117,12 @@ const TEKSTER = {
 function UnderkategoriVelger(props: Props) {
     const { triggerText, options, values, onChange, showError, errorMessage } = props;
     const [aktivNode, settAktivNode] = useState<string | null>(null);
-    const aktiveKategorier = hentAktiveKategorier(options, aktivNode);
+    const id = useId();
 
-    const uiState = getUiState(options, values);
     const tekst = lagHentTekstForSprak(TEKSTER, props.sprak);
+    const aktiveKategorier = hentAktiveKategorier(options, aktivNode);
+    const uiState = getUiState(options, values);
+
     return (
         <>
             <div className={'flex flex-wrap md:flexno-wrap'}>
@@ -133,12 +135,14 @@ function UnderkategoriVelger(props: Props) {
                 >
                     <ActionMenu.Trigger>
                         <Button
+                            id={id}
                             variant="secondary"
                             size={'small'}
                             icon={<ChevronDownIcon aria-hidden />}
                             iconPosition="right"
                             className={'shrink-0 h-fit mb-2'}
                             data-color={showError ? 'danger' : undefined}
+                            aria-invalid={showError}
                         >
                             {triggerText}
                         </Button>
@@ -245,7 +249,7 @@ function UnderkategoriVelger(props: Props) {
                 </Chips>
             </div>
             {showError && (
-                <ErrorMessage size={'small'} showIcon={true}>
+                <ErrorMessage size={'small'} showIcon={true} role="alert" aria-describedby={id}>
                     {errorMessage}
                 </ErrorMessage>
             )}
