@@ -45,7 +45,8 @@ export function velgStillingssoekReducer(state: VelgStillingssoekState, action: 
                 ...state,
                 fylker: {
                     verdi: action.payload,
-                    visFeilmelding: state.harSendtInnSkjema && action.payload.length === 0,
+                    visFeilmelding:
+                        state.harSendtInnSkjema && !state.visStillingerUtenKrav && action.payload.length === 0,
                 },
             };
         case 'SETT_YRKESKATEGORIER':
@@ -53,7 +54,8 @@ export function velgStillingssoekReducer(state: VelgStillingssoekState, action: 
                 ...state,
                 yrkeskategorier: {
                     verdi: action.payload,
-                    visFeilmelding: state.harSendtInnSkjema && action.payload.length === 0,
+                    visFeilmelding:
+                        state.harSendtInnSkjema && !state.visStillingerUtenKrav && action.payload.length === 0,
                 },
             };
         case 'SETT_VIS_STILLINGER_UTEN_KRAV':

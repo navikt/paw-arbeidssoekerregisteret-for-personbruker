@@ -21,6 +21,18 @@ describe('VelgStillingssoekReducer', () => {
                 visFeilmelding: true,
             });
         });
+
+        it('setter visFeilmelding til false hvis fylker er tom og visStillingerUtenKrav er true', () => {
+            const state = {
+                ...initialVelgStillingssoekState(initState),
+                harSendtInnSkjema: true,
+                visStillingerUtenKrav: true,
+            };
+            expect(velgStillingssoekReducer(state, { type: 'SETT_FYLKER', payload: [] }).fylker).toEqual({
+                verdi: [],
+                visFeilmelding: false,
+            });
+        });
     });
 
     describe('SETT_YRKESKATEGORIER', () => {
@@ -42,6 +54,21 @@ describe('VelgStillingssoekReducer', () => {
                     payload: [],
                 }).yrkeskategorier,
             ).toEqual({ verdi: [], visFeilmelding: true });
+        });
+
+        it('setter visFeilmelding til false hvis yrkeskategorier er tom og visStillingerUtenKrav er true', () => {
+            const state = {
+                ...initialVelgStillingssoekState(initState),
+                harSendtInnSkjema: true,
+                visStillingerUtenKrav: true,
+            };
+            console.log(state);
+            expect(
+                velgStillingssoekReducer(state, {
+                    type: 'SETT_YRKESKATEGORIER',
+                    payload: [],
+                }).yrkeskategorier,
+            ).toEqual({ verdi: [], visFeilmelding: false });
         });
     });
 
