@@ -24,7 +24,6 @@ export interface AktivBrukerProps {
 }
 
 function initLagretSok(brukerprofil: Brukerprofil): StillingsSoekPayload {
-    console.log('brukerprofil', brukerprofil);
     const lagretSoek = (brukerprofil?.stillingssoek ?? []).find((s) => s.soekType === 'STED_SOEK_V1');
     const fylker = hentFylkerUnderkategorier(lagretSoek?.fylker ?? []);
     const yrkeskategorier = hentYrkeUnderkategorier(lagretSoek?.styrk08 ?? []);
