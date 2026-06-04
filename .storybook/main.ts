@@ -23,6 +23,10 @@ const config: StorybookConfig = {
             ...config.watchOptions,
             aggregateTimeout: 500,
         };
+        // webpack 5 sets bail=true internally after the first compilation error,
+        // which stops HMR updates from being emitted. Force it off so hot-reloading
+        // survives errors without requiring a full restart.
+        config.bail = false;
         return config;
     },
 };

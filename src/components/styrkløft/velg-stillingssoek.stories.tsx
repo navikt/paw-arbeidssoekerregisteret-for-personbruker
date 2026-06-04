@@ -15,10 +15,15 @@ export const Default: Story = {
     args: {
         onSubmit: () => Promise.resolve(),
         sprak: 'nb',
-        fylker: [],
-        yrkeskategorier: [],
+        skjemaState: {
+            fylker: { verdi: [], visFeilmelding: false },
+            yrkeskategorier: { verdi: [], visFeilmelding: false },
+            visStillingerUtenKrav: false,
+            harSendtInnSkjema: false,
+        },
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
     },
 };
 
@@ -26,10 +31,15 @@ export const MedValgteKategorier: Story = {
     args: {
         onSubmit: () => Promise.resolve(),
         sprak: 'nb',
-        fylker: [],
-        yrkeskategorier: ['IT'],
+        skjemaState: {
+            fylker: { verdi: [], visFeilmelding: false },
+            yrkeskategorier: { verdi: ['IT'], visFeilmelding: false },
+            visStillingerUtenKrav: false,
+            harSendtInnSkjema: false,
+        },
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
     },
 };
 
@@ -37,10 +47,15 @@ export const MedValgteFylker: Story = {
     args: {
         onSubmit: () => Promise.resolve(),
         sprak: 'nb',
-        fylker: ['Oslo', 'Østfold'],
-        yrkeskategorier: [],
+        skjemaState: {
+            fylker: { verdi: ['Oslo', 'Østfold'], visFeilmelding: false },
+            yrkeskategorier: { verdi: [], visFeilmelding: false },
+            visStillingerUtenKrav: false,
+            harSendtInnSkjema: false,
+        },
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
     },
 };
 
@@ -48,10 +63,15 @@ export const MedGyldigeVerdier: Story = {
     args: {
         onSubmit: () => Promise.resolve(),
         sprak: 'nb',
-        fylker: ['Oslo', 'Østfold'],
-        yrkeskategorier: ['IT'],
+        skjemaState: {
+            fylker: { verdi: ['Oslo', 'Østfold'], visFeilmelding: false },
+            yrkeskategorier: { verdi: ['IT'], visFeilmelding: false },
+            visStillingerUtenKrav: false,
+            harSendtInnSkjema: false,
+        },
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
     },
 };
 
@@ -59,10 +79,15 @@ export const MedHengendeRequest: Story = {
     args: {
         onSubmit: () => Promise.resolve(),
         sprak: 'nb',
-        fylker: ['Oslo', 'Østfold'],
-        yrkeskategorier: ['IT'],
+        skjemaState: {
+            fylker: { verdi: ['Oslo', 'Østfold'], visFeilmelding: false },
+            yrkeskategorier: { verdi: ['IT'], visFeilmelding: false },
+            visStillingerUtenKrav: false,
+            harSendtInnSkjema: false,
+        },
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
         pending: true,
     },
 };
@@ -71,10 +96,15 @@ export const MedFeil: Story = {
     args: {
         onSubmit: () => Promise.resolve(),
         sprak: 'nb',
-        fylker: ['Oslo', 'Østfold'],
-        yrkeskategorier: ['IT'],
+        skjemaState: {
+            fylker: { verdi: ['Oslo', 'Østfold'], visFeilmelding: false },
+            yrkeskategorier: { verdi: ['IT'], visFeilmelding: false },
+            visStillingerUtenKrav: false,
+            harSendtInnSkjema: false,
+        },
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
         error: 'feil',
     },
 };
@@ -84,9 +114,14 @@ export const MedAvbrytKnapp: Story = {
         onSubmit: () => Promise.resolve(),
         onCancel: () => alert('Cancel!'),
         sprak: 'nb',
-        fylker: ['Oslo', 'Østfold'],
-        yrkeskategorier: ['IT'],
+        skjemaState: {
+            fylker: { verdi: ['Oslo', 'Østfold'], visFeilmelding: false },
+            yrkeskategorier: { verdi: ['IT'], visFeilmelding: false },
+            visStillingerUtenKrav: false,
+            harSendtInnSkjema: false,
+        },
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
+        onChangeVisStillingerUtenKrav: (val: boolean) => {},
     },
 };

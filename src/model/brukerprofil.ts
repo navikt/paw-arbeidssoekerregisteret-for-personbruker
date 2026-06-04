@@ -18,6 +18,11 @@ export type Flagg = {
     tidspunkt?: string;
 };
 
+export type SoekeTags =
+    | 'INGEN_KRAV_TIL_ARBEIDSERFARING_V1'
+    | 'INGEN_KRAV_TIL_UTDANNING_V1'
+    | 'INGEN_KRAV_TIL_FOERERKORT_V1 ';
+
 export type Stillingssoek =
     | ({
           soekType: 'STED_SOEK_V1';
@@ -31,6 +36,7 @@ export type StedSoek = {
     fylker: Array<Fylke>;
     soekeord: Array<string>;
     styrk08?: Array<string>;
+    soekeTags?: Array<SoekeTags>;
 };
 
 export type Fylke = {
