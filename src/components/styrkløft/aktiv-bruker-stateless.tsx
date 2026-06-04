@@ -1,5 +1,5 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Box, Heading, Loader } from '@navikt/ds-react';
+import { Box, Heading, InlineMessage, Loader } from '@navikt/ds-react';
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
 import { Suspense } from 'react';
 import { BekreftAvmelding } from '@/components/styrkløft/bekreft-avmelding';
@@ -30,15 +30,15 @@ interface Props {
 const TEKSTER = {
     nb: {
         heading: 'Ledige stillinger',
-        nyhet: 'Nå kan du også filtrere på kommuner i stillingssøket',
+        nyhet: 'Nå kan du filtrere på stillinger uten krav til utdanning eller erfaring',
     },
     nn: {
         heading: 'Ledige stillingar',
-        nyhet: 'No kan du også filtrere på kommunar i stillingssøket',
+        nyhet: 'No kan du filtrere på stillingar utan krav til utdanning eller erfaring',
     },
     en: {
         heading: 'Vacant jobs',
-        nyhet: 'You can now also filter by municipality in the job search',
+        nyhet: 'You can now filter by jobs with no requirements for education or experience',
     },
 };
 
@@ -76,6 +76,9 @@ function AktivBrukerStateless(props: Props) {
                     sprak={sprak}
                 />
             </div>
+            <InlineMessage status={'info'} className={'mb-4'}>
+                {tekst('nyhet')}
+            </InlineMessage>
             {!visEndreSok && (
                 <ErrorBoundary errorComponent={() => null}>
                     <Suspense fallback={<Loader />}>
