@@ -56,7 +56,10 @@ function StyrkWidget(props: Props) {
     const useOnFetchStillinger = () => {
         return useSWRImmutable(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/ledigestillinger`, swrFetcher, {
             suspense: true,
-            revalidateOnMount: true,
+            // Når server-rendret data finnes, unngå revalidering ved mount slik at lista ikke
+            // endrer høyde etter hydrering (CLS). Uten fallbackData beholdes opprinnelig henting.
+            revalidateOnMount: props.ledigeStillinger === undefined,
+            fallbackData: props.ledigeStillinger,
         });
     };
 

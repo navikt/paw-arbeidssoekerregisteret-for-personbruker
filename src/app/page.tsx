@@ -1,10 +1,11 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import type { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 
 import { fetchArbeidssoekerregisteretSnapshot, fetchTilgjengeligEgenvurdering } from '@/app/actions';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
-import { fetchBrukerprofil } from '@/app/brukerprofil-api';
+import { fetchBrukerprofil, fetchLedigStillinger } from '@/app/brukerprofil-api';
 import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengelig-bekreftelse-link';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import Egenvurdering from '@/components/egenvurdering/egenvurdering';
@@ -21,6 +22,7 @@ import StyrkWidget from '@/components/styrkløft/styrk-widget';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
 import { isEnabled } from '@/lib/unleash-is-enabled';
+import type { LedigeStillinger } from '@/model/brukerprofil';
 import unleashKeys from '@/unleash-keys';
 import type { NextPageProps } from '../../types/next';
 
@@ -28,26 +30,30 @@ interface Props {
     sprak: Sprak;
 }
 
-interface SamletInformasjonProps extends Props {
+interface ForsideInnholdProps extends Props {
     snapshotPromise: ReturnType<typeof fetchArbeidssoekerregisteretSnapshot>;
     bekreftelserPromise: ReturnType<typeof fetchTilgjengeligeBekreftelser>;
     egenvurderingPromise: ReturnType<typeof fetchTilgjengeligEgenvurdering>;
     brukerprofilPromise: ReturnType<typeof fetchBrukerprofil>;
     skyraPromise: ReturnType<typeof isEnabled>;
+    innloggingsNivaaPromise: ReturnType<typeof hentInnloggingsNivaa>;
 }
 
-async function SamletInformasjonServerComponent({
+/**
+ * Tier 1: rendres så snart `snapshot` er løst, slik at LCP-elementet (tittelen) ikke gates på
+ * tregere fetch-er. Resten av innholdet rendres atomisk i Tier 2 for å unngå at de conditional
+ * boksene dytter innholdet under seg flere ganger (CLS).
+ */
+async function ForsideInnhold({
     sprak,
     snapshotPromise,
     bekreftelserPromise,
     egenvurderingPromise,
     brukerprofilPromise,
     skyraPromise,
-}: SamletInformasjonProps) {
-    const [{ data: snapshotData, error: snapshotError }, { data: innloggingsNivaa }] = await Promise.all([
-        snapshotPromise,
-        hentInnloggingsNivaa(),
-    ]);
+    innloggingsNivaaPromise,
+}: ForsideInnholdProps) {
+    const { data: snapshotData, error: snapshotError } = await snapshotPromise;
 
     if (snapshotError) {
         return (
@@ -57,27 +63,92 @@ async function SamletInformasjonServerComponent({
         );
     }
 
-    const harAktivPeriode = Boolean(snapshotData?.id) && !snapshotData?.avsluttet;
-    const harHistorikk = Boolean(snapshotData);
-
     return (
         <>
             <RegistrertTittel snapshot={snapshotData} sprak={sprak} />
             <PeriodeInfo snapshot={snapshotData} sprak={sprak} />
-            <Suspense fallback={<Loader />}>
-                <TilgjengeligBekreftelseKomponent sprak={sprak} bekreftelserPromise={bekreftelserPromise} />
+            {/* Reserverer en stabil minimumshøyde mens Tier 2 strømmer inn, slik at footeren
+                ikke hopper når den samlede innholdsblokken males. */}
+            <Suspense fallback={<div className={'min-h-[320px]'} />}>
+                <SamletRestInnhold
+                    sprak={sprak}
+                    snapshotData={snapshotData}
+                    bekreftelserPromise={bekreftelserPromise}
+                    egenvurderingPromise={egenvurderingPromise}
+                    brukerprofilPromise={brukerprofilPromise}
+                    skyraPromise={skyraPromise}
+                    innloggingsNivaaPromise={innloggingsNivaaPromise}
+                />
             </Suspense>
-            <Suspense fallback={<Loader />}>
-                <EgenvurderingServerKomponent sprak={sprak} egenvurderingPromise={egenvurderingPromise} />
-            </Suspense>
-            {harAktivPeriode && (
-                <Suspense>
-                    <StyrkLoftServerKomponent
-                        sprak={sprak}
-                        brukerprofilPromise={brukerprofilPromise}
-                        skyraPromise={skyraPromise}
-                    />
-                </Suspense>
+        </>
+    );
+}
+
+interface SamletRestInnholdProps extends Props {
+    snapshotData: Snapshot | undefined;
+    bekreftelserPromise: ReturnType<typeof fetchTilgjengeligeBekreftelser>;
+    egenvurderingPromise: ReturnType<typeof fetchTilgjengeligEgenvurdering>;
+    brukerprofilPromise: ReturnType<typeof fetchBrukerprofil>;
+    skyraPromise: ReturnType<typeof isEnabled>;
+    innloggingsNivaaPromise: ReturnType<typeof hentInnloggingsNivaa>;
+}
+
+/**
+ * Tier 2: venter på alle de allerede parallelt startede promisene og rendrer hele
+ * innholdsblokken samtidig. Promisene løses til `{ data, error }` (kaster aldri), så
+ * `Promise.all` er trygt og bevarer per-boks `null`/feil-håndtering.
+ */
+async function SamletRestInnhold({
+    sprak,
+    snapshotData,
+    bekreftelserPromise,
+    egenvurderingPromise,
+    brukerprofilPromise,
+    skyraPromise,
+    innloggingsNivaaPromise,
+}: SamletRestInnholdProps) {
+    const [bekreftelser, egenvurdering, brukerprofil, erSkyraAktiv, { data: innloggingsNivaa }] = await Promise.all([
+        bekreftelserPromise,
+        egenvurderingPromise,
+        brukerprofilPromise,
+        skyraPromise,
+        innloggingsNivaaPromise,
+    ]);
+
+    const harAktivPeriode = Boolean(snapshotData?.id) && !snapshotData?.avsluttet;
+    const harHistorikk = Boolean(snapshotData);
+
+    const visStyrkLoft = harAktivPeriode && !brukerprofil.error && Boolean(brukerprofil.data);
+    // Hent ledige stillinger server-side kun når widgeten faktisk trenger dem (aktiv bruker),
+    // og send dem inn som SWR fallbackData slik at lista rendres i endelig høyde allerede ved
+    // SSR i stedet for å poppe inn etter hydrering (CLS).
+    const skalHenteStillinger = visStyrkLoft && brukerprofil.data!.tjenestestatus === 'AKTIV';
+    const ledigeStillinger: LedigeStillinger | undefined = skalHenteStillinger
+        ? (await fetchLedigStillinger()).data
+        : undefined;
+
+    const tilgjengeligeBekreftelser = bekreftelser.error ? undefined : bekreftelser.data;
+
+    return (
+        <>
+            {tilgjengeligeBekreftelser && (
+                <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={tilgjengeligeBekreftelser} sprak={sprak} />
+            )}
+            {egenvurdering.data?.grunnlag && (
+                <div className={'my-4'}>
+                    <Egenvurdering sprak={sprak} profilering={egenvurdering.data.grunnlag} />
+                </div>
+            )}
+            {visStyrkLoft && (
+                <>
+                    {erSkyraAktiv && (
+                        <StyrkloftSkyra
+                            brukerprofil={brukerprofil.data!}
+                            slug={'arbeids-og-velferdsetaten-nav/styrkeloft-eksperimentavslutning'}
+                        />
+                    )}
+                    <StyrkWidget sprak={sprak} brukerprofil={brukerprofil.data!} ledigeStillinger={ledigeStillinger} />
+                </>
             )}
             {harAktivPeriode && snapshotData?.opplysning && (
                 <div className={'my-4'}>
@@ -110,74 +181,18 @@ async function SamletInformasjonServerComponent({
     );
 }
 
-interface BekreftelseProps extends Props {
-    bekreftelserPromise: ReturnType<typeof fetchTilgjengeligeBekreftelser>;
-}
-
-const TilgjengeligBekreftelseKomponent = async ({ sprak, bekreftelserPromise }: BekreftelseProps) => {
-    const { data, error } = await bekreftelserPromise;
-
-    if (error) {
-        return null;
-    }
-
-    return <TilgjengeligBekreftelseLink tilgjengeligeBekreftelser={data!} sprak={sprak} />;
-};
-
-interface EgenvurderingProps extends Props {
-    egenvurderingPromise: ReturnType<typeof fetchTilgjengeligEgenvurdering>;
-}
-
-const EgenvurderingServerKomponent = async ({ sprak, egenvurderingPromise }: EgenvurderingProps) => {
-    const { data } = await egenvurderingPromise;
-
-    if (!data?.grunnlag) {
-        return null;
-    }
-
-    return (
-        <div className={'my-4'}>
-            <Egenvurdering sprak={sprak} profilering={data.grunnlag} />
-        </div>
-    );
-};
-
-interface StyrkLoftProps extends Props {
-    brukerprofilPromise: ReturnType<typeof fetchBrukerprofil>;
-    skyraPromise: ReturnType<typeof isEnabled>;
-}
-
-const StyrkLoftServerKomponent = async ({ sprak, brukerprofilPromise, skyraPromise }: StyrkLoftProps) => {
-    const [{ data, error }, erSkyraAktiv] = await Promise.all([brukerprofilPromise, skyraPromise]);
-
-    if (error || !data) {
-        return null;
-    }
-
-    return (
-        <>
-            {erSkyraAktiv && (
-                <StyrkloftSkyra
-                    brukerprofil={data}
-                    slug={'arbeids-og-velferdsetaten-nav/styrkeloft-eksperimentavslutning'}
-                />
-            )}
-            <StyrkWidget sprak={sprak} brukerprofil={data} />
-        </>
-    );
-};
-
 export default async function Home({ params }: NextPageProps) {
     const sprak = (await params).lang ?? 'nb';
     const title = lagHentTekstForSprak(BREADCRUMBS_TITLES, sprak);
     const url = lagHentTekstForSprak(BREADCRUMBS_URLS, sprak);
 
-    // Start all API fetches immediately in parallel before any await
+    // Start alle API-kall umiddelbart i parallel før await
     const snapshotPromise = fetchArbeidssoekerregisteretSnapshot();
     const bekreftelserPromise = fetchTilgjengeligeBekreftelser();
     const egenvurderingPromise = fetchTilgjengeligEgenvurdering();
     const brukerprofilPromise = fetchBrukerprofil();
     const skyraPromise = isEnabled(unleashKeys.BRUK_SKYRA);
+    const innloggingsNivaaPromise = hentInnloggingsNivaa();
 
     return (
         <main className="flex flex-col max-w-3xl mx-auto px-4">
@@ -189,13 +204,14 @@ export default async function Home({ params }: NextPageProps) {
                 }))}
             />
             <Suspense fallback={<Loader />}>
-                <SamletInformasjonServerComponent
+                <ForsideInnhold
                     sprak={sprak}
                     snapshotPromise={snapshotPromise}
                     bekreftelserPromise={bekreftelserPromise}
                     egenvurderingPromise={egenvurderingPromise}
                     brukerprofilPromise={brukerprofilPromise}
                     skyraPromise={skyraPromise}
+                    innloggingsNivaaPromise={innloggingsNivaaPromise}
                 />
             </Suspense>
         </main>
