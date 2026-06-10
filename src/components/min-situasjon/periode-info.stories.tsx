@@ -31,7 +31,7 @@ const meta = {
 } satisfies Meta<typeof PeriodeInfo>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof PeriodeInfo>;
 
 export const Registrert: Story = {
     args: {
