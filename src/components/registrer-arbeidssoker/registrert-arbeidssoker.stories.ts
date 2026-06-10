@@ -10,7 +10,7 @@ const meta = {
 } satisfies Meta<typeof RegistrerArbeidssoker>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof RegistrerArbeidssoker>;
 
 export const RegistrertArbeidssoker: Story = {
     args: {
