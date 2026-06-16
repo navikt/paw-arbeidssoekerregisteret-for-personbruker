@@ -20,6 +20,7 @@ import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
 import StyrkWidget from '@/components/styrkløft/styrk-widget';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
+import { leggSprakTilEksternUrl } from '@/lib/legg-til-sprak-i-url';
 import { isEnabled } from '@/lib/unleash-is-enabled';
 import unleashKeys from '@/unleash-keys';
 import type { NextPageProps } from '../../types/next';
@@ -84,7 +85,11 @@ async function SamletInformasjonServerComponent({
                     <OpplysningerOppsummering
                         snapshot={snapshotData}
                         sprak={sprak}
-                        oppdaterOpplysningerUrl={process.env.OPPDATER_OPPLYSNINGER_URL!}
+                        oppdaterOpplysningerUrl={leggSprakTilEksternUrl(
+                            process.env.REGISTRER_ARBEIDSSOKER_URL!,
+                            sprak,
+                            'oppdater-opplysninger',
+                        )}
                         visEndreLink={innloggingsNivaa === 'idporten-loa-high'}
                     />
                 </div>
@@ -93,7 +98,11 @@ async function SamletInformasjonServerComponent({
                 <div className={'my-4'}>
                     <ManglerOpplysninger
                         sprak={sprak}
-                        oppdaterOpplysningerUrl={process.env.OPPDATER_OPPLYSNINGER_URL!}
+                        oppdaterOpplysningerUrl={leggSprakTilEksternUrl(
+                            process.env.REGISTRER_ARBEIDSSOKER_URL!,
+                            sprak,
+                            'oppdater-opplysninger',
+                        )}
                         visAdvarsel={innloggingsNivaa !== 'idporten-loa-high'}
                     />
                 </div>
@@ -101,7 +110,7 @@ async function SamletInformasjonServerComponent({
             {!harAktivPeriode && (
                 <RegistrerArbeidssoker
                     className={'my-4'}
-                    registrerArbeidssokerUrl={process.env.REGISTRER_ARBEIDSSOKER_URL!}
+                    registrerArbeidssokerUrl={leggSprakTilEksternUrl(process.env.REGISTRER_ARBEIDSSOKER_URL!, sprak)}
                     sprak={sprak}
                 />
             )}
