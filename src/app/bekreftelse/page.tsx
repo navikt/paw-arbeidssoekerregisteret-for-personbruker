@@ -9,7 +9,6 @@ import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import Feil from '@/components/feil';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
-import { leggSprakTilEksternUrl } from '@/lib/legg-til-sprak-i-url';
 import type { NextPageProps } from '../../../types/next';
 
 interface BekreftelseServerComponentProps {
@@ -42,7 +41,7 @@ async function BekreftelseServerComponent({
             erAktivArbeidssoker={erAktivArbeidssoker}
             tilgjengeligeBekreftelser={tilgjengeligeBekreftelser}
             sistInnsendteBekreftelse={sistInnsendteBekreftelse}
-            registrerArbeidssokerUrl={leggSprakTilEksternUrl(process.env.REGISTRER_ARBEIDSSOKER_URL!, sprak)}
+            registrerArbeidssokerUrl={process.env.REGISTRER_ARBEIDSSOKER_URL!}
             brukerprofil={brukerprofil}
         />
     );
