@@ -19,7 +19,7 @@ export const OpplysningerOmArbeidssoker: Story = {
         visEndreLink: true,
         snapshot: { ...snapshotMock, egenvurdering: undefined },
         sprak: 'nb',
-        oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
+        oppdaterOpplysningerUrl: 'http://localhost:3000/oppdater-opplysninger',
     },
 };
 
@@ -28,7 +28,7 @@ export const UtenEndreLenke: Story = {
         visEndreLink: false,
         snapshot: snapshotMock,
         sprak: 'nb',
-        oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
+        oppdaterOpplysningerUrl: 'http://localhost:3000/oppdater-opplysninger',
     },
 };
 
@@ -43,7 +43,7 @@ export const MedEgenvurderingGodeMuligheter: Story = {
             } as any,
         },
         sprak: 'nb',
-        oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
+        oppdaterOpplysningerUrl: 'http://localhost:3000/oppdater-opplysninger',
     },
 };
 
@@ -58,6 +58,6 @@ export const MedEgenvurderingBehov: Story = {
             } as any,
         },
         sprak: 'nb',
-        oppdaterOpplysningerUrl: process.env.OPPDATER_OPPLYSNINGER_URL!,
+        oppdaterOpplysningerUrl: 'http://localhost:3000/oppdater-opplysninger',
     },
 };

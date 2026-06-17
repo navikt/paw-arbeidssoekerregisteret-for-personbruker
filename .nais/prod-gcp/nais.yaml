@@ -48,8 +48,6 @@ spec:
           value: http://paw-arbeidssoekerregisteret-api-oppslag-v2
         - name: REGISTRER_ARBEIDSSOKER_URL
           value: https://www.nav.no/arbeid/registrering
-        - name: OPPDATER_OPPLYSNINGER_URL
-          value: https://www.nav.no/arbeid/registrering/oppdater-opplysninger
         - name: UNLEASH_SERVER_API_URL
           value: https://paw-unleash-api.nav.cloud.nais.io/api
         - name: EGENVURDERING_API_URL
