@@ -15,7 +15,7 @@ type Story = StoryObj<typeof ManglerOpplysninger>;
 export const ManglerOpplysningerKomponent: Story = {
     args: {
         sprak: 'nb',
-        oppdaterOpplysningerUrl: 'http://localhost:3000/magler-opplysninger',
+        oppdaterOpplysningerUrl: 'http://localhost:3000/oppdater-opplysninger',
         visAdvarsel: false,
     },
 };
@@ -23,7 +23,7 @@ export const ManglerOpplysningerKomponent: Story = {
 export const ManglerOpplysningerMedInnlogginsAdvarsel: Story = {
     args: {
         sprak: 'nb',
-        oppdaterOpplysningerUrl: 'http://localhost:3000/magler-opplysninger',
+        oppdaterOpplysningerUrl: 'http://localhost:3000/oppdater-opplysninger',
         visAdvarsel: true,
     },
 };
