@@ -22,7 +22,7 @@ jobs:
             - name: Set up node
               uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
               with:
-                  node-version: '24.12.0'
+                  node-version: '24.17.0'
                   cache: 'pnpm'
                   registry-url: 'https://npm.pkg.github.com'
 
@@ -58,7 +58,7 @@ jobs:
             - name: Set up node
               uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
               with:
-                  node-version: '24.12.0'
+                  node-version: '24.17.0'
                   cache: 'pnpm'
                   registry-url: 'https://npm.pkg.github.com'
 
