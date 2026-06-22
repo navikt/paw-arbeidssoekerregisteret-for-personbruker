@@ -6,6 +6,54 @@ updates:
     directory: "/"
     # Check the npm registry for updates once a week
     schedule:
-      interval: "weekly"
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Oslo
     cooldown:
       default-days: 7
+      semver-major-days: 14
+    open-pull-requests-limit: 10
+    groups:
+      aksel:
+        patterns:
+          - "@navikt/aksel-*"
+          - "@navikt/ds-*"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+      tailwind:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+      pino:
+        patterns:
+          - "pino"
+          - "pino-pretty"
+      storybook:
+        patterns:
+          - "storybook"
+          - "@storybook/*"
+          - "msw-storybook-addon"
+      vite:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+          - "vitest"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Oslo
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    groups:
+      github-actions:
+        patterns:
+          - "*"
