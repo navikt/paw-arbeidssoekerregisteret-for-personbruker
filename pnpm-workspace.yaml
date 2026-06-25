@@ -5,3 +5,9 @@ allowBuilds:
   msw: false
   sharp: true
   unrs-resolver: false
+
+overrides:
+  postcss: '8.5.15'
+  uuid: '14.0.1'
+  js-yaml: '5.1.0'
+  '@opentelemetry/core': '2.8.0'
