@@ -2,6 +2,7 @@ import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret
 import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
 import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
 import StyrkWidget from '@/components/styrkløft/styrk-widget';
+import { leggSprakTilEksternUrl } from '@/lib/legg-til-sprak-i-url';
 import { loggAktivitet } from '@/lib/tracking';
 import type { Brukerprofil } from '@/model/brukerprofil';
 
@@ -100,7 +101,7 @@ const Kvittering = (props: Props) => {
                     {tekst('buttonText')}
                 </Button>
             ) : (
-                <Link href={'/minside'} onClick={loggKlikk}>
+                <Link href={leggSprakTilEksternUrl('/minside', sprak)} onClick={loggKlikk}>
                     {tekst('linkText')}
                 </Link>
             )}
