@@ -28,7 +28,7 @@ export const BREADCRUMBS_URLS = {
         bekreftelse: '/arbeidssoekerregisteret/nn/bekreftelse',
     },
     en: {
-        minside: '/minside',
+        minside: '/minside/en',
         registeret: '/arbeidssoekerregisteret/en',
         bekreftelse: '/arbeidssoekerregisteret/en/bekreftelse',
     },
