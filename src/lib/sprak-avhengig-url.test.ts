@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { leggSprakTilEksternUrl } from './legg-til-sprak-i-url';
+
+import { leggSprakTilEksternUrl } from '@/lib/sprak-avhengig-url';
 
 describe('leggSprakTilEksternUrl', () => {
     it('returnerer baseUrl når språk er nb og postFix ikke er oppgitt', () => {

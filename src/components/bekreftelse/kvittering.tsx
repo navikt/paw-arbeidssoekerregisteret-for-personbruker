@@ -2,7 +2,7 @@ import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret
 import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
 import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
 import StyrkWidget from '@/components/styrkløft/styrk-widget';
-import { leggSprakTilEksternUrl } from '@/lib/legg-til-sprak-i-url';
+import { leggSprakTilEksternUrl } from '@/lib/sprak-avhengig-url';
 import { loggAktivitet } from '@/lib/tracking';
 import type { Brukerprofil } from '@/model/brukerprofil';
 

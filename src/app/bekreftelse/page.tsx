@@ -9,7 +9,7 @@ import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import Feil from '@/components/feil';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
-import { leggSprakTilEksternUrl } from '@/lib/legg-til-sprak-i-url';
+import { leggSprakTilEksternUrl } from '@/lib/sprak-avhengig-url';
 import type { NextPageProps } from '../../../types/next';
 
 interface BekreftelseServerComponentProps {

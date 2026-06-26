@@ -4,13 +4,7 @@ import { erStottetSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils
 import { onLanguageSelect, setParams } from '@navikt/nav-dekoratoren-moduler';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-
-const getSprakAttribute = (sprak: Sprak) => {
-    if (['nb', 'en', 'nn'].includes(sprak)) {
-        return sprak;
-    }
-    return 'nb';
-};
+import { getSprakAttribute } from '@/lib/sprak-avhengig-url';
 
 const SettSprakIDekorator = ({ sprak }: { sprak: Sprak }) => {
     const router = useRouter();

@@ -1,4 +1,5 @@
 import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { getSprakAttribute } from '@/lib/sprak-avhengig-url';
 
 const norsk = [
     'januar',
@@ -40,7 +41,7 @@ const prettyPrintDato = (dato: string, locale?: Sprak) => {
     const date = new Date(dato);
     const thisYear = now.getFullYear();
     const year = date.getFullYear();
-    const valgtSprak = !locale ? 'nb' : (locale as Sprak);
+    const valgtSprak = getSprakAttribute(locale);
     const month = monthNames[valgtSprak][date.getMonth()];
 
     if (valgtSprak === 'en') {

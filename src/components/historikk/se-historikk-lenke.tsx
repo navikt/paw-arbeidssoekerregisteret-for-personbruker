@@ -2,8 +2,7 @@
 
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Box, Link } from '@navikt/ds-react';
-
-import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
+import { tilSprakAvhengigAppPath } from '@/lib/sprak-avhengig-url';
 import { loggAktivitet } from '@/lib/tracking';
 
 interface HistorikkLenkeProps {

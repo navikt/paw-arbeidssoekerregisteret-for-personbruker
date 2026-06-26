@@ -4,7 +4,7 @@ import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { lagHentTekstForSprak, type Sprak, type TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
 import { Hide, LinkCard } from '@navikt/ds-react';
 import NextLink from 'next/link';
-import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
+import { tilSprakAvhengigAppPath } from '@/lib/sprak-avhengig-url';
 import { loggAktivitet } from '@/lib/tracking';
 import LenkeTilBekreftelseArtikkel from '../lenke-til-bekreftelse-artikkel';
 

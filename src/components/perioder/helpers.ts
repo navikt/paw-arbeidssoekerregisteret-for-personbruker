@@ -1,5 +1,6 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import type { PeriodeStartetHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { getSprakAttribute } from '@/lib/sprak-avhengig-url';
 
 const norsk = [
     'januar',
@@ -41,7 +42,7 @@ export function prettyPrintDatoOgKlokkeslettKortform(dato: string, locale?: Spra
     const year = date.getFullYear();
     const timer = date.getHours();
     const minutter = date.getMinutes();
-    const valgtSprak = !locale ? 'nb' : (locale as Sprak);
+    const valgtSprak = getSprakAttribute(locale);
     const month = monthNames[valgtSprak][date.getMonth()];
     const maaned = date.getMonth() + 1;
 

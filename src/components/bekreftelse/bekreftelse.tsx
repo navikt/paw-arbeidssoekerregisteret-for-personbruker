@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import IngenTilgjengeligeBekreftelser from '@/components/bekreftelse/ingen-tilgjengelige-bekreftelser';
 import { sorterEtterEldsteFoerst } from '@/lib/sorter-etter-eldste-foerst';
-import tilSprakAvhengigAppPath from '@/lib/sprak-avhengig-url';
+import { tilSprakAvhengigAppPath } from '@/lib/sprak-avhengig-url';
 import { loggAktivitet } from '@/lib/tracking';
 import type { BekreftelseSkjemaType } from '@/model/bekreftelse';
 import type { Brukerprofil } from '@/model/brukerprofil';
@@ -20,9 +20,10 @@ export interface BekreftelseProps {
     sistInnsendteBekreftelse?: BekreftelseHendelse;
     tilgjengeligeBekreftelser?: TilgjengeligeBekreftelser;
     erAktivArbeidssoker: boolean;
-    onSubmit(data: BekreftelseSkjemaType): Promise<void>;
     registrerArbeidssokerUrl: string;
     brukerprofil?: Brukerprofil;
+
+    onSubmit(data: BekreftelseSkjemaType): Promise<void>;
 }
 
 function Bekreftelse(props: BekreftelseProps) {
