@@ -1,7 +1,7 @@
-import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
+import { erStottetSprak, lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Loader } from '@navikt/ds-react';
+import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-
 import { fetchArbeidssoekerregisteretSnapshot, fetchTilgjengeligEgenvurdering } from '@/app/actions';
 import { fetchTilgjengeligeBekreftelser } from '@/app/bekreftelse/actions';
 import { fetchBrukerprofil } from '@/app/brukerprofil-api';
@@ -20,7 +20,7 @@ import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
 import StyrkWidget from '@/components/styrkløft/styrk-widget';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
-import { leggSprakTilEksternUrl } from '@/lib/legg-til-sprak-i-url';
+import { leggSprakTilEksternUrl } from '@/lib/sprak-avhengig-url';
 import { isEnabled } from '@/lib/unleash-is-enabled';
 import unleashKeys from '@/unleash-keys';
 import type { NextPageProps } from '../../types/next';
@@ -178,6 +178,11 @@ const StyrkLoftServerKomponent = async ({ sprak, brukerprofilPromise, skyraPromi
 
 export default async function Home({ params }: NextPageProps) {
     const sprak = (await params).lang ?? 'nb';
+
+    if (!erStottetSprak(sprak)) {
+        notFound();
+    }
+
     const title = lagHentTekstForSprak(BREADCRUMBS_TITLES, sprak);
     const url = lagHentTekstForSprak(BREADCRUMBS_URLS, sprak);
 
