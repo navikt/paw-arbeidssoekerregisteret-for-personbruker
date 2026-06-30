@@ -1,5 +1,5 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Box, Heading, InlineMessage, Loader } from '@navikt/ds-react';
+import { Box, Heading, Loader } from '@navikt/ds-react';
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
 import { Suspense } from 'react';
 import { BekreftAvmelding } from '@/components/styrkløft/bekreft-avmelding';
@@ -13,9 +13,6 @@ import type { StillingsSoekPayload } from '@/model/stillings-soek';
 interface Props {
     brukerprofil: Brukerprofil;
     sprak: Sprak;
-    useOnFetchStillinger(): { data?: any; error?: Error };
-    onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
-    onSubmitStillingsSoek(data: any): Promise<void>;
     visEndreSok: boolean;
     visAvmeldModal: boolean;
     onEditSearch: () => void;
@@ -25,6 +22,12 @@ interface Props {
     submittedTjenestestatus?: Tjenestestatus | null;
     pendingTjenestestatus?: Tjenestestatus | null;
     errorTjenestestatus?: string | null;
+
+    useOnFetchStillinger(): { data?: any; error?: Error };
+
+    onSubmitTjenestestatus(status: Tjenestestatus): Promise<void>;
+
+    onSubmitStillingsSoek(data: any): Promise<void>;
 }
 
 const TEKSTER = {
@@ -76,9 +79,6 @@ function AktivBrukerStateless(props: Props) {
                     sprak={sprak}
                 />
             </div>
-            <InlineMessage status={'info'} className={'mb-4'}>
-                {tekst('nyhet')}
-            </InlineMessage>
             {!visEndreSok && (
                 <ErrorBoundary errorComponent={() => null}>
                     <Suspense fallback={<Loader />}>
