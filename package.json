@@ -55,7 +55,7 @@
         "axe-playwright": "2.2.2",
         "concurrently": "10.0.3",
         "husky": "9.1.7",
-        "jsdom": "29.1.1",
+        "jsdom": "30.0.1",
         "knip": "6.31.0",
         "lint-staged": "17.0.8",
         "msw": "2.14.6",
