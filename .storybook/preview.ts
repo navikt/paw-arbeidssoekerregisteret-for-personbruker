@@ -1,13 +1,21 @@
 import type { Preview } from '@storybook/nextjs';
 import '../src/app/globals.css';
-import { initialize, mswLoader } from 'msw-storybook-addon';
+import { mswLoader } from 'msw-storybook-addon/csf3';
 
 const isStatic = typeof window !== 'undefined' && window.location.pathname.includes('/storybook/');
-initialize({
-    serviceWorker: {
-        url: isStatic ? '/arbeidssoekerregisteret/storybook/mockServiceWorker.js' : '/mockServiceWorker.js',
-    },
-});
+
+const setupWorker = async () => {
+    const { setupWorker } = await import('msw/browser');
+    const worker = setupWorker();
+
+    await worker.start({
+        serviceWorker: {
+            url: isStatic ? '/arbeidssoekerregisteret/storybook/mockServiceWorker.js' : '/mockServiceWorker.js',
+        },
+    });
+
+    return worker;
+};
 
 const preview: Preview = {
     parameters: {
@@ -19,7 +27,7 @@ const preview: Preview = {
         },
     },
     // Provide the MSW addon loader globally
-    loaders: [mswLoader],
+    loaders: [mswLoader(setupWorker)],
 };
 
 export default preview;
