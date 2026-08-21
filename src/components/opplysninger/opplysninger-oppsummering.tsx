@@ -115,7 +115,7 @@ const OpplysningerOppsummering = (props: Props) => {
         <FormSummary>
             <FormSummary.Header>
                 <FormSummary.Heading level="2">{tekst('heading')}</FormSummary.Heading>
-                <Detail className="ml-4">
+                <Detail>
                     {tekst('sistOppdatert')}: {prettyPrintDato(opplysninger.sendtInnAv.tidspunkt, sprak)}
                 </Detail>
             </FormSummary.Header>
