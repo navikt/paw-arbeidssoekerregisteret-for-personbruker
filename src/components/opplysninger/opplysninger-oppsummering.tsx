@@ -13,7 +13,8 @@ import type {
     OpplysningerHendelse,
     Snapshot,
 } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
-import { FormSummary } from '@navikt/ds-react';
+import { Detail, FormSummary } from '@navikt/ds-react';
+import { prettyPrintDato } from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/tracking';
 import { identity } from '@/lib/utils';
 
@@ -28,16 +29,20 @@ const TEKSTER = {
     nb: {
         heading: 'Opplysninger fra registrering',
         linkText: 'Endre svar',
+        sistOppdatert: 'Sist oppdatert',
     },
     nn: {
         heading: 'Opplysningar frå registrering',
         linkText: 'Endre svar',
+        sistOppdatert: 'Sist oppdatert',
     },
     en: {
         heading: 'Answers from registration',
         linkText: 'Edit',
+        sistOppdatert: 'Last updated',
     },
 };
+
 type OpplysningProps = { sporsmal: string; svar: Svar | string };
 
 function getSisteStillingSvar(opplysninger: OpplysningerHendelse) {
@@ -110,6 +115,9 @@ const OpplysningerOppsummering = (props: Props) => {
         <FormSummary>
             <FormSummary.Header>
                 <FormSummary.Heading level="2">{tekst('heading')}</FormSummary.Heading>
+                <Detail className="ml-4">
+                    {tekst('sistOppdatert')}: {prettyPrintDato(opplysninger.sendtInnAv.tidspunkt, sprak)}
+                </Detail>
             </FormSummary.Header>
             <FormSummary.Answers>
                 {besvarelser.map((besvarelse) => {
