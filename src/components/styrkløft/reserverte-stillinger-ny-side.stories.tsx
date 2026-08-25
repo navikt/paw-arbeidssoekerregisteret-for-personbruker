@@ -15,6 +15,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const AlleSprakvarianter: Story = {
+    parameters: {
+        a11y: {
+            config: {
+                rules: [{ id: 'landmark-unique', enabled: false }],
+            },
+        },
+    },
     render: () => (
         <VStack gap="space-16">
             <Box>
