@@ -8,6 +8,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "biome lint .",
+        "format": "biome format --write .",
         "test": "pnpm lint && vitest",
         "test:ci": "biome ci && vitest run",
         "storybook": "storybook dev -p 6006",
