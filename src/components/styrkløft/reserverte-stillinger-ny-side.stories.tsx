@@ -1,4 +1,4 @@
-import { Box, Heading, VStack } from '@navikt/ds-react';
+import { Box, Label, VStack } from '@navikt/ds-react';
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import ReserverteStillingerHarNyLandingsside from './reserverte-stillinger-ny-side';
 
@@ -18,21 +18,15 @@ export const AlleSprakvarianter: Story = {
     render: () => (
         <VStack gap="space-16">
             <Box>
-                <Heading size="small" level="2" spacing>
-                    Bokmål (nb)
-                </Heading>
+                <Label spacing>Bokmål (nb)</Label>
                 <ReserverteStillingerHarNyLandingsside sprak="nb" />
             </Box>
             <Box>
-                <Heading size="small" level="2" spacing>
-                    Nynorsk (nn)
-                </Heading>
+                <Label spacing>Nynorsk (nn)</Label>
                 <ReserverteStillingerHarNyLandingsside sprak="nn" />
             </Box>
             <Box>
-                <Heading size="small" level="2" spacing>
-                    Engelsk (en)
-                </Heading>
+                <Label spacing>Engelsk (en)</Label>
                 <ReserverteStillingerHarNyLandingsside sprak="en" />
             </Box>
         </VStack>
