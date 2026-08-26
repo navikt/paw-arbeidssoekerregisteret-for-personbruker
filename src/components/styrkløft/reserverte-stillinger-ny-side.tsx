@@ -19,9 +19,9 @@ const TEKSTER = {
         lenkeTekst: 'Sjå reserverte stillingar på nav.no',
     },
     en: {
-        tittel: 'Reserved Job Listings are moving to nav.no',
+        tittel: 'Reserved jobs listings are moving to nav.no',
         innhold:
-            'We are moving reserved job listings to My Page on nav.no. There, they will be available under Job Opportunities, where you can view positions, express interest, and see the jobs you have expressed interest in.',
+            'We are moving reserved jobs listings to My Page on nav.no. There, they will be available under Job opportunities, where you can view jobs, express interest, and see the jobs you have expressed interest in.',
         lenkeTekst: 'See reserved job listings on nav.no',
     },
 };
