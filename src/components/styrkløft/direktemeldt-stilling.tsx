@@ -25,7 +25,7 @@ const TEKSTER = {
 };
 function DirektemeldtStilling(props: Props) {
     const { ledigStilling, sprak } = props;
-    const ledigStillingUrl = `https://arbeidsplassen.nav.no/muligheter/mulighet/${ledigStilling.arbeidsplassenNoId}`;
+    const ledigStillingUrl = `https://www.nav.no/jobbmuligheter/stilling/${ledigStilling.arbeidsplassenNoId}`;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
