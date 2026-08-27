@@ -53,6 +53,8 @@ spec:
           value: http://paw-arbeidssoekerregisteret-api-egenvurdering
         - name: BRUKERPROFIL_API_URL
           value: http://paw-arbeidssoekerregisteret-api-mine-stillinger
+        - name: JOBBMULIGHETER_URL
+          value: https://jobbmuligheter.ansatt.dev.nav.no
     envFrom:
         - secret: arbeidssoekerregisteret-for-personbruker-unleash-api-token
     ingresses:
