@@ -117,7 +117,7 @@ function LedigeStillingerStateless(props: Props) {
                 </>
             )}
             {kanSeDirektemeldteStillinger && aktivFane === 'direktemeldteStillinger' ? (
-                <LinkTilDirektemeldteStillinger sprak={sprak} jobbmuligheterUrl="{jobbmuligheterUrl}" />
+                <LinkTilDirektemeldteStillinger sprak={sprak} jobbmuligheterUrl={jobbmuligheterUrl} />
             ) : (
                 <LinkTilArbeidsplassen stedSoek={soek} sprak={sprak} />
             )}
