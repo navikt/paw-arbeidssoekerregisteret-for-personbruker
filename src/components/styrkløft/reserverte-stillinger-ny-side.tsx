@@ -34,7 +34,7 @@ function ReserverteStillingerHarNyLandingsside(props: Props) {
     const urlTilJobbmuligheter = 'http://www.nav.no/jobbmuligheter';
 
     return (
-        <LocalAlert status="announcement">
+        <LocalAlert status="announcement" className="mb-4">
             <LocalAlert.Header>
                 <LocalAlert.Title>{tekst('tittel')}</LocalAlert.Title>
             </LocalAlert.Header>
