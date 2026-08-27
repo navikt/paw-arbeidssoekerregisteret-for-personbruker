@@ -7,6 +7,7 @@ import type { LedigeStillinger as LedigeStillingerSoek } from '@/model/brukerpro
 interface Props {
     useOnFetchData(): { data?: LedigeStillingerSoek; error?: Error };
     sprak: Sprak;
+    jobbmuligheterUrl?: string;
     kanSeDirektemeldteStillinger: boolean;
 }
 export type AktivFane = 'ledigeStillinger' | 'direktemeldteStillinger';
@@ -49,6 +50,7 @@ function LedigeStillinger(props: Props) {
             onClick={onClick}
             soek={data?.soek}
             sprak={props.sprak}
+            jobbmuligheterUrl={props.jobbmuligheterUrl}
             antallSider={2}
             aktivSide={aktivSide}
             brukPaginering={brukPaginering}

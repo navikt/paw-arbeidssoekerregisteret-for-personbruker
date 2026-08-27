@@ -5,6 +5,7 @@ import { loggDirektemeldtStillinger } from '@/lib/tracking';
 
 interface Props {
     sprak: Sprak;
+    jobbmuligheterUrl?: string;
 }
 
 const TEKSTER = {
@@ -29,9 +30,8 @@ const TEKSTER = {
 };
 
 function ReserverteStillingerHarNyLandingsside(props: Props) {
-    const { sprak } = props;
+    const { sprak, jobbmuligheterUrl } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const urlTilJobbmuligheter = 'http://www.nav.no/jobbmuligheter';
 
     return (
         <LocalAlert status="announcement" className="mb-4">
@@ -42,7 +42,7 @@ function ReserverteStillingerHarNyLandingsside(props: Props) {
                 {tekst('innhold')}
                 <BodyShort>
                     <Link
-                        href={urlTilJobbmuligheter}
+                        href={jobbmuligheterUrl}
                         onClick={() => loggDirektemeldtStillinger({ aktivitet: 'Går til jobbmuligheter' })}
                     >
                         {tekst('lenkeTekst')}

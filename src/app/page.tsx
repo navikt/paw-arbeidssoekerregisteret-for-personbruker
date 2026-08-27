@@ -27,6 +27,7 @@ import type { NextPageProps } from '../../types/next';
 
 interface Props {
     sprak: Sprak;
+    jobbmuligheterUrl?: string;
 }
 
 interface SamletInformasjonProps extends Props {
@@ -77,6 +78,7 @@ async function SamletInformasjonServerComponent({
                         sprak={sprak}
                         brukerprofilPromise={brukerprofilPromise}
                         skyraPromise={skyraPromise}
+                        jobbmuligheterUrl={process.env.JOBBMULIGHETER_URL}
                     />
                 </Suspense>
             )}
@@ -156,7 +158,12 @@ interface StyrkLoftProps extends Props {
     skyraPromise: ReturnType<typeof isEnabled>;
 }
 
-const StyrkLoftServerKomponent = async ({ sprak, brukerprofilPromise, skyraPromise }: StyrkLoftProps) => {
+const StyrkLoftServerKomponent = async ({
+    sprak,
+    brukerprofilPromise,
+    skyraPromise,
+    jobbmuligheterUrl,
+}: StyrkLoftProps) => {
     const [{ data, error }, erSkyraAktiv] = await Promise.all([brukerprofilPromise, skyraPromise]);
 
     if (error || !data) {
@@ -171,7 +178,7 @@ const StyrkLoftServerKomponent = async ({ sprak, brukerprofilPromise, skyraPromi
                     slug={'arbeids-og-velferdsetaten-nav/styrkeloft-eksperimentavslutning'}
                 />
             )}
-            <StyrkWidget sprak={sprak} brukerprofil={data} />
+            <StyrkWidget sprak={sprak} brukerprofil={data} jobbmuligheterUrl={jobbmuligheterUrl} />
         </>
     );
 };

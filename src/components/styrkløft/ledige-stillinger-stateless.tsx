@@ -15,6 +15,7 @@ interface Props {
     resultat: JobbAnnonse[];
     soek: any;
     sprak: Sprak;
+    jobbmuligheterUrl?: string;
     antallSider: number;
     aktivSide: number;
     onClick: (side: any) => void;
@@ -49,8 +50,17 @@ const TEKSTER = {
 };
 
 function LedigeStillingerStateless(props: Props) {
-    const { resultat, soek, sprak, brukPaginering, ref, kanSeDirektemeldteStillinger, aktivFane, onAktivFaneChange } =
-        props;
+    const {
+        resultat,
+        soek,
+        sprak,
+        jobbmuligheterUrl,
+        brukPaginering,
+        ref,
+        kanSeDirektemeldteStillinger,
+        aktivFane,
+        onAktivFaneChange,
+    } = props;
     const harTreff = resultat && resultat.length > 0;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
@@ -88,6 +98,7 @@ function LedigeStillingerStateless(props: Props) {
                                     ledigStilling={stilling}
                                     key={stilling.arbeidsplassenNoId}
                                     sprak={sprak}
+                                    jobbmuligheterUrl={jobbmuligheterUrl}
                                 />
                             ) : (
                                 <LedigStilling
@@ -106,7 +117,7 @@ function LedigeStillingerStateless(props: Props) {
                 </>
             )}
             {kanSeDirektemeldteStillinger && aktivFane === 'direktemeldteStillinger' ? (
-                <LinkTilDirektemeldteStillinger sprak={sprak} />
+                <LinkTilDirektemeldteStillinger sprak={sprak} jobbmuligheterUrl="{jobbmuligheterUrl}" />
             ) : (
                 <LinkTilArbeidsplassen stedSoek={soek} sprak={sprak} />
             )}

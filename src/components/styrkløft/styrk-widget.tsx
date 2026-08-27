@@ -13,6 +13,7 @@ interface Props {
     sprak: Sprak;
     brukerprofil: Brukerprofil;
     ledigeStillinger?: LedigeStillinger;
+    jobbmuligheterUrl?: string;
 }
 
 function fetcher(path: string, body: any) {
@@ -65,6 +66,7 @@ function StyrkWidget(props: Props) {
     return (
         <StyrkLoft
             sprak={props.sprak}
+            jobbmuligheterUrl={props.jobbmuligheterUrl}
             useOnFetchStillinger={useOnFetchStillinger}
             onSubmitStillingsSoek={onSubmitStillingsSoek}
             onSubmitTjenestestatus={onSubmitTjenesteStatus}

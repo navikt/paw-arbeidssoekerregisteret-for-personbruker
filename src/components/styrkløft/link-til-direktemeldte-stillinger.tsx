@@ -18,12 +18,13 @@ const TEKSTER = {
 
 type LinkTilDirektemeldteStillingerProps = {
     sprak: Sprak;
+    jobbmuligheterUrl?: string;
 };
 
 const LinkTilDirektemeldteStillinger: React.FC<LinkTilDirektemeldteStillingerProps> = (props) => {
-    const { sprak } = props;
+    const { sprak, jobbmuligheterUrl } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const urlTilJobbmuligheter = 'http://www.nav.no/jobbmuligheter/sok';
+    const urlTilJobbmuligheter = `${jobbmuligheterUrl}/sok`;
 
     return (
         <LinkCard

@@ -14,6 +14,7 @@ import ReserverteStillingerHarNyLandingsside from './reserverte-stillinger-ny-si
 interface Props {
     brukerprofil: Brukerprofil;
     sprak: Sprak;
+    jobbmuligheterUrl?: string;
     visEndreSok: boolean;
     visAvmeldModal: boolean;
     onEditSearch: () => void;
@@ -60,6 +61,7 @@ function AktivBrukerStateless(props: Props) {
         pendingTjenestestatus,
         errorTjenestestatus,
         brukerprofil,
+        jobbmuligheterUrl,
     } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
@@ -69,7 +71,9 @@ function AktivBrukerStateless(props: Props) {
 
     return (
         <Box>
-            {kanSeDirektemeldteStillinger && <ReserverteStillingerHarNyLandingsside sprak={sprak} />}
+            {kanSeDirektemeldteStillinger && (
+                <ReserverteStillingerHarNyLandingsside sprak={sprak} jobbmuligheterUrl={jobbmuligheterUrl} />
+            )}
             <Box className={'py-4 px-6'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
                 <div className={'flex justify-between'}>
                     <Heading size={'medium'} level={'3'} className={'mb-4'}>
@@ -90,6 +94,7 @@ function AktivBrukerStateless(props: Props) {
                                 useOnFetchData={props.useOnFetchStillinger}
                                 sprak={sprak}
                                 kanSeDirektemeldteStillinger={kanSeDirektemeldteStillinger}
+                                jobbmuligheterUrl={jobbmuligheterUrl}
                             />
                         </Suspense>
                     </ErrorBoundary>
