@@ -6,32 +6,33 @@ import { loggDirektemeldtStillinger } from '@/lib/tracking';
 
 const TEKSTER = {
     nb: {
-        linkTittel: 'Se flere jobbmuligheter hos arbeidsplassen.no',
+        linkTittel: 'Se flere jobbmuligheter på nav.no',
     },
     nn: {
-        linkTittel: 'Sjå fleire jobbmoglegheiter hos arbeidsplassen.no',
+        linkTittel: 'Sjå fleire jobbtilbod på nav.no',
     },
     en: {
-        linkTittel: 'See more job opportunities at arbeidsplassen.no',
+        linkTittel: 'See more Job Opportunities at nav.no',
     },
 };
 
 type LinkTilDirektemeldteStillingerProps = {
     sprak: Sprak;
+    jobbmuligheterUrl?: string;
 };
 
 const LinkTilDirektemeldteStillinger: React.FC<LinkTilDirektemeldteStillingerProps> = (props) => {
-    const { sprak } = props;
+    const { sprak, jobbmuligheterUrl } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const urlTilArbeidsplasen = 'http://arbeidsplassen.nav.no/muligheter';
+    const urlTilJobbmuligheter = `${jobbmuligheterUrl}/sok`;
 
     return (
         <LinkCard
             data-color="accent"
-            onClick={() => loggDirektemeldtStillinger({ aktivitet: 'Går til søk på arbeidsplassen' })}
+            onClick={() => loggDirektemeldtStillinger({ aktivitet: 'Går til jobbmuligheter' })}
         >
             <LinkCard.Title>
-                <LinkCard.Anchor href={urlTilArbeidsplasen}>{tekst('linkTittel')}</LinkCard.Anchor>
+                <LinkCard.Anchor href={urlTilJobbmuligheter}>{tekst('linkTittel')}</LinkCard.Anchor>
             </LinkCard.Title>
         </LinkCard>
     );

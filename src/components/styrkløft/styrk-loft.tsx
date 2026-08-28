@@ -21,6 +21,7 @@ interface Props {
     state: StyrkState;
     dispatch: ActionDispatch<[StyrkAction]>;
     sprak: Sprak;
+    jobbmuligheterUrl?: string;
 }
 
 interface StatelessProps extends Omit<Props, 'dispatch'> {
@@ -61,7 +62,7 @@ function StyrkLoftStateless(props: StatelessProps) {
 }
 
 function StyrkLoft(props: Props) {
-    const { sprak, useOnFetchStillinger, state, dispatch } = props;
+    const { sprak, jobbmuligheterUrl, useOnFetchStillinger, state, dispatch } = props;
 
     const onSubmitStillingsSoek = async (data: onSubmitStillingsSoekPayload) => {
         await props.onSubmitStillingsSoek(data);
@@ -83,6 +84,7 @@ function StyrkLoft(props: Props) {
             useOnFetchStillinger={useOnFetchStillinger}
             sprak={sprak}
             state={state}
+            jobbmuligheterUrl={jobbmuligheterUrl}
             onSettEndreSok={onSettEndreSok}
             onVisAvmeldModal={onVisAvmeldModal}
         />

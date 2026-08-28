@@ -9,10 +9,12 @@ import VelgStillingssoek from '@/components/styrkløft/velg-stillingssoek';
 import { loggStyrkeloft } from '@/lib/tracking';
 import type { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 import type { StillingsSoekPayload } from '@/model/stillings-soek';
+import ReserverteStillingerHarNyLandingsside from './reserverte-stillinger-ny-side';
 
 interface Props {
     brukerprofil: Brukerprofil;
     sprak: Sprak;
+    jobbmuligheterUrl?: string;
     visEndreSok: boolean;
     visAvmeldModal: boolean;
     onEditSearch: () => void;
@@ -59,6 +61,7 @@ function AktivBrukerStateless(props: Props) {
         pendingTjenestestatus,
         errorTjenestestatus,
         brukerprofil,
+        jobbmuligheterUrl,
     } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
@@ -67,53 +70,59 @@ function AktivBrukerStateless(props: Props) {
     );
 
     return (
-        <Box className={'py-4 px-6'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
-            <div className={'flex justify-between'}>
-                <Heading size={'medium'} level={'3'} className={'mb-4'}>
-                    {tekst('heading')}
-                </Heading>
-                <FlerValgsMeny
-                    disabledEditSearch={visEndreSok}
-                    onEditSearch={onEditSearch}
-                    onEnd={() => onVisAvmeldModal(true)}
-                    sprak={sprak}
-                />
-            </div>
-            {!visEndreSok && (
-                <ErrorBoundary errorComponent={() => null}>
-                    <Suspense fallback={<Loader />}>
-                        <LedigeStillinger
-                            key={`${lagretSok.fylker.join(',')}-${lagretSok.yrkeskategorier.join(',')}`}
-                            useOnFetchData={props.useOnFetchStillinger}
-                            sprak={sprak}
-                            kanSeDirektemeldteStillinger={kanSeDirektemeldteStillinger}
-                        />
-                    </Suspense>
-                </ErrorBoundary>
+        <Box>
+            {kanSeDirektemeldteStillinger && (
+                <ReserverteStillingerHarNyLandingsside sprak={sprak} jobbmuligheterUrl={jobbmuligheterUrl} />
             )}
-            {visEndreSok && (
-                <VelgStillingssoek
-                    sprak={sprak}
-                    fylker={lagretSok.fylker}
-                    yrkeskategorier={lagretSok.yrkeskategorier}
-                    visStillingerUtenKrav={lagretSok.visStillingerUtenKrav}
-                    onSubmit={onSubmitStillingsSoek}
-                    onCancel={onCancelEditSearch}
-                />
-            )}
-            {visAvmeldModal && (
-                <BekreftAvmelding
-                    open={visAvmeldModal}
-                    onConfirm={() => onSubmitTjenestestatus('OPT_OUT')}
-                    onClose={() => {
-                        loggStyrkeloft({ aktivitet: 'Avbryter avslutning av eksperiment' });
-                        return onVisAvmeldModal(false);
-                    }}
-                    sprak={sprak}
-                    pending={Boolean(pendingTjenestestatus)}
-                    error={Boolean(errorTjenestestatus)}
-                />
-            )}
+            <Box className={'py-4 px-6'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
+                <div className={'flex justify-between'}>
+                    <Heading size={'medium'} level={'3'} className={'mb-4'}>
+                        {tekst('heading')}
+                    </Heading>
+                    <FlerValgsMeny
+                        disabledEditSearch={visEndreSok}
+                        onEditSearch={onEditSearch}
+                        onEnd={() => onVisAvmeldModal(true)}
+                        sprak={sprak}
+                    />
+                </div>
+                {!visEndreSok && (
+                    <ErrorBoundary errorComponent={() => null}>
+                        <Suspense fallback={<Loader />}>
+                            <LedigeStillinger
+                                key={`${lagretSok.fylker.join(',')}-${lagretSok.yrkeskategorier.join(',')}`}
+                                useOnFetchData={props.useOnFetchStillinger}
+                                sprak={sprak}
+                                kanSeDirektemeldteStillinger={kanSeDirektemeldteStillinger}
+                                jobbmuligheterUrl={jobbmuligheterUrl}
+                            />
+                        </Suspense>
+                    </ErrorBoundary>
+                )}
+                {visEndreSok && (
+                    <VelgStillingssoek
+                        sprak={sprak}
+                        fylker={lagretSok.fylker}
+                        yrkeskategorier={lagretSok.yrkeskategorier}
+                        visStillingerUtenKrav={lagretSok.visStillingerUtenKrav}
+                        onSubmit={onSubmitStillingsSoek}
+                        onCancel={onCancelEditSearch}
+                    />
+                )}
+                {visAvmeldModal && (
+                    <BekreftAvmelding
+                        open={visAvmeldModal}
+                        onConfirm={() => onSubmitTjenestestatus('OPT_OUT')}
+                        onClose={() => {
+                            loggStyrkeloft({ aktivitet: 'Avbryter avslutning av eksperiment' });
+                            return onVisAvmeldModal(false);
+                        }}
+                        sprak={sprak}
+                        pending={Boolean(pendingTjenestestatus)}
+                        error={Boolean(errorTjenestestatus)}
+                    />
+                )}
+            </Box>
         </Box>
     );
 }

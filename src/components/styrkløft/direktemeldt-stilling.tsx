@@ -7,6 +7,7 @@ import type { JobbAnnonse } from '@/model/brukerprofil';
 interface Props {
     ledigStilling: JobbAnnonse;
     sprak: Sprak;
+    jobbmuligheterUrl?: string;
 }
 
 const TEKSTER = {
@@ -24,8 +25,8 @@ const TEKSTER = {
     },
 };
 function DirektemeldtStilling(props: Props) {
-    const { ledigStilling, sprak } = props;
-    const ledigStillingUrl = `https://arbeidsplassen.nav.no/muligheter/mulighet/${ledigStilling.arbeidsplassenNoId}`;
+    const { ledigStilling, sprak, jobbmuligheterUrl } = props;
+    const ledigStillingUrl = `${jobbmuligheterUrl}/stilling/${ledigStilling.arbeidsplassenNoId}`;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (

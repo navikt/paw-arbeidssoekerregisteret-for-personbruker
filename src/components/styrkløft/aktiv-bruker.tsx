@@ -21,6 +21,7 @@ export interface AktivBrukerProps {
 
     state: StyrkState;
     sprak: Sprak;
+    jobbmuligheterUrl?: string;
 }
 
 function initLagretSok(brukerprofil: Brukerprofil): StillingsSoekPayload {
@@ -66,6 +67,7 @@ function AktivBruker(props: AktivBrukerProps) {
             pendingTjenestestatus={pendingTjenestestatus}
             errorTjenestestatus={errorTjenestestatus}
             brukerprofil={state.brukerprofil}
+            jobbmuligheterUrl={props.jobbmuligheterUrl}
         />
     );
 }
