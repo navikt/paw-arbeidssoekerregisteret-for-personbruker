@@ -87,7 +87,7 @@ jobs:
                   "pnpm dlx wait-on tcp:127.0.0.1:6006 && pnpm test-storybook"
 
             - name: Upload static files to NAV CDN
-              uses: nais/deploy/actions/cdn-upload/v2@849e900e3cfa7faf7ad1532bb3a3e6499c932199
+              uses: nais/deploy/actions/cdn-upload/v2@027a91857992525139798892f2804b0ca21f4af6
               with:
                   team: paw
                   source: ./.next/static
@@ -115,7 +115,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
             - name: Deploy
-              uses: nais/deploy/actions/deploy@849e900e3cfa7faf7ad1532bb3a3e6499c932199 # v2
+              uses: nais/deploy/actions/deploy@027a91857992525139798892f2804b0ca21f4af6 # v2
               env:
                   CLUSTER: dev-gcp
                   RESOURCE: .nais/dev-gcp/nais.yaml
@@ -134,7 +134,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
             - name: Deploy
-              uses: nais/deploy/actions/deploy@849e900e3cfa7faf7ad1532bb3a3e6499c932199 # v2
+              uses: nais/deploy/actions/deploy@027a91857992525139798892f2804b0ca21f4af6 # v2
               env:
                   CLUSTER: prod-gcp
                   RESOURCE: .nais/prod-gcp/nais.yaml
@@ -152,13 +152,13 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
             - name: deploy to dev
-              uses: nais/deploy/actions/deploy@849e900e3cfa7faf7ad1532bb3a3e6499c932199 # v2
+              uses: nais/deploy/actions/deploy@027a91857992525139798892f2804b0ca21f4af6 # v2
               env:
                   CLUSTER: dev-gcp
                   RESOURCE: .nais/dev-gcp/unleash-apitoken.yaml
             - name: deploy to prod
               if: github.ref == 'refs/heads/main'
-              uses: nais/deploy/actions/deploy@849e900e3cfa7faf7ad1532bb3a3e6499c932199 # v2
+              uses: nais/deploy/actions/deploy@027a91857992525139798892f2804b0ca21f4af6 # v2
               env:
                   CLUSTER: prod-gcp
                   RESOURCE: .nais/prod-gcp/unleash-apitoken.yaml
