@@ -1,5 +1,5 @@
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import EgenvurderingAvklart from '@/components/egenvurdering/egenvurdering-avklart';
 
 const meta = {

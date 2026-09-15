@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { snapshotMock } from '@/app/mockdata';
 import RegistrertTittel from './registrert-tittel';
 

@@ -17,7 +17,7 @@ import RegistrerArbeidssoker from '@/components/registrer-arbeidssoker/registrer
 import RegistrertTittel from '@/components/registrert-tittel/registrert-tittel';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
 import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
-import StyrkWidget from '@/components/styrkløft/styrk-widget';
+import StyrkWidget from '@/components/styrkloft/styrk-widget';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import { hentInnloggingsNivaa } from '@/lib/hent-innloggings-nivaa';
 import { leggSprakTilEksternUrl } from '@/lib/sprak-avhengig-url';

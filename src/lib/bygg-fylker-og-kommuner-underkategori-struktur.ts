@@ -1,4 +1,4 @@
-import { ALLE_FYLKER_OG_KOMMUMER } from '@/components/styrkløft/fylker';
+import { ALLE_FYLKER_OG_KOMMUMER } from '@/components/styrkloft/fylker';
 import { alfabetiskSortering } from '@/lib/hent-yrkeskategorier';
 
 interface underKategori {

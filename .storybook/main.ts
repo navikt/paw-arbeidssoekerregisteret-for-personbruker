@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/nextjs';
+import type { StorybookConfig } from '@storybook/nextjs-vite';
 
 const config: StorybookConfig = {
     staticDirs: ['../msw'],
@@ -9,25 +9,11 @@ const config: StorybookConfig = {
         '@chromatic-com/storybook',
         '@storybook/addon-a11y',
         '@storybook/addon-docs',
+        '@storybook/addon-vitest',
     ],
     framework: {
-        name: '@storybook/nextjs',
+        name: '@storybook/nextjs-vite',
         options: {},
-    },
-    webpackFinal: async (config) => {
-        // Tailwind v4 + webpack triggers a double-build on startup because
-        // @tailwindcss/postcss re-generates CSS after all modules are known.
-        // Increasing aggregateTimeout debounces rapid successive change events
-        // and prevents the extra compile cycle.
-        config.watchOptions = {
-            ...config.watchOptions,
-            aggregateTimeout: 500,
-        };
-        // webpack 5 sets bail=true internally after the first compilation error,
-        // which stops HMR updates from being emitted. Force it off so hot-reloading
-        // survives errors without requiring a full restart.
-        config.bail = false;
-        return config;
     },
 };
 export default config;

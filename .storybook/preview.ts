@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/nextjs';
+import type { Preview } from '@storybook/nextjs-vite';
 import '../src/app/globals.css';
 import { mswLoader } from 'msw-storybook-addon/csf3';
 
@@ -24,6 +24,10 @@ const preview: Preview = {
                 color: /(background|color)$/i,
                 date: /Date$/i,
             },
+        },
+        // Makes addon-a11y violations fail Storybook Vitest runs in CI.
+        a11y: {
+            test: 'error',
         },
     },
     // Provide the MSW addon loader globally

@@ -1,6 +1,6 @@
 import type { OpplysningerHendelse, PeriodeAvsluttetHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { Accordion } from '@navikt/ds-react';
-import type { Meta } from '@storybook/nextjs';
+import type { Meta } from '@storybook/nextjs-vite';
 import { ShowDetailsProvider } from '@/contexts/show-details-context';
 import {
     createBekreftelseHendelse,

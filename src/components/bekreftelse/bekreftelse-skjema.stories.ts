@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect, userEvent } from 'storybook/test';
 import type { BekreftelseSkjemaType } from '@/model/bekreftelse';
 import { BekreftelseSkjema } from './bekreftelse-skjema';

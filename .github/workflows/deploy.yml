@@ -75,16 +75,11 @@ jobs:
                   NEXT_PUBLIC_BASE_PATH: /arbeidssoekerregisteret
                   HUSKY: 0
 
-            - name: Build storybook-static
-              run: pnpm build-storybook
-
             - name: Install Playwright
               run: pnpm exec playwright install --with-deps
 
-            - name: Run test-storybook
-              run: pnpm dlx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-                  "pnpm dlx http-server public/storybook --port 6006 --silent" \
-                  "pnpm dlx wait-on tcp:127.0.0.1:6006 && pnpm test-storybook"
+            - name: Run Storybook tests
+              run: pnpm test-storybook
 
             - name: Upload static files to NAV CDN
               uses: nais/deploy/actions/cdn-upload/v2@027a91857992525139798892f2804b0ca21f4af6

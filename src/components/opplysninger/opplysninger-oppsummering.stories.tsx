@@ -1,5 +1,5 @@
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { snapshotMock } from '@/app/mockdata';
 import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
 
