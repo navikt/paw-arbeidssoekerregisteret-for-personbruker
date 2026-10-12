@@ -42,6 +42,7 @@ updates:
           - "vite"
           - "@vitejs/*"
           - "vitest"
+          - "@vitest/*"
 
   - package-ecosystem: github-actions
     directory: /
