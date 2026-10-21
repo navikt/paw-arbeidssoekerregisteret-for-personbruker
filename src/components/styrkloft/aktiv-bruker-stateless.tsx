@@ -9,7 +9,6 @@ import VelgStillingssoek from '@/components/styrkloft/velg-stillingssoek';
 import { loggStyrkeloft } from '@/lib/tracking';
 import type { Brukerprofil, Tjenestestatus } from '@/model/brukerprofil';
 import type { StillingsSoekPayload } from '@/model/stillings-soek';
-import ReserverteStillingerHarNyLandingsside from './reserverte-stillinger-ny-side';
 
 interface Props {
     brukerprofil: Brukerprofil;
@@ -71,9 +70,6 @@ function AktivBrukerStateless(props: Props) {
 
     return (
         <Box>
-            {kanSeDirektemeldteStillinger && (
-                <ReserverteStillingerHarNyLandingsside sprak={sprak} jobbmuligheterUrl={jobbmuligheterUrl} />
-            )}
             <Box className={'py-4 px-6'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
                 <div className={'flex justify-between'}>
                     <Heading size={'medium'} level={'3'} className={'mb-4'}>
