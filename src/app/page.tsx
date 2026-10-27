@@ -185,6 +185,14 @@ const StyrkLoftServerKomponent = async ({
 
 export default async function Home({ params }: NextPageProps) {
     const sprak = (await params).lang ?? 'nb';
+    const skalBrukeEgenvurdering = await isEnabled(unleashKeys.BRUK_EGENVURDERING);
+    const tomEgenvurdering = (): Promise<{ data?: any; error?: any }> => {
+        return new Promise((resolve) => {
+            resolve({
+                data: null,
+            });
+        });
+    };
 
     if (!erStottetSprak(sprak)) {
         notFound();
@@ -196,7 +204,7 @@ export default async function Home({ params }: NextPageProps) {
     // Start all API fetches immediately in parallel before any await
     const snapshotPromise = fetchArbeidssoekerregisteretSnapshot();
     const bekreftelserPromise = fetchTilgjengeligeBekreftelser();
-    const egenvurderingPromise = fetchTilgjengeligEgenvurdering();
+    const egenvurderingPromise = skalBrukeEgenvurdering ? fetchTilgjengeligEgenvurdering() : tomEgenvurdering();
     const brukerprofilPromise = fetchBrukerprofil();
     const skyraPromise = isEnabled(unleashKeys.BRUK_SKYRA);
 
