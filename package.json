@@ -8,6 +8,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "biome lint .",
+        "lint:fix": "biome check --fix .",
         "format": "biome format --write .",
         "test": "pnpm lint && vitest",
         "test:ci": "biome ci && vitest run",

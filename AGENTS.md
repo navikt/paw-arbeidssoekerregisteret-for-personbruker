@@ -16,8 +16,8 @@ Appen tilhører Team PAW og kjører på NAIS-plattformen (GCP/Kubernetes).
 
 ### Forutsetninger
 
-- **Node.js 24** – bruk `nvm use` dersom du har nvm
-- **pnpm** – bruk alltid pnpm, aldri npm eller yarn
+- **Node.js 24.22.1** som angitt i `.nvmrc` og CI. Bruk `nvm use` dersom du har nvm. `package.json` krever minst denne versjonen.
+- **pnpm 11.28.6** som angitt i `packageManager` i `package.json`. Bruk pnpm til installasjon og scripts, ikke npm eller yarn.
 - **GitHub PAT** med `read:packages`-scope, konfigurert med SSO mot navikt
 
 ```bash
@@ -39,21 +39,29 @@ For å nå reelle dev-endepunkter (utenom mock-modus) kreves [naisdevice](https:
 ## Bygg og test
 
 ```bash
-pnpm test:ci        # lint + vitest (kjøres i CI)
-pnpm lint           # ESLint
+pnpm test:ci        # Biome CI-sjekker + Vitest-enhetstester
+pnpm lint           # Biome lint
+pnpm format         # formater med Biome
+pnpm typecheck      # TypeScript-typesjekk
+pnpm test-storybook # Storybook-tester i Chromium via Playwright (kjøres også i CI)
 pnpm build          # Next.js produksjonsbygg
 pnpm run storybook  # start Storybook på http://localhost:6006
 pnpm build-storybook
 ```
 
-**Alltid kjør `pnpm test:ci` etter endringer** – dette inkluderer lint og alle enhetstester.
+**Alltid kjør `pnpm test:ci` etter endringer**. Dette kjører Biome-sjekker og alle enhetstester, men ikke typesjekk eller Storybook-tester. Kjør også `pnpm typecheck` ved TypeScript-endringer og `pnpm test-storybook` ved komponent- og Storybook-endringer.
+
+Storybook-testene krever Chromium. Installer nettleseren med `pnpm exec playwright install chromium` ved behov.
+
+Commit-hooken i `.husky/pre-commit` kjører `pnpm tsc && pnpm lint-staged`.
 
 ### Testoppsett
 
 - **Vitest** + **React Testing Library** + **jsdom** for enhetstester
 - Testfiler plasseres ved siden av kildefilen med suffikset `.test.ts` / `.test.tsx`
 - Setup-fil: `setup-tests.ts` i rotkatalogen
-- **MSW** brukes for API-mocking i tester og i lokal utvikling
+- **Storybook-tester** bruker Vitest, Playwright og Chromium. Tilgjengelighetsbrudd får testene til å feile (`a11y.test: 'error'` i `.storybook/preview.ts`).
+- **MSW** er konfigurert for API-mocking i Storybook via `.storybook/preview.ts`. Lokal serverkode har egne mock-grener, se «Mock-modus».
 
 ---
 
@@ -68,11 +76,13 @@ src/
     page.tsx      – Hovedside
     bekreftelse/  – Bekreftelseflyt (side + actions)
     historikk/    – Historikkvisning
+    [lang]/       – Språkruter for hovedside, historikk og bekreftelse
     brukerprofil-api.ts
+    mockdata.ts   – Mock-data for snapshot
   components/     – React-komponenter, feature-organisert
   lib/            – Utility-funksjoner og hjelpere (rene funksjoner, testbare)
   contexts/       – React context (FeatureTogglesContext)
-  mocks/          – MSW mock handlers for lokal utvikling og testing
+  mocks/          – Mock-data for historikk (perioder.json)
   model/          – TypeScript-typer og modeller
   unleash-keys.ts – Unleash feature toggle-nøkler
 
@@ -94,6 +104,7 @@ types/            – Globale TypeScript-typer (f.eks. NextPageProps)
 
 - **Norsk bokmål** i kode: variabelnavn, funksjonsnavn, komponentnavn og filnavn følger norske ord (f.eks. `fetchTilgjengeligeBekreftelser`, `hentInnloggingsNivaa`, `perioder`)
 - Engelske tekniske termer beholdes der de er etablerte (f.eks. `fetch`, `router`, `layout`)
+- Appen støtter bokmål (`nb`), nynorsk (`nn`) og engelsk (`en`). Bevar språkstøtten ved endringer i brukergrensesnittet.
 
 ### Importalias
 
@@ -104,23 +115,36 @@ import { isEnabled } from '@/lib/unleash-is-enabled';
 import Feil from '@/components/feil';
 ```
 
-### Formattering (Prettier)
+### Formattering og lint (Biome)
+
+Konfigurasjonen ligger i `biome.json`:
 
 ```json
 {
-    "printWidth": 120,
-    "singleQuote": true,
-    "tabWidth": 4
+    "formatter": {
+        "lineWidth": 120,
+        "indentStyle": "space",
+        "indentWidth": 4
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "single",
+            "jsxQuoteStyle": "double",
+            "trailingCommas": "all"
+        }
+    }
 }
 ```
 
-Prettier kjøres automatisk via lint-staged på commit. Bruk konfigurasjonsverdiene over ved manuell formattering.
+lint-staged kjører `biome check --write` på staged filer med filendelsene `ts`, `tsx`, `json`, `md`, `js` og `jsx`. Biome hopper over filtyper det ikke støtter, siden `ignoreUnknown` er aktivert. Bruk `pnpm format` for manuell formatering av støttede filer.
 
 ### Pakkemanager
 
 Bruk alltid **pnpm**. Ikke generer `package-lock.json` eller `yarn.lock`.
 
 ### Komponenter
+
+Reglene nedenfor gjelder nye komponenter og kode du endrer. Eksisterende kode har avvik, blant annet Tailwind-spacing og bruk av `Alert`. Ikke kopier disse mønstrene til ny kode, og ikke rydd opp i urelatert kode som del av en annen oppgave.
 
 - Funksjonelle React-komponenter med TypeScript
 - Server Components som standard (Next.js App Router); marker med `'use client'` kun ved behov
@@ -129,7 +153,7 @@ Bruk alltid **pnpm**. Ikke generer `package-lock.json` eller `yarn.lock`.
 - **Spacing via Aksel-tokens** — `Box` med `padding="space-*"`, aldri Tailwind `p-*`/`m-*`
 - **Eksakte versjoner** — `package.json` bruker alltid eksakt versjon (`"react": "19.2.5"`, aldri `"^19"`)
 - **TDD for logikk** — beslutningstreet skal ha Vitest-tester _før_ implementasjon
-- **Storybook for komponenter** — alle komponenter får en Story; komponenter er pure (props inn, UI ut)
+- **Storybook for komponenter**: legg til stories for nye visningskomponenter og oppdater relevante stories ved endringer. Skill tilstand og datahenting fra rene visningskomponenter der det passer. Appen har både tilstandsstyrte komponenter og egne `*-stateless`-komponenter.
 - **a11y er obligatorisk** — offentlig tjeneste; bruk Aksel, korrekt heading-hierarki, tastaturnavigasjon
 
 ### Aksel v8 — kritiske regler
@@ -159,14 +183,16 @@ Alle kall til backend-APIer bruker **TokenX** for token exchange. `@navikt/oasis
 
 ### Mock-modus (lokal utvikling)
 
-I `.env.development` er mock aktivert som standard:
+Mock-modus styres med disse miljøvariablene i `.env.development`:
 
 ```
 ENABLE_MOCK=enabled
 NEXT_PUBLIC_ENABLE_MOCK=enabled
 ```
 
-MSW-handlere i `src/mocks/` returnerer testdata uten at reelle API-er kalles. Legg til nye mock-handlere her ved behov.
+Serverkoden bruker egne `ENABLE_MOCK`-grener, blant annet i `src/app/actions.ts`, `src/app/bekreftelse/actions.ts` og `src/app/brukerprofil-api.ts`. Snapshot-data ligger i `src/app/mockdata.ts`, og historikkdata ligger i `src/mocks/perioder.json`. `NEXT_PUBLIC_ENABLE_MOCK` brukes av klientkode for Umami-sporing.
+
+Ikke anta at mock-modus erstatter alle eksterne kall. Sjekk mock-grenen for funksjonen du arbeider med. Storybook har separat MSW-oppsett i `.storybook/preview.ts`, og service worker-filer ligger i `msw/` og `public/`.
 
 ---
 
@@ -182,12 +208,12 @@ API-ruten `/api/unleash` eksponerer togglestatus til klienten.
 
 ## Backend-APIer
 
-Alle API-kall proxies gjennom Next.js Route Handlers med TokenX-autentisering.
+Backend-kall med brukerkontekst bruker TokenX via `@navikt/oasis`. Klientkall går gjennom Next.js Route Handlers, mens serverkode også kaller backend direkte fra blant annet `src/app/actions.ts`, `src/app/historikk/actions.ts` og `src/app/brukerprofil-api.ts`. Unleash har separat oppsett med API-token.
 
 | Miljøvariabel                             | Tjeneste                       |
 | ----------------------------------------- | ------------------------------ |
 | `ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL` | Oppslag (v1)                   |
-| `OPPSLAG_API_V2_URL`                      | Oppslag (v2)                   |
+| `OPPSLAG_API_V2_URL`                      | Oppslag-v2-tjenesten, API v3 (`/api/v3/snapshot` og `/api/v3/perioder`) |
 | `BEKREFTELSE_API_URL`                     | Bekreftelse                    |
 | `EGENVURDERING_API_URL`                   | Egenvurdering                  |
 | `BRUKERPROFIL_API_URL`                    | Brukerprofil / mine stillinger |
@@ -208,9 +234,11 @@ git checkout -b dev/<navn>
 
 ### CI/CD (GitHub Actions)
 
-1. **test** – kjører `pnpm test:ci` og Knip (ubrukt kode)
-2. **build** – bygger Docker-image og laster opp statiske assets til CDN
-3. **deploy-dev** / **deploy-prod** – deployer til NAIS via `nais/deploy`
+1. **test** kjører `pnpm test:ci` og Knip (ubrukt kode). Knip rapporterer funn uten å stoppe jobben (`--no-exit-code`).
+2. **test-storybook** kjører `pnpm test-storybook` i Chromium, inkludert tilgjengelighetssjekker. Jobben kjører parallelt med **test**.
+3. **build** krever at begge testjobbene består, bygger Next.js-appen, laster opp statiske assets til CDN og bygger og publiserer Docker-imaget.
+4. **apply-apitoken-unleash** deployer Unleash ApiToken-ressursen etter bygg.
+5. **deploy-dev** / **deploy-prod** deployer appen til Nais etter bygg og ApiToken-jobben.
 
 ### CDN
 
