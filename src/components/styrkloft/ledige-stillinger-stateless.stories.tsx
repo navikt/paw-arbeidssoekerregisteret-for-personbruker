@@ -284,3 +284,15 @@ export const MedDirektemeldteStillingerIngenTreff: Story = {
         },
     },
 };
+
+export const Bokmal: Story = {
+    args: { ...DefaultLedigStilling.args, sprak: 'nb' },
+};
+
+export const Nynorsk: Story = {
+    args: { ...DefaultLedigStilling.args, sprak: 'nn' },
+};
+
+export const Engelsk: Story = {
+    args: { ...DefaultLedigStilling.args, sprak: 'en' },
+};

@@ -14,6 +14,33 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof OpplysningerOppsummering>;
 
+export const Bokmal: Story = {
+    args: {
+        visEndreLink: true,
+        snapshot: { ...snapshotMock, egenvurdering: undefined },
+        sprak: 'nb',
+        oppdaterOpplysningerUrl: 'http://localhost:3000/oppdater-opplysninger',
+    },
+};
+
+export const Nynorsk: Story = {
+    args: {
+        visEndreLink: true,
+        snapshot: { ...snapshotMock, egenvurdering: undefined },
+        sprak: 'nn',
+        oppdaterOpplysningerUrl: 'http://localhost:3000/oppdater-opplysninger',
+    },
+};
+
+export const Engelsk: Story = {
+    args: {
+        visEndreLink: true,
+        snapshot: { ...snapshotMock, egenvurdering: undefined },
+        sprak: 'en',
+        oppdaterOpplysningerUrl: 'http://localhost:3000/oppdater-opplysninger',
+    },
+};
+
 export const OpplysningerOmArbeidssoker: Story = {
     args: {
         visEndreLink: true,

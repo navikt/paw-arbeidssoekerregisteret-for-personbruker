@@ -49,6 +49,27 @@ export const Registrert: Story = {
     },
 };
 
+export const Bokmal: Story = {
+    args: {
+        sprak: 'nb',
+        snapshot,
+    },
+};
+
+export const Nynorsk: Story = {
+    args: {
+        sprak: 'nn',
+        snapshot,
+    },
+};
+
+export const Engelsk: Story = {
+    args: {
+        sprak: 'en',
+        snapshot,
+    },
+};
+
 export const RegistrertPermittert: Story = {
     args: {
         sprak: 'nb',

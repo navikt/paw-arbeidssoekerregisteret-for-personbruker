@@ -75,3 +75,24 @@ export const Default: Story = {
         sprak: 'nb',
     },
 };
+
+export const Bokmal: Story = {
+    args: { ...Default.args, sprak: 'nb' },
+};
+
+export const Nynorsk: Story = {
+    args: { ...Default.args, sprak: 'nn' },
+};
+
+export const Engelsk: Story = {
+    args: { ...Default.args, sprak: 'en' },
+};
+
+export const IngenTreff: Story = {
+    args: {
+        ...Default.args,
+        useOnFetchStillinger() {
+            return { data: { soek: { fylker: [], styrk08: [] }, resultat: [] } };
+        },
+    },
+};

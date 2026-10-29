@@ -31,3 +31,31 @@ export const DefaultLedigStilling: Story = {
         sprak: 'nb',
     },
 };
+
+export const Bokmal: Story = {
+    args: { ...DefaultLedigStilling.args, sprak: 'nb' },
+};
+
+export const Nynorsk: Story = {
+    args: { ...DefaultLedigStilling.args, sprak: 'nn' },
+};
+
+export const Engelsk: Story = {
+    args: { ...DefaultLedigStilling.args, sprak: 'en' },
+};
+
+export const UtenValgfrieOpplysninger: Story = {
+    args: {
+        sprak: 'nb',
+        ledigStilling: {
+            arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+            tittel: 'Stilling uten valgfrie opplysninger',
+            publisert: '',
+            soeknadsfrist: {},
+            land: 'no',
+            sektor: 'Ukjent',
+            selskap: 'Arbeidsgiver',
+            tags: [],
+        },
+    },
+};

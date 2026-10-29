@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { HttpResponse, http } from 'msw';
+import { expect, fn, userEvent } from 'storybook/test';
 import { Kvittering } from './kvittering';
 
 const meta = {
@@ -26,6 +27,54 @@ export const KvitteringStory: Story = {
     },
 };
 
+export const KvitteringBokmal: Story = {
+    args: {
+        sprak: 'nb',
+        erUtmeldt: false,
+        harFlereBekreftelser: false,
+        onClick: fn(),
+    },
+    play: async ({ canvas }) => {
+        await expect(
+            await canvas.findByRole('heading', {
+                name: 'Du har bekreftet at du fortsatt vil være registrert som arbeidssøker',
+            }),
+        ).toBeVisible();
+    },
+};
+
+export const KvitteringNynorsk: Story = {
+    args: {
+        sprak: 'nn',
+        erUtmeldt: false,
+        harFlereBekreftelser: false,
+        onClick: fn(),
+    },
+    play: async ({ canvas }) => {
+        await expect(
+            await canvas.findByRole('heading', {
+                name: 'Du har stadfesta at du fortsatt vil være registrert som arbeidssøkjar',
+            }),
+        ).toBeVisible();
+    },
+};
+
+export const KvitteringEngelsk: Story = {
+    args: {
+        sprak: 'en',
+        erUtmeldt: false,
+        harFlereBekreftelser: false,
+        onClick: fn(),
+    },
+    play: async ({ canvas }) => {
+        await expect(
+            await canvas.findByRole('heading', {
+                name: 'You have confirmed that you still wish to be registered as a jobseeker',
+            }),
+        ).toBeVisible();
+    },
+};
+
 export const KvitteringUtmeldtStory: Story = {
     args: {
         sprak: 'nb',
@@ -44,11 +93,16 @@ export const KvitteringFlereBekreftelserStory: Story = {
         sprak: 'nb',
         erUtmeldt: false,
         harFlereBekreftelser: true,
-        onClick: () => console.log('onClick'),
+        onClick: fn(),
         brukerprofil: {
             identitetsnummer: '42',
             tjenestestatus: 'INAKTIV',
         },
+    },
+    play: async ({ canvas, args }) => {
+        await expect(await canvas.findByRole('button', { name: 'Bekreft neste periode' })).toBeVisible();
+        await userEvent.click(await canvas.findByRole('button', { name: 'Bekreft neste periode' }));
+        await expect(args.onClick).toHaveBeenCalledTimes(1);
     },
 };
 

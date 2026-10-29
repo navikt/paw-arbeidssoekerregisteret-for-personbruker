@@ -12,6 +12,30 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof ManglerOpplysninger>;
 
+export const Bokmal: Story = {
+    args: {
+        sprak: 'nb',
+        oppdaterOpplysningerUrl: 'http://localhost:3000/oppdater-opplysninger',
+        visAdvarsel: false,
+    },
+};
+
+export const Nynorsk: Story = {
+    args: {
+        sprak: 'nn',
+        oppdaterOpplysningerUrl: 'http://localhost:3000/oppdater-opplysninger',
+        visAdvarsel: false,
+    },
+};
+
+export const Engelsk: Story = {
+    args: {
+        sprak: 'en',
+        oppdaterOpplysningerUrl: 'http://localhost:3000/oppdater-opplysninger',
+        visAdvarsel: false,
+    },
+};
+
 export const ManglerOpplysningerKomponent: Story = {
     args: {
         sprak: 'nb',

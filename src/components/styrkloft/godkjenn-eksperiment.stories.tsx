@@ -21,6 +21,30 @@ export const Ubesvart: Story = {
     },
 };
 
+export const NormalBokmal: Story = {
+    ...Ubesvart,
+    args: {
+        ...Ubesvart.args,
+        sprak: 'nb',
+    },
+};
+
+export const NormalNynorsk: Story = {
+    ...Ubesvart,
+    args: {
+        ...Ubesvart.args,
+        sprak: 'nn',
+    },
+};
+
+export const NormalEngelsk: Story = {
+    ...Ubesvart,
+    args: {
+        ...Ubesvart.args,
+        sprak: 'en',
+    },
+};
+
 export const PendingGodkjentRequest: Story = {
     args: {
         sprak: 'nb',

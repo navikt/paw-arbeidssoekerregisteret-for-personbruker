@@ -78,3 +78,32 @@ export const Default: Story = {
         submittedTjenestestatus: 'OPT_OUT',
     },
 };
+
+export const Bokmal: Story = {
+    args: { ...Default.args, sprak: 'nb' },
+};
+
+export const Nynorsk: Story = {
+    args: { ...Default.args, sprak: 'nn' },
+};
+
+export const Engelsk: Story = {
+    args: { ...Default.args, sprak: 'en' },
+};
+
+export const IngenTreff: Story = {
+    args: {
+        ...Default.args,
+        useOnFetchStillinger() {
+            return { data: { soek: { fylker: [], styrk08: [] }, resultat: [] } };
+        },
+    },
+};
+
+export const EndreSoek: Story = {
+    args: { ...Default.args, visEndreSok: true },
+};
+
+export const BekreftAvmelding: Story = {
+    args: { ...Default.args, visAvmeldModal: true },
+};

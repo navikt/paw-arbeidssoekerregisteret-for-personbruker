@@ -27,7 +27,6 @@ function FilterVelger(props: Props) {
                 <Dropdown.Menu>
                     <Dropdown.Menu.GroupedList>
                         <Dropdown.Menu.GroupedList.Heading>{heading}</Dropdown.Menu.GroupedList.Heading>
-                        <Dropdown.Menu.Divider />
                         {options.map((option) => {
                             const isDisabled = values.indexOf(option) !== -1;
                             return (

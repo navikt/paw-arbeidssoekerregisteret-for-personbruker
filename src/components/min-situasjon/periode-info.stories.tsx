@@ -3,6 +3,10 @@ import { snapshotMock } from '@/app/mockdata';
 import PeriodeInfo from './periode-info';
 
 const snapshot = snapshotMock;
+const aktivUtenBekreftelse = {
+    ...snapshot,
+    bekreftelse: undefined,
+};
 const avsluttetPeriode = {
     ...snapshot,
     avsluttet: {
@@ -37,6 +41,34 @@ export const Registrert: Story = {
     args: {
         sprak: 'nb',
         snapshot,
+    },
+};
+
+export const Bokmal: Story = {
+    args: {
+        sprak: 'nb',
+        snapshot,
+    },
+};
+
+export const Nynorsk: Story = {
+    args: {
+        sprak: 'nn',
+        snapshot,
+    },
+};
+
+export const Engelsk: Story = {
+    args: {
+        sprak: 'en',
+        snapshot,
+    },
+};
+
+export const AktivUtenBekreftelse: Story = {
+    args: {
+        sprak: 'nb',
+        snapshot: aktivUtenBekreftelse,
     },
 };
 

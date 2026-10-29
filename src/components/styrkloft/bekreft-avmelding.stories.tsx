@@ -48,6 +48,30 @@ export const DefaultBekreftAvmelding: Story = {
     },
 };
 
+export const NormalBokmal: Story = {
+    ...DefaultBekreftAvmelding,
+    args: {
+        ...DefaultBekreftAvmelding.args,
+        sprak: 'nb',
+    },
+};
+
+export const NormalNynorsk: Story = {
+    ...DefaultBekreftAvmelding,
+    args: {
+        ...DefaultBekreftAvmelding.args,
+        sprak: 'nn',
+    },
+};
+
+export const NormalEngelsk: Story = {
+    ...DefaultBekreftAvmelding,
+    args: {
+        ...DefaultBekreftAvmelding.args,
+        sprak: 'en',
+    },
+};
+
 export const MedPending: Story = {
     render: (args) => <InteractiveWrapper {...args} />,
     args: {

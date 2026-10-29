@@ -35,9 +35,27 @@ const stedSoek: StedSoek = {
     styrk08: ['2514', '2166', '2320', '3121'],
 };
 
-export const DefaultLinkTilArbeidsplassen: Story = {
+const stedSoekArgs = {
+    stedSoek,
+};
+
+export const Bokmal: Story = {
     args: {
-        stedSoek: stedSoek,
+        ...stedSoekArgs,
         sprak: 'nb',
+    },
+};
+
+export const Nynorsk: Story = {
+    args: {
+        ...stedSoekArgs,
+        sprak: 'nn',
+    },
+};
+
+export const English: Story = {
+    args: {
+        ...stedSoekArgs,
+        sprak: 'en',
     },
 };

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect, userEvent } from 'storybook/test';
-import type { BekreftelseSkjemaType } from '@/model/bekreftelse';
 import { Bekreftelse } from './bekreftelse';
 
 const meta = {
@@ -25,15 +24,8 @@ const meta = {
                 periodeId: '2',
             },
         ],
-        registrerArbeidssokerUrl: process.env.REGISTRER_ARBEIDSSOKER_URL!,
-        onSubmit(data: BekreftelseSkjemaType): Promise<void> {
-            console.log('onSubmit', data);
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve();
-                }, 1000);
-            });
-        },
+        registrerArbeidssokerUrl: 'https://www.nav.no/arbeid/arbeidssoker',
+        onSubmit: async () => {},
     },
     parameters: {
         nextjs: {
@@ -46,6 +38,33 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const BekreftelseDemo: Story = {};
+
+export const BekreftelseBokmal: Story = {
+    args: { sprak: 'nb' },
+    play: async ({ canvas }) => {
+        await expect(
+            await canvas.findByRole('heading', { name: 'Bekreft at du vil være registrert som arbeidssøker' }),
+        ).toBeVisible();
+    },
+};
+
+export const BekreftelseNynorsk: Story = {
+    args: { sprak: 'nn' },
+    play: async ({ canvas }) => {
+        await expect(
+            await canvas.findByRole('heading', { name: 'Stadfest at du ønskjer å vere registrert som arbeidssøkjar' }),
+        ).toBeVisible();
+    },
+};
+
+export const BekreftelseEngelsk: Story = {
+    args: { sprak: 'en' },
+    play: async ({ canvas }) => {
+        await expect(
+            await canvas.findByRole('heading', { name: 'Confirm that you want to stay registered as a jobseekerr' }),
+        ).toBeVisible();
+    },
+};
 
 export const BekreftArbeidssokerStatus: Story = {
     play: async ({ canvas }) => {
@@ -75,14 +94,47 @@ export const IngenTilgjengelige: Story = {
         erAktivArbeidssoker: true,
         sistInnsendteBekreftelse: undefined,
         tilgjengeligeBekreftelser: [],
-        registrerArbeidssokerUrl: process.env.REGISTRER_ARBEIDSSOKER_URL!,
-        onSubmit(data: BekreftelseSkjemaType): Promise<void> {
-            console.log('onSubmit', data);
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve();
-                }, 1000);
-            });
+        registrerArbeidssokerUrl: 'https://www.nav.no/arbeid/arbeidssoker',
+        onSubmit: async () => {},
+    },
+};
+
+export const IkkeAktivArbeidssoker: Story = {
+    args: { erAktivArbeidssoker: false },
+    play: async ({ canvas }) => {
+        await expect(
+            await canvas.findByRole('heading', { name: 'Du er ikke registert som aktiv arbeidssøker' }),
+        ).toBeVisible();
+    },
+};
+
+export const BekreftNestePeriode: Story = {
+    play: async ({ canvas }) => {
+        await userEvent.click((await canvas.findAllByText('Nei'))[0]);
+        await userEvent.click((await canvas.findAllByText('Ja'))[1]);
+        await userEvent.click(await canvas.findByText('Send inn'));
+        await userEvent.click(await canvas.findByText('Bekreft neste periode'));
+
+        await expect(await canvas.findByRole('button', { name: 'Send inn' })).toBeVisible();
+        await expect(
+            await canvas.findByRole('heading', { name: 'Bekreft at du vil være registrert som arbeidssøker' }),
+        ).toBeVisible();
+    },
+};
+
+export const NettverksfeilVedInnsending: Story = {
+    args: {
+        onSubmit: async () => {
+            throw new Error('Network request failed');
         },
+    },
+    play: async ({ canvas }) => {
+        await userEvent.click((await canvas.findAllByText('Ja'))[0]);
+        await userEvent.click((await canvas.findAllByText('Ja'))[1]);
+        await userEvent.click(await canvas.findByText('Send inn'));
+
+        await expect(
+            await canvas.findByText('Noe gikk dessverre galt. Forsøk igjen, eller kontakt NAV.'),
+        ).toBeVisible();
     },
 };

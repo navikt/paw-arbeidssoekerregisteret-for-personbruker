@@ -30,3 +30,32 @@ export const DefaultDirektemeldtStilling: Story = {
         sprak: 'nb',
     },
 };
+
+export const Bokmal: Story = {
+    args: { ...DefaultDirektemeldtStilling.args, sprak: 'nb' },
+};
+
+export const Nynorsk: Story = {
+    args: { ...DefaultDirektemeldtStilling.args, sprak: 'nn' },
+};
+
+export const Engelsk: Story = {
+    args: { ...DefaultDirektemeldtStilling.args, sprak: 'en' },
+};
+
+export const UtenValgfrieOpplysninger: Story = {
+    args: {
+        sprak: 'nb',
+        ledigStilling: {
+            arbeidsplassenNoId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+            tittel: 'Reservert stilling uten valgfrie opplysninger',
+            publisert: '',
+            soeknadsfrist: {},
+            land: 'no',
+            sektor: 'Ukjent',
+            selskap: 'Arbeidsgiver',
+            tags: ['DIREKTEMELDT_V1'],
+        },
+        jobbmuligheterUrl: 'https://arbeidsplassen.nav.no',
+    },
+};

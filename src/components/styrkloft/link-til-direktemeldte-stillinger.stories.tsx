@@ -11,8 +11,25 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const DefaultLinkTilDirektemeldteStillinger: Story = {
+const jobbmuligheterUrl = 'https://www.nav.no/arbeidsplassen';
+
+export const Bokmal: Story = {
     args: {
+        jobbmuligheterUrl,
         sprak: 'nb',
+    },
+};
+
+export const Nynorsk: Story = {
+    args: {
+        jobbmuligheterUrl,
+        sprak: 'nn',
+    },
+};
+
+export const English: Story = {
+    args: {
+        jobbmuligheterUrl,
+        sprak: 'en',
     },
 };

@@ -12,9 +12,30 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof RegistrerArbeidssoker>;
 
+export const Bokmal: Story = {
+    args: {
+        registrerArbeidssokerUrl: 'http://localhost:3000/registrer-arbeidssoker',
+        sprak: 'nb',
+    },
+};
+
+export const Nynorsk: Story = {
+    args: {
+        registrerArbeidssokerUrl: 'http://localhost:3000/registrer-arbeidssoker',
+        sprak: 'nn',
+    },
+};
+
+export const Engelsk: Story = {
+    args: {
+        registrerArbeidssokerUrl: 'http://localhost:3000/registrer-arbeidssoker',
+        sprak: 'en',
+    },
+};
+
 export const RegistrertArbeidssoker: Story = {
     args: {
-        registrerArbeidssokerUrl: process.env.REGISTRER_ARBEIDSSOKER_URL!,
+        registrerArbeidssokerUrl: 'http://localhost:3000/registrer-arbeidssoker',
         sprak: 'nb',
     },
 };

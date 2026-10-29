@@ -94,6 +94,30 @@ export const Demo: Story = {
     },
 };
 
+export const NormalBokmal: Story = {
+    ...Demo,
+    args: {
+        ...Demo.args,
+        sprak: 'nb',
+    },
+};
+
+export const NormalNynorsk: Story = {
+    ...Demo,
+    args: {
+        ...Demo.args,
+        sprak: 'nn',
+    },
+};
+
+export const NormalEngelsk: Story = {
+    ...Demo,
+    args: {
+        ...Demo.args,
+        sprak: 'en',
+    },
+};
+
 export const Avmeldt: Story = {
     args: {
         brukerprofil: {
