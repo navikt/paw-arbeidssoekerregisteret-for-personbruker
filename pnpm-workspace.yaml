@@ -15,3 +15,6 @@ overrides:
   uuid: '14.0.1'
   js-yaml: '5.1.0'
   '@opentelemetry/core': '2.8.0'
+  brace-expansion@>=4.0.0 <5.0.12: ^5.0.12
+  postcss@<=8.5.22: ^8.5.23
+  source-map-js@>=1.0.0 <1.2.2: ^1.2.2
