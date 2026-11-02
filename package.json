@@ -4,6 +4,7 @@
     "private": true,
     "packageManager": "pnpm@11.28.6",
     "scripts": {
+        "biome:migrate": "biome migrate --write",
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
