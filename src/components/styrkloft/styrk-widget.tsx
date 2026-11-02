@@ -40,6 +40,13 @@ const swrFetcher = (url: string) => {
     });
 };
 
+const useOnFetchStillinger = () => {
+    return useSWRImmutable(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/ledigestillinger`, swrFetcher, {
+        suspense: true,
+        revalidateOnMount: true,
+    });
+};
+
 function StyrkWidget(props: Props) {
     const onSubmitTjenesteStatus = (status: Tjenestestatus) => {
         return fetcher(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/tjenestestatus`, {
@@ -52,13 +59,6 @@ function StyrkWidget(props: Props) {
             `${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/stillingsoek`,
             byggStillingssoekPayload(val),
         );
-    };
-
-    const useOnFetchStillinger = () => {
-        return useSWRImmutable(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/brukerprofil/ledigestillinger`, swrFetcher, {
-            suspense: true,
-            revalidateOnMount: true,
-        });
     };
 
     const [state, dispatch] = useReducer(reducer, props.brukerprofil, initialStyrkState);
