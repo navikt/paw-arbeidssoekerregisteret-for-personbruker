@@ -31,7 +31,7 @@
         "@navikt/oasis": "4.2.2",
         "@unleash/nextjs": "1.6.7",
         "jose": "6.2.12",
-        "next": "16.4.2",
+        "next": "16.4.3",
         "react": "19.3.1",
         "react-dom": "19.3.1",
         "swr": "2.5.1",
