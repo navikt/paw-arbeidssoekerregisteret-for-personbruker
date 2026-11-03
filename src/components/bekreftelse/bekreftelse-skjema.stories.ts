@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { expect, fn, userEvent } from 'storybook/test';
+import { expect, fn, userEvent, within } from 'storybook/test';
 import type { BekreftelseSkjemaType } from '@/model/bekreftelse';
 import { BekreftelseSkjema } from './bekreftelse-skjema';
 
@@ -54,7 +54,7 @@ export const BekreftelseSkjemaEngelsk: Story = {
     args: { sprak: 'en' },
     play: async ({ canvas }) => {
         await expect(
-            await canvas.findByRole('heading', { name: 'Confirm that you want to stay registered as a jobseekerr' }),
+            await canvas.findByRole('heading', { name: 'Confirm that you want to stay registered as a jobseeker' }),
         ).toBeVisible();
     },
 };
@@ -64,7 +64,69 @@ export const ViserFeilmelding: Story = {
         const canvas = context.canvas;
         await userEvent.click((await canvas.findAllByText('Ja'))[0]);
         await userEvent.click(await canvas.findByText('Send inn'));
-        await expect(await canvas.findByText('Du må svare før du kan sende inn')).toBeDefined();
+        const gruppe = canvas.getByRole('radiogroup', { name: 'Vil du fortsatt være registrert som arbeidssøker?' });
+        await expect(
+            within(gruppe).getByRole('radio', { name: 'Ja', description: 'Du må svare før du kan sende inn' }),
+        ).toBeVisible();
+    },
+};
+
+export const Tastaturnavigasjon: Story = {
+    play: async ({ canvas }) => {
+        const arbeid = canvas.getByRole('radiogroup', { name: /Har du vært i arbeid i perioden/ });
+        await userEvent.tab();
+        await expect(within(arbeid).getByRole('radio', { name: 'Ja' })).toHaveFocus();
+
+        await userEvent.keyboard('{ArrowDown}');
+        await expect(within(arbeid).getByRole('radio', { name: 'Nei' })).toBeChecked();
+        await userEvent.tab();
+
+        const fortsette = canvas.getByRole('radiogroup', { name: 'Vil du fortsatt være registrert som arbeidssøker?' });
+        await expect(within(fortsette).getByRole('radio', { name: 'Ja' })).toHaveFocus();
+    },
+};
+
+export const ValideringsfeilBokmal: Story = {
+    args: { sprak: 'nb' },
+    play: async ({ canvas }) => {
+        const arbeid = canvas.getByRole('radiogroup', { name: /Har du vært i arbeid i perioden/ });
+        const fortsette = canvas.getByRole('radiogroup', { name: 'Vil du fortsatt være registrert som arbeidssøker?' });
+        const sendInn = canvas.getByRole('button', { name: 'Send inn' });
+
+        await userEvent.click(sendInn);
+        await expect(within(arbeid).getByRole('radio', { name: 'Ja' })).toHaveFocus();
+        await expect(
+            within(arbeid).getByRole('radio', { name: 'Ja', description: 'Du må svare før du kan sende inn' }),
+        ).toBeVisible();
+
+        await userEvent.click(within(arbeid).getByRole('radio', { name: 'Ja' }));
+        await userEvent.click(sendInn);
+        await expect(within(fortsette).getByRole('radio', { name: 'Ja' })).toHaveFocus();
+        await expect(
+            within(fortsette).getByRole('radio', { name: 'Ja', description: 'Du må svare før du kan sende inn' }),
+        ).toBeVisible();
+    },
+};
+
+export const ValideringsfeilNynorsk: Story = {
+    args: { sprak: 'nn' },
+    play: async ({ canvas }) => {
+        await userEvent.click(canvas.getByRole('button', { name: 'Send inn' }));
+        const arbeid = canvas.getByRole('radiogroup', { name: /Har du vore i arbeid i perioden/ });
+        await expect(
+            within(arbeid).getByRole('radio', { name: 'Ja', description: 'Du må svare før du kan sende inn' }),
+        ).toBeVisible();
+    },
+};
+
+export const ValideringsfeilEngelsk: Story = {
+    args: { sprak: 'en' },
+    play: async ({ canvas }) => {
+        await userEvent.click(canvas.getByRole('button', { name: 'Submit' }));
+        const arbeid = canvas.getByRole('radiogroup', { name: /Have you worked in the period/ });
+        await expect(
+            within(arbeid).getByRole('radio', { name: 'Yes', description: 'You must answer before submitting' }),
+        ).toBeVisible();
     },
 };
 export const FeilVedSubmit: Story = {
@@ -88,7 +150,7 @@ export const FeilVedSubmit: Story = {
         await userEvent.click((await canvas.findAllByText('Ja'))[1]);
         await userEvent.click(await canvas.findByText('Send inn'));
         await expect(
-            await canvas.findByText('Noe gikk dessverre galt. Forsøk igjen, eller kontakt NAV.'),
+            await canvas.findByText('Noe gikk dessverre galt. Forsøk igjen, eller kontakt Nav.'),
         ).toBeVisible();
     },
 };
@@ -111,6 +173,19 @@ export const AvbrytUtmelding: Story = {
         await expect(
             await canvas.findByRole('heading', { name: 'Bekreft at du vil være registrert som arbeidssøker' }),
         ).toBeVisible();
+    },
+};
+
+export const FokusAvsluttSteg: Story = {
+    play: async ({ canvas }) => {
+        const grupper = canvas.getAllByRole('radiogroup');
+        await userEvent.click(within(grupper[0]).getByRole('radio', { name: 'Ja' }));
+        await userEvent.click(within(grupper[1]).getByRole('radio', { name: 'Nei' }));
+        await userEvent.click(canvas.getByRole('button', { name: 'Send inn' }));
+
+        await expect(
+            await canvas.findByRole('heading', { name: 'Bekreft at du ikke lenger ønsker å være arbeidssøker' }),
+        ).toHaveFocus();
     },
 };
 

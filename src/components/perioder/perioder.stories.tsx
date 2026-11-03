@@ -1,6 +1,7 @@
 import type { OpplysningerHendelse, PeriodeAvsluttetHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import { Accordion } from '@navikt/ds-react';
-import type { Meta } from '@storybook/nextjs-vite';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { expect, userEvent } from 'storybook/test';
 import { ShowDetailsProvider } from '@/contexts/show-details-context';
 import {
     createBekreftelseHendelse,
@@ -11,6 +12,8 @@ import {
     createProfileringHendelse,
 } from './__tests__/utils/hendelser';
 import { Periode } from './periode';
+import { Perioder } from './perioder';
+import { VisDetaljerToggle } from './vis-detaljer-toggle';
 
 const meta: Meta = {
     title: 'Komponenter/Perioder/Periode',
@@ -46,7 +49,7 @@ const meta: Meta = {
 } satisfies Meta<typeof Periode>;
 
 export default meta;
-type Story = typeof meta;
+type Story = StoryObj<typeof meta>;
 
 export const PeriodeStartet: Story = {
     args: {
@@ -180,5 +183,45 @@ export const MedOpplysninger: Story = {
                 story: 'Viser opplysninger innsendt',
             },
         },
+    },
+};
+
+export const HistorikkTastatur: Story = {
+    args: {
+        sprak: 'nb',
+        hendelser: [],
+    },
+    render: () => {
+        const perioder = [
+            {
+                periodeId: 'periode-tastatur',
+                identitetsnummer: 'test-ident',
+                startet: '2025-01-01T10:00:00Z',
+                hendelser: [createPeriodeStartetHendelse(), createOpplysningerHendelse()],
+            },
+        ];
+
+        return (
+            <ShowDetailsProvider>
+                <VisDetaljerToggle sprak="nb" />
+                <Perioder perioder={perioder} sprak="nb" />
+            </ShowDetailsProvider>
+        );
+    },
+    play: async ({ canvas }) => {
+        const toggle = canvas.getByRole('checkbox', { name: 'Vis detaljer' });
+        await toggle.focus();
+        await expect(toggle).toHaveFocus();
+        await userEvent.keyboard(' ');
+        await expect(toggle).not.toBeChecked();
+
+        const periodHeader = canvas.getByRole('button', { name: /1\. januar 2025/ });
+        await periodHeader.focus();
+        await userEvent.keyboard('{Enter}');
+        await expect(periodHeader).toHaveAttribute('aria-expanded', 'true');
+
+        await toggle.focus();
+        await userEvent.keyboard(' ');
+        await expect(toggle).toBeChecked();
     },
 };

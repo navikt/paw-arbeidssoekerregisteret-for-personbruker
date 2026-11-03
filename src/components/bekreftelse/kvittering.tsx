@@ -1,5 +1,6 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
+import { useEffect, useRef } from 'react';
 import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
 import StyrkWidget from '@/components/styrkloft/styrk-widget';
 import { leggSprakTilEksternUrl } from '@/lib/sprak-avhengig-url';
@@ -51,6 +52,11 @@ const TEKSTER = {
 const Kvittering = (props: Props) => {
     const { sprak, erUtmeldt, harFlereBekreftelser, onClick, brukerprofil } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const headingRef = useRef<HTMLHeadingElement>(null);
+
+    useEffect(() => {
+        headingRef.current?.focus();
+    }, []);
 
     const loggKlikk = () => {
         loggAktivitet({ aktivitet: 'Trykker på "Gå tilbake til min side" fra bekreftelse-kvittering' });
@@ -62,7 +68,7 @@ const Kvittering = (props: Props) => {
         <>
             {erUtmeldt ? (
                 <>
-                    <Heading size={'xlarge'} level={'1'} className={'mb-4'}>
+                    <Heading ref={headingRef} tabIndex={-1} size={'xlarge'} level={'1'} className={'mb-4'}>
                         {tekst('headingUtmeldt')}
                     </Heading>
                     <Alert variant={'info'} className={'mb-4'}>
@@ -74,7 +80,7 @@ const Kvittering = (props: Props) => {
                 </>
             ) : (
                 <>
-                    <Heading size={'xlarge'} level={'1'} className={'mb-4'}>
+                    <Heading ref={headingRef} tabIndex={-1} size={'xlarge'} level={'1'} className={'mb-4'}>
                         {tekst('heading')}
                     </Heading>
                     <Alert variant={'success'} className={'mb-4'}>

@@ -210,14 +210,14 @@ API-ruten `/api/unleash` eksponerer togglestatus til klienten.
 
 Backend-kall med brukerkontekst bruker TokenX via `@navikt/oasis`. Klientkall går gjennom Next.js Route Handlers, mens serverkode også kaller backend direkte fra blant annet `src/app/actions.ts`, `src/app/historikk/actions.ts` og `src/app/brukerprofil-api.ts`. Unleash har separat oppsett med API-token.
 
-| Miljøvariabel                             | Tjeneste                       |
-| ----------------------------------------- | ------------------------------ |
-| `ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL` | Oppslag (v1)                   |
+| Miljøvariabel                             | Tjeneste                                                                |
+| ----------------------------------------- | ----------------------------------------------------------------------- |
+| `ARBEIDSSOEKERREGISTERET_OPPSLAG_API_URL` | Oppslag (v1)                                                            |
 | `OPPSLAG_API_V2_URL`                      | Oppslag-v2-tjenesten, API v3 (`/api/v3/snapshot` og `/api/v3/perioder`) |
-| `BEKREFTELSE_API_URL`                     | Bekreftelse                    |
-| `EGENVURDERING_API_URL`                   | Egenvurdering                  |
-| `BRUKERPROFIL_API_URL`                    | Brukerprofil / mine stillinger |
-| `UNLEASH_SERVER_API_URL`                  | Unleash feature toggles        |
+| `BEKREFTELSE_API_URL`                     | Bekreftelse                                                             |
+| `EGENVURDERING_API_URL`                   | Egenvurdering                                                           |
+| `BRUKERPROFIL_API_URL`                    | Brukerprofil / mine stillinger                                          |
+| `UNLEASH_SERVER_API_URL`                  | Unleash feature toggles                                                 |
 
 ---
 
@@ -301,3 +301,13 @@ Bruk disse i Copilot Chat med `#skill-name` eller via skill-menyen:
 | `aksel-spacing`       | Responsive layouts, spacing-tokens, Box/HStack/VStack/HGrid/Page |
 | `conventional-commit` | Generer conventional commit-meldinger med Nav-scopes             |
 | `web-design-reviewer` | Visuell inspeksjon — finn og fiks designproblemer i kildekoden   |
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

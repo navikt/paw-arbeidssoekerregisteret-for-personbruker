@@ -2,7 +2,7 @@
 
 import { lagHentTekstForSprak, type Sprak, type TilgjengeligBekreftelse } from '@navikt/arbeidssokerregisteret-utils';
 import { Button, Heading, Radio, RadioGroup } from '@navikt/ds-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BekreftAvsluttPeriode } from '@/components/bekreftelse/bekreft-avslutt-periode';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
 import { prettyPrintDato } from '@/lib/date-utils';
@@ -43,9 +43,10 @@ const TEKSTER = {
         wantToBeRegistered: 'Ønskjer du å framleis vere registrert som arbeidssøkjar?',
         submit: 'Send inn',
         cancel: 'Avbryt',
+        validationError: 'Du må svare før du kan sende inn',
     },
     en: {
-        heading: 'Confirm that you want to stay registered as a jobseekerr',
+        heading: 'Confirm that you want to stay registered as a jobseeker',
         beenWorking: 'Have you worked in the period ',
         yes: 'Yes',
         no: 'No',
@@ -78,6 +79,8 @@ const BekreftelseSkjema = (props: Props) => {
     const [senderSkjema, settSenderSkjema] = useState<boolean>(false);
     const [error, settError] = useState<any>(null);
     const [visFeilmeldingISkjema, settVisFeilmeldingISkjema] = useState<boolean>(false);
+    const arbeidRadioRef = useRef<HTMLInputElement>(null);
+    const fortsetteRadioRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         settHarGyldigSkjema(
@@ -89,6 +92,10 @@ const BekreftelseSkjema = (props: Props) => {
     const onSubmit = async () => {
         if (!harGyldigSkjema) {
             settVisFeilmeldingISkjema(true);
+            // Focus the first unanswered radio so keyboard users can continue from the error.
+            const førsteUbesvarteRadio =
+                skjemaState.harJobbetIDennePerioden === undefined ? arbeidRadioRef : fortsetteRadioRef;
+            førsteUbesvarteRadio.current?.focus();
             return;
         }
 
@@ -137,7 +144,6 @@ const BekreftelseSkjema = (props: Props) => {
             </Heading>
             <InfoTekst sprak={sprak} />
             <RadioGroup
-                autoFocus={true}
                 legend={`${tekst('beenWorking')} ${periode}?`}
                 value={getRadioGroupValue(skjemaState.harJobbetIDennePerioden)}
                 onChange={(e) => settSkjemaState((state) => ({ ...state, harJobbetIDennePerioden: e === 'ja' }))}
@@ -148,7 +154,7 @@ const BekreftelseSkjema = (props: Props) => {
                     tekst('validationError')
                 }
             >
-                <Radio value="ja" checked={skjemaState.harJobbetIDennePerioden === true} autoFocus={true}>
+                <Radio ref={arbeidRadioRef} value="ja" checked={skjemaState.harJobbetIDennePerioden === true}>
                     {tekst('yes')}
                 </Radio>
                 <Radio value="nei" checked={skjemaState.harJobbetIDennePerioden === false}>
@@ -166,7 +172,9 @@ const BekreftelseSkjema = (props: Props) => {
                     tekst('validationError')
                 }
             >
-                <Radio value="ja">{tekst('yes')}</Radio>
+                <Radio ref={fortsetteRadioRef} value="ja">
+                    {tekst('yes')}
+                </Radio>
                 <Radio value="nei">{tekst('no')}</Radio>
             </RadioGroup>
             <Button variant="primary" disabled={senderSkjema} onClick={onSubmit} loading={senderSkjema}>
@@ -175,7 +183,7 @@ const BekreftelseSkjema = (props: Props) => {
             <Button className={'ml-4'} variant={'tertiary'} onClick={onCancel} disabled={senderSkjema}>
                 {tekst('cancel')}
             </Button>
-            {error && <Feilmelding />}
+            {error && <Feilmelding sprak={sprak} />}
         </>
     );
 };

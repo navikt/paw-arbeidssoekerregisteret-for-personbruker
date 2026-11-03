@@ -1,7 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useState } from 'react';
+import { expect, screen, userEvent, within } from 'storybook/test';
 import UnderkategoriVelger from '@/components/styrkloft/underkategori-velger';
 import { byggYrkeskoderTilStyrkMap } from '@/lib/bygg-yrkeskoder-med-styrk-map';
+
+const options = byggYrkeskoderTilStyrkMap();
+const firstCategory = options[0];
+const partlySelected = firstCategory.underKategorier.slice(0, 1).map(({ navn }) => navn);
+const fullySelected = firstCategory.underKategorier.map(({ navn }) => navn);
 
 const meta = {
     title: 'Styrkløft/Komponenter/UnderkategoriVelger',
@@ -29,7 +35,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        options: byggYrkeskoderTilStyrkMap(),
+        options,
         values: [],
         triggerText: 'Velg kategori',
         onChange(values: string[]) {
@@ -43,7 +49,7 @@ export const Default: Story = {
 
 export const MedFeil: Story = {
     args: {
-        options: byggYrkeskoderTilStyrkMap(),
+        options,
         values: [],
         triggerText: 'Velg kategori',
         onChange(values: string[]) {
@@ -52,5 +58,74 @@ export const MedFeil: Story = {
         sprak: 'nb',
         showError: true,
         errorMessage: 'må fylles ut',
+    },
+};
+
+export const DelvisValgt: Story = {
+    args: {
+        options,
+        values: partlySelected,
+        triggerText: 'Velg kategori',
+        onChange: console.log,
+        sprak: 'nb',
+        showError: false,
+        errorMessage: 'må fylles ut',
+    },
+};
+
+export const FulltValgt: Story = {
+    args: {
+        options,
+        values: fullySelected,
+        triggerText: 'Velg kategori',
+        onChange: console.log,
+        sprak: 'nb',
+        showError: false,
+        errorMessage: 'må fylles ut',
+    },
+    play: async ({ canvas }) => {
+        const chip = canvas.getByRole('button', { name: new RegExp(firstCategory.navn) });
+        await userEvent.tab();
+        await expect(canvas.getByRole('button', { name: 'Velg kategori' })).toHaveFocus();
+        await userEvent.tab();
+        await expect(chip).toHaveFocus();
+        await userEvent.keyboard('{Enter}');
+        await expect(canvas.queryByRole('button', { name: new RegExp(firstCategory.navn) })).not.toBeInTheDocument();
+    },
+};
+
+export const UnderkategoriApenViaTastatur: Story = {
+    ...Default,
+    play: async ({ canvas }) => {
+        const trigger = canvas.getByRole('button', { name: 'Velg kategori' });
+        await userEvent.tab();
+        await expect(trigger).toHaveFocus();
+        await userEvent.keyboard('{Enter}');
+
+        const menu = await screen.findByRole('menu');
+        const category = within(menu).getByRole('menuitemcheckbox', { name: new RegExp(firstCategory.navn) });
+        await userEvent.keyboard('{ArrowDown}');
+        await expect(category).toHaveFocus();
+        await userEvent.keyboard('{Enter}');
+
+        await expect(
+            within(menu).getByRole('menuitemcheckbox', {
+                name: new RegExp(firstCategory.underKategorier[0].navn),
+            }),
+        ).toBeVisible();
+    },
+};
+
+export const EscapeGirFokusTilbakeViaTastatur: Story = {
+    ...Default,
+    play: async ({ canvas }) => {
+        const trigger = canvas.getByRole('button', { name: 'Velg kategori' });
+        await userEvent.tab();
+        await expect(trigger).toHaveFocus();
+        await userEvent.keyboard('{Enter}');
+        await expect(await screen.findByRole('menu')).toBeVisible();
+        await userEvent.keyboard('{Escape}');
+        await expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+        await expect(trigger).toHaveFocus();
     },
 };

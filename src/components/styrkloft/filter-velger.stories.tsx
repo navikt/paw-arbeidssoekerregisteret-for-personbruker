@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useState } from 'react';
-import { expect, userEvent } from 'storybook/test';
+import { expect, screen, userEvent } from 'storybook/test';
 import FilterVelger from '@/components/styrkloft/filter-velger';
 
 const options = ['Baker', 'Kokk', 'Snekker', 'Rikskjendis', 'Riksmeglingsmann', 'Riksklyse', 'Fotballdommer'];
@@ -82,5 +82,42 @@ export const Engelsk: Story = {
         options: ['Baker', 'Chef', 'Carpenter', 'Celebrity'],
         heading: 'Select category',
         onChange: console.log,
+    },
+};
+
+export const ApenViaTastatur: Story = {
+    args: {
+        values: [],
+        options,
+        heading: 'Velg kategori',
+        onChange: console.log,
+    },
+    play: async ({ canvas }) => {
+        const trigger = canvas.getByRole('button', { name: /^Velg kategori/ });
+        await userEvent.tab();
+        await expect(trigger).toHaveFocus();
+        await userEvent.keyboard('{Enter}');
+
+        await expect(await screen.findByRole('button', { name: 'Baker' })).toBeVisible();
+        await expect(screen.getByRole('button', { name: 'Kokk' })).toBeVisible();
+    },
+};
+
+export const EscapeGirFokusTilbakeViaTastatur: Story = {
+    args: {
+        values: [],
+        options,
+        heading: 'Velg kategori',
+        onChange: console.log,
+    },
+    play: async ({ canvas }) => {
+        const trigger = canvas.getByRole('button', { name: /^Velg kategori/ });
+        await userEvent.tab();
+        await expect(trigger).toHaveFocus();
+        await userEvent.keyboard('{Enter}');
+        await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+        await userEvent.keyboard('{Escape}');
+        await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+        await expect(trigger).toHaveFocus();
     },
 };

@@ -54,7 +54,7 @@ const TilgjengeligBekreftelseLink = (props: Props) => {
                         />
                     </Hide>
                 </LinkCard.Icon>
-                <LinkCard.Title className={'flex items-center'} as={'h3'}>
+                <LinkCard.Title className={'flex items-center'} as={'h2'}>
                     <LinkCard.Anchor asChild onClick={onClick}>
                         <NextLink href={tilSprakAvhengigAppPath('/bekreftelse', sprak)}>{tekst('title')}</NextLink>
                     </LinkCard.Anchor>
