@@ -8,6 +8,7 @@ import BekreftelseWrapper from '@/components/bekreftelse/bekreftelse-wrapper';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import Feil from '@/components/feil';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
+import BekreftelseSide from '@/components/sider/bekreftelsesside';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
 import { leggSprakTilEksternUrl } from '@/lib/sprak-avhengig-url';
 import type { NextPageProps } from '../../../types/next';
@@ -59,7 +60,7 @@ export default async function BekreftelsePage({ params }: NextPageProps) {
     const brukerprofilPromise = fetchBrukerprofil();
 
     return (
-        <div className={'flex flex-col max-w-3xl mx-auto py-8'}>
+        <>
             <SettSprakIDekorator sprak={sprak} />
             <Breadcrumbs
                 breadcrumbs={['minside', 'registeret', 'bekreftelse'].map((key) => ({
@@ -67,14 +68,16 @@ export default async function BekreftelsePage({ params }: NextPageProps) {
                     url: url(key),
                 }))}
             />
-            <Suspense fallback={<Loader />}>
-                <BekreftelseServerComponent
-                    sprak={sprak}
-                    bekreftelserPromise={bekreftelserPromise}
-                    snapshotPromise={snapshotPromise}
-                    brukerprofilPromise={brukerprofilPromise}
-                />
-            </Suspense>
-        </div>
+            <BekreftelseSide sprak={sprak}>
+                <Suspense fallback={<Loader />}>
+                    <BekreftelseServerComponent
+                        sprak={sprak}
+                        bekreftelserPromise={bekreftelserPromise}
+                        snapshotPromise={snapshotPromise}
+                        brukerprofilPromise={brukerprofilPromise}
+                    />
+                </Suspense>
+            </BekreftelseSide>
+        </>
     );
 }

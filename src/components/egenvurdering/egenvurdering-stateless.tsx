@@ -90,7 +90,7 @@ const EgenvurderingStateless = (props: Props) => {
                 }}
             >
                 <Hide below={'sm'}>
-                    <InformationSquareIcon title="a11y-title" fontSize="1.5rem" className={'mr-4'} />
+                    <InformationSquareIcon aria-hidden fontSize="1.5rem" className={'mr-4'} />
                 </Hide>
                 <Heading level="2" size="medium">
                     {tekst(`heading-${tekstnoekkel}`)}

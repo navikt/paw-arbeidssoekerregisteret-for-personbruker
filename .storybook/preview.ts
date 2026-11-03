@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/nextjs-vite';
 import '../src/app/globals.css';
 import { mswLoader } from 'msw-storybook-addon/csf3';
+import { assertHelSideUu } from '../src/test/uu';
 
 const isStatic = typeof window !== 'undefined' && window.location.pathname.includes('/storybook/');
 
@@ -29,6 +30,11 @@ const preview: Preview = {
         a11y: {
             test: 'error',
         },
+    },
+    afterEach: (context) => {
+        if (context.parameters.uu?.helSide === true) {
+            assertHelSideUu(context.canvasElement);
+        }
     },
     // Provide the MSW addon loader globally
     loaders: [mswLoader(setupWorker)],

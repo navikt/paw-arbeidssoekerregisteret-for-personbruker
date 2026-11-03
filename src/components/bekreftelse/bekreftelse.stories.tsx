@@ -61,7 +61,7 @@ export const BekreftelseEngelsk: Story = {
     args: { sprak: 'en' },
     play: async ({ canvas }) => {
         await expect(
-            await canvas.findByRole('heading', { name: 'Confirm that you want to stay registered as a jobseekerr' }),
+            await canvas.findByRole('heading', { name: 'Confirm that you want to stay registered as a jobseeker' }),
         ).toBeVisible();
     },
 };
@@ -134,7 +134,7 @@ export const NettverksfeilVedInnsending: Story = {
         await userEvent.click(await canvas.findByText('Send inn'));
 
         await expect(
-            await canvas.findByText('Noe gikk dessverre galt. Forsøk igjen, eller kontakt NAV.'),
+            await canvas.findByText('Noe gikk dessverre galt. Forsøk igjen, eller kontakt Nav.'),
         ).toBeVisible();
     },
 };

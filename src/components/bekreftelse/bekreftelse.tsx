@@ -99,7 +99,12 @@ function Bekreftelse(props: BekreftelseProps) {
                     registrerArbeidssokerUrl={registrerArbeidssokerUrl}
                 />
             )}
-            {!harTilgjengeligeBekreftelser && <IngenTilgjengeligeBekreftelser sprak={sprak} />}
+            {!harTilgjengeligeBekreftelser && (
+                <IngenTilgjengeligeBekreftelser
+                    sprak={sprak}
+                    headingLevel={props.sistInnsendteBekreftelse ? '2' : '1'}
+                />
+            )}
         </div>
     );
 }

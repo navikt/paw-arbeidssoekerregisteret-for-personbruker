@@ -1,9 +1,10 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Alert } from '@navikt/ds-react';
+import { Heading, LocalAlert } from '@navikt/ds-react';
 import LenkeTilBekreftelseArtikkel from '../lenke-til-bekreftelse-artikkel';
 
 interface Props {
     sprak: Sprak;
+    headingLevel?: '1' | '2';
 }
 const TEKSTER = {
     nb: {
@@ -19,9 +20,16 @@ const TEKSTER = {
 
 export default function IngenTilgjengeligeBekreftelser(props: Props) {
     const tekst = lagHentTekstForSprak(TEKSTER, props.sprak);
+    const headingLevel = props.headingLevel ?? '1';
     return (
         <>
-            <Alert variant={'info'}>{tekst('melding')}</Alert>
+            <LocalAlert status="announcement">
+                <LocalAlert.Content>
+                    <Heading size="small" level={headingLevel}>
+                        {tekst('melding')}
+                    </Heading>
+                </LocalAlert.Content>
+            </LocalAlert>
             <LenkeTilBekreftelseArtikkel sprak={props.sprak} />
         </>
     );

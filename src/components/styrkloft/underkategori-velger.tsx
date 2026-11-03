@@ -118,6 +118,7 @@ function UnderkategoriVelger(props: Props) {
     const { triggerText, options, values, onChange, showError, errorMessage } = props;
     const [aktivNode, settAktivNode] = useState<string | null>(null);
     const id = useId();
+    const errorId = useId();
 
     const tekst = lagHentTekstForSprak(TEKSTER, props.sprak);
     const aktiveKategorier = hentAktiveKategorier(options, aktivNode);
@@ -143,6 +144,7 @@ function UnderkategoriVelger(props: Props) {
                             className={'shrink-0 h-fit mb-2'}
                             data-color={showError ? 'danger' : undefined}
                             aria-invalid={showError}
+                            aria-describedby={showError ? errorId : undefined}
                         >
                             {triggerText}
                         </Button>
@@ -158,7 +160,7 @@ function UnderkategoriVelger(props: Props) {
                                         loggUnderkategoriFilter({ aktivitet: 'Trykker på Tilbake' });
                                     }}
                                 >
-                                    <ChevronLeftIcon title="a11y-title" fontSize="1.5rem" /> {tekst('tilbake')}
+                                    <ChevronLeftIcon aria-hidden fontSize="1.5rem" /> {tekst('tilbake')}
                                 </ActionMenu.Item>
                                 <ActionMenu.Divider />
                                 <ActionMenu.CheckboxItem
@@ -209,9 +211,7 @@ function UnderkategoriVelger(props: Props) {
                                 >
                                     <div className={'flex grow justify-between'}>
                                         {kat.navn}
-                                        {harUnderkategorier && (
-                                            <ChevronRightIcon title="a11y-title" fontSize="1.5rem" />
-                                        )}
+                                        {harUnderkategorier && <ChevronRightIcon aria-hidden fontSize="1.5rem" />}
                                     </div>
                                 </ActionMenu.CheckboxItem>
                             );
@@ -225,7 +225,7 @@ function UnderkategoriVelger(props: Props) {
                                         loggUnderkategoriFilter({ aktivitet: 'Trykker på Lukk' });
                                     }}
                                 >
-                                    <XMarkIcon title="a11y-title" fontSize="1.5rem" />
+                                    <XMarkIcon aria-hidden fontSize="1.5rem" />
                                     {tekst('lukk')}
                                 </ActionMenu.Item>
                             </>
@@ -249,7 +249,7 @@ function UnderkategoriVelger(props: Props) {
                 </Chips>
             </div>
             {showError && (
-                <ErrorMessage size={'small'} showIcon={true} role="alert" aria-describedby={id}>
+                <ErrorMessage id={errorId} size={'small'} showIcon={true} role="alert">
                     {errorMessage}
                 </ErrorMessage>
             )}

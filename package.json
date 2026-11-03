@@ -13,6 +13,7 @@
         "format": "biome format --write ./src",
         "test": "pnpm lint && vitest",
         "test:ci": "biome ci ./src && vitest run",
+        "test:uu-smoke": "node scripts/uu-smoke.mjs",
         "typecheck": "pnpm tsc",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build -o public/storybook",

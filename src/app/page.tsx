@@ -9,13 +9,8 @@ import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengel
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import Egenvurdering from '@/components/egenvurdering/egenvurdering';
 import Feil from '@/components/feil';
-import { SeHistorikkLenke } from '@/components/historikk/se-historikk-lenke';
-import PeriodeInfo from '@/components/min-situasjon/periode-info';
-import ManglerOpplysninger from '@/components/opplysninger/mangler-opplysninger';
-import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
-import RegistrerArbeidssoker from '@/components/registrer-arbeidssoker/registrer-arbeidssoker';
-import RegistrertTittel from '@/components/registrert-tittel/registrert-tittel';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
+import { HovedsideInnhold, HovedsideRamme } from '@/components/sider/hovedside';
 import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
 import StyrkWidget from '@/components/styrkloft/styrk-widget';
 import { BREADCRUMBS_TITLES, BREADCRUMBS_URLS } from '@/lib/breadcrumbs-tekster';
@@ -53,26 +48,47 @@ async function SamletInformasjonServerComponent({
 
     if (snapshotError) {
         return (
-            <div className={'mb-6'}>
-                <Feil sprak={sprak} error={snapshotError?.message} />
-            </div>
+            <HovedsideInnhold
+                sprak={sprak}
+                snapshot={snapshotData}
+                innloggingsNivaa={innloggingsNivaa}
+                registrerArbeidssokerUrl={leggSprakTilEksternUrl(process.env.REGISTRER_ARBEIDSSOKER_URL!, sprak)}
+                oppdaterOpplysningerUrl={leggSprakTilEksternUrl(
+                    process.env.REGISTRER_ARBEIDSSOKER_URL!,
+                    sprak,
+                    'oppdater-opplysninger',
+                )}
+                error={
+                    <div className="mb-6">
+                        <Feil sprak={sprak} error={snapshotError?.message} />
+                    </div>
+                }
+            />
         );
     }
 
-    const harAktivPeriode = Boolean(snapshotData?.id) && !snapshotData?.avsluttet;
-    const harHistorikk = Boolean(snapshotData);
-
     return (
-        <>
-            <RegistrertTittel snapshot={snapshotData} sprak={sprak} />
-            <PeriodeInfo snapshot={snapshotData} sprak={sprak} />
-            <Suspense fallback={<Loader />}>
-                <TilgjengeligBekreftelseKomponent sprak={sprak} bekreftelserPromise={bekreftelserPromise} />
-            </Suspense>
-            <Suspense fallback={<Loader />}>
-                <EgenvurderingServerKomponent sprak={sprak} egenvurderingPromise={egenvurderingPromise} />
-            </Suspense>
-            {harAktivPeriode && (
+        <HovedsideInnhold
+            sprak={sprak}
+            snapshot={snapshotData}
+            innloggingsNivaa={innloggingsNivaa}
+            registrerArbeidssokerUrl={leggSprakTilEksternUrl(process.env.REGISTRER_ARBEIDSSOKER_URL!, sprak)}
+            oppdaterOpplysningerUrl={leggSprakTilEksternUrl(
+                process.env.REGISTRER_ARBEIDSSOKER_URL!,
+                sprak,
+                'oppdater-opplysninger',
+            )}
+            bekreftelse={
+                <Suspense fallback={<Loader />}>
+                    <TilgjengeligBekreftelseKomponent sprak={sprak} bekreftelserPromise={bekreftelserPromise} />
+                </Suspense>
+            }
+            egenvurdering={
+                <Suspense fallback={<Loader />}>
+                    <EgenvurderingServerKomponent sprak={sprak} egenvurderingPromise={egenvurderingPromise} />
+                </Suspense>
+            }
+            styrk={
                 <Suspense>
                     <StyrkLoftServerKomponent
                         sprak={sprak}
@@ -81,43 +97,8 @@ async function SamletInformasjonServerComponent({
                         jobbmuligheterUrl={process.env.JOBBMULIGHETER_URL}
                     />
                 </Suspense>
-            )}
-            {harAktivPeriode && snapshotData?.opplysning && (
-                <div className={'my-4'}>
-                    <OpplysningerOppsummering
-                        snapshot={snapshotData}
-                        sprak={sprak}
-                        oppdaterOpplysningerUrl={leggSprakTilEksternUrl(
-                            process.env.REGISTRER_ARBEIDSSOKER_URL!,
-                            sprak,
-                            'oppdater-opplysninger',
-                        )}
-                        visEndreLink={innloggingsNivaa === 'idporten-loa-high'}
-                    />
-                </div>
-            )}
-            {harAktivPeriode && !snapshotData?.opplysning && (
-                <div className={'my-4'}>
-                    <ManglerOpplysninger
-                        sprak={sprak}
-                        oppdaterOpplysningerUrl={leggSprakTilEksternUrl(
-                            process.env.REGISTRER_ARBEIDSSOKER_URL!,
-                            sprak,
-                            'oppdater-opplysninger',
-                        )}
-                        visAdvarsel={innloggingsNivaa !== 'idporten-loa-high'}
-                    />
-                </div>
-            )}
-            {!harAktivPeriode && (
-                <RegistrerArbeidssoker
-                    className={'my-4'}
-                    registrerArbeidssokerUrl={leggSprakTilEksternUrl(process.env.REGISTRER_ARBEIDSSOKER_URL!, sprak)}
-                    sprak={sprak}
-                />
-            )}
-            {harHistorikk && <SeHistorikkLenke sprak={sprak} />}
-        </>
+            }
+        />
     );
 }
 
@@ -209,7 +190,7 @@ export default async function Home({ params }: NextPageProps) {
     const skyraPromise = isEnabled(unleashKeys.BRUK_SKYRA);
 
     return (
-        <main className="flex flex-col max-w-3xl mx-auto px-4">
+        <HovedsideRamme>
             <SettSprakIDekorator sprak={sprak} />
             <Breadcrumbs
                 breadcrumbs={['minside', 'registeret'].map((key) => ({
@@ -227,6 +208,6 @@ export default async function Home({ params }: NextPageProps) {
                     skyraPromise={skyraPromise}
                 />
             </Suspense>
-        </main>
+        </HovedsideRamme>
     );
 }

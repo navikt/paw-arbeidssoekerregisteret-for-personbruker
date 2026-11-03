@@ -64,7 +64,9 @@ export default async function RootLayout({
                 <Decorator.Header />
                 <InitFaroKomponent />
                 <FeatureTogglesProvider initialToggles={initialToggles}>
-                    <main>{children}</main>
+                    <main id="maincontent" tabIndex={-1}>
+                        {children}
+                    </main>
                 </FeatureTogglesProvider>
                 <Decorator.Footer />
                 <Decorator.Scripts loader={Script} />

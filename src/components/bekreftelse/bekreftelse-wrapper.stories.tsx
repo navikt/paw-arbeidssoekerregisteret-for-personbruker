@@ -72,7 +72,7 @@ export const Nettverksfeil: Story = {
         await userEvent.click(jaSvar[1]);
         await userEvent.click(await canvas.findByRole('button', { name: 'Send inn' }));
         await expect(
-            await canvas.findByText('Noe gikk dessverre galt. Forsøk igjen, eller kontakt NAV.'),
+            await canvas.findByText('Noe gikk dessverre galt. Forsøk igjen, eller kontakt Nav.'),
         ).toBeVisible();
     },
 };

@@ -1,6 +1,6 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
 import { prettyPrintDato } from '@/lib/date-utils';
 import { loggAktivitet } from '@/lib/tracking';
@@ -53,8 +53,13 @@ const TEKSTER = {
 const BekreftAvsluttPeriode = (props: Props) => {
     const { sprak, onCancel } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const headingRef = useRef<HTMLHeadingElement>(null);
     const [senderSkjema, settSenderSkjema] = useState<boolean>(false);
     const [error, settError] = useState<any>(null);
+
+    useEffect(() => {
+        headingRef.current?.focus();
+    }, []);
 
     const onSubmit = async () => {
         settSenderSkjema(true);
@@ -76,11 +81,11 @@ const BekreftAvsluttPeriode = (props: Props) => {
 
     return (
         <>
-            <Heading level={'1'} size={'xlarge'} className={'mb-4'}>
+            <Heading ref={headingRef} tabIndex={-1} level={'1'} size={'xlarge'} className={'mb-4'}>
                 {tekst('heading')}
             </Heading>
             <Alert variant={'warning'}>
-                <Heading level={'3'} size={'small'}>
+                <Heading level={'2'} size={'small'}>
                     {tekst('alertHeading')}
                 </Heading>
             </Alert>
@@ -108,7 +113,7 @@ const BekreftAvsluttPeriode = (props: Props) => {
             <Button variant={'secondary'} onClick={onCancel} className={'w-full'} disabled={senderSkjema}>
                 {tekst('cancel')}
             </Button>
-            {error && <Feilmelding />}
+            {error && <Feilmelding sprak={sprak} />}
         </>
     );
 };

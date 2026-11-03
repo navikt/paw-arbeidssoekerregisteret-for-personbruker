@@ -41,13 +41,14 @@ const FlerValgsMeny: React.FC<FlerValgsMenyProps> = (props) => {
                     <Button
                         data-color="neutral"
                         variant="tertiary"
-                        icon={<MenuElipsisVerticalIcon title="Saksmeny" />}
+                        aria-label={tekst('heading')}
+                        icon={<MenuElipsisVerticalIcon aria-hidden />}
                         size="small"
                         onClick={() => loggStyrkeloft({ aktivitet: 'Åpner flervalgsmeny' })}
                     />
                 </ActionMenu.Trigger>
                 <ActionMenu.Content>
-                    <ActionMenu.Group label="Tilvalg for arbeidsøket">
+                    <ActionMenu.Group label={tekst('heading')}>
                         <ActionMenu.Item
                             disabled={disabledEditSearch}
                             onSelect={onEditSearch}
