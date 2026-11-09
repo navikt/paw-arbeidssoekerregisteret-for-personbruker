@@ -32,7 +32,7 @@
         "@navikt/next-logger": "5.0.1",
         "@navikt/oasis": "4.2.2",
         "@unleash/nextjs": "1.6.7",
-        "jose": "6.2.13",
+        "jose": "6.2.15",
         "next": "16.4.3",
         "react": "19.3.1",
         "react-dom": "19.3.1",
