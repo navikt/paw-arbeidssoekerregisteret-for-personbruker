@@ -16,7 +16,7 @@ Appen tilhører Team PAW og kjører på NAIS-plattformen (GCP/Kubernetes).
 
 ### Forutsetninger
 
-- **Node.js 24.22.1** som angitt i `.nvmrc` og CI. Bruk `nvm use` dersom du har nvm. `package.json` krever minst denne versjonen.
+- **Node.js 26.13.0** som angitt i `.nvmrc` og CI. Bruk `nvm use` dersom du har nvm. `package.json` krever minst denne versjonen.
 - **pnpm 11.28.6** som angitt i `packageManager` i `package.json`. Bruk pnpm til installasjon og scripts, ikke npm eller yarn.
 - **GitHub PAT** med `read:packages`-scope, konfigurert med SSO mot navikt
 

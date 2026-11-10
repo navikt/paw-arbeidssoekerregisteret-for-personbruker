@@ -29,10 +29,30 @@ const preview: Preview = {
         // Makes addon-a11y violations fail Storybook Vitest runs in CI.
         a11y: {
             test: 'error',
+            config: {
+                rules: [{ id: 'target-size', enabled: true }],
+            },
         },
+    },
+    beforeEach: (context) => {
+        if (context.parameters.uu?.helSide === true) {
+            const rules = context.parameters.a11y?.config?.rules;
+            if (Array.isArray(rules) && !rules.some((rule) => rule.id === 'target-size')) {
+                context.parameters.a11y.config.rules = [...rules, { id: 'target-size', enabled: true }];
+            }
+        }
     },
     afterEach: (context) => {
         if (context.parameters.uu?.helSide === true) {
+            const rules = context.parameters.a11y?.config?.rules;
+            const hasEnabledRule = (id: string) =>
+                Array.isArray(rules) && rules.some((rule) => rule.id === id && rule.enabled === true);
+            const hasRegionRule = Array.isArray(rules) && rules.some((rule) => rule.id === 'region');
+
+            if (!hasEnabledRule('target-size') || (hasRegionRule && !hasEnabledRule('region'))) {
+                throw new Error('Helsidestories må ha target-size og aktivere region-regelen når den er oppgitt.');
+            }
+
             assertHelSideUu(context.canvasElement);
         }
     },

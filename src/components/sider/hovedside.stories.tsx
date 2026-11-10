@@ -2,7 +2,7 @@ import { type Profilering, ProfilertTil, type Sprak } from '@navikt/arbeidssoker
 import type { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useReducer } from 'react';
-import { expect, fn, userEvent } from 'storybook/test';
+import { expect, fn, screen, userEvent } from 'storybook/test';
 import { snapshotMock } from '@/app/mockdata';
 import { TilgjengeligBekreftelseLink } from '@/components/bekreftelse/tilgjengelig-bekreftelse-link';
 import EgenvurderingStateless from '@/components/egenvurdering/egenvurdering-stateless';
@@ -18,9 +18,15 @@ interface HovedsideStoryProps {
     innloggingsNivaa: string;
     error?: string;
     loading?: boolean;
+    styrkLoftAktivt?: boolean;
     onEgenvurderingSubmit(
         egenvurdering: ProfilertTil.ANTATT_GODE_MULIGHETER | ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING | null,
     ): void;
+    onSubmitStillingsSoek(data: {
+        fylker: string[];
+        yrkeskategorier: string[];
+        visStillingerUtenKrav: boolean;
+    }): Promise<void>;
 }
 
 const tilgjengeligeBekreftelser = [
@@ -47,10 +53,23 @@ const profilering: Profilering = {
     alder: 42,
 };
 
-function StyrkLoftMedStatiskData({ sprak }: { sprak: Sprak }) {
+function StyrkLoftMedStatiskData({
+    sprak,
+    aktivt,
+    onSubmitStillingsSoek,
+}: {
+    sprak: Sprak;
+    aktivt: boolean;
+    onSubmitStillingsSoek(data: {
+        fylker: string[];
+        yrkeskategorier: string[];
+        visStillingerUtenKrav: boolean;
+    }): Promise<void>;
+}) {
     const brukerprofil: Brukerprofil = {
         identitetsnummer: 'syntetisk-testbruker',
-        tjenestestatus: 'INAKTIV',
+        tjenestestatus: aktivt ? 'AKTIV' : 'INAKTIV',
+        ...(aktivt ? { stillingssoek: [] } : {}),
     };
     const [state, dispatch] = useReducer(reducer, brukerprofil, initialStyrkState);
 
@@ -60,7 +79,7 @@ function StyrkLoftMedStatiskData({ sprak }: { sprak: Sprak }) {
             state={state}
             dispatch={dispatch}
             onSubmitTjenestestatus={async (_status: Tjenestestatus) => {}}
-            onSubmitStillingsSoek={async () => {}}
+            onSubmitStillingsSoek={onSubmitStillingsSoek}
             useOnFetchStillinger={() => ({
                 data: {
                     soek: { fylker: [], styrk08: [] },
@@ -77,7 +96,9 @@ function HovedsideStory({
     innloggingsNivaa,
     error,
     loading,
+    styrkLoftAktivt = false,
     onEgenvurderingSubmit,
+    onSubmitStillingsSoek,
 }: HovedsideStoryProps) {
     return (
         <main id="maincontent" tabIndex={-1}>
@@ -105,7 +126,13 @@ function HovedsideStory({
                             />
                         </div>
                     }
-                    styrk={<StyrkLoftMedStatiskData sprak={sprak} />}
+                    styrk={
+                        <StyrkLoftMedStatiskData
+                            sprak={sprak}
+                            aktivt={styrkLoftAktivt}
+                            onSubmitStillingsSoek={onSubmitStillingsSoek}
+                        />
+                    }
                     error={
                         error ? (
                             <div className="mb-6">
@@ -129,12 +156,17 @@ const meta = {
         snapshot: snapshotMock,
         innloggingsNivaa: 'idporten-loa-high',
         onEgenvurderingSubmit: fn(),
+        onSubmitStillingsSoek: fn(),
     },
     parameters: {
         uu: { helSide: true },
         a11y: {
             config: {
-                rules: [{ id: 'region', enabled: true }],
+                // Storybook replaces rules arrays instead of merging them with preview parameters.
+                rules: [
+                    { id: 'region', enabled: true },
+                    { id: 'target-size', enabled: true },
+                ],
             },
         },
         docs: {
@@ -153,6 +185,72 @@ export const AktivBokmal: Story = {
     play: async ({ canvas, args }) => {
         await userEvent.click(canvas.getByRole('button', { name: 'Jeg klarer meg uten hjelp' }));
         await expect(args.onEgenvurderingSubmit).toHaveBeenCalledWith(ProfilertTil.ANTATT_GODE_MULIGHETER);
+    },
+};
+
+export const FilterAapent: Story = {
+    args: { styrkLoftAktivt: true },
+};
+
+async function tabUntilFocused(element: HTMLElement) {
+    for (let i = 0; i < 80 && document.activeElement !== element; i++) {
+        await userEvent.tab();
+    }
+
+    await expect(document.activeElement).toBe(element);
+}
+
+async function keyboardUntilMenuItemFocused(element: HTMLElement, direction: 'ArrowDown' | 'ArrowUp') {
+    for (let i = 0; i < 80 && document.activeElement !== element; i++) {
+        const menu = screen.queryByRole('menu');
+        if (menu?.contains(document.activeElement)) {
+            await userEvent.keyboard(`{${direction}}`);
+        } else {
+            await userEvent.tab();
+        }
+    }
+
+    await expect(document.activeElement).toBe(element);
+}
+
+export const TastaturStyrkLoft: Story = {
+    play: async ({ canvas, args }) => {
+        const aktiverKnapp = canvas.getByRole('button', { name: 'Vis meg ledige stillinger' });
+        await tabUntilFocused(aktiverKnapp);
+        await userEvent.keyboard('{Enter}');
+
+        const yrkeTrigger = await canvas.findByRole('button', { name: 'Velg yrkeskategori' });
+        await tabUntilFocused(yrkeTrigger);
+        await userEvent.keyboard('{Enter}');
+        const itKategori = screen.getByRole('menuitemcheckbox', { name: 'IT' });
+        await keyboardUntilMenuItemFocused(itKategori, 'ArrowDown');
+        await userEvent.keyboard('{Enter}');
+        const velgAlleYrker = screen.getByRole('menuitemcheckbox', { name: 'Velg alle' });
+        await keyboardUntilMenuItemFocused(velgAlleYrker, 'ArrowUp');
+        await userEvent.keyboard('{Enter}');
+        await userEvent.keyboard('{Escape}');
+
+        const omraadeTrigger = canvas.getByRole('button', { name: 'Velg område' });
+        await tabUntilFocused(omraadeTrigger);
+        await userEvent.keyboard('{Enter}');
+        const osloOmraade = screen.getByRole('menuitemcheckbox', { name: 'Oslo' });
+        await keyboardUntilMenuItemFocused(osloOmraade, 'ArrowDown');
+        await userEvent.keyboard('{Enter}');
+        const velgAlleOmraader = screen.getByRole('menuitemcheckbox', { name: 'Velg alle' });
+        await keyboardUntilMenuItemFocused(velgAlleOmraader, 'ArrowUp');
+        await userEvent.keyboard('{Enter}');
+        await userEvent.keyboard('{Escape}');
+
+        const lagreKnapp = canvas.getByRole('button', { name: 'Lagre og vis stillinger' });
+        await tabUntilFocused(lagreKnapp);
+        await userEvent.keyboard('{Enter}');
+
+        await expect(args.onSubmitStillingsSoek).toHaveBeenCalledWith(
+            expect.objectContaining({
+                fylker: expect.arrayContaining(['Oslo']),
+                yrkeskategorier: expect.arrayContaining(['Ledere av IKT-enheter']),
+            }),
+        );
     },
 };
 
