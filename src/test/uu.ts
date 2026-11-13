@@ -114,7 +114,8 @@ export function assertHelSideUu(root: HTMLElement): void {
 
     try {
         main.setAttribute(attributeName, marker);
-        doc.head.append(style);
+        // Put the test layer first so its !important overrides take priority over Aksel's CSS layers.
+        doc.head.prepend(style);
 
         // Read layout and computed styles to ensure the test CSS has been applied before measuring.
         void root.getBoundingClientRect().width;

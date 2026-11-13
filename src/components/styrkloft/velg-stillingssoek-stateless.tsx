@@ -1,5 +1,5 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Alert, BodyShort, Box, Button, Heading } from '@navikt/ds-react';
+import { BodyShort, Box, Button, Heading, HStack, LocalAlert } from '@navikt/ds-react';
 import StillingerUtenKravToggler from '@/components/styrkloft/stillinger-uten-krav-toggler';
 import UnderkategoriVelger from '@/components/styrkloft/underkategori-velger';
 import type { VelgStillingssoekState } from '@/components/styrkloft/velg-stillingssoek-reducer';
@@ -80,8 +80,10 @@ export default function VelgStillingssoekStateless(props: Props) {
             <Heading level={'4'} size={'small'}>
                 {tekst('heading')}
             </Heading>
-            <BodyShort className={'my-4'}>{tekst('infoTekst')}</BodyShort>
-            <section className={'my-4'}>
+            <Box asChild marginBlock="space-16">
+                <BodyShort>{tekst('infoTekst')}</BodyShort>
+            </Box>
+            <Box as="section" marginBlock="space-16">
                 <UnderkategoriVelger
                     triggerText={tekst('velgYrkeskategori')}
                     options={YRKESKATEGORIER}
@@ -91,8 +93,8 @@ export default function VelgStillingssoekStateless(props: Props) {
                     onChange={onChangeYrkeskategorier}
                     sprak={sprak}
                 />
-            </section>
-            <section>
+            </Box>
+            <Box as="section">
                 <UnderkategoriVelger
                     triggerText={tekst('velgFylke')}
                     options={FYLKER_OG_KOMMUNER}
@@ -102,29 +104,33 @@ export default function VelgStillingssoekStateless(props: Props) {
                     onChange={onChangeFylker}
                     sprak={sprak}
                 />
-            </section>
-            <section className={'mb-4'}>
+            </Box>
+            <Box as="section" marginBlock="space-0 space-16">
                 <StillingerUtenKravToggler
                     checked={skjemaState.visStillingerUtenKrav}
                     onChange={onChangeVisStillingerUtenKrav}
                     tekst={tekst('stillingerUtenKrav')}
                 />
-            </section>
+            </Box>
             {error && (
-                <Alert variant={'error'} className={'my-4'}>
-                    {tekst('feilMelding')}
-                </Alert>
+                <Box marginBlock="space-16">
+                    <LocalAlert status="error" as="div">
+                        <LocalAlert.Header>
+                            <LocalAlert.Title as="div">{tekst('feilMelding')}</LocalAlert.Title>
+                        </LocalAlert.Header>
+                    </LocalAlert>
+                </Box>
             )}
-            <div className={'flex'}>
+            <HStack gap="space-16" wrap>
                 <Button variant={'primary'} onClick={onSubmit} disabled={pending} loading={pending}>
                     {tekst('lagre')}
                 </Button>
                 {kanAvbryte && (
-                    <Button data-color="neutral" variant={'tertiary'} onClick={onCancel} className={'ml-4'}>
+                    <Button data-color="neutral" variant={'tertiary'} onClick={onCancel}>
                         {tekst('avbryt')}
                     </Button>
                 )}
-            </div>
+            </HStack>
         </Box>
     );
 }

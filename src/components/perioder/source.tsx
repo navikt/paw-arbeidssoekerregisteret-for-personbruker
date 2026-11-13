@@ -1,5 +1,5 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Tag } from '@navikt/ds-react';
+import { Box, Tag } from '@navikt/ds-react';
 import type React from 'react';
 
 const TEKSTER = {
@@ -81,13 +81,15 @@ const Source: React.FC<SourceProps> = (props) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <Tag data-color="info" size="small" variant="outline" className="sm:ml-auto">
-            <span>
-                {tekst('kilde')}
-                {':'}&nbsp;
-            </span>
-            <span>{tekst(source)}</span>
-        </Tag>
+        <Box asChild marginInline={{ xs: 'space-0', sm: 'auto space-0' }}>
+            <Tag data-color="info" size="small" variant="outline">
+                <span>
+                    {tekst('kilde')}
+                    {':'}&nbsp;
+                </span>
+                <span>{tekst(source)}</span>
+            </Tag>
+        </Box>
     );
 };
 

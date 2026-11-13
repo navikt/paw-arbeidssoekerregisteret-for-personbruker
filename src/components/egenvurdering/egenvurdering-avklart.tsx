@@ -1,7 +1,7 @@
 import { InformationSquareIcon } from '@navikt/aksel-icons';
 import type { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { BodyLong, Box, Heading, Hide } from '@navikt/ds-react';
+import { BodyLong, Box, Heading, Hide, HStack } from '@navikt/ds-react';
 import ReadMoreVeileder from '@/components/egenvurdering/readmore-veileder';
 import { VisningEventNavn } from '@/lib/tracking/common';
 
@@ -85,30 +85,33 @@ function EgenvurderingAvklart(props: BehovvurderingAvklartProps) {
             borderRadius="8"
             borderColor={'neutral-subtle'}
             borderWidth={'1'}
-            className={'divide-y divide-ax-border-neutral-subtle'}
             data-umami-event={VisningEventNavn}
             data-umami-event-viser={'Egenvurdering avklart'}
         >
-            <div
-                className={'flex items-center py-4 px-6'}
-                style={{
-                    background: 'var(--ax-bg-brand-blue-moderate)',
-                    borderRadius: 'var(--ax-radius-8) var(--ax-radius-8) 0 0',
-                    borderColor: 'var(--ax-border-brand-blue-subtle)',
-                }}
+            <Box
+                background="brand-blue-moderate"
+                borderRadius="8 8 0 0"
+                borderColor="brand-blue-subtle"
+                borderWidth="0 0 1 0"
+                paddingBlock="space-16"
+                paddingInline="space-24"
             >
-                <Hide below={'sm'}>
-                    <InformationSquareIcon title="a11y-title" fontSize="1.5rem" className={'mr-4'} />
-                </Hide>
-                <Heading level="2" size="medium">
-                    {tekst(`heading-${enig}-${tekstnoekkel}`)}
-                </Heading>
-            </div>
-            <div className={'py-4 px-6'}>
-                <BodyLong className={'mt-4'}>{tekst(`beskrivelse-${enig}-${tekstnoekkel}`)}</BodyLong>
+                <HStack align="center" gap="space-16" wrap={false}>
+                    <Hide below="sm" asChild>
+                        <InformationSquareIcon aria-hidden fontSize="1.5rem" />
+                    </Hide>
+                    <Heading level="2" size="medium">
+                        {tekst(`heading-${enig}-${tekstnoekkel}`)}
+                    </Heading>
+                </HStack>
+            </Box>
+            <Box paddingBlock="space-16" paddingInline="space-24">
+                <Box asChild marginBlock="space-16 space-0">
+                    <BodyLong>{tekst(`beskrivelse-${enig}-${tekstnoekkel}`)}</BodyLong>
+                </Box>
                 <BodyLong spacing>{tekst(`veiledning-${enig}-${tekstnoekkel}`)}</BodyLong>
                 <ReadMoreVeileder sprak={sprak} />
-            </div>
+            </Box>
         </Box>
     );
 }

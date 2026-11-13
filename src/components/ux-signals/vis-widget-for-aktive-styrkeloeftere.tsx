@@ -1,9 +1,10 @@
+import type { BoxProps } from '@navikt/ds-react/Box';
 import UxSignalsClientSideWidget from '@/components/ux-signals/ux-signals-client-side-widget';
 import type { Brukerprofil } from '@/model/brukerprofil';
 
 interface WidgetProps {
     brukerprofil?: Brukerprofil;
-    className?: string;
+    marginBlock?: BoxProps['marginBlock'];
 }
 
 export default function VisWidgetForAktiveStyrkeloeftere(props: WidgetProps) {
@@ -18,14 +19,5 @@ export default function VisWidgetForAktiveStyrkeloeftere(props: WidgetProps) {
     //
     // if (!skalHaWidget) return null;
 
-    return (
-        <>
-            <style jsx>{`
-                :global(.uxsignals-container) {
-                    background-color: var(--ax-bg-meta-purple-soft) !important;
-                }
-            `}</style>
-            <UxSignalsClientSideWidget className={props.className} erDemo={false} />
-        </>
-    );
+    return <UxSignalsClientSideWidget marginBlock={props.marginBlock} erDemo={false} />;
 }

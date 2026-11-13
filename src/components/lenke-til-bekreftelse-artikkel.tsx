@@ -40,7 +40,7 @@ const LenkeTilBekreftelseArtikkel = (props: Props) => {
     };
 
     return (
-        <Box className={'mb-2 mt-2'}>
+        <Box marginBlock="space-8">
             <Link href={getUrl(sprak)} onClick={onClick}>
                 {tekst('linkText')}
             </Link>

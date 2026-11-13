@@ -1,5 +1,6 @@
 import { type Profilering, ProfilertTil, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import type { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { Box } from '@navikt/ds-react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useReducer } from 'react';
 import { expect, fn, screen, userEvent } from 'storybook/test';
@@ -116,7 +117,7 @@ function HovedsideStory({
                         />
                     }
                     egenvurdering={
-                        <div className="my-4">
+                        <Box marginBlock="space-16">
                             <EgenvurderingStateless
                                 sprak={sprak}
                                 profilering={profilering}
@@ -124,7 +125,7 @@ function HovedsideStory({
                                 visFeilmelding={false}
                                 onSubmit={async (svar) => onEgenvurderingSubmit(svar)}
                             />
-                        </div>
+                        </Box>
                     }
                     styrk={
                         <StyrkLoftMedStatiskData
@@ -135,9 +136,9 @@ function HovedsideStory({
                     }
                     error={
                         error ? (
-                            <div className="mb-6">
+                            <Box marginBlock="space-0 space-24">
                                 <Feil sprak={sprak} error={error} />
-                            </div>
+                            </Box>
                         ) : undefined
                     }
                     loading={loading}

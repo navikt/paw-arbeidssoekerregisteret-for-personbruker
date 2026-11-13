@@ -1,5 +1,5 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Alert, Heading } from '@navikt/ds-react';
+import { InfoCard } from '@navikt/ds-react';
 
 const TEKSTER = {
     nb: {
@@ -25,11 +25,11 @@ export function KvitteringAvmeldt(props: KvitteringAvmeldtProps) {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <Alert variant={'info'}>
-            <Heading size="small" level="3">
-                {tekst('heading')}
-            </Heading>
-            {tekst('body')}
-        </Alert>
+        <InfoCard data-color="info">
+            <InfoCard.Header>
+                <InfoCard.Title as="h3">{tekst('heading')}</InfoCard.Title>
+            </InfoCard.Header>
+            <InfoCard.Content>{tekst('body')}</InfoCard.Content>
+        </InfoCard>
     );
 }

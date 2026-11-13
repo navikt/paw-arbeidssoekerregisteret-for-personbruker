@@ -33,6 +33,21 @@ For å jobbe i Storybook modus
 
 - kjør `pnpm run storybook`
 
+## Stil og layout
+
+Bruk Aksel-komponenter, layout-primitiver og spacing-tokens. Globale stiler lastes fra `@navikt/ds-css`.
+
+To lokale CSS-moduler lar lange ord brytes, slik at siden ikke får horisontal rulling. Aksel har ingen prop for ordbryting.
+
+Unntakene gjelder:
+
+- [Stillingskort](src/components/styrkloft/stillingskort.module.css)
+- [Hovedsidens tittel ved feil og lasting](src/components/sider/hovedside.module.css)
+
+Begrunnelsen for hvert unntak står i modulen. CSS-reglene bryter teksten uten å kutte eller skjule innhold. De overstyrer ikke Aksels interne klasser eller tokens.
+
+Kjør `pnpm test-storybook` for interaksjons- og tilgjengelighetstester ved 320 og 1280 px. Storybook-viewportene er satt per Vitest-prosjekt, slik at begge bredder brukes.
+
 ## Deploye kun til dev
 
 Ved å prefikse branch-navn med `dev/`, så vil branchen kun deployes i dev.
@@ -49,7 +64,7 @@ Testbrukere importerer du fra Test-Norge i [Dolly](https://dolly.ekstern.dev.nav
 
 - [Next.js](https://nextjs.org/)
 - [testing-library](https://testing-library.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
+- [Aksel](https://aksel.nav.no/)
 - [Storybook](https://storybook.js.org/)
 
 # Henvendelser

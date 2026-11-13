@@ -26,6 +26,18 @@ const preview: Preview = {
                 date: /Date$/i,
             },
         },
+        viewport: {
+            options: {
+                desktop: {
+                    name: 'Desktop (1280 px)',
+                    styles: { width: '1280px', height: '900px' },
+                },
+                mobile: {
+                    name: 'Mobil (320 px)',
+                    styles: { width: '320px', height: '900px' },
+                },
+            },
+        },
         // Makes addon-a11y violations fail Storybook Vitest runs in CI.
         a11y: {
             test: 'error',

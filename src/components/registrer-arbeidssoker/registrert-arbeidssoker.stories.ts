@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { expect } from 'storybook/test';
 import RegistrerArbeidssoker from '@/components/registrer-arbeidssoker/registrer-arbeidssoker';
 
 const meta = {
@@ -16,6 +17,12 @@ export const Bokmal: Story = {
     args: {
         registrerArbeidssokerUrl: 'http://localhost:3000/registrer-arbeidssoker',
         sprak: 'nb',
+    },
+    play: async ({ canvas }) => {
+        await expect(canvas.getByRole('link', { name: 'Registrer deg som arbeidssøker' })).toHaveAttribute(
+            'href',
+            'http://localhost:3000/registrer-arbeidssoker',
+        );
     },
 };
 

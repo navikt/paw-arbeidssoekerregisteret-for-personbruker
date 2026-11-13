@@ -1,7 +1,8 @@
 'use client';
 
+import { InformationSquareIcon } from '@navikt/aksel-icons';
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Alert, BodyLong, BodyShort, Box, Button } from '@navikt/ds-react';
+import { BodyLong, BodyShort, Box, Button, InfoCard } from '@navikt/ds-react';
 import { loggAktivitet } from '@/lib/tracking';
 
 interface ManglerOpplysningerProps {
@@ -40,12 +41,18 @@ const ManglerOpplysninger = (props: ManglerOpplysningerProps) => {
 
     return (
         <Box background="default" padding="space-24" borderRadius="12" borderColor="neutral-subtle" borderWidth="1">
-            <BodyShort className={'mb-2'}>{tekst('header')}</BodyShort>
+            <Box asChild marginBlock="space-0 space-8">
+                <BodyShort>{tekst('header')}</BodyShort>
+            </Box>
             <BodyLong spacing={!visAdvarsel}>{tekst('body')}</BodyLong>
             {visAdvarsel && (
-                <Alert className={'my-4'} variant={'info'}>
-                    {tekst('alertText')}
-                </Alert>
+                <Box asChild marginBlock="space-16">
+                    <InfoCard data-color="info">
+                        <InfoCard.Message icon={<InformationSquareIcon aria-hidden />}>
+                            {tekst('alertText')}
+                        </InfoCard.Message>
+                    </InfoCard>
+                </Box>
             )}
             <Button
                 variant={'secondary'}

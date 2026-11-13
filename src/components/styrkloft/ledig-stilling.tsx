@@ -3,6 +3,7 @@ import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret
 import { BodyShort, Box, Heading, HStack, Link, VStack } from '@navikt/ds-react';
 import { loggStyrkeloft } from '@/lib/tracking';
 import type { JobbAnnonse } from '@/model/brukerprofil';
+import styles from './stillingskort.module.css';
 
 interface Props {
     ledigStilling: JobbAnnonse;
@@ -27,8 +28,14 @@ function LedigStilling(props: Props) {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <Box className={'py-4 pl-4 pr-2'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
-            <Heading level={'2'} size={'small'}>
+        <Box
+            paddingBlock="space-16"
+            paddingInline="space-16 space-8"
+            borderRadius="8"
+            borderColor={'neutral-subtle'}
+            borderWidth={'1'}
+        >
+            <Heading level={'2'} size={'small'} className={styles.tittel}>
                 <Link
                     href={ledigStillingUrl}
                     onClick={() => loggStyrkeloft({ aktivitet: 'Går til annonse på arbeidsplassen' })}
@@ -36,22 +43,24 @@ function LedigStilling(props: Props) {
                     {ledigStilling.tittel}
                 </Link>
             </Heading>
-            <BodyShort weight="semibold" className={'mt-2 mb-4'}>
-                {ledigStilling.stillingbeskrivelse}
-            </BodyShort>
+            <Box asChild marginBlock="space-8 space-16">
+                <BodyShort weight="semibold">{ledigStilling.stillingbeskrivelse}</BodyShort>
+            </Box>
             <VStack gap="space-1">
                 <HStack gap="space-2">
-                    <Buildings3Icon title="a11y-title" fontSize="1.5rem" />
+                    <Buildings3Icon aria-hidden="true" fontSize="1.5rem" />
                     <BodyShort>{ledigStilling.selskap}</BodyShort>
                 </HStack>
                 <HStack gap="space-2">
-                    <LocationPinIcon title="a11y-title" fontSize="1.5rem" />
+                    <LocationPinIcon aria-hidden="true" fontSize="1.5rem" />
                     <BodyShort>{ledigStilling.kommune}</BodyShort>
                 </HStack>
             </VStack>
-            <BodyShort weight="semibold" textColor="subtle" className={'mt-4'}>
-                <span>{tekst('soknadsfrist')}:</span> {ledigStilling.soeknadsfrist?.raw}
-            </BodyShort>
+            <Box asChild marginBlock="space-16 space-0">
+                <BodyShort weight="semibold" textColor="subtle">
+                    <span>{tekst('soknadsfrist')}:</span> {ledigStilling.soeknadsfrist?.raw}
+                </BodyShort>
+            </Box>
         </Box>
     );
 }

@@ -19,6 +19,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+async function assertNoHorizontalOverflow(canvasElement: HTMLElement) {
+    const document = canvasElement.ownerDocument;
+    await expect([320, 1280]).toContain(document.defaultView?.innerWidth);
+    await expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(document.documentElement.clientWidth);
+}
+
 export const IkkeValgt: Story = {
     args: {
         values: [],
@@ -42,6 +48,9 @@ export const MedVerdi: Story = {
         options,
         heading: 'Velg kategori',
         onChange: console.log,
+    },
+    play: async ({ canvasElement }) => {
+        await assertNoHorizontalOverflow(canvasElement);
     },
 };
 

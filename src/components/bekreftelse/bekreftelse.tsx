@@ -2,6 +2,7 @@
 
 import type { Sprak, TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
 import type { BekreftelseHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { Box } from '@navikt/ds-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import IngenTilgjengeligeBekreftelser from '@/components/bekreftelse/ingen-tilgjengelige-bekreftelser';
@@ -63,7 +64,7 @@ function Bekreftelse(props: BekreftelseProps) {
         return <IkkeAktivArbeidssoker sprak={sprak} registrerArbeidssokerUrl={registrerArbeidssokerUrl} />;
     } else if (visKvittering) {
         return (
-            <div className={'px-4'}>
+            <Box paddingInline="space-16">
                 <Kvittering
                     sprak={sprak}
                     erUtmeldt={!sisteBekreftlse?.vilFortsetteSomArbeidssoeker}
@@ -74,11 +75,11 @@ function Bekreftelse(props: BekreftelseProps) {
                     }}
                     brukerprofil={brukerprofil}
                 />
-            </div>
+            </Box>
         );
     } else if (harTilgjengeligeBekreftelser) {
         return (
-            <div className={'px-4'}>
+            <Box paddingInline="space-16">
                 <BekreftelseSkjema
                     sprak={sprak}
                     fristDato={'2024-09-01'}
@@ -86,12 +87,12 @@ function Bekreftelse(props: BekreftelseProps) {
                     onSubmit={onSubmitSkjema}
                     onCancel={onCancel}
                 />
-            </div>
+            </Box>
         );
     }
 
     return (
-        <div className={'px-4'}>
+        <Box paddingInline="space-16">
             {props.sistInnsendteBekreftelse && (
                 <BekreftelseBesvart
                     besvarelse={props.sistInnsendteBekreftelse}
@@ -105,7 +106,7 @@ function Bekreftelse(props: BekreftelseProps) {
                     headingLevel={props.sistInnsendteBekreftelse ? '2' : '1'}
                 />
             )}
-        </div>
+        </Box>
     );
 }
 

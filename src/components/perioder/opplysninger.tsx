@@ -6,7 +6,7 @@ import {
     type Sprak,
 } from '@navikt/arbeidssokerregisteret-utils';
 import type { OpplysningerHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, Box } from '@navikt/ds-react';
 import type React from 'react';
 
 function getSisteStillingSvar(opplysninger: OpplysningerHendelse) {
@@ -48,11 +48,13 @@ const Opplysninger: React.FC<OpplysningerProps> = (props) => {
     return (
         <>
             {besvarelser.map((besvarelse) => (
-                <BodyShort key={besvarelse.sporsmal} className="mb-2">
-                    <strong>{tekst(besvarelse.sporsmal)}</strong>
-                    <br />
-                    {tekst(besvarelse.svar as string) ?? besvarelse.svar}
-                </BodyShort>
+                <Box asChild key={besvarelse.sporsmal} marginBlock="space-0 space-8">
+                    <BodyShort>
+                        <strong>{tekst(besvarelse.sporsmal)}</strong>
+                        <br />
+                        {tekst(besvarelse.svar as string) ?? besvarelse.svar}
+                    </BodyShort>
+                </Box>
             ))}
         </>
     );

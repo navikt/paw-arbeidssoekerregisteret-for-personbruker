@@ -1,6 +1,7 @@
 import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import type { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
-import { Heading, Loader } from '@navikt/ds-react';
+import { Box, Heading, Loader, VStack } from '@navikt/ds-react';
+import { PageBlock } from '@navikt/ds-react/Page';
 import type { ReactNode } from 'react';
 import { SeHistorikkLenke } from '@/components/historikk/se-historikk-lenke';
 import PeriodeInfo from '@/components/min-situasjon/periode-info';
@@ -8,6 +9,7 @@ import ManglerOpplysninger from '@/components/opplysninger/mangler-opplysninger'
 import { OpplysningerOppsummering } from '@/components/opplysninger/opplysninger-oppsummering';
 import RegistrerArbeidssoker from '@/components/registrer-arbeidssoker/registrer-arbeidssoker';
 import RegistrertTittel from '@/components/registrert-tittel/registrert-tittel';
+import styles from './hovedside.module.css';
 
 const SIDETITTEL = {
     nb: 'Arbeidssøkerregisteret',
@@ -20,7 +22,13 @@ interface HovedsideRammeProps {
 }
 
 function HovedsideRamme({ children }: HovedsideRammeProps) {
-    return <div className="flex flex-col max-w-3xl mx-auto px-4">{children}</div>;
+    return (
+        <PageBlock width="md">
+            <Box asChild paddingInline="space-16">
+                <VStack>{children}</VStack>
+            </Box>
+        </PageBlock>
+    );
 }
 
 interface HovedsideInnholdProps {
@@ -54,14 +62,14 @@ function HovedsideInnhold({
         <>
             {error ? (
                 <>
-                    <Heading level="1" size="xlarge">
+                    <Heading level="1" size="xlarge" className={styles.sidetittel}>
                         {sidetittel}
                     </Heading>
                     {error}
                 </>
             ) : loading ? (
                 <>
-                    <Heading level="1" size="xlarge">
+                    <Heading level="1" size="xlarge" className={styles.sidetittel}>
                         {sidetittel}
                     </Heading>
                     <Loader />
@@ -74,30 +82,28 @@ function HovedsideInnhold({
                     {egenvurdering}
                     {Boolean(snapshot?.id) && !snapshot?.avsluttet && styrk && <>{styrk}</>}
                     {Boolean(snapshot?.id) && !snapshot?.avsluttet && snapshot?.opplysning && (
-                        <div className="my-4">
+                        <Box marginBlock="space-16">
                             <OpplysningerOppsummering
                                 snapshot={snapshot}
                                 sprak={sprak}
                                 oppdaterOpplysningerUrl={oppdaterOpplysningerUrl}
                                 visEndreLink={innloggingsNivaa === 'idporten-loa-high'}
                             />
-                        </div>
+                        </Box>
                     )}
                     {Boolean(snapshot?.id) && !snapshot?.avsluttet && !snapshot?.opplysning && (
-                        <div className="my-4">
+                        <Box marginBlock="space-16">
                             <ManglerOpplysninger
                                 sprak={sprak}
                                 oppdaterOpplysningerUrl={oppdaterOpplysningerUrl}
                                 visAdvarsel={innloggingsNivaa !== 'idporten-loa-high'}
                             />
-                        </div>
+                        </Box>
                     )}
                     {(!snapshot?.id || snapshot?.avsluttet) && (
-                        <RegistrerArbeidssoker
-                            className="my-4"
-                            registrerArbeidssokerUrl={registrerArbeidssokerUrl}
-                            sprak={sprak}
-                        />
+                        <Box marginBlock="space-16">
+                            <RegistrerArbeidssoker registrerArbeidssokerUrl={registrerArbeidssokerUrl} sprak={sprak} />
+                        </Box>
                     )}
                     {snapshot && <SeHistorikkLenke sprak={sprak} />}
                 </>

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { expect, fn } from 'storybook/test';
 import VelgStillingssoekStateless from '@/components/styrkloft/velg-stillingssoek-stateless';
 
 const meta = {
@@ -13,7 +14,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        onSubmit: () => Promise.resolve(),
+        onSubmit: fn(() => Promise.resolve()),
         sprak: 'nb',
         skjemaState: {
             fylker: { verdi: [], visFeilmelding: false },
@@ -24,6 +25,10 @@ export const Default: Story = {
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
         onChangeVisStillingerUtenKrav: (val: boolean) => {},
+    },
+    play: async ({ canvas, userEvent, args }) => {
+        await userEvent.click(canvas.getByRole('button', { name: 'Lagre og vis stillinger' }));
+        await expect(args.onSubmit).toHaveBeenCalled();
     },
 };
 
@@ -61,7 +66,7 @@ export const MedValgteFylker: Story = {
 
 export const MedGyldigeVerdier: Story = {
     args: {
-        onSubmit: () => Promise.resolve(),
+        onSubmit: fn(() => Promise.resolve()),
         sprak: 'nb',
         skjemaState: {
             fylker: { verdi: ['Oslo', 'Østfold'], visFeilmelding: false },
@@ -72,6 +77,10 @@ export const MedGyldigeVerdier: Story = {
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
         onChangeVisStillingerUtenKrav: (val: boolean) => {},
+    },
+    play: async ({ canvas, userEvent, args }) => {
+        await userEvent.click(canvas.getByRole('button', { name: 'Lagre og vis stillinger' }));
+        await expect(args.onSubmit).toHaveBeenCalled();
     },
 };
 
@@ -90,6 +99,9 @@ export const MedHengendeRequest: Story = {
         onChangeVisStillingerUtenKrav: (val: boolean) => {},
         pending: true,
     },
+    play: async ({ canvas }) => {
+        await expect(canvas.getByRole('button', { name: 'Venter…' })).toBeDisabled();
+    },
 };
 
 export const MedFeil: Story = {
@@ -107,12 +119,15 @@ export const MedFeil: Story = {
         onChangeVisStillingerUtenKrav: (val: boolean) => {},
         error: 'feil',
     },
+    play: async ({ canvas }) => {
+        await expect(canvas.getByRole('alert')).toHaveTextContent('Noe gikk dessverre galt');
+    },
 };
 
 export const MedAvbrytKnapp: Story = {
     args: {
         onSubmit: () => Promise.resolve(),
-        onCancel: () => alert('Cancel!'),
+        onCancel: fn(),
         sprak: 'nb',
         skjemaState: {
             fylker: { verdi: ['Oslo', 'Østfold'], visFeilmelding: false },
@@ -123,5 +138,9 @@ export const MedAvbrytKnapp: Story = {
         onChangeYrkeskategorier: (val: string[]) => {},
         onChangeFylker: (val: string[]) => {},
         onChangeVisStillingerUtenKrav: (val: boolean) => {},
+    },
+    play: async ({ canvas, userEvent, args }) => {
+        await userEvent.click(canvas.getByRole('button', { name: 'Avbryt' }));
+        await expect(args.onCancel).toHaveBeenCalled();
     },
 };

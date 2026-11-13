@@ -24,10 +24,6 @@ updates:
           - "react"
           - "react-dom"
           - "@types/react"
-      tailwind:
-        patterns:
-          - "tailwindcss"
-          - "@tailwindcss/*"
       pino:
         patterns:
           - "pino"

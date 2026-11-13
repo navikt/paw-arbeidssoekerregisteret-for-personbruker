@@ -1,7 +1,7 @@
 'use client';
 
 import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Process } from '@navikt/ds-react';
+import { Box, Process } from '@navikt/ds-react';
 import type { ReactNode } from 'react';
 import { useShowDetails } from '../../contexts/show-details-context';
 import { prettyPrintDatoOgKlokkeslettKortform } from './helpers';
@@ -22,7 +22,7 @@ const Hendelse: React.FC<HendelseProps> = ({ timestamp, title, sprak, children }
             status="completed"
             title={title}
         >
-            {children && showDetails && <div className="pb-2">{children}</div>}
+            {children && showDetails && <Box paddingBlock="space-0 space-8">{children}</Box>}
         </Process.Event>
     );
 };

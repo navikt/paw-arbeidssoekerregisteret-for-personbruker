@@ -1,5 +1,5 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Box, HGrid, InlineMessage, ToggleGroup } from '@navikt/ds-react';
+import { Box, HGrid, HStack, InlineMessage, ToggleGroup } from '@navikt/ds-react';
 import type { Ref } from 'react';
 import DirektemeldtStilling from '@/components/styrkloft/direktemeldt-stilling';
 import LedigStilling from '@/components/styrkloft/ledig-stilling';
@@ -68,51 +68,53 @@ function LedigeStillingerStateless(props: Props) {
         <Box ref={ref}>
             {kanSeDirektemeldteStillinger && (
                 <>
-                    <InlineMessage status={'info'} className={'mb-4'}>
-                        {tekst('direktemeldteStillingerInfo')}
-                    </InlineMessage>
-                    <ToggleGroup
-                        value={aktivFane}
-                        onChange={(value) => onAktivFaneChange(value as AktivFane)}
-                        className={'mb-4'}
-                    >
-                        <ToggleGroup.Item value={'direktemeldteStillinger'}>
-                            {tekst('direktemeldteStillinger')}
-                        </ToggleGroup.Item>
-                        <ToggleGroup.Item value={'ledigeStillinger'}>{tekst('ledigeStillinger')}</ToggleGroup.Item>
-                    </ToggleGroup>
+                    <Box asChild marginBlock="space-0 space-16">
+                        <InlineMessage status={'info'}>{tekst('direktemeldteStillingerInfo')}</InlineMessage>
+                    </Box>
+                    <Box asChild marginBlock="space-0 space-16">
+                        <ToggleGroup value={aktivFane} onChange={(value) => onAktivFaneChange(value as AktivFane)}>
+                            <ToggleGroup.Item value={'direktemeldteStillinger'}>
+                                {tekst('direktemeldteStillinger')}
+                            </ToggleGroup.Item>
+                            <ToggleGroup.Item value={'ledigeStillinger'}>{tekst('ledigeStillinger')}</ToggleGroup.Item>
+                        </ToggleGroup>
+                    </Box>
                 </>
             )}
             {!harTreff && (
-                <Box className="mb-4" padding="space-16" background="info-soft">
+                <Box marginBlock="space-0 space-16" padding="space-16" background="info-soft">
                     {tekst('ingenTreff')}
                 </Box>
             )}
             {harTreff && (
                 <>
-                    <HGrid gap="space-24" columns={{ sm: 1 }} className={'mb-4'}>
-                        {resultat.map((stilling) => {
-                            const erDirekteMeldtStilling = (stilling.tags || []).includes('DIREKTEMELDT_V1');
-                            return erDirekteMeldtStilling ? (
-                                <DirektemeldtStilling
-                                    ledigStilling={stilling}
-                                    key={stilling.arbeidsplassenNoId}
-                                    sprak={sprak}
-                                    jobbmuligheterUrl={jobbmuligheterUrl}
-                                />
-                            ) : (
-                                <LedigStilling
-                                    ledigStilling={stilling}
-                                    key={stilling.arbeidsplassenNoId}
-                                    sprak={sprak}
-                                />
-                            );
-                        })}
-                    </HGrid>
+                    <Box asChild marginBlock="space-0 space-16">
+                        <HGrid gap="space-24" columns={{ sm: 1 }}>
+                            {resultat.map((stilling) => {
+                                const erDirekteMeldtStilling = (stilling.tags || []).includes('DIREKTEMELDT_V1');
+                                return erDirekteMeldtStilling ? (
+                                    <DirektemeldtStilling
+                                        ledigStilling={stilling}
+                                        key={stilling.arbeidsplassenNoId}
+                                        sprak={sprak}
+                                        jobbmuligheterUrl={jobbmuligheterUrl}
+                                    />
+                                ) : (
+                                    <LedigStilling
+                                        ledigStilling={stilling}
+                                        key={stilling.arbeidsplassenNoId}
+                                        sprak={sprak}
+                                    />
+                                );
+                            })}
+                        </HGrid>
+                    </Box>
                     {brukPaginering && (
-                        <div className={'mb-4 flex justify-center'}>
-                            <Paginering {...props} />
-                        </div>
+                        <Box asChild marginBlock="space-0 space-16">
+                            <HStack justify="center">
+                                <Paginering {...props} />
+                            </HStack>
+                        </Box>
                     )}
                 </>
             )}
@@ -121,7 +123,7 @@ function LedigeStillingerStateless(props: Props) {
             ) : (
                 <LinkTilArbeidsplassen stedSoek={soek} sprak={sprak} />
             )}
-            <VisWidgetForAktiveStyrkeloeftere className={'mt-4'} />
+            <VisWidgetForAktiveStyrkeloeftere marginBlock="space-16 space-0" />
         </Box>
     );
 }

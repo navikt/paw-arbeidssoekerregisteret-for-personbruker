@@ -8,5 +8,5 @@ export default async function UxSignalsWidget(props: UxSignalsWidgetProps) {
 
     if (!erUndersoekelseAktiv) return null;
 
-    return <UxSignalsComponent erDemo={erDemo} className={props.className} />;
+    return <UxSignalsComponent erDemo={erDemo} marginBlock={props.marginBlock} />;
 }

@@ -1,5 +1,5 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Box, Heading, Loader } from '@navikt/ds-react';
+import { Box, Heading, HStack, Loader } from '@navikt/ds-react';
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
 import { Suspense } from 'react';
 import { BekreftAvmelding } from '@/components/styrkloft/bekreft-avmelding';
@@ -70,18 +70,26 @@ function AktivBrukerStateless(props: Props) {
 
     return (
         <Box>
-            <Box className={'py-4 px-6'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
-                <div className={'flex justify-between'}>
-                    <Heading size={'medium'} level={'3'} className={'mb-4'}>
-                        {tekst('heading')}
-                    </Heading>
+            <Box
+                paddingBlock="space-16"
+                paddingInline="space-24"
+                borderRadius="8"
+                borderColor={'neutral-subtle'}
+                borderWidth={'1'}
+            >
+                <HStack justify="space-between" wrap={false}>
+                    <Box asChild marginBlock="space-0 space-16">
+                        <Heading size={'medium'} level={'3'}>
+                            {tekst('heading')}
+                        </Heading>
+                    </Box>
                     <FlerValgsMeny
                         disabledEditSearch={visEndreSok}
                         onEditSearch={onEditSearch}
                         onEnd={() => onVisAvmeldModal(true)}
                         sprak={sprak}
                     />
-                </div>
+                </HStack>
                 {!visEndreSok && (
                     <ErrorBoundary errorComponent={() => null}>
                         <Suspense fallback={<Loader />}>

@@ -35,8 +35,17 @@ export const TilgjengeligeBekreftelser: Story = {
         sprak: 'nb',
     },
     play: async ({ canvas }) => {
+        const link = await canvas.findByRole('link', {
+            name: 'Bekreft at du vil være registrert som arbeidssøker hos Nav',
+        });
+        await expect(link).toBeVisible();
+        await expect(link).toHaveAttribute(
+            'href',
+            expect.stringContaining(`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/bekreftelse`),
+        );
         await expect(
-            await canvas.findByRole('link', {
+            canvas.getByRole('heading', {
+                level: 2,
                 name: 'Bekreft at du vil være registrert som arbeidssøker hos Nav',
             }),
         ).toBeVisible();

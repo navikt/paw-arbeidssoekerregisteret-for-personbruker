@@ -35,10 +35,15 @@ export const KvitteringBokmal: Story = {
         onClick: fn(),
     },
     play: async ({ canvas }) => {
+        const heading = await canvas.findByRole('heading', {
+            level: 1,
+            name: 'Du har bekreftet at du fortsatt vil være registrert som arbeidssøker',
+        });
+        await expect(heading).toBeVisible();
+        await expect(heading).toHaveFocus();
+        await expect(canvas.queryByRole('alert')).not.toBeInTheDocument();
         await expect(
-            await canvas.findByRole('heading', {
-                name: 'Du har bekreftet at du fortsatt vil være registrert som arbeidssøker',
-            }),
+            await canvas.findByRole('heading', { level: 2, name: /^Suksess:\s*Vi har registrert svaret ditt$/ }),
         ).toBeVisible();
     },
 };
@@ -85,6 +90,20 @@ export const KvitteringUtmeldtStory: Story = {
             identitetsnummer: '42',
             tjenestestatus: 'INAKTIV',
         },
+    },
+    play: async ({ canvas }) => {
+        const heading = await canvas.findByRole('heading', {
+            level: 1,
+            name: 'Du er ikke lenger registrert som arbeidssøker',
+        });
+        await expect(heading).toBeVisible();
+        await expect(heading).toHaveFocus();
+        await expect(
+            await canvas.findByRole('heading', {
+                level: 2,
+                name: 'Fra og med idag vil du ikke lenger være registrert som arbeidssøker',
+            }),
+        ).toBeVisible();
     },
 };
 

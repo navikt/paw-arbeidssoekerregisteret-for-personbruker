@@ -263,6 +263,32 @@ export const AvsluttArbeidssoker: Story = {
     },
 };
 
+export const FullforAvslutningMedTastatur: Story = {
+    args: { onSubmit: fn(async () => {}) },
+    play: async ({ canvas, args }) => {
+        await submitWithKeyboard(canvas, 'nb', [true, false]);
+        await expect(canvas.queryByRole('alert')).not.toBeInTheDocument();
+
+        await userEvent.tab();
+        await userEvent.tab();
+        const confirm = await canvas.findByRole('button', { name: 'Jeg vil ikke være registrert som arbeidssøker' });
+        await expect(confirm).toHaveFocus();
+        await userEvent.keyboard('{Enter}');
+
+        const receiptHeading = await canvas.findByRole('heading', {
+            level: 1,
+            name: 'Du er ikke lenger registrert som arbeidssøker',
+        });
+        await expect(receiptHeading).toHaveFocus();
+        await expect(canvas.queryByRole('alert')).not.toBeInTheDocument();
+        await expect(args.onSubmit).toHaveBeenCalledWith({
+            harJobbetIDennePerioden: true,
+            vilFortsetteSomArbeidssoeker: false,
+            bekreftelseId: 'syntetisk-bekreftelse-1',
+        });
+    },
+};
+
 export const AvbrytAvslutningBevarerSvar: Story = {
     play: async ({ canvas, args }) => {
         await submitWithKeyboard(canvas, 'nb', [true, false]);
