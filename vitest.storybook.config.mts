@@ -8,20 +8,23 @@ const rootDir = import.meta.dirname;
 process.env['VITEST_STORYBOOK_CONFIG'] = JSON.stringify({ a11y: true });
 
 export default defineConfig({
-    optimizeDeps: {
-        include: ['@testing-library/dom'],
-    },
     test: {
         projects: [
             {
                 extends: false,
+                optimizeDeps: {
+                    include: ['@testing-library/dom'],
+                },
                 plugins: [
                     storybookTest({
                         configDir: path.join(rootDir, '.storybook'),
+                        initialGlobals: {
+                            viewport: { value: 'desktop', isRotated: false },
+                        },
                     }),
                 ],
                 test: {
-                    name: 'storybook',
+                    name: 'storybook-desktop',
                     browser: {
                         enabled: true,
                         headless: true,
@@ -32,6 +35,30 @@ export default defineConfig({
                                 name: 'desktop',
                                 viewport: { width: 1280, height: 900 },
                             },
+                        ],
+                    },
+                },
+            },
+            {
+                extends: false,
+                optimizeDeps: {
+                    include: ['@testing-library/dom'],
+                },
+                plugins: [
+                    storybookTest({
+                        configDir: path.join(rootDir, '.storybook'),
+                        initialGlobals: {
+                            viewport: { value: 'mobile', isRotated: false },
+                        },
+                    }),
+                ],
+                test: {
+                    name: 'storybook-mobile',
+                    browser: {
+                        enabled: true,
+                        headless: true,
+                        provider: playwright(),
+                        instances: [
                             {
                                 browser: 'chromium',
                                 name: 'mobile',

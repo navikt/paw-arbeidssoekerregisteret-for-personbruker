@@ -1,6 +1,6 @@
 import { InformationSquareIcon } from '@navikt/aksel-icons';
 import { lagHentTekstForSprak, type Profilering, ProfilertTil, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Alert, BodyLong, Box, Button, Heading, Hide } from '@navikt/ds-react';
+import { BodyLong, Box, Button, Heading, Hide, HStack, LocalAlert, VStack } from '@navikt/ds-react';
 import ReadMoreVeileder from '@/components/egenvurdering/readmore-veileder';
 import ReadMoreVurdering from '@/components/egenvurdering/readmore-vurdering';
 import { loggAktivitet } from '@/lib/tracking';
@@ -77,60 +77,70 @@ const EgenvurderingStateless = (props: Props) => {
             borderRadius="8"
             borderColor={'neutral-subtle'}
             borderWidth={'1'}
-            className={'divide-y divide-ax-border-neutral-subtle'}
             data-umami-event={VisningEventNavn}
             data-umami-event-viser={'Egenvurdering'}
         >
-            <div
-                className={'flex items-center py-4 px-6'}
-                style={{
-                    background: 'var(--ax-bg-brand-blue-moderate)',
-                    borderRadius: 'var(--ax-radius-8) var(--ax-radius-8) 0 0',
-                    borderColor: 'var(--ax-border-brand-blue-subtle)',
-                }}
+            <Box
+                background="brand-blue-moderate"
+                borderRadius="8 8 0 0"
+                borderColor="brand-blue-subtle"
+                borderWidth="0 0 1 0"
+                paddingBlock="space-16"
+                paddingInline="space-24"
             >
-                <Hide below={'sm'}>
-                    <InformationSquareIcon aria-hidden fontSize="1.5rem" className={'mr-4'} />
-                </Hide>
-                <Heading level="2" size="medium">
-                    {tekst(`heading-${tekstnoekkel}`)}
-                </Heading>
-            </div>
-            <div className={'py-4 px-6'}>
-                <BodyLong className={'mt-4'}>{tekst(`beskrivelse-${tekstnoekkel}`)}</BodyLong>
+                <HStack align="center" gap="space-16" wrap={false}>
+                    <Hide below="sm" asChild>
+                        <InformationSquareIcon aria-hidden fontSize="1.5rem" />
+                    </Hide>
+                    <Heading level="2" size="medium">
+                        {tekst(`heading-${tekstnoekkel}`)}
+                    </Heading>
+                </HStack>
+            </Box>
+            <Box paddingBlock="space-16" paddingInline="space-24">
+                <Box asChild marginBlock="space-16 space-0">
+                    <BodyLong>{tekst(`beskrivelse-${tekstnoekkel}`)}</BodyLong>
+                </Box>
                 <BodyLong spacing>{tekst('veilederKanIkke')}</BodyLong>
-                <Button
-                    onClick={() => {
-                        onSubmit(enigRespons);
-                        loggAktivitet({ aktivitet: 'Trykker på "Klarer meg uten veileder"' });
-                    }}
-                    disabled={pendingRequest !== null}
-                    loading={pendingRequest === enigRespons}
-                >
-                    {tekst(`svarEnigKnappetekst-${tekstnoekkel}`)}
-                </Button>
-                <div className="mb-4">
-                    <Button
-                        onClick={() => {
-                            onSubmit(uenigRespons);
-                            loggAktivitet({ aktivitet: 'Trykker på "Behov for veileder"' });
-                        }}
-                        disabled={pendingRequest !== null}
-                        loading={pendingRequest === uenigRespons}
-                        variant="secondary"
-                        className="mt-4"
-                    >
-                        {tekst(`svarUenigKnappetekst-${tekstnoekkel}`)}
-                    </Button>
-                </div>
+                <Box marginBlock="space-0 space-16">
+                    <VStack align="start" gap="space-16">
+                        <Button
+                            onClick={() => {
+                                onSubmit(enigRespons);
+                                loggAktivitet({ aktivitet: 'Trykker på "Klarer meg uten veileder"' });
+                            }}
+                            disabled={pendingRequest !== null}
+                            loading={pendingRequest === enigRespons}
+                        >
+                            {tekst(`svarEnigKnappetekst-${tekstnoekkel}`)}
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                onSubmit(uenigRespons);
+                                loggAktivitet({ aktivitet: 'Trykker på "Behov for veileder"' });
+                            }}
+                            disabled={pendingRequest !== null}
+                            loading={pendingRequest === uenigRespons}
+                            variant="secondary"
+                        >
+                            {tekst(`svarUenigKnappetekst-${tekstnoekkel}`)}
+                        </Button>
+                    </VStack>
+                </Box>
                 {visFeilmelding && (
-                    <Alert variant="error" className={'mb-4'}>
-                        {tekst('feilmelding')}
-                    </Alert>
+                    <Box asChild marginBlock="space-0 space-16">
+                        <div>
+                            <LocalAlert status="error" as="div">
+                                <LocalAlert.Header>
+                                    <LocalAlert.Title as="div">{tekst('feilmelding')}</LocalAlert.Title>
+                                </LocalAlert.Header>
+                            </LocalAlert>
+                        </div>
+                    </Box>
                 )}
                 <ReadMoreVeileder sprak={sprak} />
                 <ReadMoreVurdering sprak={sprak} />
-            </div>
+            </Box>
         </Box>
     );
 };

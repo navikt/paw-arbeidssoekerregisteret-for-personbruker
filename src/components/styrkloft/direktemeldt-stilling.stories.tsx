@@ -1,4 +1,6 @@
+import { Box } from '@navikt/ds-react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { expect, userEvent } from 'storybook/test';
 import DirektemeldtStilling from '@/components/styrkloft/direktemeldt-stilling';
 
 const meta = {
@@ -28,6 +30,7 @@ export const DefaultDirektemeldtStilling: Story = {
             sektor: 'Ukjent',
         },
         sprak: 'nb',
+        jobbmuligheterUrl: 'https://arbeidsplassen.nav.no',
     },
 };
 
@@ -41,6 +44,42 @@ export const Nynorsk: Story = {
 
 export const Engelsk: Story = {
     args: { ...DefaultDirektemeldtStilling.args, sprak: 'en' },
+};
+
+export const Mobil320pxLangeTekster: Story = {
+    args: DefaultDirektemeldtStilling.args,
+    render: (args) => (
+        <Box width="320px" data-testid="mobil-container">
+            <DirektemeldtStilling {...args} />
+        </Box>
+    ),
+    play: async ({ canvas, canvasElement }) => {
+        const link = canvas.getByRole('link');
+        await expect(link).toHaveAttribute(
+            'href',
+            'https://arbeidsplassen.nav.no/stilling/3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        );
+
+        await userEvent.tab();
+        await expect(link).toHaveFocus();
+
+        const container = canvas.getByTestId('mobil-container');
+        await expect(container.getBoundingClientRect().width).toBe(320);
+        await expect(container.scrollWidth).toBeLessThanOrEqual(container.clientWidth);
+
+        const card = link.closest('h2')?.parentElement;
+        if (!card) {
+            throw new Error('Fant ikke stillingskortet.');
+        }
+        await expect(card.scrollWidth).toBeLessThanOrEqual(card.clientWidth);
+
+        const icons = canvasElement.querySelectorAll('svg');
+        await expect(icons).toHaveLength(2);
+        for (const icon of icons) {
+            await expect(icon).toHaveAttribute('aria-hidden', 'true');
+            await expect(icon).not.toHaveAttribute('title');
+        }
+    },
 };
 
 export const UtenValgfrieOpplysninger: Story = {

@@ -14,7 +14,13 @@ export function StartStyrkloftStateless(props: Props) {
     const { sprak, onSubmitTjenestestatus, pendingTjenestestatus, errorTjenestestatus } = props;
 
     return (
-        <Box className={'py-4 px-6'} borderRadius="8" borderColor={'neutral-subtle'} borderWidth={'1'}>
+        <Box
+            paddingBlock="space-16"
+            paddingInline="space-24"
+            borderRadius="8"
+            borderColor={'neutral-subtle'}
+            borderWidth={'1'}
+        >
             <GodkjennEksperiment
                 sprak={sprak}
                 onSubmit={onSubmitTjenestestatus}

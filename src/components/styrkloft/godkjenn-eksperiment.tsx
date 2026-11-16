@@ -1,5 +1,5 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Alert, BodyShort, Box, Button, Heading } from '@navikt/ds-react';
+import { BodyShort, Box, Button, Heading, LocalAlert, VStack } from '@navikt/ds-react';
 import { loggStyrkeloft } from '@/lib/tracking';
 import type { Tjenestestatus } from '@/model/brukerprofil';
 import ReadMoreEksperiment from './godkjenn-eksperiment-readmore';
@@ -58,16 +58,36 @@ function GodkjennEksperiment(props: Props) {
             <Heading level="3" size="large">
                 {tekst('heading')}
             </Heading>
-            <BodyShort className={'py-4'}>{tekst('body')}</BodyShort>
-            {visFeilmelding && <Alert variant={'error'}>{tekst('feilmelding')}</Alert>}
-            <div className={'flex flex-col gap-4 py-4'}>
-                <Button variant={'primary'} disabled={isPending} loading={visGodkjennLoader} onClick={onGodkjennSubmit}>
-                    {tekst('submitButton')}
-                </Button>
-                <Button variant={'tertiary'} disabled={isPending} loading={visAvmeldtLoader} onClick={onAvmeldSubmit}>
-                    {tekst('cancelButton')}
-                </Button>
-            </div>
+            <Box asChild paddingBlock="space-16">
+                <BodyShort>{tekst('body')}</BodyShort>
+            </Box>
+            {visFeilmelding && (
+                <LocalAlert status="error" as="div">
+                    <LocalAlert.Header>
+                        <LocalAlert.Title as="div">{tekst('feilmelding')}</LocalAlert.Title>
+                    </LocalAlert.Header>
+                </LocalAlert>
+            )}
+            <Box asChild paddingBlock="space-16">
+                <VStack gap="space-16">
+                    <Button
+                        variant={'primary'}
+                        disabled={isPending}
+                        loading={visGodkjennLoader}
+                        onClick={onGodkjennSubmit}
+                    >
+                        {tekst('submitButton')}
+                    </Button>
+                    <Button
+                        variant={'tertiary'}
+                        disabled={isPending}
+                        loading={visAvmeldtLoader}
+                        onClick={onAvmeldSubmit}
+                    >
+                        {tekst('cancelButton')}
+                    </Button>
+                </VStack>
+            </Box>
             <ReadMoreEksperiment sprak={sprak} />
         </Box>
     );

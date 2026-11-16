@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { expect, within } from 'storybook/test';
 import { KvitteringAvmeldt } from '@/components/styrkloft/kvittering-avmeldt';
 
 const meta = {
@@ -13,7 +14,14 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const DefaultKvittering: Story = {};
+export const DefaultKvittering: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+
+        await expect(canvas.getByRole('heading', { name: 'Valget ditt er registrert', level: 3 })).toBeInTheDocument();
+        await expect(canvas.getByText('Vi vil ikke vise deg forslag på ledige stillinger')).toBeInTheDocument();
+    },
+};
 
 export const KvitteringBokmål: Story = {
     args: {

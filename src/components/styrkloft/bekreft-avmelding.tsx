@@ -1,5 +1,5 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Alert, BodyLong, Button, Dialog } from '@navikt/ds-react';
+import { BodyLong, Box, Button, Dialog, LocalAlert } from '@navikt/ds-react';
 import type React from 'react';
 
 const TEKSTER = {
@@ -55,9 +55,13 @@ const BekreftAvmelding: React.FC<BekreftAvmeldingProps> = (props) => {
                 <Dialog.Body>
                     <BodyLong>{tekst('tekst')}</BodyLong>
                     {error && (
-                        <Alert variant={'error'} className={'my-2'}>
-                            {tekst('feilmelding')}
-                        </Alert>
+                        <Box asChild marginBlock="space-8">
+                            <LocalAlert status="error" as="div">
+                                <LocalAlert.Header>
+                                    <LocalAlert.Title as="div">{tekst('feilmelding')}</LocalAlert.Title>
+                                </LocalAlert.Header>
+                            </LocalAlert>
+                        </Box>
                     )}
                 </Dialog.Body>
                 <Dialog.Footer>

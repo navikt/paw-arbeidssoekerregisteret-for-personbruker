@@ -163,6 +163,24 @@ export const MedBekreftelse: Story = {
         hendelser: [createBekreftelseHendelse('2025-01-15T10:00:00Z')],
         sprak: 'nb',
     },
+    play: async ({ canvas }) => {
+        const periodeTittel = canvas.getByRole('heading', { level: 2, name: /Gjelder fra.*til/ });
+        await expect(periodeTittel).toHaveTextContent(/Gjelder fra .+ til .+/);
+
+        const bekreftelsesListe = periodeTittel.parentElement?.querySelector('dl');
+        if (!bekreftelsesListe) {
+            throw new Error('Fant ikke bekreftelseslisten under periodetittelen');
+        }
+
+        await expect(Array.from(bekreftelsesListe.querySelectorAll('dt'), (term) => term.textContent)).toEqual([
+            'Har jobbet',
+            'Vil fortsette være søker',
+        ]);
+        await expect(Array.from(bekreftelsesListe.querySelectorAll('dd'), (svar) => svar.textContent)).toEqual([
+            'Nei',
+            'Ja',
+        ]);
+    },
     parameters: {
         docs: {
             description: {

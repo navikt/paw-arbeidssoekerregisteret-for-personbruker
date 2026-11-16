@@ -1,5 +1,5 @@
 import { erStottetSprak, lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Loader } from '@navikt/ds-react';
+import { Box, Loader } from '@navikt/ds-react';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import { fetchArbeidssoekerregisteretSnapshot, fetchTilgjengeligEgenvurdering } from '@/app/actions';
@@ -59,9 +59,9 @@ async function SamletInformasjonServerComponent({
                     'oppdater-opplysninger',
                 )}
                 error={
-                    <div className="mb-6">
+                    <Box marginBlock="space-0 space-24">
                         <Feil sprak={sprak} error={snapshotError?.message} />
-                    </div>
+                    </Box>
                 }
             />
         );
@@ -128,9 +128,9 @@ const EgenvurderingServerKomponent = async ({ sprak, egenvurderingPromise }: Ege
     }
 
     return (
-        <div className={'my-4'}>
+        <Box marginBlock="space-16">
             <Egenvurdering sprak={sprak} profilering={data.grunnlag} />
-        </div>
+        </Box>
     );
 };
 

@@ -1,5 +1,6 @@
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { expect } from 'storybook/test';
 import EgenvurderingAvklart from '@/components/egenvurdering/egenvurdering-avklart';
 
 const meta = {
@@ -12,6 +13,11 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const verifiserOverskriftOgIkon: NonNullable<Story['play']> = async ({ canvas, canvasElement }) => {
+    await expect(await canvas.findByRole('heading', { level: 2 })).toBeVisible();
+    await expect(canvasElement.querySelector('svg title')).toBeNull();
+};
+
 export const AntattGodeMuligheterEnig: Story = {
     args: {
         sprak: 'nb',
@@ -20,6 +26,7 @@ export const AntattGodeMuligheterEnig: Story = {
         } as any,
         egenvurdering: ProfilertTil.ANTATT_GODE_MULIGHETER,
     },
+    play: verifiserOverskriftOgIkon,
 };
 
 export const AntattGodeMuligheterUenig: Story = {
@@ -30,6 +37,7 @@ export const AntattGodeMuligheterUenig: Story = {
         } as any,
         egenvurdering: ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING,
     },
+    play: verifiserOverskriftOgIkon,
 };
 
 export const AntattBehovForVeiledningEnig: Story = {
@@ -40,6 +48,7 @@ export const AntattBehovForVeiledningEnig: Story = {
         } as any,
         egenvurdering: ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING,
     },
+    play: verifiserOverskriftOgIkon,
 };
 
 export const AntattBehovForVeiledningUenig: Story = {
@@ -50,4 +59,21 @@ export const AntattBehovForVeiledningUenig: Story = {
         } as any,
         egenvurdering: ProfilertTil.ANTATT_GODE_MULIGHETER,
     },
+    play: verifiserOverskriftOgIkon,
+};
+
+export const Nynorsk: Story = {
+    args: {
+        ...AntattGodeMuligheterEnig.args,
+        sprak: 'nn',
+    },
+    play: verifiserOverskriftOgIkon,
+};
+
+export const English: Story = {
+    args: {
+        ...AntattGodeMuligheterEnig.args,
+        sprak: 'en',
+    },
+    play: verifiserOverskriftOgIkon,
 };

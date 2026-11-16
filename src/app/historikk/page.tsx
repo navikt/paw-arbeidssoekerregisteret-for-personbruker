@@ -1,5 +1,5 @@
 import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Loader } from '@navikt/ds-react';
+import { HStack, Loader } from '@navikt/ds-react';
 import { Suspense } from 'react';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs';
 import SettSprakIDekorator from '@/components/sett-sprak-i-dekorator';
@@ -41,9 +41,9 @@ export default async function HistorikkPage({ params }: NextPageProps) {
             <HistorikkSide sprak={sprak}>
                 <Suspense
                     fallback={
-                        <div className="text-center">
+                        <HStack justify="center">
                             <Loader size="large" />
-                        </div>
+                        </HStack>
                     }
                 >
                     <HistorikkServerComponent sprak={sprak} />

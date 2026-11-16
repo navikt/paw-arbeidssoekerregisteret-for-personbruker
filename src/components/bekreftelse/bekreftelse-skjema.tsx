@@ -1,7 +1,7 @@
 'use client';
 
 import { lagHentTekstForSprak, type Sprak, type TilgjengeligBekreftelse } from '@navikt/arbeidssokerregisteret-utils';
-import { Button, Heading, Radio, RadioGroup } from '@navikt/ds-react';
+import { Box, Button, Heading, HStack, Radio, RadioGroup } from '@navikt/ds-react';
 import { useEffect, useRef, useState } from 'react';
 import { BekreftAvsluttPeriode } from '@/components/bekreftelse/bekreft-avslutt-periode';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
@@ -139,50 +139,58 @@ const BekreftelseSkjema = (props: Props) => {
 
     return (
         <>
-            <Heading level={'1'} size={'xlarge'} className={'mb-6'}>
-                {tekst('heading')}
-            </Heading>
+            <Box marginBlock="space-0 space-24" asChild>
+                <Heading level={'1'} size={'xlarge'}>
+                    {tekst('heading')}
+                </Heading>
+            </Box>
             <InfoTekst sprak={sprak} />
-            <RadioGroup
-                legend={`${tekst('beenWorking')} ${periode}?`}
-                value={getRadioGroupValue(skjemaState.harJobbetIDennePerioden)}
-                onChange={(e) => settSkjemaState((state) => ({ ...state, harJobbetIDennePerioden: e === 'ja' }))}
-                className={'mb-4'}
-                error={
-                    visFeilmeldingISkjema &&
-                    skjemaState.harJobbetIDennePerioden === undefined &&
-                    tekst('validationError')
-                }
-            >
-                <Radio ref={arbeidRadioRef} value="ja" checked={skjemaState.harJobbetIDennePerioden === true}>
-                    {tekst('yes')}
-                </Radio>
-                <Radio value="nei" checked={skjemaState.harJobbetIDennePerioden === false}>
-                    {tekst('no')}
-                </Radio>
-            </RadioGroup>
-            <RadioGroup
-                legend={`${tekst('wantToBeRegistered')}`}
-                value={getRadioGroupValue(skjemaState.vilFortsetteSomArbeidssoeker)}
-                onChange={(e) => settSkjemaState((state) => ({ ...state, vilFortsetteSomArbeidssoeker: e === 'ja' }))}
-                className={'mb-4'}
-                error={
-                    visFeilmeldingISkjema &&
-                    skjemaState.vilFortsetteSomArbeidssoeker === undefined &&
-                    tekst('validationError')
-                }
-            >
-                <Radio ref={fortsetteRadioRef} value="ja">
-                    {tekst('yes')}
-                </Radio>
-                <Radio value="nei">{tekst('no')}</Radio>
-            </RadioGroup>
-            <Button variant="primary" disabled={senderSkjema} onClick={onSubmit} loading={senderSkjema}>
-                {tekst('submit')}
-            </Button>
-            <Button className={'ml-4'} variant={'tertiary'} onClick={onCancel} disabled={senderSkjema}>
-                {tekst('cancel')}
-            </Button>
+            <Box marginBlock="space-0 space-16" asChild>
+                <RadioGroup
+                    legend={`${tekst('beenWorking')} ${periode}?`}
+                    value={getRadioGroupValue(skjemaState.harJobbetIDennePerioden)}
+                    onChange={(e) => settSkjemaState((state) => ({ ...state, harJobbetIDennePerioden: e === 'ja' }))}
+                    error={
+                        visFeilmeldingISkjema &&
+                        skjemaState.harJobbetIDennePerioden === undefined &&
+                        tekst('validationError')
+                    }
+                >
+                    <Radio ref={arbeidRadioRef} value="ja" checked={skjemaState.harJobbetIDennePerioden === true}>
+                        {tekst('yes')}
+                    </Radio>
+                    <Radio value="nei" checked={skjemaState.harJobbetIDennePerioden === false}>
+                        {tekst('no')}
+                    </Radio>
+                </RadioGroup>
+            </Box>
+            <Box marginBlock="space-0 space-16" asChild>
+                <RadioGroup
+                    legend={`${tekst('wantToBeRegistered')}`}
+                    value={getRadioGroupValue(skjemaState.vilFortsetteSomArbeidssoeker)}
+                    onChange={(e) =>
+                        settSkjemaState((state) => ({ ...state, vilFortsetteSomArbeidssoeker: e === 'ja' }))
+                    }
+                    error={
+                        visFeilmeldingISkjema &&
+                        skjemaState.vilFortsetteSomArbeidssoeker === undefined &&
+                        tekst('validationError')
+                    }
+                >
+                    <Radio ref={fortsetteRadioRef} value="ja">
+                        {tekst('yes')}
+                    </Radio>
+                    <Radio value="nei">{tekst('no')}</Radio>
+                </RadioGroup>
+            </Box>
+            <HStack gap="space-16" wrap>
+                <Button variant="primary" disabled={senderSkjema} onClick={onSubmit} loading={senderSkjema}>
+                    {tekst('submit')}
+                </Button>
+                <Button variant={'tertiary'} onClick={onCancel} disabled={senderSkjema}>
+                    {tekst('cancel')}
+                </Button>
+            </HStack>
             {error && <Feilmelding sprak={sprak} />}
         </>
     );

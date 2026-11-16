@@ -1,6 +1,6 @@
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { ActionMenu, Button, Chips, ErrorMessage } from '@navikt/ds-react';
+import { ActionMenu, Box, Button, Chips, ErrorMessage, HStack } from '@navikt/ds-react';
 import { useId, useState } from 'react';
 import { alfabetiskSortering } from '@/lib/hent-yrkeskategorier';
 import { loggUnderkategoriFilter } from '@/lib/tracking';
@@ -126,7 +126,7 @@ function UnderkategoriVelger(props: Props) {
 
     return (
         <>
-            <div className={'flex flex-wrap md:flexno-wrap'}>
+            <HStack align="start">
                 <ActionMenu
                     onOpenChange={(open) => {
                         if (!open) {
@@ -135,19 +135,20 @@ function UnderkategoriVelger(props: Props) {
                     }}
                 >
                     <ActionMenu.Trigger>
-                        <Button
-                            id={id}
-                            variant="secondary"
-                            size={'small'}
-                            icon={<ChevronDownIcon aria-hidden />}
-                            iconPosition="right"
-                            className={'shrink-0 h-fit mb-2'}
-                            data-color={showError ? 'danger' : undefined}
-                            aria-invalid={showError}
-                            aria-describedby={showError ? errorId : undefined}
-                        >
-                            {triggerText}
-                        </Button>
+                        <Box asChild flexShrink="0" height="fit-content" marginBlock="space-0 space-8">
+                            <Button
+                                id={id}
+                                variant="secondary"
+                                size={'small'}
+                                icon={<ChevronDownIcon aria-hidden />}
+                                iconPosition="right"
+                                data-color={showError ? 'danger' : undefined}
+                                aria-invalid={showError}
+                                aria-describedby={showError ? errorId : undefined}
+                            >
+                                {triggerText}
+                            </Button>
+                        </Box>
                     </ActionMenu.Trigger>
                     <ActionMenu.Content>
                         {aktivNode !== null && (
@@ -209,10 +210,10 @@ function UnderkategoriVelger(props: Props) {
                                         }
                                     }}
                                 >
-                                    <div className={'flex grow justify-between'}>
+                                    <HStack justify="space-between" wrap={false} flexGrow="1">
                                         {kat.navn}
                                         {harUnderkategorier && <ChevronRightIcon aria-hidden fontSize="1.5rem" />}
-                                    </div>
+                                    </HStack>
                                 </ActionMenu.CheckboxItem>
                             );
                         })}
@@ -233,21 +234,23 @@ function UnderkategoriVelger(props: Props) {
                     </ActionMenu.Content>
                 </ActionMenu>
 
-                <Chips className={'ml-2'}>
-                    {uiStateToChips(uiState).map((c) => (
-                        <Chips.Removable
-                            data-color="neutral"
-                            key={c}
-                            onClick={() => {
-                                onChange(uiStateToValues(toggleOffChip(uiState, c)));
-                                loggUnderkategoriFilter({ aktivitet: 'Trykker på Chips' });
-                            }}
-                        >
-                            {c}
-                        </Chips.Removable>
-                    ))}
-                </Chips>
-            </div>
+                <Box asChild marginInline="space-8 space-0">
+                    <Chips>
+                        {uiStateToChips(uiState).map((c) => (
+                            <Chips.Removable
+                                data-color="neutral"
+                                key={c}
+                                onClick={() => {
+                                    onChange(uiStateToValues(toggleOffChip(uiState, c)));
+                                    loggUnderkategoriFilter({ aktivitet: 'Trykker på Chips' });
+                                }}
+                            >
+                                {c}
+                            </Chips.Removable>
+                        ))}
+                    </Chips>
+                </Box>
+            </HStack>
             {showError && (
                 <ErrorMessage id={errorId} size={'small'} showIcon={true} role="alert">
                     {errorMessage}

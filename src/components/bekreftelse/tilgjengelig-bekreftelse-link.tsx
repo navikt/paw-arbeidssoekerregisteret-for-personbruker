@@ -2,7 +2,7 @@
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { lagHentTekstForSprak, type Sprak, type TilgjengeligeBekreftelser } from '@navikt/arbeidssokerregisteret-utils';
-import { Hide, LinkCard } from '@navikt/ds-react';
+import { Box, Hide, HStack, LinkCard } from '@navikt/ds-react';
 import NextLink from 'next/link';
 import { tilSprakAvhengigAppPath } from '@/lib/sprak-avhengig-url';
 import { loggAktivitet } from '@/lib/tracking';
@@ -45,21 +45,24 @@ const TilgjengeligBekreftelseLink = (props: Props) => {
 
     return (
         <>
-            <LinkCard style={{ background: 'var(--ax-bg-warning-moderate)' }}>
-                <LinkCard.Icon>
-                    <Hide below={'sm'}>
-                        <ExclamationmarkTriangleFillIcon
-                            title={tekst('iconTitle')}
-                            style={{ color: 'var(--ax-bg-warning-strong)' }}
-                        />
-                    </Hide>
-                </LinkCard.Icon>
-                <LinkCard.Title className={'flex items-center'} as={'h2'}>
-                    <LinkCard.Anchor asChild onClick={onClick}>
-                        <NextLink href={tilSprakAvhengigAppPath('/bekreftelse', sprak)}>{tekst('title')}</NextLink>
-                    </LinkCard.Anchor>
-                </LinkCard.Title>
-            </LinkCard>
+            <Box asChild background="warning-moderate">
+                <LinkCard>
+                    <LinkCard.Icon data-color="warning">
+                        <Hide below={'sm'}>
+                            <ExclamationmarkTriangleFillIcon title={tekst('iconTitle')} />
+                        </Hide>
+                    </LinkCard.Icon>
+                    <HStack asChild align="center">
+                        <LinkCard.Title as="h2">
+                            <LinkCard.Anchor asChild onClick={onClick}>
+                                <NextLink href={tilSprakAvhengigAppPath('/bekreftelse', sprak)}>
+                                    {tekst('title')}
+                                </NextLink>
+                            </LinkCard.Anchor>
+                        </LinkCard.Title>
+                    </HStack>
+                </LinkCard>
+            </Box>
             <LenkeTilBekreftelseArtikkel sprak={sprak} />
         </>
     );

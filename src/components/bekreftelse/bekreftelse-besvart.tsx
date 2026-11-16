@@ -81,12 +81,14 @@ const OenskerAaVaereRegistrert = (props: Props) => {
 
     return (
         <>
-            <Heading size={'xlarge'} level={'1'} className={'mb-4'}>
-                {tekst('heading')}
-            </Heading>
-            <div className={'px-4'}>
+            <Box asChild marginBlock="space-0 space-16">
+                <Heading size={'xlarge'} level={'1'}>
+                    {tekst('heading')}
+                </Heading>
+            </Box>
+            <Box paddingInline="space-16">
                 <BesvarelseInfo sprak={sprak} besvarelse={besvarelse} innsendtDato={getInnsendtDato(besvarelse)} />
-            </div>
+            </Box>
         </>
     );
 };
@@ -102,12 +104,14 @@ const OenskerIkkeAaVaereRegistrert = (props: Props) => {
 
     return (
         <>
-            <Heading size={'xlarge'} level={'1'} className={'mb-4'}>
-                {tekst('headingUtmeldt')}
-            </Heading>
-            <div className={'px-4'}>
+            <Box asChild marginBlock="space-0 space-16">
+                <Heading size={'xlarge'} level={'1'}>
+                    {tekst('headingUtmeldt')}
+                </Heading>
+            </Box>
+            <Box paddingInline="space-16">
                 <BesvarelseInfo sprak={sprak} besvarelse={besvarelse} innsendtDato={getInnsendtDato(besvarelse)} />
-            </div>
+            </Box>
             <Button variant={'secondary'} onClick={onClick}>
                 {tekst('buttonTextUtmeldt')}
             </Button>

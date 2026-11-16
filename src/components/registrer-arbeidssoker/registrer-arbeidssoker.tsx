@@ -4,7 +4,7 @@ import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret
 import { Box, LinkCard } from '@navikt/ds-react';
 import { loggAktivitet } from '@/lib/tracking';
 
-interface Props extends React.HTMLProps<any> {
+interface Props {
     registrerArbeidssokerUrl: string;
     sprak: Sprak;
 }
@@ -27,16 +27,18 @@ export default function RegistrerArbeidssoker(props: Props) {
 
     return (
         <Box>
-            <LinkCard style={{ background: 'var(--ax-bg-accent-moderate)' }} className={props.className ?? ''}>
-                <LinkCard.Title>
-                    <LinkCard.Anchor
-                        href={props.registrerArbeidssokerUrl}
-                        onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Registrer deg som arbeidssøker"' })}
-                    >
-                        {tekst('tittel')}
-                    </LinkCard.Anchor>
-                </LinkCard.Title>
-            </LinkCard>
+            <Box asChild background="accent-moderate">
+                <LinkCard>
+                    <LinkCard.Title>
+                        <LinkCard.Anchor
+                            href={props.registrerArbeidssokerUrl}
+                            onClick={() => loggAktivitet({ aktivitet: 'Trykker på "Registrer deg som arbeidssøker"' })}
+                        >
+                            {tekst('tittel')}
+                        </LinkCard.Anchor>
+                    </LinkCard.Title>
+                </LinkCard>
+            </Box>
         </Box>
     );
 }

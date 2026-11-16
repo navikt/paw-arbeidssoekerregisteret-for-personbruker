@@ -1,0 +1,4 @@
+/* Aksel har ingen prop for ordbryting. Lange stillingstitler kan ellers gi horisontal rulling på små skjermer. Dette lokale unntaket lar teksten brytes uten å kutte eller skjule innhold. */
+.tittel {
+    overflow-wrap: anywhere;
+}

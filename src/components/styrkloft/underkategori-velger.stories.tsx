@@ -33,6 +33,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+async function assertNoHorizontalOverflow(canvasElement: HTMLElement) {
+    const document = canvasElement.ownerDocument;
+    await expect([320, 1280]).toContain(document.defaultView?.innerWidth);
+    await expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(document.documentElement.clientWidth);
+}
+
 export const Default: Story = {
     args: {
         options,
@@ -71,6 +77,9 @@ export const DelvisValgt: Story = {
         showError: false,
         errorMessage: 'må fylles ut',
     },
+    play: async ({ canvasElement }) => {
+        await assertNoHorizontalOverflow(canvasElement);
+    },
 };
 
 export const FulltValgt: Story = {
@@ -83,7 +92,8 @@ export const FulltValgt: Story = {
         showError: false,
         errorMessage: 'må fylles ut',
     },
-    play: async ({ canvas }) => {
+    play: async ({ canvas, canvasElement }) => {
+        await assertNoHorizontalOverflow(canvasElement);
         const chip = canvas.getByRole('button', { name: new RegExp(firstCategory.navn) });
         await userEvent.tab();
         await expect(canvas.getByRole('button', { name: 'Velg kategori' })).toHaveFocus();

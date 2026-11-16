@@ -1,7 +1,7 @@
 'use client';
 
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Button, Heading } from '@navikt/ds-react';
+import { Box, Button, Heading } from '@navikt/ds-react';
 import { useEffect } from 'react';
 import { loggAktivitet, loggVisning } from '@/lib/tracking';
 
@@ -38,14 +38,16 @@ const IkkeAktivArbeidssoker = (props: Props) => {
     }, []);
 
     return (
-        <div className={'px-4'}>
-            <Heading level="1" size="medium" className={'mb-6'}>
-                {tekst('heading')}
-            </Heading>
+        <Box paddingInline="space-16">
+            <Box asChild marginBlock="space-0 space-24">
+                <Heading level="1" size="medium">
+                    {tekst('heading')}
+                </Heading>
+            </Box>
             <Button variant={'secondary'} onClick={onClick}>
                 {tekst('buttonText')}
             </Button>
-        </div>
+        </Box>
     );
 };
 

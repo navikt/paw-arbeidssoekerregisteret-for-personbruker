@@ -1,5 +1,6 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import type { Snapshot } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { Box, HStack } from '@navikt/ds-react';
 import { prettyPrintDato } from '@/lib/date-utils';
 
 interface PeriodeInfoProps {
@@ -51,7 +52,11 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
     const bekreftet = periode?.bekreftelse;
 
     if (!periode?.startet) {
-        return <div className={'flex items-center flex-wrap mb-4'}>{tekst('ikkeTidligereRegistrert')}</div>;
+        return (
+            <Box asChild marginBlock="space-0 space-16">
+                <HStack align="center">{tekst('ikkeTidligereRegistrert')}</HStack>
+            </Box>
+        );
     }
 
     const harAktivPeriode = !periode.avsluttet;
@@ -61,7 +66,7 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
     const harSluttarsak = Boolean(tekst(periode.avsluttet?.sendtInnAv.aarsak.toLowerCase() ?? ''));
 
     return (
-        <div className={'mb-4'}>
+        <Box marginBlock="space-0 space-16">
             {harAktivPeriode ? (
                 <>
                     {tekst('registreringsDato')}
@@ -85,7 +90,7 @@ const PeriodeInfo = (props: PeriodeInfoProps) => {
                     )}
                 </>
             )}
-        </div>
+        </Box>
     );
 };
 

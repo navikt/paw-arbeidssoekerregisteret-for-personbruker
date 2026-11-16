@@ -1,0 +1,6 @@
+.sidetittel {
+    /* Aksel har ingen prop for ordbryting.
+       Det lange tjenestenavnet kan gi horisontal rulling ved 320 px.
+       Regelen lar teksten brytes uten å kutte eller skjule den eller endre skriftstørrelsen. */
+    overflow-wrap: anywhere;
+}

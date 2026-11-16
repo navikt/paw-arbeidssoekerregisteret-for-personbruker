@@ -1,10 +1,13 @@
 import type { Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import type { Periode } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
-import { Loader } from '@navikt/ds-react';
+import { HStack, Loader } from '@navikt/ds-react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import type { ReactNode } from 'react';
-import { expect, userEvent } from 'storybook/test';
-import { createPeriodeStartetHendelse } from '@/components/perioder/__tests__/utils/hendelser';
+import { expect, userEvent, waitFor } from 'storybook/test';
+import {
+    createBekreftelseHendelse,
+    createPeriodeStartetHendelse,
+} from '@/components/perioder/__tests__/utils/hendelser';
 import { HistorikkInnhold, HistorikkSide } from './historikkside';
 
 const DEMO_PERIODER: Periode[] = [
@@ -12,7 +15,7 @@ const DEMO_PERIODER: Periode[] = [
         identitetsnummer: 'synthetic-user',
         periodeId: 'demo-period-1',
         startet: '2025-01-13T10:00:00Z',
-        hendelser: [createPeriodeStartetHendelse()],
+        hendelser: [createPeriodeStartetHendelse(), createBekreftelseHendelse('2025-01-15T10:00:00Z')],
     },
     {
         identitetsnummer: 'synthetic-user',
@@ -71,6 +74,27 @@ export const Bokmal: Story = {
         await userEvent.keyboard('{Enter}');
         await expect(periode).toHaveAttribute('aria-expanded', 'true');
         await expect(periode).toHaveFocus();
+        await waitFor(async () => {
+            await expect(canvas.getByText('Har jobbet')).toBeVisible();
+            await expect(canvas.getByText('Vil fortsette være søker')).toBeVisible();
+        });
+
+        await userEvent.tab({ shift: true });
+        await expect(visDetaljer).toHaveFocus();
+        await userEvent.keyboard(' ');
+        await expect(visDetaljer).not.toBeChecked();
+        await expect(canvas.queryByText('Har jobbet')).not.toBeInTheDocument();
+        await expect(canvas.queryByText('Vil fortsette være søker')).not.toBeInTheDocument();
+
+        await userEvent.keyboard(' ');
+        await expect(visDetaljer).toBeChecked();
+        await waitFor(async () => {
+            await expect(canvas.getByText('Har jobbet')).toBeVisible();
+            await expect(canvas.getByText('Vil fortsette være søker')).toBeVisible();
+        });
+
+        await userEvent.tab();
+        await expect(periode).toHaveFocus();
 
         await userEvent.keyboard(' ');
         await expect(periode).toHaveAttribute('aria-expanded', 'false');
@@ -99,8 +123,8 @@ export const Laster: Story = {
     render: () =>
         renderSide(
             'nb',
-            <div className="text-center">
+            <HStack justify="center">
                 <Loader size="large" />
-            </div>,
+            </HStack>,
         ),
 };

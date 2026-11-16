@@ -1,7 +1,4 @@
-@import 'tailwindcss';
-@import '@navikt/ds-css' layer(components);
-
-@config '../../tailwind.config.ts';
+@import '@navikt/ds-css';
 
 @view-transition {
     navigation: auto;

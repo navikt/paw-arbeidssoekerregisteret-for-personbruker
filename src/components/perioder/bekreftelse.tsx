@@ -1,5 +1,6 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import type { BekreftelseHendelse } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
+import { BodyShort, Box, Heading } from '@navikt/ds-react';
 import type React from 'react';
 import { prettyPrintDato } from '@/lib/date-utils';
 
@@ -47,14 +48,23 @@ const Bekreftelse: React.FC<BekreftelseProps> = (props) => {
 
     return (
         <div>
-            <h3 className="font-semibold mb-4">{formaterBekreftelsePeriode()}</h3>
-            <dl>
-                <dt className="font-semibold"></dt>
-                <dt className="font-semibold">{tekst('har_jobbet')}</dt>
-                <dd>{bekreftelse.svar.harJobbetIDennePerioden ? tekst('yes') : tekst('no')}</dd>
-                <dt className="font-semibold">{tekst('vil_fortsette')}</dt>
-                <dd>{bekreftelse.svar.vilFortsetteSomArbeidssoeker ? tekst('yes') : tekst('no')}</dd>
-            </dl>
+            <Box asChild marginBlock="space-0 space-16">
+                <Heading level="2" size="xsmall">
+                    {formaterBekreftelsePeriode()}
+                </Heading>
+            </Box>
+            <Box as="dl" margin="space-0">
+                <BodyShort as="dt" weight="semibold">
+                    {tekst('har_jobbet')}
+                </BodyShort>
+                <BodyShort as="dd">{bekreftelse.svar.harJobbetIDennePerioden ? tekst('yes') : tekst('no')}</BodyShort>
+                <BodyShort as="dt" weight="semibold">
+                    {tekst('vil_fortsette')}
+                </BodyShort>
+                <BodyShort as="dd">
+                    {bekreftelse.svar.vilFortsetteSomArbeidssoeker ? tekst('yes') : tekst('no')}
+                </BodyShort>
+            </Box>
         </div>
     );
 };

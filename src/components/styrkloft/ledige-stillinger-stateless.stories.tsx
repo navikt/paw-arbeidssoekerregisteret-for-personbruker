@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { expect, fn } from 'storybook/test';
 import LedigeStillingerStateless from '@/components/styrkloft/ledige-stillinger-stateless';
 
 const meta = {
@@ -86,6 +87,9 @@ export const IngenTreff: Story = {
             console.log('onAktivFaneChange', value);
         },
     },
+    play: async ({ canvas }) => {
+        await expect(canvas.getByText('Ingen treff')).toBeVisible();
+    },
 };
 
 export const MedPaginering: Story = {
@@ -137,7 +141,7 @@ export const MedPaginering: Story = {
             },
         ],
         brukPaginering: true,
-        onClick: () => {},
+        onClick: fn(),
         aktivSide: 1,
         antallSider: 2,
         aktivFane: 'ledigeStillinger',
@@ -145,6 +149,10 @@ export const MedPaginering: Story = {
         onAktivFaneChange(value) {
             console.log('onAktivFaneChange', value);
         },
+    },
+    play: async ({ canvas, userEvent, args }) => {
+        await userEvent.click(canvas.getByRole('button', { name: 'Neste side' }));
+        await expect(args.onClick).toHaveBeenCalledWith(2);
     },
 };
 
@@ -202,9 +210,11 @@ export const MedDirektemeldteStillinger: Story = {
         antallSider: 2,
         aktivFane: 'ledigeStillinger',
         kanSeDirektemeldteStillinger: true,
-        onAktivFaneChange(value) {
-            console.log('onAktivFaneChange', value);
-        },
+        onAktivFaneChange: fn(),
+    },
+    play: async ({ canvas, userEvent, args }) => {
+        await userEvent.click(canvas.getByRole('radio', { name: 'Reserverte stillinger' }));
+        await expect(args.onAktivFaneChange).toHaveBeenCalledWith('direktemeldteStillinger');
     },
 };
 

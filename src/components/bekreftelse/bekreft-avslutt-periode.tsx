@@ -1,5 +1,5 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
+import { BodyLong, Box, Button, Heading, Link, LocalAlert } from '@navikt/ds-react';
 import { useEffect, useRef, useState } from 'react';
 import Feilmelding from '@/components/bekreftelse/feilmelding';
 import { prettyPrintDato } from '@/lib/date-utils';
@@ -81,38 +81,41 @@ const BekreftAvsluttPeriode = (props: Props) => {
 
     return (
         <>
-            <Heading ref={headingRef} tabIndex={-1} level={'1'} size={'xlarge'} className={'mb-4'}>
-                {tekst('heading')}
-            </Heading>
-            <Alert variant={'warning'}>
-                <Heading level={'2'} size={'small'}>
-                    {tekst('alertHeading')}
+            <Box marginBlock="space-0 space-16" asChild>
+                <Heading ref={headingRef} tabIndex={-1} level={'1'} size={'xlarge'}>
+                    {tekst('heading')}
                 </Heading>
-            </Alert>
-            <BodyLong className={'my-4'}>
-                {tekst('bodyText1')} {prettyPrintDato(new Date().toISOString(), sprak)}.
-            </BodyLong>
-            <BodyLong className="mb-4">{tekst('bodyText2')}</BodyLong>
+            </Box>
+            {/* biome-ignore lint/a11y/useValidAriaRole: Aksel tillater å fjerne standardrollen når fokus allerede flyttes til overskriften. */}
+            <LocalAlert status={'warning'} role={undefined}>
+                <LocalAlert.Header>
+                    <LocalAlert.Title>{tekst('alertHeading')}</LocalAlert.Title>
+                </LocalAlert.Header>
+            </LocalAlert>
+            <Box marginBlock="space-16" asChild>
+                <BodyLong>
+                    {tekst('bodyText1')} {prettyPrintDato(new Date().toISOString(), sprak)}.
+                </BodyLong>
+            </Box>
+            <Box marginBlock="space-0 space-16" asChild>
+                <BodyLong>{tekst('bodyText2')}</BodyLong>
+            </Box>
             <BodyLong>
                 {tekst('usikkerTekst')}{' '}
                 <Link onClick={onClikcKontaktOss} href={tekst('kontaktOssLenke')}>
                     {tekst('usikkerKontaktOssLenkeTekst')}
                 </Link>
             </BodyLong>
-            <div className={'my-4'}>
-                <Button
-                    variant={'primary'}
-                    onClick={onSubmit}
-                    className={'w-full'}
-                    disabled={senderSkjema}
-                    loading={senderSkjema}
-                >
+            <Box marginBlock="space-16" width="100%" asChild>
+                <Button variant={'primary'} onClick={onSubmit} disabled={senderSkjema} loading={senderSkjema}>
                     {tekst('confirm')}
                 </Button>
-            </div>
-            <Button variant={'secondary'} onClick={onCancel} className={'w-full'} disabled={senderSkjema}>
-                {tekst('cancel')}
-            </Button>
+            </Box>
+            <Box width="100%" asChild>
+                <Button variant={'secondary'} onClick={onCancel} disabled={senderSkjema}>
+                    {tekst('cancel')}
+                </Button>
+            </Box>
             {error && <Feilmelding sprak={sprak} />}
         </>
     );

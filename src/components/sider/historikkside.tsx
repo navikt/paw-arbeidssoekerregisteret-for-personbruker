@@ -1,6 +1,7 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
 import type { Periode } from '@navikt/arbeidssokerregisteret-utils/oppslag/v3';
-import { Heading } from '@navikt/ds-react';
+import { Box, Heading } from '@navikt/ds-react';
+import { PageBlock } from '@navikt/ds-react/Page';
 import type { ReactNode } from 'react';
 import { Perioder } from '@/components/perioder/perioder';
 import { PerioderFeilmelding } from '@/components/perioder/perioder-feilmelding';
@@ -35,12 +36,14 @@ function HistorikkSide({ sprak, children }: HistorikkSideProps) {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <div className="max-w-3xl mx-auto py-8 px-4">
-            <Heading level="1" size="medium" spacing>
-                {tekst('tittel')}
-            </Heading>
-            {children}
-        </div>
+        <PageBlock width="md">
+            <Box paddingBlock="space-32" paddingInline="space-16">
+                <Heading level="1" size="medium" spacing>
+                    {tekst('tittel')}
+                </Heading>
+                {children}
+            </Box>
+        </PageBlock>
     );
 }
 

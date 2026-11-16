@@ -1,9 +1,14 @@
-import { Loader } from '@navikt/ds-react';
+import { Box, Loader, VStack } from '@navikt/ds-react';
+import { PageBlock } from '@navikt/ds-react/Page';
 
 export default function Loading() {
     return (
-        <main className="flex flex-col max-w-3xl mx-auto px-4 py-8">
-            <Loader size="xlarge" title="Laster innhold..." />
-        </main>
+        <PageBlock width="md">
+            <Box asChild paddingBlock="space-32" paddingInline="space-16">
+                <VStack>
+                    <Loader size="xlarge" title="Laster innhold..." />
+                </VStack>
+            </Box>
+        </PageBlock>
     );
 }

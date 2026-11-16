@@ -144,13 +144,14 @@ Bruk alltid **pnpm**. Ikke generer `package-lock.json` eller `yarn.lock`.
 
 ### Komponenter
 
-Reglene nedenfor gjelder nye komponenter og kode du endrer. Eksisterende kode har avvik, blant annet Tailwind-spacing og bruk av `Alert`. Ikke kopier disse mønstrene til ny kode, og ikke rydd opp i urelatert kode som del av en annen oppgave.
+Reglene nedenfor gjelder nye komponenter og kode du endrer. Bruk Aksel for layout og presentasjon. Ikke rydd opp i urelatert kode som del av en annen oppgave.
 
 - Funksjonelle React-komponenter med TypeScript
 - Server Components som standard (Next.js App Router); marker med `'use client'` kun ved behov
 - Props-typer defineres som `interface` i samme fil
 - **Ingen egne UI-primitiver** — bruk alltid Aksel: `Button`, `RadioGroup`, `LocalAlert`, `Heading`, `BodyLong`, `StepIndicator`, osv.
-- **Spacing via Aksel-tokens** — `Box` med `padding="space-*"`, aldri Tailwind `p-*`/`m-*`
+- **Spacing via Aksel-tokens**: bruk `Box` til padding og marginer, og stack-komponentene til avstand mellom elementer. Ikke bruk utility-klasser.
+- **Dokumenterte CSS-unntak**: lokal ordbryting i `src/components/styrkloft/stillingskort.module.css` og `src/components/sider/hovedside.module.css`. Ikke utvid unntakene uten avklaring.
 - **Eksakte versjoner** — `package.json` bruker alltid eksakt versjon (`"react": "19.2.5"`, aldri `"^19"`)
 - **TDD for logikk** — beslutningstreet skal ha Vitest-tester _før_ implementasjon
 - **Storybook for komponenter**: legg til stories for nye visningskomponenter og oppdater relevante stories ved endringer. Skill tilstand og datahenting fra rene visningskomponenter der det passer. Appen har både tilstandsstyrte komponenter og egne `*-stateless`-komponenter.
@@ -158,7 +159,7 @@ Reglene nedenfor gjelder nye komponenter og kode du endrer. Eksisterende kode ha
 
 ### Aksel v8 — kritiske regler
 
-- `space-16` = 16px (token-navn er pikselverdier direkte, ikke Tailwind-skala)
+- `space-16` = 16 px. Token-navnet angir pikselverdien.
 - Bruk **ikke** `Alert` — bruk `LocalAlert`, `GlobalAlert`, `InlineMessage` eller `InfoCard`
 - Bruk **ikke** `borderRadius="large"` — bruk `"4"`, `"8"`, `"12"`, `"full"`
 - `gap` krever alltid `space-`-prefiks: `gap="space-16"`, aldri `gap="4"` eller `gap={4}`
@@ -263,16 +264,16 @@ Testbrukere importeres fra Test-Norge via [Dolly](https://dolly.ekstern.dev.nav.
 
 ## Viktige NAV-pakker
 
-| Pakke                                    | Bruk                                                       |
-| ---------------------------------------- | ---------------------------------------------------------- |
-| `@navikt/ds-react`                       | Aksel Design System – bruk disse komponentene fremfor egne |
-| `@navikt/ds-css` / `@navikt/ds-tailwind` | Stiler                                                     |
-| `@navikt/aksel-icons`                    | Ikoner                                                     |
-| `@navikt/arbeidssokerregisteret-utils`   | Domene-utils, `lagHentTekstForSprak`, `Sprak`-type         |
-| `@navikt/oasis`                          | TokenX token exchange                                      |
-| `@navikt/next-logger`                    | Strukturert logging                                        |
-| `@navikt/nav-dekoratoren-moduler`        | NAV-headeren og -footeren                                  |
-| `@unleash/nextjs`                        | Unleash feature toggles                                    |
+| Pakke                                  | Bruk                                                       |
+| -------------------------------------- | ---------------------------------------------------------- |
+| `@navikt/ds-react`                     | Aksel Design System – bruk disse komponentene fremfor egne |
+| `@navikt/ds-css`                       | Stiler                                                     |
+| `@navikt/aksel-icons`                  | Ikoner                                                     |
+| `@navikt/arbeidssokerregisteret-utils` | Domene-utils, `lagHentTekstForSprak`, `Sprak`-type         |
+| `@navikt/oasis`                        | TokenX token exchange                                      |
+| `@navikt/next-logger`                  | Strukturert logging                                        |
+| `@navikt/nav-dekoratoren-moduler`      | NAV-headeren og -footeren                                  |
+| `@unleash/nextjs`                      | Unleash feature toggles                                    |
 
 ## Spesialistagenter
 

@@ -1,5 +1,5 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
+import { BodyLong, Box, Button, Heading, InfoCard, Link, LocalAlert } from '@navikt/ds-react';
 import { useEffect, useRef } from 'react';
 import StyrkloftSkyra from '@/components/skyra/styrkloft-skyra';
 import StyrkWidget from '@/components/styrkloft/styrk-widget';
@@ -68,36 +68,49 @@ const Kvittering = (props: Props) => {
         <>
             {erUtmeldt ? (
                 <>
-                    <Heading ref={headingRef} tabIndex={-1} size={'xlarge'} level={'1'} className={'mb-4'}>
-                        {tekst('headingUtmeldt')}
-                    </Heading>
-                    <Alert variant={'info'} className={'mb-4'}>
-                        <Heading level={'2'} size={'xsmall'}>
-                            {tekst('alertHeadingUtmeldt')}
+                    <Box asChild marginBlock="space-0 space-16">
+                        <Heading ref={headingRef} tabIndex={-1} size={'xlarge'} level={'1'}>
+                            {tekst('headingUtmeldt')}
                         </Heading>
-                        <BodyLong>{tekst('alertBodyUtmeldt')}</BodyLong>
-                    </Alert>
+                    </Box>
+                    <Box asChild marginBlock="space-0 space-16">
+                        <InfoCard data-color="info">
+                            <InfoCard.Header>
+                                <InfoCard.Title as="h2">{tekst('alertHeadingUtmeldt')}</InfoCard.Title>
+                            </InfoCard.Header>
+                            <InfoCard.Content>
+                                <BodyLong>{tekst('alertBodyUtmeldt')}</BodyLong>
+                            </InfoCard.Content>
+                        </InfoCard>
+                    </Box>
                 </>
             ) : (
                 <>
-                    <Heading ref={headingRef} tabIndex={-1} size={'xlarge'} level={'1'} className={'mb-4'}>
-                        {tekst('heading')}
-                    </Heading>
-                    <Alert variant={'success'} className={'mb-4'}>
-                        <Heading level={'2'} size={'xsmall'}>
-                            {tekst('alertHeading')}
+                    <Box asChild marginBlock="space-0 space-16">
+                        <Heading ref={headingRef} tabIndex={-1} size={'xlarge'} level={'1'}>
+                            {tekst('heading')}
                         </Heading>
-                        <BodyLong>{tekst('alertBody')}</BodyLong>
-                    </Alert>
+                    </Box>
+                    <Box asChild marginBlock="space-0 space-16">
+                        {/* biome-ignore lint/a11y/useValidAriaRole: Aksel tillater å fjerne standardrollen når fokus allerede flyttes til overskriften. */}
+                        <LocalAlert status="success" role={undefined}>
+                            <LocalAlert.Header>
+                                <LocalAlert.Title as="h2">{tekst('alertHeading')}</LocalAlert.Title>
+                            </LocalAlert.Header>
+                            <LocalAlert.Content>
+                                <BodyLong>{tekst('alertBody')}</BodyLong>
+                            </LocalAlert.Content>
+                        </LocalAlert>
+                    </Box>
                     {visStyrkKomponent && (
                         <>
                             <StyrkloftSkyra
                                 brukerprofil={brukerprofil}
                                 slug={'arbeids-og-velferdsetaten-nav/styrkeloft-eksperimentavslutning'}
                             />
-                            <div className={'my-4'}>
+                            <Box marginBlock="space-16">
                                 <StyrkWidget sprak={sprak} brukerprofil={brukerprofil} />
-                            </div>
+                            </Box>
                         </>
                     )}
                 </>

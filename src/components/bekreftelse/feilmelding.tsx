@@ -1,5 +1,5 @@
 import { lagHentTekstForSprak, type Sprak } from '@navikt/arbeidssokerregisteret-utils';
-import { Alert } from '@navikt/ds-react';
+import { Box, LocalAlert } from '@navikt/ds-react';
 
 const TEKSTER = {
     nb: { melding: 'Noe gikk dessverre galt. Forsøk igjen, eller kontakt Nav.' },
@@ -15,8 +15,12 @@ export default function Feilmelding({ sprak = 'nb' }: Props) {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <Alert variant={'error'} className={'my-8'}>
-            {tekst('melding')}
-        </Alert>
+        <Box marginBlock="space-32" asChild>
+            <LocalAlert status="error" as="div">
+                <LocalAlert.Header>
+                    <LocalAlert.Title as="div">{tekst('melding')}</LocalAlert.Title>
+                </LocalAlert.Header>
+            </LocalAlert>
+        </Box>
     );
 }
